@@ -2,7 +2,7 @@ const App = () => {
 
 
   return (
-    <div>Testing 2</div>
+    <div>Testing Write Access</div>
   )
 }
 
