@@ -1,11 +1,11 @@
 const App = () => {
-  let testComponent2 = <productDetail />
+  let testComponent = <productDetail />;
 
   return (
     <div>
-      {testComponent2}
+      {testComponent}
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
