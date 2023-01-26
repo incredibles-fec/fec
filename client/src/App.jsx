@@ -1,7 +1,20 @@
-const App = () => {
-  // let testComponent = <ProductDetail />;
+import React from "react";
+import ProductDetail from './components/ProductDetail/index.jsx';
+import ItemsComparison from './components/itemsComparison/index.jsx';
+import QA from './components/QA/index.jsx';
+import Ratings from './components/ratings/index.jsx';
 
-  return <div>{/* {testComponent} */}</div>;
+
+const App = () => {
+
+  return(
+    <div>
+      <ProductDetail />
+      <ItemsComparison />
+      <QA />
+      <Ratings />
+    </div>
+  );
 };
 
 export default App;

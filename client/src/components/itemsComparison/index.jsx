@@ -1,4 +1,11 @@
-// testing testing;
-const sample = 123;
+import React from "react";
 
-console.log(sample);
+const ItemsComparison = () => {
+  return(
+    <div>
+      Hello World from itemsComparison!
+    </div>
+  );
+}
+
+export default ItemsComparison;
