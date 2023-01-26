@@ -1,9 +1,9 @@
 const App = () => {
-  let testComponent = <productDetail />
+  let testComponent2 = <productDetail />
 
   return (
     <div>
-      {testComponent}
+      {testComponent2}
     </div>
   )
 }
