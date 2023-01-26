@@ -1,1 +1,1 @@
-exports.qa = require('./qa.js')
+exports.qa = require('./qa.js');

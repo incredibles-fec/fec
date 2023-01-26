@@ -6,5 +6,5 @@ module.exports = {
   markHelpfulQuestion: (req, res) => {},
   reportQuestion: (req, res) => {},
   markHelpfulAnswer: (req, res) => {},
-  reportAnswer: (req, res) => {}
-}
+  reportAnswer: (req, res) => {},
+};
