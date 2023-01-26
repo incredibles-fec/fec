@@ -5,10 +5,10 @@ Front-end implementation of an e-commerce webpage
 TBD
 
 ## Description
-TBD: Description of high level list of included features
+Insert description of high level list of included features here
 
 ## Installation
-Use package manager *npm* to install dependencies and run client/server.
+Use package manager *npm* to install dependencies and run client/server
 ```
 npm install
 npm run server-dev
@@ -16,10 +16,11 @@ npm run client-dev
 ```
 
 ## Usage
-Personal project
+Personal front-end team capstone project
+
 
 ## Team Members
-Product Detail - Mirage (Jessica)
-Ratings & Reviews - Frozone (Dhruv)
-Questions & Answers - Rick Dicker (David)
-Related Items & Outfit Creation - Edna Mode (Patrick)
+Product Detail - *Mirage* (Jessica)
+Ratings & Reviews - *Frozone* (Dhruv)
+Questions & Answers - *Rick Dicker* (David)
+Related Items & Outfit Creation - *Edna Mode* (Patrick)
