@@ -15,6 +15,7 @@ module.exports = {
       jsx: true,
     },
   },
+  extends: 'airbnb-base',
   rules: {
     /* Indentation */
     'no-mixed-spaces-and-tabs': 2,
