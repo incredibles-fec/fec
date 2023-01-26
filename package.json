@@ -7,7 +7,8 @@
     "client-dev": "npx webpack --watch",
     "build": "npx webpack",
     "start": "node server/index.js",
-    "(UNSUPPORTED BY DEFAULT; see webpack.config.js for more info) client-dev:hot": "npx webpack serve --hot --open"
+    "(UNSUPPORTED BY DEFAULT; see webpack.config.js for more info) client-dev:hot": "npx webpack serve --hot --open",
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.21.1",
