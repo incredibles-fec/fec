@@ -1,5 +1,4 @@
 const axios = require('axios');
-const config = require('../../config.js');
 
 const atelierRequest = async ({
   params = {},
@@ -12,7 +11,7 @@ const atelierRequest = async ({
     method: method,
     headers: {
       'content-type': 'application/json',
-      Authorization: `${config.TOKEN}`,
+      Authorization: `${process.env.GITHUB_TOKEN ?? ''}`,
     },
     params: params,
     data: data,
