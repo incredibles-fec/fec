@@ -26,8 +26,8 @@ module.exports = {
     'eqeqeq': [2, 'smart'],
     'func-style': [2, 'expression'],
     /* Semicolons */
-    'semi': 2,
-    'no-extra-semi': 2,
+    // 'semi': 2,
+    // 'no-extra-semi': 2,
     /* Padding & additional whitespace (perferred but optional) */
     'brace-style': [2, '1tbs', { 'allowSingleLine': true }],
     'semi-spacing': 1,
@@ -42,6 +42,6 @@ module.exports = {
     'one-var': [1, { 'uninitialized': 'always', 'initialized': 'never' }],
     /* Minuta */
     'comma-style': [2, 'last'],
-    'quotes': [1, 'single']
+    // 'quotes': [1, 'single']
   }
 };

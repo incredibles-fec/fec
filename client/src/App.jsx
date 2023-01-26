@@ -1,9 +1,9 @@
 const App = () => {
-  let testComponent = <productDetail />;
+  // let testComponent = <ProductDetail />;
 
   return (
     <div>
-      {testComponent}
+      {/* {testComponent} */}
     </div>
   );
 };

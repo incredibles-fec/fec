@@ -6,6 +6,7 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const app = express();
+const router = require('./routes.js')
 
 app.use(express.json())
 // MiddleWare
@@ -15,6 +16,7 @@ const cors = require('cors')
 app.use(morgan('dev'))
 app.use(cors())
 app.use(express.static(path.join(__dirname, '../client/dist')))
+// app.use('/', router)
 
 const PORT = process.env.PORT || 3000;
 
