@@ -1,9 +1,10 @@
 const controller = require('./controllers');
 const router = require('express').Router();
+const { atelierRequest } = require('./lib/atelier.js');
 
 // QA
 router.get('/qa/questions', controller.qa.getQuestions);
-router.get('qa/questions/:question_id/answers', controller.qa.getAnswers);
+router.get('/qa/questions/:question_id/answers', controller.qa.getAnswers);
 router.post('/qa/questions', controller.qa.postQuestions);
 router.post('/qa/questions/:question_id/answers', controller.qa.addAnswer);
 router.put(
