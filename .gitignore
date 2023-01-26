@@ -5,3 +5,4 @@ node_modules
 .env
 *bundle.js
 *.map
+config.js
