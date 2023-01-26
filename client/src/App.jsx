@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import ProductDetail from './components/ProductDetail/index.jsx';
 import ItemsComparison from './components/itemsComparison/index.jsx';
 import QA from './components/QA/index.jsx';
