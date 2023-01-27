@@ -1,6 +1,5 @@
-const controller = require('./controllers');
 const router = require('express').Router();
-const { atelierRequest } = require('./lib/atelier.js');
+const controller = require('./controllers');
 
 // QA
 router.get('/qa/questions', controller.qa.getQuestions);
