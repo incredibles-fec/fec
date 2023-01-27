@@ -3,5 +3,5 @@
 bower_components
 node_modules
 .env
-*bundle.js
+bundle.js
 *.map
