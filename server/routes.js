@@ -15,4 +15,7 @@ router.put('/qa/questions/:question_id/report', controller.qa.reportQuestion);
 router.put('/qa/answers/:answer_id/helpful', controller.qa.markHelpfulAnswer);
 router.put('/qa/answers/:answer_id/report', controller.qa.reportAnswer);
 
+// related products and outfits
+router.get('/products', controller.ro.getProducts);
+
 module.exports = router;
