@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import ItemsComparison from './index.jsx';
+import RelatedOutfits from './index.jsx';
 import Product from './Product.jsx';
 
 const ProductList = () => {
@@ -25,7 +25,7 @@ const ProductList = () => {
 
   return (
     <div>
-      <Product/>
+      {products.map((item) => (<Product item={item} key={item.id}/>))}
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import React from 'react';
 import ProductList from './ProductList.jsx';
+import App from '../../App.jsx';
 
-const ItemsComparison = () => {
+const RelatedOutfits = () => {
 
   return (
     <div>
@@ -11,4 +12,4 @@ const ItemsComparison = () => {
   );
 };
 
-export default ItemsComparison;
+export default RelatedOutfits;
