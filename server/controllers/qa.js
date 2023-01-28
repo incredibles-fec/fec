@@ -8,7 +8,6 @@ module.exports = {
         params: { product_id: 40347, count: 100 },
         path: req.url,
       });
-
       res.status(200).send(questions.data);
     } catch (err) {
       res.status(400).send({ message: 'Error requesting questions' });
