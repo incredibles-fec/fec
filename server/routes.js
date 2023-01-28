@@ -17,5 +17,6 @@ router.put('/qa/answers/:answer_id/report', controller.qa.reportAnswer);
 
 // related products and outfits
 router.get('/products', controller.ro.getProducts);
+router.get('/products/:product_id', controller.ro.getProductInfo);
 
 module.exports = router;
