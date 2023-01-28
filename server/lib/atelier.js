@@ -21,6 +21,7 @@ const atelierRequest = async ({
     const res = await axios(options);
     return res;
   } catch (error) {
+    console.log('ERR ', error);
     return error;
   }
 };

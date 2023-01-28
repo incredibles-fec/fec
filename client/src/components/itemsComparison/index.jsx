@@ -1,11 +1,13 @@
-import React from "react";
+import React from 'react';
 
 const ItemsComparison = () => {
-  return(
+  const [sampleState, setSampleState] = React.useState('');
+
+  return (
     <div>
-      Hello World from itemsComparison!
+        Hello World from itemsComparison!
     </div>
   );
-}
+};
 
 export default ItemsComparison;
