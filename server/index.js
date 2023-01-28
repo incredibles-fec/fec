@@ -5,14 +5,15 @@ require('dotenv').config();
 
 const express = require('express');
 const path = require('path');
-const app = express();
-const router = require('./routes.js');
 
-app.use(express.json());
+const app = express();
+
 // MiddleWare
 const morgan = require('morgan');
 const cors = require('cors');
+const router = require('./routes');
 
+app.use(express.json());
 app.use(morgan('dev'));
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../client/dist')));

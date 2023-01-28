@@ -16,6 +16,7 @@ module.exports = {
     },
   },
   extends: 'airbnb-base',
+  plugins: ['react'],
   rules: {
     /* Indentation */
     'no-mixed-spaces-and-tabs': 2,
@@ -39,6 +40,8 @@ module.exports = {
     'space-before-blocks': 1,
     'keyword-spacing': [1, { before: true, after: true }],
     'space-infix-ops': 1,
+    'react/jsx-uses-react': 'error',
+    'react/jsx-uses-vars': 'error',
     /* Variable declaration */
     'one-var': [1, { uninitialized: 'always', initialized: 'never' }],
     /* Minuta */
