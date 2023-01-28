@@ -6,12 +6,12 @@ import Ratings from './components/ratings/index.jsx';
 
 const App = () => {
   return (
-    <div>
+    <main>
       <ProductDetail />
       <ItemsComparison />
       <QA />
       <Ratings />
-    </div>
+    </main>
   );
 };
 
