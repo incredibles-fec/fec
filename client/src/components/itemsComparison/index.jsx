@@ -1,11 +1,12 @@
 import React from 'react';
+import ProductList from './ProductList.jsx';
 
 const ItemsComparison = () => {
-  const [sampleState, setSampleState] = React.useState('');
 
   return (
     <div>
         Hello World from itemsComparison!
+        <ProductList/>
     </div>
   );
 };
