@@ -5,7 +5,7 @@ const atelierRequest = async ({
   data = {},
   method = 'GET',
   path = '',
-} = {}) => {
+  } = {}) => {
   let options = {
     url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfp${path}`,
     method: method,

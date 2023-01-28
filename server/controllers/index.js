@@ -1,1 +1,2 @@
-exports.qa = require('./qa.js');
+exports.qa = require('./qa');
+exports.pd = require('./pd');
