@@ -1,4 +1,3 @@
-import React from 'react';
 import QAList from './QAList.jsx';
 import Search from './Search.jsx';
 

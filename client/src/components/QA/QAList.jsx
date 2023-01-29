@@ -1,16 +1,16 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getQA } from '../../state/qa';
 import QAListEntry from './QAListEntry.jsx';
 import Modal from '../common/Modal.jsx';
-import QuestionForm from './QuestionForm.jsx';
+import AddQAForm from './AddQAForm.jsx';
 
 const QAList = () => {
   const dispatch = useDispatch();
   const { questions } = useSelector((store) => store.qa);
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     dispatch(getQA());
   }, []);
   return (
@@ -23,7 +23,7 @@ const QAList = () => {
       <button onClick={() => setIsOpen(true)}>Add a question</button>
       {isOpen && (
         <Modal close={() => setIsOpen(false)}>
-          <QuestionForm />
+          <AddQAForm />
         </Modal>
       )}
     </>

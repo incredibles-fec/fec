@@ -3,12 +3,12 @@ import ReactDom from 'react-dom';
 const Modal = ({ children, close }) =>
   ReactDom.createPortal(
     <>
-      <div className="modalOverlay" onClick={close}>
-        <div className="modalContainer" onClick={(e) => e.stopPropagation()}>
-          <div>
+      <div className="modal-overlay" onClick={close}>
+        <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+          <div className="modal-header-actions">
             <button onClick={close}>X</button>
-            {children}
           </div>
+          {children}
         </div>
       </div>
     </>,

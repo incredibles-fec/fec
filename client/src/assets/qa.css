@@ -1,4 +1,4 @@
-.modalContainer {
+.modal-container {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -10,8 +10,22 @@
   z-index: 1000;
 }
 
-.modalOverlay {
+.modal-pverlay {
   position: fixed;
   width: 100vw;
   height: 100vh;
+}
+
+.modal-header-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.question-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.errorMessage {
+  color: red;
 }
