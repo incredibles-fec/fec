@@ -2,6 +2,31 @@
 .qa-container {
   max-width: 1024px;
   margin: 0 auto;
+  padding: 5rem;
+}
+
+/* SEARCH BAR */
+
+.search-container {
+  display: flex;
+  position: relative;
+  width: 100%;
+
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.search-container i {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  padding-right: 15px;
+  right: 0;
+  transform: translateY(-50%);
 }
 
 /* QUESTION LIST ENTRY */
@@ -23,6 +48,7 @@
 
 .q-info {
   display: flex;
+  justify-content: end;
   width: 25%;
 }
 

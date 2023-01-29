@@ -24,6 +24,8 @@ const QAList = () => {
           ))}
         </Accordion>
       </div>
+
+      {questions.length > 4 && <button>More Answered Questions</button>}
       <button onClick={() => setIsOpen(true)}>Add a question</button>
       {isOpen && (
         <Modal close={() => setIsOpen(false)}>
