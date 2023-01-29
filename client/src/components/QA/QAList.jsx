@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getQA } from '../../state/qa';
 import QAListEntry from './QAListEntry.jsx';
 import Modal from '../common/Modal.jsx';
+import Accordion from '../common/Accordion.jsx';
 import AddQAForm from './AddQAForm.jsx';
 
 const QAList = () => {
@@ -17,7 +18,9 @@ const QAList = () => {
     <>
       <div>
         {questions.map((q, idx) => (
-          <QAListEntry key={idx} questions={q} />
+          <Accordion key={idx}>
+            <QAListEntry questions={q} />
+          </Accordion>
         ))}
       </div>
       <button onClick={() => setIsOpen(true)}>Add a question</button>
