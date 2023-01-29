@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const Accordion = ({ question, children }) => {
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(true);
 
   return (
     <div>

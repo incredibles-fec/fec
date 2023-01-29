@@ -6,7 +6,7 @@ import {
   formValidator,
 } from '../../utils/qaHelpers.js';
 
-const AddQAForm = ({ type = 'question' }) => {
+const AddQAForm = ({ type = 'question', question }) => {
   const [form, setForm] = useState({
     question: '',
     nickname: '',
@@ -44,6 +44,7 @@ const AddQAForm = ({ type = 'question' }) => {
       <div>{formMappings[type].header}</div>
       {/* subheader -> About the [product name] for adding question */}
       {/* subheader -> [product name]: [question] for adding answer */}
+      <div>{type === 'answer' ? question : ''}</div>
       <label>
         Your {type}:
         <textarea

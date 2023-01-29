@@ -10,18 +10,19 @@ const QAList = () => {
   const dispatch = useDispatch();
   const { questions } = useSelector((store) => store.qa);
   const [isOpen, setIsOpen] = useState(false);
-
   useEffect(() => {
     dispatch(getQA());
   }, []);
   return (
     <>
       <div>
-        {questions.map((q, idx) => (
-          <Accordion key={idx}>
-            <QAListEntry questions={q} />
-          </Accordion>
-        ))}
+        <h5>QUESTIONS & ANSWERS</h5>
+
+        <Accordion>
+          {questions.map((q, idx) => (
+            <QAListEntry key={idx} question={q} />
+          ))}
+        </Accordion>
       </div>
       <button onClick={() => setIsOpen(true)}>Add a question</button>
       {isOpen && (

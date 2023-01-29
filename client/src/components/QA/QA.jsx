@@ -2,7 +2,7 @@ import QAList from './QAList.jsx';
 import Search from './Search.jsx';
 
 const QA = () => (
-  <div>
+  <div className="qa-container">
     <Search />
     <QAList />
   </div>

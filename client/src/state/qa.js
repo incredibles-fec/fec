@@ -11,8 +11,11 @@ export const getQA = createAsyncThunk(
   async (productId = 40347, thunkAPI) => {
     try {
       const res = await axios('/qa/questions');
-      // const res2 = await axios('/qa/questions/:question_id/answers');
-      return res.data.results;
+      const questions = res.data.results.sort(
+        (a, b) => b.question_helpfulness - a.question_helpfulness
+      );
+
+      return questions;
     } catch (err) {
       console.log(err);
     }
@@ -33,6 +36,7 @@ const qaSlice = createSlice({
     },
     [getQA.fulfilled]: (state, action) => {
       state.isLoading = false;
+      console.log(action.payload);
       state.questions = action.payload;
     },
     [getQA.rejected]: (state) => {

@@ -1,3 +1,30 @@
+/* QUESTION LIST */
+.qa-container {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+/* QUESTION LIST ENTRY */
+.question-header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.question-title {
+  display: flex;
+  width: 75%;
+}
+
+.question-info {
+  display: flex;
+  width: 25%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* MODAL */
 .modal-container {
   position: fixed;
   top: 50%;
@@ -7,10 +34,9 @@
   width: 500px;
   height: 500px;
   border: solid black 1px;
-  z-index: 1000;
 }
 
-.modal-pverlay {
+.modal-overlay {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -21,17 +47,26 @@
   justify-content: flex-end;
 }
 
+/* FORM */
 .question-form {
   display: flex;
   flex-direction: column;
+}
+
+.button-trans {
+  text-decoration: underline;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
 }
 
 .errorMessage {
   color: red;
 }
 
+/* ACCORDION */
 .expanded {
-  height: 50px;
+  height: 300px;
   transition: all 0.5s ease-out;
 }
 
