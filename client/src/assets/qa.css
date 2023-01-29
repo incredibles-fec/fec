@@ -1,0 +1,17 @@
+.modalContainer {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  width: 500px;
+  height: 500px;
+  border: solid black 1px;
+  z-index: 1000;
+}
+
+.modalOverlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+}

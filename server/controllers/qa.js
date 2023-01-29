@@ -4,8 +4,7 @@ module.exports = {
   getQuestions: async (req, res) => {
     try {
       const questions = await atelierRequest({
-        // testing parameters
-        params: { product_id: 40347, count: 100 },
+        params: { product_id: 40347, count: 10 },
         path: req.url,
       });
       res.status(200).send(questions.data);
