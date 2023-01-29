@@ -41,4 +41,18 @@ const formValidator = (errorObj, formObj) => {
   return Object.values(errorKeys);
 };
 
-export { formMappings, handleErrors, clearErrors, formValidator };
+const transformDate = (date) => {
+  const formatter = new Intl.DateTimeFormat('en-US', { month: 'short' });
+  const newDate = new Date(date);
+  return `${formatter.format(
+    newDate
+  )}, ${newDate.getDate()}, ${newDate.getFullYear()}`;
+};
+
+export {
+  formMappings,
+  handleErrors,
+  clearErrors,
+  formValidator,
+  transformDate,
+};

@@ -36,7 +36,6 @@ const qaSlice = createSlice({
     },
     [getQA.fulfilled]: (state, action) => {
       state.isLoading = false;
-      console.log(action.payload);
       state.questions = action.payload;
     },
     [getQA.rejected]: (state) => {
