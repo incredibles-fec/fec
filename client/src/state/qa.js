@@ -30,17 +30,17 @@ const qaSlice = createSlice({
       state.questions.push(4);
     },
   },
-  extraReducers: {
-    [getQA.pending]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(getQA.pending, (state) => {
       state.isLoading = true;
-    },
-    [getQA.fulfilled]: (state, action) => {
+    });
+    builder.addCase(getQA.fulfilled, (state, action) => {
       state.isLoading = false;
       state.questions = action.payload;
-    },
-    [getQA.rejected]: (state) => {
+    });
+    builder.addCase(getQA.rejected, (state) => {
       state.isLoading = false;
-    },
+    });
   },
 });
 

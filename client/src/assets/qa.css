@@ -35,6 +35,13 @@
   width: 100%;
 }
 
+.q-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
 .q-header {
   display: flex;
   width: 98%;
@@ -124,11 +131,15 @@
 
 /* ACCORDION */
 .expanded {
-  height: 300px;
+  max-height: 500px;
   transition: all 0.5s ease-out;
+  overflow: scroll
 }
 
 .collapsed {
-  height: 0px;
-  transition: all 0.5s ease-out;
+  max-height: 0px;
+}
+
+.expanded::-webkit-scrollbar {
+  display: none;
 }
