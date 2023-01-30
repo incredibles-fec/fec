@@ -26,8 +26,11 @@ module.exports = {
     'jsx-a11y/click-events-have-key-events': 0,
     'jsx-a11y/no-static-element-interactions': 0,
     'comma-dangle': 0,
+<<<<<<< HEAD
     'no-param-reassign': 0,
     'no-return-assign': 0,
+=======
+>>>>>>> e626aae (commit progress save to pull most recent changes)
   },
   settings: {
     react: {

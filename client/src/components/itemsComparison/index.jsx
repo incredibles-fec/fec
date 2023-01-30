@@ -12,5 +12,12 @@ const RelatedOutfits = () => {
     </div>
   );
 };
+=======
+const ItemsComparison = () => (
+  <div>
+    Hello World from itemsComparison!
+  </div>
+);
+>>>>>>> e626aae (commit progress save to pull most recent changes)
 
 export default RelatedOutfits;
