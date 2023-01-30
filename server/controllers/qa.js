@@ -1,11 +1,10 @@
-const { atelierRequest } = require('../lib/atelier.js');
+const { atelierRequest } = require('../lib/atelier');
 
 module.exports = {
   getQuestions: async (req, res) => {
     try {
       const questions = await atelierRequest({
-        // testing parameters
-        params: { product_id: 40347, count: 100 },
+        params: { product_id: 40352, count: 30 },
         path: req.url,
       });
       res.status(200).send(questions.data);
@@ -16,7 +15,7 @@ module.exports = {
   getAnswers: async (req, res) => {
     try {
       const answers = await atelierRequest({
-        params: { count: 10 },
+        params: { count: 20 },
         path: req.url,
       });
 
@@ -46,7 +45,6 @@ module.exports = {
         data: req.body,
         path: req.url,
       });
-
       if (posted.data !== 'Created') throw Error('Error posting answer');
       res.status(201).send({ message: 'Successfully posted answer' });
     } catch (err) {
@@ -55,7 +53,7 @@ module.exports = {
   },
   markHelpfulQuestion: async (req, res) => {
     try {
-      const marked = await atelierRequest({
+      await atelierRequest({
         method: 'PUT',
         path: req.url,
       });
@@ -66,7 +64,7 @@ module.exports = {
   },
   reportQuestion: async (req, res) => {
     try {
-      const marked = await atelierRequest({
+      await atelierRequest({
         method: 'PUT',
         path: req.url,
       });
@@ -77,7 +75,7 @@ module.exports = {
   },
   markHelpfulAnswer: async (req, res) => {
     try {
-      const marked = await atelierRequest({
+      await atelierRequest({
         method: 'PUT',
         path: req.url,
       });
@@ -90,7 +88,7 @@ module.exports = {
   },
   reportAnswer: async (req, res) => {
     try {
-      const marked = await atelierRequest({
+      await atelierRequest({
         method: 'PUT',
         path: req.url,
       });
