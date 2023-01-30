@@ -7,7 +7,10 @@ const Accordion = ({ question, children }) => {
     <div>
       <div style={{ display: 'flex' }}>
         <div>{question}</div>
-        <div onClick={() => setIsActive(!isActive)}>
+        <div
+          style={{ cursor: 'pointer' }}
+          onClick={() => setIsActive(!isActive)}
+        >
           <i
             className={
               isActive ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'

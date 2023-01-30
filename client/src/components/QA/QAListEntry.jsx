@@ -80,7 +80,11 @@ const QAListEntry = ({ question }) => {
 
       {isOpen && (
         <Modal close={() => setIsOpen(false)}>
-          <AddQAForm type="answer" question={question.question_body} />
+          <AddQAForm
+            type="answer"
+            question={question.question_body}
+            questionId={question.question_id}
+          />
         </Modal>
       )}
       <hr></hr>

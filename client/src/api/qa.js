@@ -1,5 +1,26 @@
 import axios from 'axios';
 
+const submitForm = async (params, type, id) => {
+  const routes = {
+    question: '/qa/questions',
+    answer: `/qa/questions/${id}/answers`,
+  };
+
+  // TODO: CHANGE THIS TO DYNAMIC PRODUCT_ID
+  const questionParams = { ...params, product_id: 40346 };
+
+  try {
+    const res = await axios({
+      method: 'POST',
+      url: routes[type],
+      data: type === 'question' ? questionParams : params,
+    });
+    return res;
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 const markQuestionHelpful = async (questionId) => {
   try {
     const res = await axios({
@@ -48,4 +69,10 @@ const reportAnswer = async (answerId) => {
   }
 };
 
-export { markQuestionHelpful, markAnswerHelpful, reportQuestion, reportAnswer };
+export {
+  submitForm,
+  markQuestionHelpful,
+  markAnswerHelpful,
+  reportQuestion,
+  reportAnswer,
+};

@@ -4,17 +4,18 @@ import {
   handleErrors,
   clearErrors,
   formValidator,
-} from '../../utils/qaHelpers.js';
+} from '../../utils/qaHelpers';
+import { submitForm } from '../../api/qa';
 
-const AddQAForm = ({ type = 'question', question }) => {
+const AddQAForm = ({ type = 'question', question, questionId }) => {
   const [form, setForm] = useState({
-    question: '',
-    nickname: '',
-    email: '',
+    body: '12345678910',
+    name: 'lalalalala',
+    email: '123@123.com',
   });
   const [errors, setErrors] = useState({
-    question: '',
-    nickname: '',
+    body: '',
+    name: '',
     email: '',
   });
   const [errorKeys, setErrorKeys] = useState([]);
@@ -31,6 +32,7 @@ const AddQAForm = ({ type = 'question', question }) => {
     if (res.length) {
       return setErrorKeys(res);
     }
+    submitForm(form, type, questionId);
   };
 
   useEffect(() => {
@@ -48,26 +50,26 @@ const AddQAForm = ({ type = 'question', question }) => {
       <label>
         Your {type}:
         <textarea
-          name="question"
-          value={form.question}
+          name="body"
+          value={form.body}
           maxLength="1000"
           onChange={handleInput}
         />
       </label>
-      <span className="errorMessage">{errors.question}</span>
+      <span className="errorMessage">{errors.body}</span>
       <label>
         Nickname:
         <input
-          name="nickname"
+          name="name"
           type="text"
           placeholder={formMappings[type].nicknamePH}
-          value={form.nickname}
+          value={form.name}
           maxLength="60"
           onChange={handleInput}
         />
       </label>
-      {errors.nickname ? (
-        <span className="errorMessage">{errors.nickname}</span>
+      {errors.name ? (
+        <span className="errorMessage">{errors.name}</span>
       ) : (
         <span>
           For privacy reasons, do not use your full name or email address
