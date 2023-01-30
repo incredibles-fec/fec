@@ -5,6 +5,7 @@ import Product from './Product.jsx';
 
 const ProductList = () => {
   const [products, setProducts] = React.useState([]);
+  const [details, setDetails] = React.useState([]);
 
   // obtain list of products
   const obtainProducts = () => {
@@ -25,7 +26,10 @@ const ProductList = () => {
 
   return (
     <div>
-      {products.map((item) => (<Product item={item} key={item.id}/>))}
+      <h3>Related Products</h3>
+      <div className='relatedProductContainer'>
+        {products.map((item) => (<Product item={item} key={item.id}/>))}
+      </div>
     </div>
   );
 };

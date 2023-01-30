@@ -3,11 +3,11 @@ import React from 'react';
 const Product = ({item}) => {
   return (
     <div className='productCard'>
-        <p>IMAGE PLACEHOLDER</p>
-        <p>PRODUCT CATEGORY</p>
-        <p>{item.name}</p>
-        <p>PRICE</p>
-        <p>STAR RATING</p>
+       <div>IMAGE</div>
+        <div>CATEGORY</div>
+        <div>{item.name}</div>
+        <div>PRICE</div>
+        <div>STAR RATING</div>
     </div>
   );
 };
