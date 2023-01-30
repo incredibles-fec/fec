@@ -36,6 +36,7 @@
 /* QUESTION LIST ENTRY */
 .q-container {
   display: flex;
+  font-size: 14px;
   width: 100%;
 }
 
@@ -50,6 +51,7 @@
   display: flex;
   width: 98%;
   padding-left: 5px;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -63,31 +65,14 @@
   width: 25%;
 }
 
-.q-helpful {
-  padding: 1px 15px 0 0;
-  border-right: 1px solid black;
-}
-
-.q-addA {
-  padding: 1px 0 0 5px;
-}
-
 .a-container {
   margin: 1rem 0;
+  font-size: 14px;
 }
 
 .a-footer {
-  display: flex
-}
-
-.a-info {
-  padding: 1px 15px 0 0;
-  border-right: 1px solid black;
-}
-
-.a-helpful {
-  padding: 1px 15px 0 15px;
-  border-right: 1px solid black;
+  display: flex;
+  align-items: center;
 }
 
 .a-photos {
@@ -136,6 +121,7 @@
   text-decoration: underline;
   cursor: pointer;
   border: none;
+  padding: 0;
   background-color: transparent;
 }
 

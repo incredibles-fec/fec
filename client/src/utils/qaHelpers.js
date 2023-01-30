@@ -49,10 +49,21 @@ const transformDate = (date) => {
   )}, ${newDate.getDate()}, ${newDate.getFullYear()}`;
 };
 
+const debounce = (func, timeout = 500) => {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(this, args);
+    }, timeout);
+  };
+};
+
 export {
   formMappings,
   handleErrors,
   clearErrors,
   formValidator,
   transformDate,
+  debounce,
 };

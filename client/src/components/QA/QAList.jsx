@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getQA, loadMoreQuestions } from '../../state/qa';
+import { debounce } from '../../utils/qaHelpers';
 import QAListEntry from './QAListEntry.jsx';
 import Modal from '../common/Modal.jsx';
 import Accordion from '../common/Accordion.jsx';
@@ -24,7 +25,10 @@ export default function QAList() {
       if (entries[0].isIntersecting) {
         // TODO: Do fetch if again if not enough questions left
         // need to setTimeOut
-        dispatch(loadMoreQuestions());
+        const load = debounce(() => {
+          dispatch(loadMoreQuestions());
+        });
+        load();
       }
     });
     if (node) ref.current.observe(node);

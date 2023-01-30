@@ -62,28 +62,27 @@ export default function QAListEntry({ question }) {
           <div className="q-body">{question.question_body}</div>
           {/* Right header section */}
           <div className="q-info">
-            <div className="q-helpful">
-              Helpful?
+            <div>
+              <span style={{ marginRight: '5px' }}>Helpful?</span>
               <button
                 className="button-trans"
+                style={{ marginRight: '5px' }}
                 type="button"
                 disabled={isMarked}
                 onClick={() => actionHandler()}
               >
                 Yes
               </button>
-              ({question.question_helpfulness})
+              ({question.question_helpfulness}) ┃
             </div>
-            <div className="q-addA">
-              <button
-                className="button-trans"
-                type="button"
-                disabled={isReported}
-                onClick={() => actionHandler('report')}
-              >
-                {isReported ? 'Reported' : 'Report'}
-              </button>
-            </div>
+            <button
+              className="button-trans"
+              type="button"
+              disabled={isReported}
+              onClick={() => actionHandler('report')}
+            >
+              {isReported ? 'Reported' : 'Report'}
+            </button>
           </div>
         </div>
       </div>

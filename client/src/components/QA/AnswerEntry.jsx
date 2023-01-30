@@ -26,21 +26,21 @@ export default function AnswerEntry({ answer }) {
         ))}
       </div>
       <div className="a-footer">
-        <div className="a-info">
-          by
-          {answer.answerer_name}, {transformDate(answer.date)}
+        <div style={{ marginRight: '5px' }}>
+          by {answer.answerer_name}, {transformDate(answer.date)}
         </div>
-        <div className="a-helpful">
-          Helpful?
+        <div style={{ marginRight: '5px' }}>
+          <span style={{ marginRight: '5px' }}>Helpful?</span>
           <button
             className="button-trans"
+            style={{ marginRight: '5px' }}
             type="button"
             disabled={isMarked}
             onClick={() => actionHandler()}
           >
             Yes
           </button>
-          ({answer.helpfulness})
+          ({answer.helpfulness}) ┃
         </div>
         <div>
           <button
