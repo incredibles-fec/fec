@@ -37,6 +37,26 @@
   margin: 6px 0px;
 }
 
+.fas {
+  position: relative;
+  bottom: 195px;
+  left: 200px;
+}
+
+.productModal {
+  width: 500px;
+  height: 500px;
+  position: fixed;
+  left: 280px;
+  top: 200px;
+  right: 0;
+  bottom: 0;
+  background-color: #f7f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* ================================
       Outfit Item Cards
    ================================
