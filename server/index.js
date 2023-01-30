@@ -1,6 +1,3 @@
-// This module adds environment variables to
-// process.env, based on values in ../.env.
-// See that file for configurable values.
 require('dotenv').config();
 
 const express = require('express');

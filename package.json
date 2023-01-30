@@ -11,6 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
     "axios": "^0.21.1",
     "bluebird": "^3.7.2",
     "chai": "^4.3.7",
@@ -22,7 +23,8 @@
     "morgan": "^1.10.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-redux": "^8.0.5"
+    "react-redux": "^8.0.5",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
