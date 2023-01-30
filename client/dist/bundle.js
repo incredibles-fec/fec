@@ -96,22 +96,59 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _index_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.jsx */ "./client/src/components/itemsComparison/index.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
-
-var Outfit = function Outfit() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
-      children: "Your Outfit"
-    })
+var Outfit = function Outfit(_ref) {
+  var item = _ref.item;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    className: "outfitCard",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      children: "Add Item"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+      className: "fa-regular fa-plus"
+    })]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Outfit);
+
+/***/ }),
+
+/***/ "./client/src/components/itemsComparison/OutfitList.jsx":
+/*!**************************************************************!*\
+  !*** ./client/src/components/itemsComparison/OutfitList.jsx ***!
+  \**************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _index_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.jsx */ "./client/src/components/itemsComparison/index.jsx");
+/* harmony import */ var _Outfit_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Outfit.jsx */ "./client/src/components/itemsComparison/Outfit.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+
+
+
+
+
+
+var OutfitList = function OutfitList() {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+      children: "Your Outfit"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+      className: "outfitItemContainer",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Outfit_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})
+    })]
+  });
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (OutfitList);
 
 /***/ }),
 
@@ -135,7 +172,9 @@ var Product = function Product(_ref) {
   var item = _ref.item;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "productCard",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+      className: "fa-regular fa-star"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       children: "IMAGE"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       children: "CATEGORY"
@@ -234,9 +273,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _ProductList_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductList.jsx */ "./client/src/components/itemsComparison/ProductList.jsx");
-/* harmony import */ var _Outfit_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Outfit.jsx */ "./client/src/components/itemsComparison/Outfit.jsx");
-/* harmony import */ var _App_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../App.jsx */ "./client/src/App.jsx");
+/* harmony import */ var _App_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../App.jsx */ "./client/src/App.jsx");
+/* harmony import */ var _ProductList_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductList.jsx */ "./client/src/components/itemsComparison/ProductList.jsx");
+/* harmony import */ var _OutfitList_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./OutfitList.jsx */ "./client/src/components/itemsComparison/OutfitList.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
@@ -246,7 +285,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var RelatedOutfits = function RelatedOutfits() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductList_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Outfit_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductList_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_OutfitList_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RelatedOutfits);
@@ -10795,7 +10834,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer {\n  border: 1px solid rgb(152, 152, 205);\n  display: flex;\n  justify-content: center;\n  width: 800px;\n  overflow-x: scroll;\n}\n\n.productCard {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  border: .5px solid #000000;\n  width: 400px;\n  height: 400px;\n}\n", "",{"version":3,"sources":["webpack://./client/src/assets/ro.css"],"names":[],"mappings":";AACA;;;CAGC;;AAED;EACE,oCAAoC;EACpC,aAAa;EACb,uBAAuB;EACvB,YAAY;EACZ,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;EACnB,sBAAsB;EACtB,0BAA0B;EAC1B,YAAY;EACZ,aAAa;AACf","sourcesContent":["\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer {\n  border: 1px solid rgb(152, 152, 205);\n  display: flex;\n  justify-content: center;\n  width: 800px;\n  overflow-x: scroll;\n}\n\n.productCard {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  border: .5px solid #000000;\n  width: 400px;\n  height: 400px;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer, .outfitItemContainer{\n  border: 1px solid rgb(152, 152, 205);\n  display: flex;\n  justify-content: center;\n  width: 800px;\n  overflow-x: scroll;\n}\n\n.productCard {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  border: .5px solid #000000;\n  width: 400px;\n  height: 400px;\n}\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n", "",{"version":3,"sources":["webpack://./client/src/assets/ro.css"],"names":[],"mappings":";AACA;;;CAGC;;AAED;EACE,oCAAoC;EACpC,aAAa;EACb,uBAAuB;EACvB,YAAY;EACZ,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;EACnB,sBAAsB;EACtB,0BAA0B;EAC1B,YAAY;EACZ,aAAa;AACf;;AAEA;;;CAGC","sourcesContent":["\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer, .outfitItemContainer{\n  border: 1px solid rgb(152, 152, 205);\n  display: flex;\n  justify-content: center;\n  width: 800px;\n  overflow-x: scroll;\n}\n\n.productCard {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  border: .5px solid #000000;\n  width: 400px;\n  height: 400px;\n}\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

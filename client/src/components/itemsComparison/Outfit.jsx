@@ -1,12 +1,10 @@
 import React from 'react';
-import axios from 'axios';
-import RelatedOutfits from './index.jsx';
 
-const Outfit = () => {
-
+const Outfit = ({item}) => {
   return (
-    <div>
-      <h3>Your Outfit</h3>
+    <div className='outfitCard'>
+      <div>Add Item</div>
+      <i className="fa-regular fa-plus"></i>
     </div>
   );
 };
