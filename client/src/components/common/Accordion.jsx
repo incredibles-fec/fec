@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const Accordion = ({ question, children }) => {
+export default function Accordion({ question, children }) {
   const [isActive, setIsActive] = useState(true);
 
   return (
@@ -15,7 +15,7 @@ const Accordion = ({ question, children }) => {
             className={
               isActive ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'
             }
-          ></i>
+          />
         </div>
       </div>
 
@@ -24,6 +24,4 @@ const Accordion = ({ question, children }) => {
       </div>
     </div>
   );
-};
-
-export default Accordion;
+}

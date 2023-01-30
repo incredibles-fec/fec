@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Modal from '../common/Modal.jsx';
 import AddQAForm from './AddQAForm.jsx';
 import AnswerEntry from './AnswerEntry.jsx';
 import { markQuestionHelpful, reportQuestion } from '../../api/qa';
 
-const QAListEntry = ({ question }) => {
+export default function QAListEntry({ question }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const answers = Object.keys(question.answers)
@@ -20,11 +20,11 @@ const QAListEntry = ({ question }) => {
   const actionHandler = async (type = 'mark') => {
     if (type === 'report') {
       if (isReported) return;
-      const res = await reportQuestion(question.question_id);
+      await reportQuestion(question.question_id);
       setIsReported(true);
     } else {
       if (isMarked) return;
-      const res = await markQuestionHelpful(question.question_id);
+      await markQuestionHelpful(question.question_id);
       setIsMarked(true);
     }
   };
@@ -34,7 +34,9 @@ const QAListEntry = ({ question }) => {
       {/* Header */}
       <div className="q-user">
         <div>Username: {question.asker_name}</div>
-        <button onClick={() => setIsOpen(true)}>Add Answer</button>
+        <button type="button" onClick={() => setIsOpen(true)}>
+          Add Answer
+        </button>
       </div>
 
       <div className="q-container">
@@ -47,6 +49,7 @@ const QAListEntry = ({ question }) => {
               Helpful?
               <button
                 className="button-trans"
+                type="button"
                 disabled={isMarked}
                 onClick={() => actionHandler()}
               >
@@ -57,6 +60,7 @@ const QAListEntry = ({ question }) => {
             <div className="q-addA">
               <button
                 className="button-trans"
+                type="button"
                 disabled={isReported}
                 onClick={() => actionHandler('report')}
               >
@@ -68,13 +72,13 @@ const QAListEntry = ({ question }) => {
       </div>
 
       {/* Answer Section */}
-      {answers.map((answer, idx) => (
-        <AnswerEntry key={idx} answer={answer} />
+      {answers.map((answer) => (
+        <AnswerEntry key={answer.questionId} answer={answer} />
       ))}
 
       {Object.values(question.answers).length > 2 && (
         <div>
-          <button>LOAD MORE ANSWERS</button>
+          <button type="button">LOAD MORE ANSWERS</button>
         </div>
       )}
 
@@ -87,8 +91,7 @@ const QAListEntry = ({ question }) => {
           />
         </Modal>
       )}
-      <hr></hr>
+      <hr />
     </div>
   );
-};
-export default QAListEntry;
+}

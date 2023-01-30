@@ -1,19 +1,18 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { transformDate } from '../../utils/qaHelpers';
 import { markAnswerHelpful, reportAnswer } from '../../api/qa';
 
-const AnswerEntry = ({ answer }) => {
+export default function AnswerEntry({ answer }) {
   const [isMarked, setIsMarked] = useState();
   const [isReported, setIsReported] = useState();
-
   const actionHandler = async (type = 'mark') => {
     if (type === 'report') {
       if (isReported) return;
-      const res = await reportAnswer(answer.id);
+      await reportAnswer(answer.id);
       setIsReported(true);
     } else {
       if (isMarked) return;
-      const res = await markAnswerHelpful(answer.id);
+      await markAnswerHelpful(answer.id);
       setIsMarked(true);
     }
   };
@@ -21,14 +20,21 @@ const AnswerEntry = ({ answer }) => {
   return (
     <div className="a-container">
       <div>{answer.body}</div>
+      <div className="a-photos">
+        {answer.photos.map((photo) => (
+          <img key={photo} alt="user uploaded" src={photo} />
+        ))}
+      </div>
       <div className="a-footer">
         <div className="a-info">
-          by {answer.answerer_name}, {transformDate(answer.date)}
+          by
+          {answer.answerer_name}, {transformDate(answer.date)}
         </div>
         <div className="a-helpful">
           Helpful?
           <button
             className="button-trans"
+            type="button"
             disabled={isMarked}
             onClick={() => actionHandler()}
           >
@@ -39,6 +45,7 @@ const AnswerEntry = ({ answer }) => {
         <div>
           <button
             className="button-trans"
+            type="button"
             disabled={isReported}
             onClick={() => actionHandler('report')}
           >
@@ -48,5 +55,4 @@ const AnswerEntry = ({ answer }) => {
       </div>
     </div>
   );
-};
-export default AnswerEntry;
+}

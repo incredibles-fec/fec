@@ -6,46 +6,30 @@
 
 module.exports = {
   env: {
-    es6: true,
+    browser: true,
+    es2021: true,
+    node: true,
   },
+  extends: ['plugin:react/recommended', 'airbnb'],
   parserOptions: {
     sourceType: 'module',
-    ecmaVersion: 9,
-    ecmaFeatures: {
-      jsx: true,
-    },
+    ecmaVersion: 'latest',
   },
-  extends: 'airbnb-base',
   plugins: ['react'],
   rules: {
-    /* Indentation */
-    'no-mixed-spaces-and-tabs': 2,
-    indent: [2, 2],
-    /* Variable names */
-    // camelcase: 2,
-    /* Language constructs */
-    curly: 2,
-    eqeqeq: [2, 'smart'],
-    'func-style': [2, 'expression'],
-    /* Semicolons */
-    semi: 2,
-    'no-extra-semi': 2,
-    /* Padding & additional whitespace (perferred but optional) */
-    'brace-style': [2, '1tbs', { allowSingleLine: true }],
-    'semi-spacing': 1,
-    'key-spacing': 1,
-    'block-spacing': 1,
-    'comma-spacing': 1,
-    'no-multi-spaces': 1,
-    'space-before-blocks': 1,
-    'keyword-spacing': [1, { before: true, after: true }],
-    'space-infix-ops': 1,
-    'react/jsx-uses-react': 'error',
-    'react/jsx-uses-vars': 'error',
-    /* Variable declaration */
-    'one-var': [1, { uninitialized: 'always', initialized: 'never' }],
-    /* Minuta */
-    'comma-style': [2, 'last'],
-    quotes: [1, 'single'],
+    'import/prefer-default-export': 0,
+    'react/prop-types': 0,
+    'import/extensions': 0,
+    'react/jsx-one-expression-per-line': 0,
+    'consistent-return': 0,
+    'jsx-a11y/label-has-associated-control': 0,
+    'jsx-a11y/click-events-have-key-events': 0,
+    'jsx-a11y/no-static-element-interactions': 0,
+    'comma-dangle': 0,
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
 };

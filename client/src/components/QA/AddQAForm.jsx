@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   formMappings,
   handleErrors,
@@ -7,7 +7,7 @@ import {
 } from '../../utils/qaHelpers';
 import { submitForm } from '../../api/qa';
 
-const AddQAForm = ({ type = 'question', question, questionId }) => {
+export default function AddQAForm({ type = 'question', question, questionId }) {
   const [form, setForm] = useState({
     body: '12345678910',
     name: 'lalalalala',
@@ -95,16 +95,16 @@ const AddQAForm = ({ type = 'question', question, questionId }) => {
 
       {errorKeys.length ? (
         <span className="errorMessage">
-          You must enter the following:{' '}
+          You must enter the following:
           {errorKeys.map((err, idx) => {
             const field = err[0].toUpperCase() + err.substring(1);
             return idx !== errorKeys.length - 1 ? `${field}, ` : field;
           })}
         </span>
       ) : null}
-      <button onClick={handleSubmit}>Submit {type}</button>
+      <button type="button" onClick={handleSubmit}>
+        Submit {type}
+      </button>
     </div>
   );
-};
-
-export default AddQAForm;
+}
