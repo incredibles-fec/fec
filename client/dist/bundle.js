@@ -165,26 +165,39 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
 var Product = function Product(_ref) {
   var item = _ref.item;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(''),
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    placeholder = _React$useState2[0],
+    setPlaceholder = _React$useState2[1];
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "productCard",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-      className: "fa-regular fa-star"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      children: "IMAGE"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      children: "CATEGORY"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      children: item.name
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      children: "PRICE"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-      children: "STAR RATING"
-    })]
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "innerCard",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+        className: "fa-regular fa-star"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        children: "IMAGE"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        children: "CATEGORY"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        children: item.name
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        children: "PRICE"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        children: "STAR RATING"
+      })]
+    })
   });
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Product);
@@ -10834,7 +10847,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer, .outfitItemContainer{\n  border: 1px solid rgb(152, 152, 205);\n  display: flex;\n  justify-content: center;\n  width: 800px;\n  overflow-x: scroll;\n}\n\n.productCard {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  border: .5px solid #000000;\n  width: 400px;\n  height: 400px;\n}\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n", "",{"version":3,"sources":["webpack://./client/src/assets/ro.css"],"names":[],"mappings":";AACA;;;CAGC;;AAED;EACE,oCAAoC;EACpC,aAAa;EACb,uBAAuB;EACvB,YAAY;EACZ,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;EACnB,sBAAsB;EACtB,0BAA0B;EAC1B,YAAY;EACZ,aAAa;AACf;;AAEA;;;CAGC","sourcesContent":["\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer, .outfitItemContainer{\n  border: 1px solid rgb(152, 152, 205);\n  display: flex;\n  justify-content: center;\n  width: 800px;\n  overflow-x: scroll;\n}\n\n.productCard {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  flex-direction: column;\n  border: .5px solid #000000;\n  width: 400px;\n  height: 400px;\n}\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer, .outfitItemContainer{\n  border: 1px solid rgb(152, 152, 205);\n  width: 600px;\n  height: 400px;\n  overflow-x: auto;\n  overflow-y: hidden;\n  display: flex;\n}\n\n.productCard, .outfitCard{\n  border: .5px solid #000000;\n  width: 250px;\n  height: 325px;\n  margin: 5px 7px;\n}\n\n.innerCard {\n  display: flex;\n  flex-direction: column;\n}\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n", "",{"version":3,"sources":["webpack://./client/src/assets/ro.css"],"names":[],"mappings":";AACA;;;CAGC;;AAED;EACE,oCAAoC;EACpC,YAAY;EACZ,aAAa;EACb,gBAAgB;EAChB,kBAAkB;EAClB,aAAa;AACf;;AAEA;EACE,0BAA0B;EAC1B,YAAY;EACZ,aAAa;EACb,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,sBAAsB;AACxB;;AAEA;;;CAGC","sourcesContent":["\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer, .outfitItemContainer{\n  border: 1px solid rgb(152, 152, 205);\n  width: 600px;\n  height: 400px;\n  overflow-x: auto;\n  overflow-y: hidden;\n  display: flex;\n}\n\n.productCard, .outfitCard{\n  border: .5px solid #000000;\n  width: 250px;\n  height: 325px;\n  margin: 5px 7px;\n}\n\n.innerCard {\n  display: flex;\n  flex-direction: column;\n}\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
