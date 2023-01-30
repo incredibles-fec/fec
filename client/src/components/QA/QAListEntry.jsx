@@ -10,6 +10,7 @@ export default function QAListEntry({ question }) {
   const dispatch = useDispatch();
   const { questions } = useSelector((store) => store.qa);
   const [isOpen, setIsOpen] = useState(false);
+  const [canLoad, setCanLoad] = useState(true);
 
   const answerCount = questions.find(
     (q) => q.question_id === question.question_id
@@ -38,6 +39,10 @@ export default function QAListEntry({ question }) {
   };
 
   const loadMore = () => {
+    if (answerCount >= Object.values(question.answers).length) {
+      setCanLoad(false);
+    }
+
     dispatch(loadMoreAnswers(question.question_id));
   };
 
@@ -84,11 +89,12 @@ export default function QAListEntry({ question }) {
       </div>
 
       {/* Answer Section */}
+      {/* TODO: Infinite scroll with answers */}
       {answers.slice(0, answerCount).map((answer) => (
         <AnswerEntry key={answer.questionId} answer={answer} />
       ))}
 
-      {Object.values(question.answers).length > 2 && answerCount < 4 && (
+      {Object.values(question.answers).length > 2 && canLoad && (
         <div>
           <button type="button" onClick={loadMore}>
             LOAD MORE ANSWERS
@@ -102,6 +108,7 @@ export default function QAListEntry({ question }) {
             type="answer"
             question={question.question_body}
             questionId={question.question_id}
+            close={() => setIsOpen(false)}
           />
         </Modal>
       )}

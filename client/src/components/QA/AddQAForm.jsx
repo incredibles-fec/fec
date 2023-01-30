@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { getQA } from '../../state/qa';
 import {
   formMappings,
   handleErrors,
@@ -7,12 +9,19 @@ import {
 } from '../../utils/qaHelpers';
 import { submitForm } from '../../api/qa';
 
-export default function AddQAForm({ type = 'question', question, questionId }) {
+export default function AddQAForm({
+  type = 'question',
+  question,
+  questionId,
+  close,
+}) {
+  const dispatch = useDispatch();
   const [form, setForm] = useState({
     body: '12345678910',
     name: 'lalalalala',
     email: '123@123.com',
   });
+
   const [errors, setErrors] = useState({
     body: '',
     name: '',
@@ -27,12 +36,14 @@ export default function AddQAForm({ type = 'question', question, questionId }) {
     setForm((prev) => ({ ...prev, [res.name]: res.value }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const res = formValidator(errors, form);
     if (res.length) {
       return setErrorKeys(res);
     }
-    submitForm(form, type, questionId);
+    await submitForm(form, type, questionId);
+    await dispatch(getQA());
+    close();
   };
 
   useEffect(() => {

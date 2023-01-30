@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getQA, loadMoreQuestions } from '../../state/qa';
 import QAListEntry from './QAListEntry.jsx';
@@ -10,10 +10,25 @@ export default function QAList() {
   const dispatch = useDispatch();
   const { questions, fullQuestions } = useSelector((store) => store.qa);
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollToLoad, setScrollToLoad] = useState(false);
 
   const loadMore = () => {
     dispatch(loadMoreQuestions());
+    setScrollToLoad(true);
   };
+
+  const ref = useRef();
+  const onScrollLoad = useCallback((node) => {
+    if (ref.current) ref.current.disconnect();
+    ref.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        // TODO: Do fetch if again if not enough questions left
+        // need to setTimeOut
+        dispatch(loadMoreQuestions());
+      }
+    });
+    if (node) ref.current.observe(node);
+  }, []);
 
   useEffect(() => {
     dispatch(getQA());
@@ -25,9 +40,16 @@ export default function QAList() {
         <h5>QUESTIONS & ANSWERS</h5>
 
         <Accordion>
-          {questions.map((q) => (
-            <QAListEntry key={q.question_id} question={q} />
-          ))}
+          {questions.map((q, idx) => {
+            if (idx === questions.length - 1 && scrollToLoad) {
+              return (
+                <div key={q.question_id} ref={onScrollLoad}>
+                  <QAListEntry question={q} />
+                </div>
+              );
+            }
+            return <QAListEntry key={q.question_id} question={q} />;
+          })}
         </Accordion>
       </div>
 
@@ -45,7 +67,7 @@ export default function QAList() {
       </button>
       {isOpen && (
         <Modal close={() => setIsOpen(false)}>
-          <AddQAForm />
+          <AddQAForm close={() => setIsOpen(false)} />
         </Modal>
       )}
     </div>
