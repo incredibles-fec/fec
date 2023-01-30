@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getQA } from '../../state/qa';
+import { getQA, loadMoreQuestions } from '../../state/qa';
 import QAListEntry from './QAListEntry.jsx';
 import Modal from '../common/Modal.jsx';
 import Accordion from '../common/Accordion.jsx';
@@ -8,11 +8,17 @@ import AddQAForm from './AddQAForm.jsx';
 
 export default function QAList() {
   const dispatch = useDispatch();
-  const { questions } = useSelector((store) => store.qa);
+  const { questions, fullQuestions } = useSelector((store) => store.qa);
   const [isOpen, setIsOpen] = useState(false);
+
+  const loadMore = () => {
+    dispatch(loadMoreQuestions());
+  };
+
   useEffect(() => {
     dispatch(getQA());
   }, []);
+
   return (
     <div>
       <div>
@@ -25,8 +31,10 @@ export default function QAList() {
         </Accordion>
       </div>
 
-      {questions.length > 4 && (
-        <button type="button">More Answered Questions</button>
+      {fullQuestions.length > 4 && questions.length < 6 && (
+        <button type="button" onClick={() => loadMore()}>
+          More Answered Questions
+        </button>
       )}
       <button
         className="add-question"

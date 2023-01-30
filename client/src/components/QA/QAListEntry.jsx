@@ -1,11 +1,19 @@
 import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { loadMoreAnswers } from '../../state/qa';
 import Modal from '../common/Modal.jsx';
 import AddQAForm from './AddQAForm.jsx';
 import AnswerEntry from './AnswerEntry.jsx';
 import { markQuestionHelpful, reportQuestion } from '../../api/qa';
 
 export default function QAListEntry({ question }) {
+  const dispatch = useDispatch();
+  const { questions } = useSelector((store) => store.qa);
   const [isOpen, setIsOpen] = useState(false);
+
+  const answerCount = questions.find(
+    (q) => q.question_id === question.question_id
+  )?.answer_count;
 
   const answers = Object.keys(question.answers)
     .map((questionId) => ({
@@ -27,6 +35,10 @@ export default function QAListEntry({ question }) {
       await markQuestionHelpful(question.question_id);
       setIsMarked(true);
     }
+  };
+
+  const loadMore = () => {
+    dispatch(loadMoreAnswers(question.question_id));
   };
 
   return (
@@ -54,7 +66,7 @@ export default function QAListEntry({ question }) {
                 onClick={() => actionHandler()}
               >
                 Yes
-              </button>{' '}
+              </button>
               ({question.question_helpfulness})
             </div>
             <div className="q-addA">
@@ -72,13 +84,15 @@ export default function QAListEntry({ question }) {
       </div>
 
       {/* Answer Section */}
-      {answers.map((answer) => (
+      {answers.slice(0, answerCount).map((answer) => (
         <AnswerEntry key={answer.questionId} answer={answer} />
       ))}
 
-      {Object.values(question.answers).length > 2 && (
+      {Object.values(question.answers).length > 2 && answerCount < 4 && (
         <div>
-          <button type="button">LOAD MORE ANSWERS</button>
+          <button type="button" onClick={loadMore}>
+            LOAD MORE ANSWERS
+          </button>
         </div>
       )}
 

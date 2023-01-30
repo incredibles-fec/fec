@@ -92,6 +92,7 @@ export default function AddQAForm({ type = 'question', question, questionId }) {
       )}
 
       {/* NEED UPLOAD PHOTO SECTION */}
+      {/* {type === 'answer' && <input type="file" />} */}
 
       {errorKeys.length ? (
         <span className="errorMessage">
