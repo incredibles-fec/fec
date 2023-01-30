@@ -73,7 +73,11 @@ export default function QAListEntry({ question }) {
               >
                 Yes
               </button>
-              ({question.question_helpfulness}) ┃
+              (
+              {isMarked
+                ? question.question_helpfulness + 1
+                : question.question_helpfulness}
+              ) ┃
             </div>
             <button
               className="button-trans"

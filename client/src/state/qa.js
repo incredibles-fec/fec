@@ -41,17 +41,17 @@ const qaSlice = createSlice({
       }));
     },
     filterQuestions: (state, action) => {
-      const query = action.payload;
+      const query = action.payload.toLowerCase();
       if (!query.length) {
         state.questions = state.fullQuestions.slice(0, state.questionCount);
         return;
       }
 
       state.questions = state.fullQuestions.filter((ele) => {
-        if (ele.question_body.includes(query)) return ele;
+        if (ele.question_body.toLowerCase().includes(query)) return ele;
         const answers = Object.values(ele.answers);
         for (let i = 0; i < answers.length; i += 1) {
-          if (answers[i].body.includes(query)) return ele;
+          if (answers[i].body.toLowerCase().includes(query)) return ele;
         }
       });
     },

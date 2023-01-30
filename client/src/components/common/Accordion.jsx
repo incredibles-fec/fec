@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export default function Accordion({ question, children }) {
-  const [isActive, setIsActive] = useState(true);
+export default function Accordion({ title, children, isCollapsed }) {
+  const [isActive, setIsActive] = useState(false);
+
+  useEffect(() => {
+    setIsActive(isCollapsed);
+  }, [isCollapsed]);
 
   return (
     <div>
-      <div style={{ display: 'flex' }}>
-        <div>{question}</div>
+      <div className="accordion">
+        <div>{title}</div>
         <div
           style={{ cursor: 'pointer' }}
           onClick={() => setIsActive(!isActive)}

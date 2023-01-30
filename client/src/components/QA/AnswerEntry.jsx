@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
+import Modal from '../common/Modal.jsx';
 import { transformDate } from '../../utils/qaHelpers';
 import { markAnswerHelpful, reportAnswer } from '../../api/qa';
 
 export default function AnswerEntry({ answer }) {
-  const [isMarked, setIsMarked] = useState();
-  const [isReported, setIsReported] = useState();
+  const [isMarked, setIsMarked] = useState(false);
+  const [isReported, setIsReported] = useState(false);
+  const [currentPhoto, setCurrentPhoto] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
   const actionHandler = async (type = 'mark') => {
     if (type === 'report') {
       if (isReported) return;
@@ -17,12 +20,23 @@ export default function AnswerEntry({ answer }) {
     }
   };
 
+  const openPhoto = (src) => {
+    setCurrentPhoto(src);
+    setIsOpen(true);
+  };
+
   return (
     <div className="a-container">
       <div>{answer.body}</div>
       <div className="a-photos">
         {answer.photos.map((photo) => (
-          <img key={photo} alt="user uploaded" src={photo} />
+          <div
+            key={photo}
+            style={{ cursor: 'pointer' }}
+            onClick={() => openPhoto(photo)}
+          >
+            <img alt="user uploaded" src={photo} />
+          </div>
         ))}
       </div>
       <div className="a-footer">
@@ -40,7 +54,7 @@ export default function AnswerEntry({ answer }) {
           >
             Yes
           </button>
-          ({answer.helpfulness}) ┃
+          ({isMarked ? answer.helpfulness + 1 : answer.helpfulness}) ┃
         </div>
         <div>
           <button
@@ -53,6 +67,18 @@ export default function AnswerEntry({ answer }) {
           </button>
         </div>
       </div>
+
+      {isOpen && (
+        <Modal close={() => setIsOpen(false)}>
+          <div>
+            <img
+              className="photo-style"
+              alt="user uploaded"
+              src={currentPhoto}
+            />
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }

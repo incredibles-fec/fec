@@ -9,7 +9,9 @@ import AddQAForm from './AddQAForm.jsx';
 
 export default function QAList() {
   const dispatch = useDispatch();
-  const { questions, fullQuestions } = useSelector((store) => store.qa);
+  const { questions, fullQuestions, isLoading } = useSelector(
+    (store) => store.qa
+  );
   const [isOpen, setIsOpen] = useState(false);
   const [scrollToLoad, setScrollToLoad] = useState(false);
 
@@ -40,10 +42,22 @@ export default function QAList() {
 
   return (
     <div>
-      <div>
-        <h5>QUESTIONS & ANSWERS</h5>
-
-        <Accordion>
+      <div style={{ textAlign: 'center' }}>
+        {!isLoading && !fullQuestions.length && (
+          <button
+            className="add-question"
+            type="button"
+            onClick={() => setIsOpen(true)}
+          >
+            Add a question
+          </button>
+        )}
+      </div>
+      <div style={{ marginTop: '2rem' }}>
+        <Accordion
+          title="Question & Answers"
+          isCollapsed={fullQuestions.length > 0}
+        >
           {questions.map((q, idx) => {
             if (idx === questions.length - 1 && scrollToLoad) {
               return (
@@ -58,17 +72,24 @@ export default function QAList() {
       </div>
 
       {fullQuestions.length > 4 && questions.length < 6 && (
-        <button type="button" onClick={() => loadMore()}>
+        <button
+          style={{ marginRight: '5px' }}
+          type="button"
+          onClick={() => loadMore()}
+        >
           More Answered Questions
         </button>
       )}
-      <button
-        className="add-question"
-        type="button"
-        onClick={() => setIsOpen(true)}
-      >
-        Add a question
-      </button>
+      {fullQuestions.length > 0 && (
+        <button
+          className="add-question"
+          type="button"
+          onClick={() => setIsOpen(true)}
+        >
+          Add a question
+        </button>
+      )}
+
       {isOpen && (
         <Modal close={() => setIsOpen(false)}>
           <AddQAForm close={() => setIsOpen(false)} />
