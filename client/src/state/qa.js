@@ -62,8 +62,11 @@ const qaSlice = createSlice({
     });
     builder.addCase(getQA.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.questions = action.payload.slice(0, state.questionCount);
-      state.fullQuestions = action.payload;
+      const filtered = action.payload.filter(
+        (questions) => Object.values(questions.answers).length
+      );
+      state.questions = filtered.slice(0, state.questionCount);
+      state.fullQuestions = filtered;
     });
     builder.addCase(getQA.rejected, (state) => {
       state.isLoading = false;

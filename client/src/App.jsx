@@ -9,7 +9,7 @@ export default function App() {
     <div>
       <ProductDetail />
       <ItemsComparison />
-      <QA />
+      {/* <QA /> */}
       <Ratings />
     </div>
   );

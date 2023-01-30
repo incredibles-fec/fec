@@ -25,4 +25,11 @@ router.get('/products/:product_id', controller.ro.getProductInfo);
 router.get('/products/:product_id/styles', controller.ro.getProductStyle);
 router.get('/products/:product_id/related', controller.ro.getProductsRelated);
 
+// Ratings & Reviews
+router.get('/reviews', controller.rr.getReviews);
+router.get('/reviews/meta', controller.rr.getReviewMeta);
+router.post('/reviews', controller.rr.postReview);
+router.put('/reviews/:review_id/helpful', controller.rr.markHelpfulReview);
+router.put('/reviews/:review_id/report', controller.rr.reportReview);
+
 module.exports = router;
