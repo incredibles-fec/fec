@@ -3,11 +3,11 @@ import ProductInformation from './ProductInformation.jsx';
 import ProductOverview from './ProductOverview.jsx';
 import ProductFeatures from './ProductFeatures.jsx';
 import ImageGallery from './ImageGallery.jsx';
-import Modal from '../common/Modal.jsx'
 
 const axios = require('axios');
 
 export default function ProductDetail() {
+  // eslint-disable-next-line no-unused-vars
   const [products, setProducts] = useState([]);
   const [target, setTarget] = useState(null);
   const [styles, setStyles] = useState([]);

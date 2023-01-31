@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 // const TestButton = styled.button`
 //   width: 200px;
@@ -8,7 +8,8 @@ import styled from 'styled-components';
 // `;
 
 export default function Carousel({ style }) {
-  const {style_id, name, original_price, sale_price, photos, skus} = style;
+  // const {style_id, name, original_price, sale_price, photos, skus} = style;
+  const {name, photos} = style;
   const [index, setIndex] = useState(0);
 
   const getNext = () => {
@@ -22,8 +23,8 @@ export default function Carousel({ style }) {
   return (
     <div className="carousel-container">
       <img className="displayed-image" src={photos[0].url} alt={name} />
-      <div className="carousel-item">Carousel Item 1</div>
-      <div className="carousel-item">Carousel Item 2</div>
+      <div className="carousel-item" onClick={getPrev}>Carousel Item 2</div>
+      <div className="carousel-item" onClick={getNext}>Carousel Item 3</div>
     </div>
   );
 }

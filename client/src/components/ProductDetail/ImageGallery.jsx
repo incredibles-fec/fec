@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import Carousel from './Carousel.jsx'
-import styled from 'styled-components';
+import React from 'react';
+import Carousel from './Carousel.jsx';
+// import styled from 'styled-components';
 
 // const TestButton = styled.button`
 //   width: 200px;
@@ -9,8 +9,6 @@ import styled from 'styled-components';
 // `;
 
 export default function ImageGallery({ styles }) {
-  //testing
-
   return (
     <div>
       <Carousel style={styles[0]} />
