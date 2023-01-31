@@ -1,12 +1,14 @@
 import React from 'react';
 import ProductModal from './ProductModal.jsx';
 
-export default function Product({ item }) {
+export default function Product({ item, count }) {
   const [visibleStatus, setvisibleStatus] = React.useState(false);
 
   const changeModal = () => {
     setvisibleStatus(!visibleStatus);
   };
+
+  console.log('COUNT ', count);
 
   return (
     <div className="productCard">
