@@ -1,4 +1,4 @@
-.flex-container {
+.pd-flex-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -18,12 +18,26 @@
   margin: 0.3rem;
 }
 
+.image-gallery, .product-slogan-description {
+  flex-grow: 2;
+}
+
+.product-info-and-styles, .product-features {
+  flex-grow: 1;
+}
+
 .product-info-container, .product-overview-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-content: center;
-  align-items: center;
+  float: left;
+}
+
+.displayed-image {
+  height: auto;
+  width: auto;
+  max-width: 500px;
+  max-height: 500px;
 }
 
 ul {

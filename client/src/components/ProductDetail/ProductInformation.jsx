@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
+import AddToBag from './AddToBag.jsx';
 
 export default function ProductInformation({ product }) {
   return (
     <div>
-      <div className="star-rating">Star Rating</div>
-      <div className="product-category">Product Category: {product.category}</div>
-      <div className="product-name">Product Name: {product.name}</div>
-      <div className="product-price">Product Price: {product.default_price}</div>
-      <div className="product=style">Product Style Selector</div>
-      <div className="add-to-bag">Select Size and Quantity, then Add to Bag</div>
+      <div className="star-rating">Star Rating: &#9733; &#9734; &#9733; &#9734; &#9733;</div>
+      <div className="product-category">Category: {product.category}</div>
+      <div className="product-name"><h3>{product.name}</h3></div>
+      <div className="product-price">${product.default_price}</div>
+      <div className="product=style">Style &gt; Selected Style </div>
+      <div className="add-to-bag"><AddToBag /></div>
     </div>
   );
 }
