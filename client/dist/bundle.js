@@ -473,11 +473,11 @@ function ProductInformation(_ref) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "product-price",
       children: ["$", product.default_price]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "product=style",
-      children: ["Style > Selected Style ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Styles_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_Styles_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
         styles: styles
-      })]
+      })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
       className: "add-to-bag",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_AddToBag_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {})
@@ -577,15 +577,18 @@ function ProductInformation(_ref) {
   var styles = _ref.styles;
   if (styles) {
     var allStyles = styles.map(function (p) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
-        className: "style-item",
-        src: p.photos[0].thumbnail_url,
-        alt: ""
-      }, p.style_id);
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "mask",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+          className: "style-item",
+          src: p.photos[0].thumbnail_url,
+          alt: ""
+        }, p.style_id)
+      });
     });
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "product=style",
+        className: "product-style",
         children: "Style > Selected Style "
       }), allStyles]
     });
@@ -25413,7 +25416,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 2em;\n}\n\n.nav-bar {\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  display: inline-block;\n  margin: 0.3rem;\n}\n\n.image-gallery, .product-slogan-description {\n  flex-grow: 2;\n}\n\n.product-info-and-styles, .product-features {\n  flex-grow: 1;\n}\n\n.product-info-container, .product-overview-container {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  float: left;\n}\n\n.displayed-image {\n  height: auto;\n  width: auto;\n  max-width: 500px;\n  max-height: 500px;\n}\n\n.style-item {\n  height: auto;\n  width: auto;\n  max-height: 75px;\n  max-width: 75px;\n}\n\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin: 2px 1px;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\nul {\n  list-style: none;\n}\n\nul li:before {\n  content: '✓';\n}\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/pd.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,qBAAqB;EACrB,WAAW;AACb;;AAEA;EACE,8HAA8H;EAC9H,YAAY;EACZ,qBAAqB;AACvB;;AAEA;EACE,kBAAkB;EAClB,qBAAqB;EACrB,cAAc;AAChB;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,uBAAuB;EACvB,WAAW;AACb;;AAEA;EACE,YAAY;EACZ,WAAW;EACX,gBAAgB;EAChB,iBAAiB;AACnB;;AAEA;EACE,YAAY;EACZ,WAAW;EACX,gBAAgB;EAChB,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,eAAe;EACf,WAAW;EACX,kBAAkB;EAClB,qBAAqB;EACrB,eAAe;AACjB;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,YAAY;AACd","sourcesContent":[".pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 2em;\n}\n\n.nav-bar {\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  display: inline-block;\n  margin: 0.3rem;\n}\n\n.image-gallery, .product-slogan-description {\n  flex-grow: 2;\n}\n\n.product-info-and-styles, .product-features {\n  flex-grow: 1;\n}\n\n.product-info-container, .product-overview-container {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  float: left;\n}\n\n.displayed-image {\n  height: auto;\n  width: auto;\n  max-width: 500px;\n  max-height: 500px;\n}\n\n.style-item {\n  height: auto;\n  width: auto;\n  max-height: 75px;\n  max-width: 75px;\n}\n\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin: 2px 1px;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\nul {\n  list-style: none;\n}\n\nul li:before {\n  content: '✓';\n}\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, ".pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 2em;\n}\n\n.nav-bar {\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  display: inline-block;\n  margin: 0.3rem;\n}\n\n.image-gallery, .product-slogan-description {\n  flex-grow: 2;\n}\n\n.product-info-and-styles, .product-features {\n  flex-grow: 1;\n}\n\n.product-info-container, .product-overview-container {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  float: left;\n}\n\n.displayed-image {\n  height: auto;\n  width: auto;\n  max-width: 500px;\n  max-height: 500px;\n}\n\n.mask {\n  display: inline-block;\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  overflow: hidden;\n}\n\n.style-item {\n  max-width: 100%;\n}\n\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin: 2px 1px;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\nul {\n  list-style: none;\n}\n\nul li:before {\n  content: '✓';\n}\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/pd.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,qBAAqB;EACrB,WAAW;AACb;;AAEA;EACE,8HAA8H;EAC9H,YAAY;EACZ,qBAAqB;AACvB;;AAEA;EACE,kBAAkB;EAClB,qBAAqB;EACrB,cAAc;AAChB;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,uBAAuB;EACvB,WAAW;AACb;;AAEA;EACE,YAAY;EACZ,WAAW;EACX,gBAAgB;EAChB,iBAAiB;AACnB;;AAEA;EACE,qBAAqB;EACrB,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,gBAAgB;AAClB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,eAAe;EACf,WAAW;EACX,kBAAkB;EAClB,qBAAqB;EACrB,eAAe;AACjB;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,YAAY;AACd","sourcesContent":[".pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 2em;\n}\n\n.nav-bar {\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  display: inline-block;\n  margin: 0.3rem;\n}\n\n.image-gallery, .product-slogan-description {\n  flex-grow: 2;\n}\n\n.product-info-and-styles, .product-features {\n  flex-grow: 1;\n}\n\n.product-info-container, .product-overview-container {\n  display: flex;\n  flex-direction: row;\n  justify-content: center;\n  float: left;\n}\n\n.displayed-image {\n  height: auto;\n  width: auto;\n  max-width: 500px;\n  max-height: 500px;\n}\n\n.mask {\n  display: inline-block;\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  overflow: hidden;\n}\n\n.style-item {\n  max-width: 100%;\n}\n\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin: 2px 1px;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\nul {\n  list-style: none;\n}\n\nul li:before {\n  content: '✓';\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

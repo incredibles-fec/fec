@@ -40,11 +40,16 @@
   max-height: 500px;
 }
 
+.mask {
+  display: inline-block;
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
 .style-item {
-  height: auto;
-  width: auto;
-  max-height: 75px;
-  max-width: 75px;
+  max-width: 100%;
 }
 
 .fa {
