@@ -40,16 +40,12 @@
   max-height: 500px;
 }
 
-.mask {
+.style-item {
   display: inline-block;
   width: 75px;
   height: 75px;
   border-radius: 50%;
-  overflow: hidden;
-}
-
-.style-item {
-  max-width: 100%;
+  object-fit: cover;
 }
 
 .fa {
