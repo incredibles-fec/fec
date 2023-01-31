@@ -1,12 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getQA } from '../../state/qa';
-import {
-  formMappings,
-  handleErrors,
-  clearErrors,
-  formValidator,
-} from '../../utils/helpers';
+import { handleErrors, formValidator, debounce } from '../../utils/helpers';
+import { formMappings } from '../../utils/mappings';
 import { submitForm } from '../../api/qa';
 
 export default function AddQAForm({
@@ -17,9 +13,9 @@ export default function AddQAForm({
 }) {
   const dispatch = useDispatch();
   const [form, setForm] = useState({
-    body: '12345678910',
-    name: 'lalalalala',
-    email: '123@123.com',
+    body: '',
+    name: '',
+    email: '',
   });
 
   const [errors, setErrors] = useState({
@@ -30,27 +26,23 @@ export default function AddQAForm({
   const [errorKeys, setErrorKeys] = useState([]);
 
   const handleInput = (e) => {
+    const { name, value } = e.target;
     setErrorKeys([]);
-    const res = handleErrors(e);
-    setErrors({ ...errors, [res.name]: res.error });
-    setForm((prev) => ({ ...prev, [res.name]: res.value }));
+    const checkErrors = debounce(() => {
+      const res = handleErrors(e);
+      setErrors({ ...errors, [name]: value ? res.error : '' });
+    }, 500);
+    checkErrors();
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async () => {
     const res = formValidator(errors, form);
-    if (res.length) {
-      return setErrorKeys(res);
-    }
+    if (res.length) return setErrorKeys(res);
     await submitForm(form, type, questionId);
     await dispatch(getQA());
     close();
   };
-
-  useEffect(() => {
-    clearErrors(form, (key) => {
-      setErrors((prev) => ({ ...prev, [key]: '' }));
-    });
-  }, [form]);
 
   return (
     <div className="question-form">

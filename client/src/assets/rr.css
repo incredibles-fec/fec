@@ -52,3 +52,9 @@
   padding: 0;
   background-color: transparent;
 }
+
+/* form */
+.r-form-inputs {
+  display: flex;
+  flex-direction: column;
+}

@@ -18,14 +18,16 @@ export default function RatingsTile({ review }) {
     }
   };
 
+  console.log(review);
+
   return (
     <div>
       <div className="tile-header">
         <div>Star rating goes here</div>
         <div style={{ display: 'flex', gap: '0.5em' }}>
-          {review.recommend && (
+          {/* {review.recommend && (
             <i className="fa-sharp fa-solid fa-circle-check" />
-          )}
+          )} */}
           {`${review.reviewer_name}, ${transformDate(review.date)}`}
         </div>
       </div>
