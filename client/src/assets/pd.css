@@ -3,21 +3,27 @@
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  margin: 2em;
 }
 
 .nav-bar {
   background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);
-  color: white
+  color: white;
+  margin-bottom: 0.3rem;
 }
 
 .site-wide-announcement {
   text-align: center;
   display: inline-block;
+  margin: 0.3rem;
 }
 
 .product-info-container, .product-overview-container {
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
 }
 
 ul {
