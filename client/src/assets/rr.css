@@ -1,0 +1,11 @@
+.rr-container {
+  display: flex;
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 5rem;
+}
+
+/* Overview */
+.overview-container {
+  width: 30%;
+}
