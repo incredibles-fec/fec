@@ -40,6 +40,13 @@
   max-height: 500px;
 }
 
+.style-item {
+  height: auto;
+  width: auto;
+  max-height: 75px;
+  max-width: 75px;
+}
+
 .fa {
   padding: 10px;
   font-size: 15px;
