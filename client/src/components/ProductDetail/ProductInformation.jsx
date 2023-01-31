@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AddToBag from './AddToBag.jsx';
+import ShareSocialMedia from './ShareSocialMedia.jsx';
 
 export default function ProductInformation({ product }) {
   return (
@@ -10,6 +11,7 @@ export default function ProductInformation({ product }) {
       <div className="product-price">${product.default_price}</div>
       <div className="product=style">Style &gt; Selected Style </div>
       <div className="add-to-bag"><AddToBag /></div>
+      <div className="share-to-social-media"><ShareSocialMedia /></div>
     </div>
   );
 }
