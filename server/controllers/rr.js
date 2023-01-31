@@ -10,7 +10,7 @@ module.exports = {
           product_id: product_id ?? 40355,
           sort: sort ?? 'newest',
           page: 1,
-          count: 10,
+          count: 2,
         },
         path: req.url,
       });

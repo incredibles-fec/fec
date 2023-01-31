@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from '../common/Modal.jsx';
-import { transformDate } from '../../utils/qaHelpers';
+import { transformDate } from '../../utils/helpers';
 import { markAnswerHelpful, reportAnswer } from '../../api/qa';
 
 export default function AnswerEntry({ answer }) {

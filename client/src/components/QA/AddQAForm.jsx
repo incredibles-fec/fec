@@ -6,7 +6,7 @@ import {
   handleErrors,
   clearErrors,
   formValidator,
-} from '../../utils/qaHelpers';
+} from '../../utils/helpers';
 import { submitForm } from '../../api/qa';
 
 export default function AddQAForm({

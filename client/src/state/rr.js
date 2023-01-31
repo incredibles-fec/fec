@@ -31,7 +31,7 @@ const rrSlice = createSlice({
     });
     builder.addCase(getReviews.fulfilled, (state, action) => {
       state.fullReviews = action.payload;
-      console.log(action.payload);
+      state.reviews = action.payload;
       state.isLoading = false;
     });
     builder.addCase(getReviews.rejected, (state) => {

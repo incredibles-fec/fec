@@ -3,9 +3,52 @@
   max-width: 1024px;
   margin: 0 auto;
   padding: 5rem;
+
 }
 
 /* Overview */
 .overview-container {
   width: 30%;
+}
+
+/* List */
+.rating-list-container {
+  width: 70%
+}
+
+.rating-list-footer {
+  display: flex;
+}
+
+/* Tile */
+.tile-container {
+  margin-bottom: 1rem;
+  font-size: 14px;
+}
+
+.tile-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem
+}
+
+.tile-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.tile-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.button-trans {
+  text-decoration: underline;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: transparent;
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { filterQuestions } from '../../state/qa';
-import { debounce } from '../../utils/qaHelpers';
+import { debounce } from '../../utils/helpers';
 
 export default function Search() {
   const dispatch = useDispatch();

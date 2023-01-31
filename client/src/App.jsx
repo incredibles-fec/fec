@@ -9,8 +9,8 @@ export default function App() {
     <div>
       <ProductDetail />
       <ItemsComparison />
-      {/* <QA /> */}
       <RR />
+      <QA />
     </div>
   );
 }
