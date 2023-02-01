@@ -13,7 +13,10 @@ export const getQA = createAsyncThunk(
   'qa/getQA',
   async (productId, thunkAPI) => {
     try {
-      const res = await axios('/qa/questions');
+      const res = await axios({
+        url: '/qa/questions',
+        params: { product_id: 40355, count: 30 },
+      });
       const questions = res.data.results
         .sort((a, b) => b.question_helpfulness - a.question_helpfulness)
         .map((q) => ({ ...q, answer_count: 2 }));

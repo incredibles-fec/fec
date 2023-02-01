@@ -5,7 +5,7 @@ import { radioGroupOptions } from '../../utils/mappings';
 import { debounce, handleErrors, formValidator } from '../../utils/helpers';
 import { submitForm } from '../../api/rr';
 
-export default function AddReviewForm() {
+export default function AddReviewForm({ close }) {
   const [form, setForm] = useState({
     rating: 0,
     summary: '',
@@ -58,6 +58,7 @@ export default function AddReviewForm() {
     const res = formValidator(errors, form);
     if (res.length) return setErrorKeys(res);
     await submitForm(form);
+    close();
   };
 
   return (

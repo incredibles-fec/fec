@@ -7,7 +7,7 @@ const submitForm = async (params, type, id) => {
   };
 
   // TODO: CHANGE THIS TO DYNAMIC PRODUCT_ID
-  const questionParams = { ...params, product_id: 40346 };
+  const questionParams = { ...params, product_id: 40355 };
 
   try {
     const res = await axios({

@@ -5,6 +5,8 @@ const initialState = {
   reviews: [],
   fullReviews: [],
   metaData: {},
+  page: 1,
+  count: 30,
   reviewCount: 4,
   isLoading: true,
 };
@@ -12,8 +14,18 @@ const initialState = {
 export const getReviews = createAsyncThunk(
   'rr/getReviews',
   async (productId, thunkAPI) => {
+    const rrState = thunkAPI.getState().rr;
+
     try {
-      const res = await axios('/reviews');
+      const res = await axios({
+        url: '/reviews',
+        params: {
+          page: rrState.page,
+          count: rrState.count,
+          sort: 'newest',
+          product_id: 40355,
+        },
+      });
       const reviews = res.data.results;
       return reviews;
     } catch (err) {

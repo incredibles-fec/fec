@@ -1,19 +1,12 @@
 const { atelierRequest } = require('../lib/atelier');
 
 module.exports = {
-  // TODO change product_id to dynamic
   getReviews: async (req, res) => {
-    const { sort, product_id } = req.body;
     try {
       const reviews = await atelierRequest({
-        params: {
-          product_id: product_id ?? 40355,
-          sort: sort ?? 'newest',
-          page: 1,
-          count: 2,
-        },
         path: req.url,
       });
+
       res.status(200).send(reviews.data);
     } catch (err) {
       res.status(400).send({ message: 'Error requesting reviews' });
@@ -39,7 +32,7 @@ module.exports = {
         data: req.body,
         path: req.url,
       });
-      console.log(posted);
+      // TODO: Fix this
       if (posted.data !== 'Created') throw Error('Error posting review');
       res.status(201).send({ message: 'Successfully posted review' });
     } catch (err) {

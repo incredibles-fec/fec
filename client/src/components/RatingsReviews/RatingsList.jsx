@@ -27,7 +27,7 @@ export default function RatingsList() {
 
       {isOpen && (
         <Modal close={() => setIsOpen(false)}>
-          <AddReviewForm />
+          <AddReviewForm close={() => setIsOpen(false)} />
         </Modal>
       )}
     </div>
