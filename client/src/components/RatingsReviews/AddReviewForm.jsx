@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import RadioGroup from '../common/RadioGroup.jsx';
+import RatingsSelector from './RatingsSelector.jsx';
 import { radioGroupOptions } from '../../utils/mappings';
 import { debounce, handleErrors, formValidator } from '../../utils/helpers';
+import { submitForm } from '../../api/rr';
 
 export default function AddReviewForm() {
   const [form, setForm] = useState({
@@ -55,12 +57,13 @@ export default function AddReviewForm() {
   const handleSubmit = async () => {
     const res = formValidator(errors, form);
     if (res.length) return setErrorKeys(res);
+    await submitForm(form);
   };
 
   return (
     <div className="review-form">
       <div>About the [Product Name Here]</div>
-      <div>Overall rating here</div>
+      <RatingsSelector handleInput={handleInput} />
       <RadioGroup
         name="recommend"
         options={radioGroupOptions.recommend}

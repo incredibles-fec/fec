@@ -39,6 +39,7 @@ module.exports = {
         data: req.body,
         path: req.url,
       });
+      console.log(posted);
       if (posted.data !== 'Created') throw Error('Error posting review');
       res.status(201).send({ message: 'Successfully posted review' });
     } catch (err) {

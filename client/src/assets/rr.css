@@ -52,6 +52,22 @@
   flex-direction: column;
 }
 
+.star-button {
+  cursor: pointer
+}
+
+.deselected {
+  color: #D0D0D0
+}
+
+.deselected:hover {
+  color: #505050
+}
+
+.selected {
+  color: #505050
+}
+
 /* Overview */
 .total-rating-container {
   display: flex;
