@@ -9,13 +9,14 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
+    'jest/globals': true,
   },
   extends: ['plugin:react/recommended', 'airbnb'],
   parserOptions: {
     sourceType: 'module',
     ecmaVersion: 'latest',
   },
-  plugins: ['react'],
+  plugins: ['react', 'jest'],
   rules: {
     'import/prefer-default-export': 0,
     'react/prop-types': 0,
