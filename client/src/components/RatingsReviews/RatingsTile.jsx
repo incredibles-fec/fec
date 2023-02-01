@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { transformDate } from '../../utils/helpers';
 import { markHelpfulReview, reportReview } from '../../api/rr';
+import StarRatings from '../common/StarRatings.jsx';
 
 export default function RatingsTile({ review }) {
   const [isMarked, setIsMarked] = useState(false);
@@ -21,7 +22,9 @@ export default function RatingsTile({ review }) {
   return (
     <div>
       <div className="tile-header">
-        <div>Star rating goes here</div>
+        <div>
+          <StarRatings rating={review.rating} />
+        </div>
         <div style={{ display: 'flex', gap: '0.5em' }}>
           {/* {review.recommend && (
             <i className="fa-sharp fa-solid fa-circle-check" />

@@ -35,6 +35,17 @@ const transformDate = (date) => {
   )}, ${newDate.getDate()}, ${newDate.getFullYear()}`;
 };
 
+const getRatings = (ratings) =>
+  ratings.reduce(
+    (acc, val) => {
+      acc.reviews += Number(val[1]);
+      acc.aggregate += val[0] * val[1];
+      acc.average = acc.aggregate / acc.reviews;
+      return acc;
+    },
+    { reviews: 0, aggregate: 0, average: 0 }
+  );
+
 const debounce = (func, timeout = 500) => {
   let timer;
   return (...args) => {
@@ -45,4 +56,11 @@ const debounce = (func, timeout = 500) => {
   };
 };
 
-export { handleErrors, clearErrors, formValidator, transformDate, debounce };
+export {
+  handleErrors,
+  clearErrors,
+  formValidator,
+  transformDate,
+  debounce,
+  getRatings,
+};

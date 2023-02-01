@@ -9,6 +9,7 @@
 /* Overview */
 .overview-container {
   width: 30%;
+  padding-right: 2rem;
 }
 
 /* List */
@@ -45,14 +46,6 @@
   gap: 0.5rem;
 }
 
-.button-trans {
-  text-decoration: underline;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  background-color: transparent;
-}
-
 /* form */
 .r-form-inputs {
   display: flex;
@@ -60,9 +53,58 @@
 }
 
 /* Overview */
+.total-rating-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.total-rating {
+  font-size: 3em;
+  padding: 0;
+}
+
 .triangle-marker {
   position: absolute;
   font-size: 1.5rem;
   transform: translateY(-35%);
   left: 0%;
+}
+
+.progress-bar-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.progress-bar {
+  height: 0.5rem;
+  width: 80%;
+  background-color: #D0D0D0;
+  margin-left: 0.5rem;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #505050;
+  text-align: right;
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.back-stars {
+  display: flex;
+  position: relative;
+}
+
+.front-stars {
+  display: flex;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  transition: all .5s
 }
