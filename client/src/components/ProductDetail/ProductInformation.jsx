@@ -5,7 +5,7 @@ import Styles from './Styles.jsx';
 import ShareSocialMedia from './ShareSocialMedia.jsx';
 
 export default function ProductInformation({ product, styles }) {
-  const [currentStyle, setCurrentStyle] = useState(styles[0]);
+  const [currentStyle, setCurrentStyle] = useState(styles.filter((s) => s['default?'])[0]);
 
   return (
     <div className="gallery-and-styles-container">
