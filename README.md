@@ -3,7 +3,7 @@ Front-end implementation of an e-commerce webpage
 
 ## Table of Contents
 1. Description
-2. Installtion
+2. Installation
 3. Usage
 4. Team Members
 
