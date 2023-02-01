@@ -276,7 +276,7 @@ var submitForm = /*#__PURE__*/function () {
               18: Number(length),
               19: Number(fit)
             }
-          }); // TODO: THIS IS NOT WORKING DUE TO INVALID ENTRIES???????
+          });
           _context.prev = 3;
           _context.next = 6;
           return axios__WEBPACK_IMPORTED_MODULE_0___default()({
@@ -290,7 +290,7 @@ var submitForm = /*#__PURE__*/function () {
         case 10:
           _context.prev = 10;
           _context.t0 = _context["catch"](3);
-          console.log(_context.t0);
+          console.log('Post shows error message but ignore it, because api sucks');
         case 13:
         case "end":
           return _context.stop();
@@ -1380,7 +1380,7 @@ function QAList() {
           }, q.question_id);
         })
       })
-    }), fullQuestions.length > 4 && questions.length < 6 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+    }), !scrollToLoad && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
       style: {
         marginRight: '5px'
       },
@@ -1711,12 +1711,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ AddReviewForm)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _common_RadioGroup_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common/RadioGroup.jsx */ "./client/src/components/common/RadioGroup.jsx");
-/* harmony import */ var _RatingsSelector_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RatingsSelector.jsx */ "./client/src/components/RatingsReviews/RatingsSelector.jsx");
-/* harmony import */ var _utils_mappings__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utils/mappings */ "./client/src/utils/mappings.js");
-/* harmony import */ var _utils_helpers__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../utils/helpers */ "./client/src/utils/helpers.js");
-/* harmony import */ var _api_rr__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../api/rr */ "./client/src/api/rr.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _state_rr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../state/rr */ "./client/src/state/rr.js");
+/* harmony import */ var _common_RadioGroup_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../common/RadioGroup.jsx */ "./client/src/components/common/RadioGroup.jsx");
+/* harmony import */ var _RatingsSelector_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RatingsSelector.jsx */ "./client/src/components/RatingsReviews/RatingsSelector.jsx");
+/* harmony import */ var _utils_mappings__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utils/mappings */ "./client/src/utils/mappings.js");
+/* harmony import */ var _utils_helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../utils/helpers */ "./client/src/utils/helpers.js");
+/* harmony import */ var _api_rr__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../api/rr */ "./client/src/api/rr.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -1740,8 +1742,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 function AddReviewForm(_ref) {
   var close = _ref.close;
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
       rating: 0,
       summary: '',
@@ -1782,14 +1787,14 @@ function AddReviewForm(_ref) {
     _useState6 = _slicedToArray(_useState5, 2),
     errorKeys = _useState6[0],
     setErrorKeys = _useState6[1];
-  var charRadioGroup = Object.entries(_utils_mappings__WEBPACK_IMPORTED_MODULE_3__.radioGroupOptions.characteristics);
+  var charRadioGroup = Object.entries(_utils_mappings__WEBPACK_IMPORTED_MODULE_5__.radioGroupOptions.characteristics);
   var handleInput = function handleInput(e) {
     var _e$target = e.target,
       name = _e$target.name,
       value = _e$target.value;
     setErrorKeys([]);
-    var checkErrors = (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_4__.debounce)(function () {
-      var res = (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_4__.handleErrors)(name, value);
+    var checkErrors = (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_6__.debounce)(function () {
+      var res = (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_6__.handleErrors)(name, value);
       setErrors(_objectSpread(_objectSpread({}, errors), {}, _defineProperty({}, name, value && name !== 'body' ? res.error : '')));
     }, 500);
     checkErrors();
@@ -1803,7 +1808,7 @@ function AddReviewForm(_ref) {
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
           case 0:
-            res = (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_4__.formValidator)(errors, form);
+            res = (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_6__.formValidator)(errors, form);
             if (!res.length) {
               _context.next = 3;
               break;
@@ -1811,10 +1816,13 @@ function AddReviewForm(_ref) {
             return _context.abrupt("return", setErrorKeys(res));
           case 3:
             _context.next = 5;
-            return (0,_api_rr__WEBPACK_IMPORTED_MODULE_5__.submitForm)(form);
+            return (0,_api_rr__WEBPACK_IMPORTED_MODULE_7__.submitForm)(form);
           case 5:
+            _context.next = 7;
+            return Promise.all([dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.getReviews)()), dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.getMetaData)())]);
+          case 7:
             close();
-          case 6:
+          case 8:
           case "end":
             return _context.stop();
         }
@@ -1824,31 +1832,31 @@ function AddReviewForm(_ref) {
       return _ref2.apply(this, arguments);
     };
   }();
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "review-form",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
       children: "About the [Product Name Here]"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_RatingsSelector_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_RatingsSelector_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
       handleInput: handleInput
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_RadioGroup_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_common_RadioGroup_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
       name: "recommend",
-      options: _utils_mappings__WEBPACK_IMPORTED_MODULE_3__.radioGroupOptions.recommend,
+      options: _utils_mappings__WEBPACK_IMPORTED_MODULE_5__.radioGroupOptions.recommend,
       handleInput: handleInput
     }), charRadioGroup.map(function (_ref3) {
       var _ref4 = _slicedToArray(_ref3, 2),
         key = _ref4[0],
         options = _ref4[1];
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_RadioGroup_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_common_RadioGroup_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
           name: key,
           options: options,
           handleInput: handleInput
         })
       }, key);
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       className: "r-form-inputs",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
-        children: ["Summary:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
+        children: ["Summary:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
           name: "summary",
           type: "text",
           placeholder: "Example: Best purchase ever!",
@@ -1856,11 +1864,11 @@ function AddReviewForm(_ref) {
           value: form.summary,
           onChange: handleInput
         })]
-      }), errors.summary && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+      }), errors.summary && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
         className: "errorMessage",
         children: errors.summary
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
-        children: ["Body:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("textarea", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
+        children: ["Body:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("textarea", {
           name: "body",
           type: "text",
           placeholder: "Why did you like the product or not?",
@@ -1868,10 +1876,10 @@ function AddReviewForm(_ref) {
           value: form.body,
           onChange: handleInput
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
         children: form.body.length > 49 ? 'Minimum reached' : "Minimum required characters left: ".concat(50 - form.body.length)
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
-        children: ["Nickname:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
+        children: ["Nickname:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
           name: "name",
           type: "text",
           placeholder: "Example: jackson11!",
@@ -1879,31 +1887,31 @@ function AddReviewForm(_ref) {
           maxLength: "60",
           onChange: handleInput
         })]
-      }), errors.name ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+      }), errors.name ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
         className: "errorMessage",
         children: errors.name
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
         children: "For privacy reasons, do not use your full name or email address"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("label", {
-        children: ["Email:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("label", {
+        children: ["Email:", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
           name: "email",
           type: "text",
           placeholder: "Example: jackson11@email.com",
           value: form.email,
           onChange: handleInput
         })]
-      }), errors.email ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+      }), errors.email ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
         className: "errorMessage",
         children: errors.email
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
         children: "For authentication reasons, you will not be emailed"
-      }), errorKeys.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
+      }), errorKeys.length ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("span", {
         className: "errorMessage",
         children: ["You must enter the following:", errorKeys.map(function (err, idx) {
           var field = err[0].toUpperCase() + err.substring(1);
           return idx !== errorKeys.length - 1 ? "".concat(field, ", ") : field;
         })]
-      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
         type: "button",
         onClick: handleSubmit,
         children: "Submit"
@@ -1943,14 +1951,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function RR() {
-  var _metaData$ratings;
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (store) {
-      return store.rr;
-    }),
-    metaData = _useSelector.metaData;
-  var productRating = Object.entries((_metaData$ratings = metaData.ratings) !== null && _metaData$ratings !== void 0 ? _metaData$ratings : {});
-  var totals = (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_6__.getRatings)(productRating);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     Promise.all([dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.getReviews)()), dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.getMetaData)())]);
   }, []);
@@ -1958,19 +1959,14 @@ function RR() {
     className: "rr-container",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("section", {
       className: "overview-container",
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_RatingsOverview_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
-        metaData: metaData,
-        totals: totals
-      })
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_RatingsOverview_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {})
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("section", {
       className: "rating-list-container",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         style: {
           marginBottom: '1rem'
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_SearchFilter_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
-          totalReview: totals.reviews
-        })
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_SearchFilter_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {})
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_RatingsList_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
     })]
   });
@@ -2026,7 +2022,11 @@ function RatingsList() {
       return store.rr;
     }),
     reviews = _useSelector.reviews,
-    sort = _useSelector.sort;
+    sort = _useSelector.sort,
+    count = _useSelector.count,
+    metaData = _useSelector.metaData,
+    totals = _useSelector.totals,
+    fullReviews = _useSelector.fullReviews;
   var loadMore = function loadMore() {
     dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.loadMoreReviews)());
     setScrollToLoad(true);
@@ -2036,10 +2036,9 @@ function RatingsList() {
     if (ref.current) ref.current.disconnect();
     ref.current = new IntersectionObserver(function (entries) {
       if (entries[0].isIntersecting) {
-        // TODO: Do fetch if again if not enough questions left
         var load = (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_3__.debounce)(function () {
           dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.loadMoreReviews)());
-        });
+        }, 500);
         load();
       }
     });
@@ -2048,6 +2047,9 @@ function RatingsList() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setScrollToLoad(false);
   }, [sort]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (count > 30 && fullReviews.length < totals.reviews) dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.getReviews)());
+  }, [count]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("section", {
       className: "reviews-map",
@@ -2062,7 +2064,7 @@ function RatingsList() {
       })
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("section", {
       className: "rating-list-footer",
-      children: [!scrollToLoad && reviews.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+      children: [!scrollToLoad && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
         type: "button",
         onClick: function onClick() {
           return loadMore();
@@ -2122,16 +2124,16 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function RatingsOverview(_ref) {
-  var _metaData$recommended, _metaData$characteris;
-  var metaData = _ref.metaData,
-    totals = _ref.totals;
+function RatingsOverview() {
+  var _metaData$recommended, _totals$average$toFix, _totals$average, _metaData$characteris;
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (store) {
       return store.rr;
     }),
-    filters = _useSelector.filters;
+    metaData = _useSelector.metaData,
+    filters = _useSelector.filters,
+    totals = _useSelector.totals;
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  var recommendedTotal = (metaData === null || metaData === void 0 ? void 0 : (_metaData$recommended = metaData.recommended) === null || _metaData$recommended === void 0 ? void 0 : _metaData$recommended["true"]) && Math.round(metaData.recommended["true"] / totals.reviews * 100);
+  var recommendedTotal = (metaData === null || metaData === void 0 ? void 0 : (_metaData$recommended = metaData.recommended) === null || _metaData$recommended === void 0 ? void 0 : _metaData$recommended["true"]) && Math.round(metaData.recommended["true"] / (totals === null || totals === void 0 ? void 0 : totals.reviews) * 100);
   var filter = function filter(star) {
     dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.addStarFilter)(star));
     dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.filterQuestions)());
@@ -2139,11 +2141,11 @@ function RatingsOverview(_ref) {
   var renderProgressBars = function renderProgressBars() {
     var _metaData$ratings;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      children: Object.entries((_metaData$ratings = metaData === null || metaData === void 0 ? void 0 : metaData.ratings) !== null && _metaData$ratings !== void 0 ? _metaData$ratings : {}).reverse().map(function (_ref2) {
-        var _ref3 = _slicedToArray(_ref2, 2),
-          star = _ref3[0],
-          n = _ref3[1];
-        var percentage = Math.round(Number(n) / totals.reviews * 100);
+      children: Object.entries((_metaData$ratings = metaData === null || metaData === void 0 ? void 0 : metaData.ratings) !== null && _metaData$ratings !== void 0 ? _metaData$ratings : {}).reverse().map(function (_ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+          star = _ref2[0],
+          n = _ref2[1];
+        var percentage = Math.round(Number(n) / (totals === null || totals === void 0 ? void 0 : totals.reviews) * 100);
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_ProgressBar_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
           action: star,
           progress: percentage,
@@ -2152,14 +2154,18 @@ function RatingsOverview(_ref) {
       })
     });
   };
+  var clear = function clear() {
+    dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.clearFilters)());
+    dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.filterQuestions)());
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "total-rating-container",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "total-rating",
-        children: totals.average.toFixed(2) || '-'
+        children: (_totals$average$toFix = totals === null || totals === void 0 ? void 0 : (_totals$average = totals.average) === null || _totals$average === void 0 ? void 0 : _totals$average.toFixed(2)) !== null && _totals$average$toFix !== void 0 ? _totals$average$toFix : '-'
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_StarRatings_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
-        rating: totals.average
+        rating: totals === null || totals === void 0 ? void 0 : totals.average
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       children: [recommendedTotal ? "".concat(recommendedTotal, "%") : '-', " of reviews recommend this product"]
@@ -2178,17 +2184,17 @@ function RatingsOverview(_ref) {
       className: "button-trans",
       type: "button",
       onClick: function onClick() {
-        return dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.clearFilters)());
+        return clear();
       },
       children: "Clear"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       style: {
         marginTop: '1rem'
       },
-      children: Object.entries((_metaData$characteris = metaData === null || metaData === void 0 ? void 0 : metaData.characteristics) !== null && _metaData$characteris !== void 0 ? _metaData$characteris : {}).map(function (_ref4) {
-        var _ref5 = _slicedToArray(_ref4, 2),
-          key = _ref5[0],
-          _char = _ref5[1];
+      children: Object.entries((_metaData$characteris = metaData === null || metaData === void 0 ? void 0 : metaData.characteristics) !== null && _metaData$characteris !== void 0 ? _metaData$characteris : {}).map(function (_ref3) {
+        var _ref4 = _slicedToArray(_ref3, 2),
+          key = _ref4[0],
+          _char = _ref4[1];
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_ReviewBar_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
           title: key,
           characteristic: _char
@@ -2273,7 +2279,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utils_helpers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/helpers */ "./client/src/utils/helpers.js");
 /* harmony import */ var _api_rr__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../api/rr */ "./client/src/api/rr.js");
 /* harmony import */ var _common_StarRatings_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common/StarRatings.jsx */ "./client/src/components/common/StarRatings.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _common_Modal_jsx__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../common/Modal.jsx */ "./client/src/components/common/Modal.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, defineProperty = Object.defineProperty || function (obj, key, desc) { obj[key] = desc.value; }, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return defineProperty(generator, "_invoke", { value: makeInvokeMethod(innerFn, self, context) }), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; defineProperty(this, "_invoke", { value: function value(method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; } function maybeInvokeDelegate(delegate, context) { var methodName = context.method, method = delegate.iterator[methodName]; if (undefined === method) return context.delegate = null, "throw" === methodName && delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method) || "return" !== methodName && (context.method = "throw", context.arg = new TypeError("The iterator does not provide a '" + methodName + "' method")), ContinueSentinel; var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, defineProperty(Gp, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), defineProperty(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (val) { var object = Object(val), keys = []; for (var key in object) keys.push(key); return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2291,6 +2298,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 function RatingsTile(_ref) {
   var review = _ref.review;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
@@ -2301,6 +2309,14 @@ function RatingsTile(_ref) {
     _useState4 = _slicedToArray(_useState3, 2),
     isReported = _useState4[0],
     setIsReported = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState6 = _slicedToArray(_useState5, 2),
+    currentPhoto = _useState6[0],
+    setCurrentPhoto = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    isOpen = _useState8[0],
+    setIsOpen = _useState8[1];
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (store) {
       return store.rr;
     }),
@@ -2352,11 +2368,11 @@ function RatingsTile(_ref) {
   }();
   var searchHighlight = function searchHighlight(text, highlight) {
     var parts = text.split(new RegExp("(".concat(highlight, ")"), 'gi'));
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
       children: parts.map(function (part, idx) {
         var key = idx + 1;
         if (part.toLowerCase() === highlight.toLowerCase()) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("b", {
+          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("b", {
             children: part
           }, key);
         }
@@ -2364,59 +2380,66 @@ function RatingsTile(_ref) {
       })
     });
   };
+  var openPhoto = function openPhoto(src) {
+    setCurrentPhoto(src);
+    setIsOpen(true);
+  };
 
   // TODO: Slice first 250 chars of review body
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "tile-header",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_common_StarRatings_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_StarRatings_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
           rating: review.rating
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         style: {
           display: 'flex',
           gap: '0.5em'
         },
         children: "".concat(review.reviewer_name, ", ").concat((0,_utils_helpers__WEBPACK_IMPORTED_MODULE_2__.transformDate)(review.date))
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "tile-body",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("b", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("b", {
           children: searchHighlight(review.summary, query)
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         children: searchHighlight(review.body, query)
-      }), review.recommend && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+      }), review.recommend && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
           className: "fa-sharp fa-solid fa-circle-check"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
           style: {
             marginLeft: '0.4rem'
           },
           children: "I recommend this product"
         })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "a-photos",
       children: review.photos.map(function (photo) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
           style: {
             cursor: 'pointer'
           },
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
+          onClick: function onClick() {
+            return openPhoto(photo.url);
+          },
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
             alt: "user uploaded",
             src: photo.url
           })
         }, photo.url);
       })
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
       className: "tile-footer",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
         children: "Helpful?"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
         className: "button-trans",
         type: "button",
         disabled: isMarked,
@@ -2424,9 +2447,9 @@ function RatingsTile(_ref) {
           return actionHandler();
         },
         children: "Yes"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("span", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("span", {
         children: ["(", isMarked ? review.helpfulness + 1 : review.helpfulness, ") \u2503"]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
         className: "button-trans",
         type: "button",
         disabled: isReported,
@@ -2435,7 +2458,18 @@ function RatingsTile(_ref) {
         },
         children: isReported ? 'Reported' : 'Report'
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("hr", {})]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("hr", {}), isOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_Modal_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      close: function close() {
+        return setIsOpen(false);
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("img", {
+          className: "photo-style",
+          alt: "user uploaded",
+          src: currentPhoto
+        })
+      })
+    })]
   });
 }
 
@@ -2475,13 +2509,13 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function SearchFilter(_ref) {
-  var totalReview = _ref.totalReview;
+function SearchFilter() {
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (store) {
       return store.rr;
     }),
-    sort = _useSelector.sort;
+    sort = _useSelector.sort,
+    totals = _useSelector.totals;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(sort),
     _useState2 = _slicedToArray(_useState, 2),
     selectedSort = _useState2[0],
@@ -2498,7 +2532,7 @@ function SearchFilter(_ref) {
     filter();
   };
   var handleFilter = /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
+    var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
       var sortOption;
       return _regeneratorRuntime().wrap(function _callee$(_context) {
         while (1) switch (_context.prev = _context.next) {
@@ -2514,7 +2548,7 @@ function SearchFilter(_ref) {
       }, _callee);
     }));
     return function handleFilter(_x2) {
-      return _ref2.apply(this, arguments);
+      return _ref.apply(this, arguments);
     };
   }();
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -2525,7 +2559,7 @@ function SearchFilter(_ref) {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("section", {
       className: "filter-sort",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        children: [totalReview, " reviews, sorted by", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
+        children: [totals === null || totals === void 0 ? void 0 : totals.reviews, " reviews, sorted by", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
           className: "select-input",
           value: selectedSort,
           onChange: handleFilter,
@@ -3428,6 +3462,7 @@ var initialState = {
   query: '',
   sort: 'relevant',
   count: 30,
+  totals: {},
   reviewCount: 2,
   isLoading: true
 };
@@ -3506,7 +3541,12 @@ var rrSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSlice)({
   initialState: initialState,
   reducers: {
     loadMoreReviews: function loadMoreReviews(state) {
+      if (state.reviewCount >= state.fullReviews.length) return;
       state.reviewCount += 2;
+      // conditional to fetch more
+      if (state.reviewCount + 2 >= state.count) {
+        state.count += 30;
+      }
       state.reviews = state.filteredReviews.length ? state.filteredReviews.slice(0, state.reviewCount) : state.fullReviews.slice(0, state.reviewCount);
     },
     addStarFilter: function addStarFilter(state, action) {
@@ -3538,19 +3578,6 @@ var rrSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSlice)({
     },
     clearFilters: function clearFilters(state) {
       state.filters = [];
-      if (!state.query.length) {
-        state.reviews = state.fullReviews.slice(0, state.reviewCount);
-        state.filteredReviews = [];
-        return;
-      }
-      var filtered = state.fullReviews.filter(function (review) {
-        var query = state.query.toLowerCase();
-        if (review.summary.toLowerCase().includes(query) || review.body.toLowerCase().includes(query)) {
-          return review;
-        }
-      });
-      state.reviews = filtered.slice(0, state.reviewCount);
-      state.filteredReviews = filtered;
     }
   },
   extraReducers: function extraReducers(builder) {
@@ -3584,6 +3611,18 @@ var rrSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSlice)({
       state.isLoading = true;
     });
     builder.addCase(getMetaData.fulfilled, function (state, action) {
+      var productRating = Object.entries(action.payload.ratings);
+      var totals = productRating.reduce(function (acc, val) {
+        acc.reviews += Number(val[1]);
+        acc.aggregate += val[0] * val[1];
+        acc.average = acc.aggregate / acc.reviews;
+        return acc;
+      }, {
+        reviews: 0,
+        aggregate: 0,
+        average: 0
+      });
+      state.totals = totals;
       state.metaData = action.payload;
       state.isLoading = false;
     });
