@@ -1,8 +1,39 @@
-import React from 'react';
-import Carousel from './Carousel.jsx';
+import React, { useState } from 'react';
 
-export default function ImageGallery({ styles }) {
+export default function ImageGallery({ style }) {
+  // const {style_id, name, original_price, sale_price, photos, skus} = style;
+  const { name, photos } = style;
+  const [index, setIndex] = useState(0);
+
+  const images = photos.map((p, i) => (
+    <div key={p.url} onClick={() => setIndex(i)}>
+      <img className="carousel-item-thumbnail" src={p.thumbnail_url} alt={name} />
+    </div>
+  ));
+
+  const getNext = () => {
+    setIndex(index + 1 === photos.length ? index : index + 1);
+  };
+
+  const getPrev = () => {
+    setIndex(index - 1 < 0 ? 0 : index - 1);
+  };
+
   return (
-    <Carousel style={styles[0]} />
+    <div className="image-gallery-container">
+      <div className="carousel-thumbnail-container">
+        <button id="carousel-thumbnail-prev" aria-label="previous" type="button" onClick={getPrev}>&and;</button>
+        {images}
+        <button id="carousel-thumbnail-next" aria-label="previous" type="button" onClick={getNext}>&or;</button>
+      </div>
+      <div className="carousel-container">
+        <img className="displayed-image" src={photos[index].url} alt={name} />
+        <div className="carousel-actions">
+          <button id="carousel-prev" aria-label="previous" type="button" onClick={getPrev}>&lt;</button>
+          <button id="carousel-next" aria-label="next" type="button" onClick={getNext}>&gt;</button>
+        </div>
+      </div>
+
+    </div>
   );
 }

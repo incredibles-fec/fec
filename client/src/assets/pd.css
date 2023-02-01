@@ -18,27 +18,35 @@
   margin: 0.3rem;
 }
 
-.image-gallery, .product-slogan-description {
+/* ======================================================
+Product Information Styling
+====================================================== */
+
+.image-gallery-container, .product-slogan-description {
   flex-grow: 2;
 }
 
-.product-info-and-styles, .product-features {
+.product-info-container, .product-features {
   flex-grow: 1;
 }
 
-.product-info-container, .product-overview-container {
+.gallery-and-styles-container, .product-overview-container, .product-styles-container {
   display: flex;
+}
+
+.product-info-container {
+  flex-direction: column;
 }
 
 .image-gallery-container {
   display: flex;
-  position: relative;
+  justify-content: left;
 }
 
 .carousel-thumbnail-container {
   display: flex;
+  flex-grow: 1;
   flex-direction: column;
-  position: absolute;
 }
 
 .carousel-item-thumbnail {
@@ -46,13 +54,14 @@
   height: 50px;
   object-fit: cover;
   margin: 15px;
-  position: relative;
 }
 
 .carousel-container {
+  display: flex;
+  flex-grow: 5;
   overflow: hidden;
   max-width: 500px;
-  transform: translateX(100px);
+  /* transform: translateX(100px); */
   position: relative;
 }
 
@@ -87,8 +96,16 @@
   height: 75px;
   border-radius: 50%;
   object-fit: cover;
+  padding: 5px;
 }
 
+.add-to-bag-button {
+  float: left;
+}
+
+/* ======================================================
+Social Media Icons Styling
+====================================================== */
 .fa {
   padding: 10px;
   font-size: 15px;
@@ -116,6 +133,10 @@
   background: #cb2027;
   color: white;
 }
+
+/* ======================================================
+Product Overview Styling
+====================================================== */
 
 ul {
   list-style: none;
