@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ProductInformation from './ProductInformation.jsx';
 import ProductOverview from './ProductOverview.jsx';
-import ProductFeatures from './ProductFeatures.jsx';
-import ImageGallery from './ImageGallery.jsx';
 
 const axios = require('axios');
 
@@ -34,22 +32,8 @@ export default function ProductDetail() {
       <div className="pd-flex-container">
         <h1 className="nav-bar">Navigation Bar with Logo</h1>
         <h4 className="site-wide-announcement">SITE-WIDE ANNOUNCEMENT MESSAGE! - <b>NO REFUNDS!!!</b></h4>
-        <div className="product-info-container">
-          <div className="image-gallery">
-            <ImageGallery styles={styles} />
-          </div>
-          <div className="product-info-and-styles">
-            Product Info & Styles: <ProductInformation product={target} styles={styles} />
-          </div>
-        </div>
-        <div className="product-overview-container">
-          <div className="product-slogan-description">
-            <ProductOverview product={target} />
-          </div>
-          <div className="product-features">
-            <ProductFeatures product={target} />
-          </div>
-        </div>
+        <ProductInformation product={target} styles={styles} />
+        <ProductOverview product={target} />
         ================================================
       </div>
     );
