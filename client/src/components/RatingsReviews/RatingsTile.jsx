@@ -18,8 +18,6 @@ export default function RatingsTile({ review }) {
     }
   };
 
-  console.log(review);
-
   return (
     <div>
       <div className="tile-header">

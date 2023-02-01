@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import Modal from '../common/Modal.jsx';
 import { transformDate } from '../../utils/helpers';
 import { markAnswerHelpful, reportAnswer } from '../../api/qa';
@@ -8,6 +9,7 @@ export default function AnswerEntry({ answer }) {
   const [isReported, setIsReported] = useState(false);
   const [currentPhoto, setCurrentPhoto] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const { query } = useSelector((store) => store.qa);
   const actionHandler = async (type = 'mark') => {
     if (type === 'report') {
       if (isReported) return;
@@ -25,9 +27,24 @@ export default function AnswerEntry({ answer }) {
     setIsOpen(true);
   };
 
+  const searchHighlight = (text, highlight) => {
+    const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
+    return (
+      <span>
+        {parts.map((part, idx) => {
+          const key = idx + 1;
+          if (part.toLowerCase() === highlight.toLowerCase()) {
+            return <b key={key}>{part}</b>;
+          }
+          return part;
+        })}
+      </span>
+    );
+  };
+
   return (
     <div className="a-container">
-      <div>{answer.body}</div>
+      <div>{searchHighlight(answer.body, query)}</div>
       <div className="a-photos">
         {answer.photos.map((photo) => (
           <div

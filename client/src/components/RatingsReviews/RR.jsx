@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { getReviews } from '../../state/rr';
+import { getReviews, getMetaData } from '../../state/rr';
 import RatingsList from './RatingsList.jsx';
 import RatingsOverview from './RatingsOverview.jsx';
 
@@ -8,7 +8,7 @@ export default function RR() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getReviews());
+    Promise.all([dispatch(getReviews()), dispatch(getMetaData())]);
   }, []);
 
   return (

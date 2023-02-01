@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { filterQuestions } from '../../state/qa';
+import { filterQuestions, updateQuery } from '../../state/qa';
 import { debounce } from '../../utils/helpers';
 
 export default function Search() {
@@ -9,7 +9,8 @@ export default function Search() {
 
   const handleSearch = () => {
     const filter = debounce(() => {
-      dispatch(filterQuestions(query));
+      dispatch(updateQuery(query));
+      dispatch(filterQuestions());
     });
     filter();
   };

@@ -58,3 +58,11 @@
   display: flex;
   flex-direction: column;
 }
+
+/* Overview */
+.triangle-marker {
+  position: absolute;
+  font-size: 1.5rem;
+  transform: translateY(-35%);
+  left: 0%;
+}

@@ -6,6 +6,7 @@ const initialState = {
   fullQuestions: [],
   questionCount: 4,
   isLoading: true,
+  query: '',
 };
 
 export const getQA = createAsyncThunk(
@@ -40,20 +41,22 @@ const qaSlice = createSlice({
             : q.answer_count,
       }));
     },
-    filterQuestions: (state, action) => {
-      const query = action.payload.toLowerCase();
-      if (!query.length) {
+    filterQuestions: (state) => {
+      if (!state.query.length) {
         state.questions = state.fullQuestions.slice(0, state.questionCount);
         return;
       }
 
       state.questions = state.fullQuestions.filter((ele) => {
-        if (ele.question_body.toLowerCase().includes(query)) return ele;
+        if (ele.question_body.toLowerCase().includes(state.query)) return ele;
         const answers = Object.values(ele.answers);
         for (let i = 0; i < answers.length; i += 1) {
-          if (answers[i].body.toLowerCase().includes(query)) return ele;
+          if (answers[i].body.toLowerCase().includes(state.query)) return ele;
         }
       });
+    },
+    updateQuery: (state, action) => {
+      state.query = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -74,6 +77,10 @@ const qaSlice = createSlice({
   },
 });
 
-export const { loadMoreQuestions, loadMoreAnswers, filterQuestions } =
-  qaSlice.actions;
+export const {
+  loadMoreQuestions,
+  loadMoreAnswers,
+  filterQuestions,
+  updateQuery,
+} = qaSlice.actions;
 export default qaSlice.reducer;
