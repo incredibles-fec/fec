@@ -62,4 +62,10 @@ const radioGroupOptions = {
   },
 };
 
-export { formMappings, radioGroupOptions };
+const filterOptions = [
+  { label: 'Helpful', value: 'helpful' },
+  { label: 'Newest', value: 'newest' },
+  { label: 'Relevant', value: 'relevant' },
+];
+
+export { formMappings, radioGroupOptions, filterOptions };

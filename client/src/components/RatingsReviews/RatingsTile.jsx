@@ -42,6 +42,14 @@ export default function RatingsTile({ review }) {
         <div>{review.body}</div>
       </div>
 
+      <div className="a-photos">
+        {review.photos.map((photo) => (
+          <div key={photo.url} style={{ cursor: 'pointer' }}>
+            <img alt="user uploaded" src={photo.url} />
+          </div>
+        ))}
+      </div>
+
       <div className="tile-footer">
         <span>Helpful?</span>
         <button

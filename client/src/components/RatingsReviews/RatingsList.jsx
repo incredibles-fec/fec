@@ -33,7 +33,7 @@ export default function RatingsList() {
   }, []);
 
   return (
-    <div className="rating-list-container">
+    <div>
       <section className="reviews-map">
         {reviews.map((review, idx) => (
           <div

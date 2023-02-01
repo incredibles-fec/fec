@@ -6,6 +6,8 @@ const initialState = {
   fullReviews: [],
   metaData: {},
   page: 1,
+  filters: [],
+  query: '',
   count: 30,
   reviewCount: 2,
   isLoading: true,
@@ -55,9 +57,16 @@ const rrSlice = createSlice({
   initialState,
   reducers: {
     loadMoreReviews: (state) => {
-      console.log('invoked');
       state.reviewCount += 2;
       state.reviews = state.fullReviews.slice(0, state.reviewCount);
+    },
+    addStarFilter: (state, action) => {
+      const findIndex = state.filters.indexOf(action.payload);
+      if (findIndex < 0) {
+        state.filters.push(action.payload);
+        return;
+      }
+      state.filters.splice(findIndex, 1);
     },
   },
   extraReducers: (builder) => {
@@ -85,5 +94,5 @@ const rrSlice = createSlice({
   },
 });
 
-export const { loadMoreReviews } = rrSlice.actions;
+export const { loadMoreReviews, addStarFilter } = rrSlice.actions;
 export default rrSlice.reducer;

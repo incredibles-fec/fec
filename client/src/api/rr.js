@@ -16,12 +16,12 @@ const submitForm = async (form, productId = 40355) => {
     product_id: productId,
     recommend: recommend === 'yes',
     characteristics: {
-      Size: Number(size),
-      Width: Number(width),
-      Comfort: Number(comfort),
-      Quality: Number(quality),
-      Length: Number(length),
-      Fit: Number(fit),
+      14: Number(size),
+      15: Number(width),
+      16: Number(comfort),
+      17: Number(quality),
+      18: Number(length),
+      19: Number(fit),
     },
   };
   // TODO: THIS IS NOT WORKING DUE TO INVALID ENTRIES???????
