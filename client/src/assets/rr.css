@@ -14,11 +14,21 @@
 
 /* List */
 .rating-list-container {
-  width: 70%
+  width: 70%;
+}
+
+.reviews-map {
+  max-height: 700px;
+  overflow: auto;
+}
+
+.reviews-map::-webkit-scrollbar {
+  display: none;
 }
 
 .rating-list-footer {
   display: flex;
+  gap: 0.5rem;
 }
 
 /* Tile */

@@ -26,7 +26,6 @@ export default function QAList() {
     ref.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
         // TODO: Do fetch if again if not enough questions left
-        // need to setTimeOut
         const load = debounce(() => {
           dispatch(loadMoreQuestions());
         });
@@ -58,16 +57,18 @@ export default function QAList() {
           title="Question & Answers"
           isCollapsed={fullQuestions.length > 0}
         >
-          {questions.map((q, idx) => {
-            if (idx === questions.length - 1 && scrollToLoad) {
-              return (
-                <div key={q.question_id} ref={onScrollLoad}>
-                  <QAListEntry question={q} />
-                </div>
-              );
-            }
-            return <QAListEntry key={q.question_id} question={q} />;
-          })}
+          {questions.map((q, idx) => (
+            <div
+              key={q.question_id}
+              ref={
+                idx === questions.length - 1 && scrollToLoad
+                  ? onScrollLoad
+                  : null
+              }
+            >
+              <QAListEntry question={q} />
+            </div>
+          ))}
         </Accordion>
       </div>
 

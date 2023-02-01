@@ -19,6 +19,8 @@ export default function RatingsTile({ review }) {
     }
   };
 
+  // TODO: Slice first 250 chars of review body
+
   return (
     <div>
       <div className="tile-header">

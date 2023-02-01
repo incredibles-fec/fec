@@ -7,7 +7,7 @@ const initialState = {
   metaData: {},
   page: 1,
   count: 30,
-  reviewCount: 4,
+  reviewCount: 2,
   isLoading: true,
 };
 
@@ -22,7 +22,7 @@ export const getReviews = createAsyncThunk(
         params: {
           page: rrState.page,
           count: rrState.count,
-          sort: 'newest',
+          sort: 'relevant',
           product_id: 40355,
         },
       });
@@ -53,14 +53,20 @@ export const getMetaData = createAsyncThunk(
 const rrSlice = createSlice({
   name: 'rr',
   initialState,
-  reducers: {},
+  reducers: {
+    loadMoreReviews: (state) => {
+      console.log('invoked');
+      state.reviewCount += 2;
+      state.reviews = state.fullReviews.slice(0, state.reviewCount);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getReviews.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(getReviews.fulfilled, (state, action) => {
       state.fullReviews = action.payload;
-      state.reviews = action.payload;
+      state.reviews = action.payload.slice(0, state.reviewCount);
       state.isLoading = false;
     });
     builder.addCase(getReviews.rejected, (state) => {
@@ -79,4 +85,5 @@ const rrSlice = createSlice({
   },
 });
 
+export const { loadMoreReviews } = rrSlice.actions;
 export default rrSlice.reducer;

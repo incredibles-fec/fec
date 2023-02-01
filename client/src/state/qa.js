@@ -4,7 +4,7 @@ import axios from 'axios';
 const initialState = {
   questions: [],
   fullQuestions: [],
-  questionCount: 4,
+  questionCount: 2,
   isLoading: true,
   query: '',
 };
