@@ -38,12 +38,3 @@ it('Renders product cards to the dom upon page load', () => {
 
 //   ---------------------------------------------
 // */
-
-// // const sum = require('./testingFile');
-
-// // // first test attempt
-// // test('adds 1 + 2 to equal 3', () => {
-// //   expect(sum(1, 2)).toBe(3);
-// // });
-
-// // does component render to the screen (example - title)

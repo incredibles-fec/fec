@@ -11,6 +11,6 @@ const RelatedOutfits = () => {
         <OutfitList/>
     </div>
   );
-};
+}
 
 export default RelatedOutfits;
