@@ -13,9 +13,11 @@
   width: 800px;
   height: 325px;
   overflow: auto; /* may need to switch to hidden */
+  scroll-behavior: smooth;
   display: flex;
   position: relative;
   margin-left: 100px;
+
 }
 
 .productCard, .outfitCard{

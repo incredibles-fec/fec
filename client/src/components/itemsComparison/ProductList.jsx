@@ -4,7 +4,6 @@ import Product from './Product.jsx';
 
 export default function ProductList() {
   const [products, setProducts] = React.useState([]);
-  const [details, setDetails] = React.useState([]);
 
   let firstSlide = 0;
   let lastSlide = 0;
