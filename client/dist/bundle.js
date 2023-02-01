@@ -2022,11 +2022,7 @@ function RatingsList() {
       return store.rr;
     }),
     reviews = _useSelector.reviews,
-    sort = _useSelector.sort,
-    count = _useSelector.count,
-    metaData = _useSelector.metaData,
-    totals = _useSelector.totals,
-    fullReviews = _useSelector.fullReviews;
+    sort = _useSelector.sort;
   var loadMore = function loadMore() {
     dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.loadMoreReviews)());
     setScrollToLoad(true);
@@ -2047,9 +2043,6 @@ function RatingsList() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setScrollToLoad(false);
   }, [sort]);
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (count > 30 && fullReviews.length < totals.reviews) dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.getReviews)());
-  }, [count]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("section", {
       className: "reviews-map",
@@ -2125,7 +2118,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 function RatingsOverview() {
-  var _metaData$recommended, _totals$average$toFix, _totals$average, _metaData$characteris;
+  var _totals$average$toFix, _totals$average, _metaData$characteris;
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (store) {
       return store.rr;
     }),
@@ -2133,19 +2126,19 @@ function RatingsOverview() {
     filters = _useSelector.filters,
     totals = _useSelector.totals;
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
-  var recommendedTotal = (metaData === null || metaData === void 0 ? void 0 : (_metaData$recommended = metaData.recommended) === null || _metaData$recommended === void 0 ? void 0 : _metaData$recommended["true"]) && Math.round(metaData.recommended["true"] / (totals === null || totals === void 0 ? void 0 : totals.reviews) * 100);
+  var recommendedTotal = Math.round((totals === null || totals === void 0 ? void 0 : totals.recommend) / (totals === null || totals === void 0 ? void 0 : totals.totalReviews) * 100);
   var filter = function filter(star) {
     dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.addStarFilter)(star));
-    dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.filterQuestions)());
+    dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.filterReviews)());
   };
   var renderProgressBars = function renderProgressBars() {
-    var _metaData$ratings;
+    var _totals$ratings;
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-      children: Object.entries((_metaData$ratings = metaData === null || metaData === void 0 ? void 0 : metaData.ratings) !== null && _metaData$ratings !== void 0 ? _metaData$ratings : {}).reverse().map(function (_ref) {
+      children: Object.entries((_totals$ratings = totals === null || totals === void 0 ? void 0 : totals.ratings) !== null && _totals$ratings !== void 0 ? _totals$ratings : {}).reverse().map(function (_ref) {
         var _ref2 = _slicedToArray(_ref, 2),
           star = _ref2[0],
           n = _ref2[1];
-        var percentage = Math.round(Number(n) / (totals === null || totals === void 0 ? void 0 : totals.reviews) * 100);
+        var percentage = Math.round(Number(n) / (totals === null || totals === void 0 ? void 0 : totals.totalReviews) * 100);
         return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_ProgressBar_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
           action: star,
           progress: percentage,
@@ -2156,7 +2149,7 @@ function RatingsOverview() {
   };
   var clear = function clear() {
     dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.clearFilters)());
-    dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.filterQuestions)());
+    dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.filterReviews)());
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
@@ -2520,17 +2513,6 @@ function SearchFilter() {
     _useState2 = _slicedToArray(_useState, 2),
     selectedSort = _useState2[0],
     setSelectedSort = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState4 = _slicedToArray(_useState3, 2),
-    query = _useState4[0],
-    setQuery = _useState4[1];
-  var handleSearch = function handleSearch() {
-    var filter = (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_4__.debounce)(function () {
-      dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.updateQuery)(query));
-      dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.filterQuestions)());
-    }, 500);
-    filter();
-  };
   var handleFilter = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(e) {
       var sortOption;
@@ -2551,15 +2533,19 @@ function SearchFilter() {
       return _ref.apply(this, arguments);
     };
   }();
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    if (query.length >= 3 || !query.length) handleSearch();
-  }, [query]);
+  var handleInput = function handleInput(e) {
+    var filter = (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_4__.debounce)(function () {
+      dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.updateQuery)(e.target.value));
+      dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.filterReviews)());
+    }, 500);
+    filter();
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "filter-search-container",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("section", {
       className: "filter-sort",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        children: [totals === null || totals === void 0 ? void 0 : totals.reviews, " reviews, sorted by", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
+        children: [totals === null || totals === void 0 ? void 0 : totals.totalReviews, " reviews, sorted by", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("select", {
           className: "select-input",
           value: selectedSort,
           onChange: handleFilter,
@@ -2577,12 +2563,9 @@ function SearchFilter() {
         className: "r-search-input",
         type: "text",
         placeholder: "SEARCH REVIEWS",
-        onChange: function onChange(e) {
-          return setQuery(e.target.value);
-        }
+        onChange: handleInput
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-        className: "fa-solid fa-magnifying-glass",
-        onClick: handleSearch
+        className: "fa-solid fa-magnifying-glass"
       })]
     })]
   });
@@ -2729,7 +2712,7 @@ function ProgressBar(_ref) {
   var addFilter = function addFilter() {
     dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.addStarFilter)(action));
     setSelected(!selected);
-    dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.filterQuestions)());
+    dispatch((0,_state_rr__WEBPACK_IMPORTED_MODULE_2__.filterReviews)());
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (selected && !filters.includes(action)) setSelected(!selected);
@@ -3328,12 +3311,18 @@ var initialState = {
 };
 var getQA = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)('qa/getQA', /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(productId, thunkAPI) {
-    var res, questions;
+    var fetchRequired, questions, count, res, _questions;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _context.prev = 0;
-          _context.next = 3;
+          fetchRequired = true, questions = [], count = 30;
+          _context.prev = 1;
+        case 2:
+          if (!fetchRequired) {
+            _context.next = 12;
+            break;
+          }
+          _context.next = 5;
           return axios__WEBPACK_IMPORTED_MODULE_0___default()({
             url: '/qa/questions',
             params: {
@@ -3341,25 +3330,38 @@ var getQA = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)('
               count: 30
             }
           });
-        case 3:
+        case 5:
           res = _context.sent;
-          questions = res.data.results.sort(function (a, b) {
+          if (res.data.results.length === count) {
+            count += 30;
+          } else fetchRequired = false;
+          if (fetchRequired) {
+            _context.next = 10;
+            break;
+          }
+          _questions = res.data.results.sort(function (a, b) {
             return b.question_helpfulness - a.question_helpfulness;
           }).map(function (q) {
             return _objectSpread(_objectSpread({}, q), {}, {
               answer_count: 2
             });
           });
-          return _context.abrupt("return", questions);
-        case 8:
-          _context.prev = 8;
-          _context.t0 = _context["catch"](0);
+          return _context.abrupt("return", _questions);
+        case 10:
+          _context.next = 2;
+          break;
+        case 12:
+          _context.next = 17;
+          break;
+        case 14:
+          _context.prev = 14;
+          _context.t0 = _context["catch"](1);
           console.log(_context.t0);
-        case 11:
+        case 17:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 8]]);
+    }, _callee, null, [[1, 14]]);
   }));
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
@@ -3436,7 +3438,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "addStarFilter": () => (/* binding */ addStarFilter),
 /* harmony export */   "clearFilters": () => (/* binding */ clearFilters),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "filterQuestions": () => (/* binding */ filterQuestions),
+/* harmony export */   "filterReviews": () => (/* binding */ filterReviews),
 /* harmony export */   "getMetaData": () => (/* binding */ getMetaData),
 /* harmony export */   "getReviews": () => (/* binding */ getReviews),
 /* harmony export */   "loadMoreReviews": () => (/* binding */ loadMoreReviews),
@@ -3457,47 +3459,61 @@ var initialState = {
   filteredReviews: [],
   fullReviews: [],
   metaData: {},
-  page: 1,
   filters: [],
   query: '',
   sort: 'relevant',
-  count: 30,
   totals: {},
   reviewCount: 2,
   isLoading: true
 };
 var getReviews = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)('rr/getReviews', /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(sort, thunkAPI) {
-    var rrState, res, reviews;
+    var fetchRequired, reviews, count, rrState, res;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
+          fetchRequired = true, reviews = [], count = 30;
           rrState = thunkAPI.getState().rr;
-          _context.prev = 1;
-          _context.next = 4;
+          _context.prev = 2;
+        case 3:
+          if (!fetchRequired) {
+            _context.next = 12;
+            break;
+          }
+          _context.next = 6;
           return axios__WEBPACK_IMPORTED_MODULE_0___default()({
             url: '/reviews',
             params: {
-              page: rrState.page,
-              count: rrState.count,
+              count: count,
               sort: rrState.sort,
               product_id: 40355
             }
           });
-        case 4:
+        case 6:
           res = _context.sent;
-          // TODO: switch product_id to dynamic
-          reviews = res.data.results;
-          return _context.abrupt("return", reviews);
-        case 9:
-          _context.prev = 9;
-          _context.t0 = _context["catch"](1);
-          console.log(_context.t0);
+          if (res.data.results.length === count) {
+            count += 30;
+          } else fetchRequired = false;
+          if (fetchRequired) {
+            _context.next = 10;
+            break;
+          }
+          return _context.abrupt("return", res.data.results);
+        case 10:
+          _context.next = 3;
+          break;
         case 12:
+          _context.next = 17;
+          break;
+        case 14:
+          _context.prev = 14;
+          _context.t0 = _context["catch"](2);
+          console.log(_context.t0);
+        case 17:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 9]]);
+    }, _callee, null, [[2, 14]]);
   }));
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
@@ -3543,10 +3559,6 @@ var rrSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSlice)({
     loadMoreReviews: function loadMoreReviews(state) {
       if (state.reviewCount >= state.fullReviews.length) return;
       state.reviewCount += 2;
-      // conditional to fetch more
-      if (state.reviewCount + 2 >= state.count) {
-        state.count += 30;
-      }
       state.reviews = state.filteredReviews.length ? state.filteredReviews.slice(0, state.reviewCount) : state.fullReviews.slice(0, state.reviewCount);
     },
     addStarFilter: function addStarFilter(state, action) {
@@ -3564,7 +3576,7 @@ var rrSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSlice)({
       state.sort = action.payload;
       state.reviewCount = 2;
     },
-    filterQuestions: function filterQuestions(state) {
+    filterReviews: function filterReviews(state) {
       var filtered = state.fullReviews.filter(function (review) {
         // if filters -> check rating -> else default true to check query condition
         var checkFilters = state.filters.length ? state.filters.includes(review.rating.toString()) : true;
@@ -3586,7 +3598,6 @@ var rrSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSlice)({
     });
     builder.addCase(getReviews.fulfilled, function (state, action) {
       // This is for persisting the selected filters (star + query) when fetching new sort
-
       var reviews = action.payload.filter(function (review) {
         var query = state.query.toLowerCase();
         var body = review.body.toLowerCase();
@@ -3602,6 +3613,29 @@ var rrSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSlice)({
         state.filteredReviews = [];
       } else state.filteredReviews = reviews;
       state.reviews = reviews.slice(0, state.reviewCount);
+
+      // manually build averages and total
+      var totals = action.payload.reduce(function (acc, review) {
+        acc.totalReviews += 1;
+        acc.aggregate += review.rating;
+        acc.average = acc.aggregate / acc.totalReviews;
+        acc.recommend = review.recommend ? acc.recommend + 1 : acc.recommend;
+        acc.ratings[review.rating] += 1;
+        return acc;
+      }, {
+        totalReviews: 0,
+        aggregate: 0,
+        average: 0,
+        recommend: 0,
+        ratings: {
+          1: 0,
+          2: 0,
+          3: 0,
+          4: 0,
+          5: 0
+        }
+      });
+      state.totals = totals;
       state.isLoading = false;
     });
     builder.addCase(getReviews.rejected, function (state) {
@@ -3611,18 +3645,6 @@ var rrSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSlice)({
       state.isLoading = true;
     });
     builder.addCase(getMetaData.fulfilled, function (state, action) {
-      var productRating = Object.entries(action.payload.ratings);
-      var totals = productRating.reduce(function (acc, val) {
-        acc.reviews += Number(val[1]);
-        acc.aggregate += val[0] * val[1];
-        acc.average = acc.aggregate / acc.reviews;
-        return acc;
-      }, {
-        reviews: 0,
-        aggregate: 0,
-        average: 0
-      });
-      state.totals = totals;
       state.metaData = action.payload;
       state.isLoading = false;
     });
@@ -3636,7 +3658,7 @@ var _rrSlice$actions = rrSlice.actions,
   addStarFilter = _rrSlice$actions.addStarFilter,
   updateQuery = _rrSlice$actions.updateQuery,
   updateSort = _rrSlice$actions.updateSort,
-  filterQuestions = _rrSlice$actions.filterQuestions,
+  filterReviews = _rrSlice$actions.filterReviews,
   clearFilters = _rrSlice$actions.clearFilters;
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (rrSlice.reducer);
