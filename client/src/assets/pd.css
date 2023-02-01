@@ -30,7 +30,12 @@ Product Information Styling
   flex-grow: 1;
 }
 
-.gallery-and-styles-container, .product-overview-container, .product-styles-container {
+.gallery-and-styles-container, .product-overview-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product-styles-container {
   display: flex;
 }
 
@@ -54,6 +59,10 @@ Product Information Styling
   height: 50px;
   object-fit: cover;
   margin: 15px;
+}
+
+button, .carousel-item-thumbnail:hover, .displayed-image:hover {
+  cursor: pointer;
 }
 
 .carousel-container {
@@ -90,13 +99,28 @@ Product Information Styling
   object-fit: cover;
 }
 
-.style-item {
+.style-item-overlay {
   display: inline-block;
+  position: relative;
+}
+
+.style-item {
   width: 75px;
   height: 75px;
   border-radius: 50%;
   object-fit: cover;
   padding: 5px;
+}
+
+.style-item:hover {
+  opacity: 75%;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0px;
+  right: 0px;
 }
 
 .add-to-bag-button {
