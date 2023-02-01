@@ -37,7 +37,9 @@ export default function RatingsOverview() {
       </div>
       {renderProgressBars()}
       <div style={{ marginTop: '1rem' }}>
-        <ReviewBar />
+        {Object.entries(metaData?.characteristics ?? {}).map(([key, char]) => (
+          <ReviewBar key={key} title={key} characteristic={char} />
+        ))}
       </div>
     </div>
   );
