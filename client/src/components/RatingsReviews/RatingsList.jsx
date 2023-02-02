@@ -52,7 +52,7 @@ export default function RatingsList() {
       </section>
 
       <section className="rating-list-footer">
-        {!scrollToLoad && reviews.length > 0 && (
+        {!scrollToLoad && (
           <button type="button" onClick={() => loadMore()}>
             MORE REVIEWS
           </button>

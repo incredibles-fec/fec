@@ -72,7 +72,7 @@ export default function QAList() {
         </Accordion>
       </div>
 
-      {fullQuestions.length > 4 && questions.length < 6 && (
+      {!scrollToLoad && (
         <button
           style={{ marginRight: '5px' }}
           type="button"

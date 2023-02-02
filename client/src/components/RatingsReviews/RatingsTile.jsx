@@ -3,10 +3,13 @@ import { useSelector } from 'react-redux';
 import { transformDate } from '../../utils/helpers';
 import { markHelpfulReview, reportReview } from '../../api/rr';
 import StarRatings from '../common/StarRatings.jsx';
+import Modal from '../common/Modal.jsx';
 
 export default function RatingsTile({ review }) {
   const [isMarked, setIsMarked] = useState(false);
   const [isReported, setIsReported] = useState(false);
+  const [currentPhoto, setCurrentPhoto] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
   const { query } = useSelector((store) => store.rr);
 
   const actionHandler = async (type = 'mark') => {
@@ -34,6 +37,11 @@ export default function RatingsTile({ review }) {
         })}
       </span>
     );
+  };
+
+  const openPhoto = (src) => {
+    setCurrentPhoto(src);
+    setIsOpen(true);
   };
 
   // TODO: Slice first 250 chars of review body
@@ -69,7 +77,11 @@ export default function RatingsTile({ review }) {
 
       <div className="a-photos">
         {review.photos.map((photo) => (
-          <div key={photo.url} style={{ cursor: 'pointer' }}>
+          <div
+            key={photo.url}
+            style={{ cursor: 'pointer' }}
+            onClick={() => openPhoto(photo.url)}
+          >
             <img alt="user uploaded" src={photo.url} />
           </div>
         ))}
@@ -98,6 +110,17 @@ export default function RatingsTile({ review }) {
         </button>
       </div>
       <hr />
+      {isOpen && (
+        <Modal close={() => setIsOpen(false)}>
+          <div>
+            <img
+              className="photo-style"
+              alt="user uploaded"
+              src={currentPhoto}
+            />
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }
