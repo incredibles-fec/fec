@@ -5,13 +5,13 @@ import ReviewBar from '../common/ReviewBar.jsx';
 import ProgressBar from '../common/ProgressBar.jsx';
 import StarRatings from '../common/StarRatings.jsx';
 
-export default function RatingsOverview({ metaData, totals }) {
-  const { filters } = useSelector((store) => store.rr);
+export default function RatingsOverview() {
+  const { metaData, filters, totals } = useSelector((store) => store.rr);
 
   const dispatch = useDispatch();
   const recommendedTotal =
     metaData?.recommended?.true &&
-    Math.round((metaData.recommended.true / totals.reviews) * 100);
+    Math.round((metaData.recommended.true / totals?.reviews) * 100);
 
   const filter = (star) => {
     dispatch(addStarFilter(star));
@@ -23,7 +23,7 @@ export default function RatingsOverview({ metaData, totals }) {
       {Object.entries(metaData?.ratings ?? {})
         .reverse()
         .map(([star, n]) => {
-          const percentage = Math.round((Number(n) / totals.reviews) * 100);
+          const percentage = Math.round((Number(n) / totals?.reviews) * 100);
           return (
             <ProgressBar
               key={star}
@@ -44,8 +44,8 @@ export default function RatingsOverview({ metaData, totals }) {
   return (
     <div>
       <div className="total-rating-container">
-        <div className="total-rating">{totals.average.toFixed(2) || '-'}</div>
-        <StarRatings rating={totals.average} />
+        <div className="total-rating">{totals?.average?.toFixed(2) ?? '-'}</div>
+        <StarRatings rating={totals?.average} />
       </div>
 
       <div>

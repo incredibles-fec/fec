@@ -9,9 +9,9 @@ import {
 import { filterOptions } from '../../utils/mappings';
 import { debounce } from '../../utils/helpers';
 
-export default function SearchFilter({ totalReview }) {
+export default function SearchFilter() {
   const dispatch = useDispatch();
-  const { sort } = useSelector((store) => store.rr);
+  const { sort, totals } = useSelector((store) => store.rr);
   const [selectedSort, setSelectedSort] = useState(sort);
   const [query, setQuery] = useState('');
 
@@ -38,7 +38,7 @@ export default function SearchFilter({ totalReview }) {
     <div className="filter-search-container">
       <section className="filter-sort">
         <div>
-          {totalReview} reviews, sorted by
+          {totals?.reviews} reviews, sorted by
           <select
             className="select-input"
             value={selectedSort}

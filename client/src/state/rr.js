@@ -11,6 +11,7 @@ const initialState = {
   query: '',
   sort: 'relevant',
   count: 30,
+  totals: {},
   reviewCount: 2,
   isLoading: true,
 };
@@ -60,7 +61,12 @@ const rrSlice = createSlice({
   initialState,
   reducers: {
     loadMoreReviews: (state) => {
+      if (state.reviewCount >= state.fullReviews.length) return;
       state.reviewCount += 2;
+      // conditional to fetch more
+      if (state.reviewCount + 2 >= state.count) {
+        state.count += 30;
+      }
       state.reviews = state.filteredReviews.length
         ? state.filteredReviews.slice(0, state.reviewCount)
         : state.fullReviews.slice(0, state.reviewCount);
@@ -140,6 +146,17 @@ const rrSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getMetaData.fulfilled, (state, action) => {
+      const productRating = Object.entries(action.payload.ratings);
+      const totals = productRating.reduce(
+        (acc, val) => {
+          acc.reviews += Number(val[1]);
+          acc.aggregate += val[0] * val[1];
+          acc.average = acc.aggregate / acc.reviews;
+          return acc;
+        },
+        { reviews: 0, aggregate: 0, average: 0 }
+      );
+      state.totals = totals;
       state.metaData = action.payload;
       state.isLoading = false;
     });
