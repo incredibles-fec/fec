@@ -38,7 +38,7 @@ export default function SearchFilter() {
     <div className="filter-search-container">
       <section className="filter-sort">
         <div>
-          {totals?.reviews} reviews, sorted by
+          {totals?.totalReviews} reviews, sorted by
           <select
             className="select-input"
             value={selectedSort}

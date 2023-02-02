@@ -6,7 +6,6 @@ const initialState = {
   filteredReviews: [],
   fullReviews: [],
   metaData: {},
-  page: 1,
   filters: [],
   query: '',
   sort: 'relevant',
@@ -19,20 +18,30 @@ const initialState = {
 export const getReviews = createAsyncThunk(
   'rr/getReviews',
   async (sort, thunkAPI) => {
+    let fetchRequired = true,
+      reviews = [],
+      page = 1;
+
     const rrState = thunkAPI.getState().rr;
     try {
-      const res = await axios({
-        url: '/reviews',
-        params: {
-          page: rrState.page,
-          count: rrState.count,
-          sort: rrState.sort,
-          product_id: 40355,
-        },
-      });
-      // TODO: switch product_id to dynamic
-      const reviews = res.data.results;
-      return reviews;
+      while (fetchRequired) {
+        const res = await axios({
+          url: '/reviews',
+          params: {
+            page: page,
+            count: rrState.count,
+            sort: rrState.sort,
+            product_id: 40355,
+          },
+        });
+
+        if (res.data.results.length === rrState.count) {
+          page += 1;
+        } else fetchRequired = false;
+        // need to reverse to sort it
+        reviews = [...reviews, ...res.data.results.reverse()];
+        if (!fetchRequired) return reviews.reverse();
+      }
     } catch (err) {
       console.log(err);
     }
@@ -63,10 +72,7 @@ const rrSlice = createSlice({
     loadMoreReviews: (state) => {
       if (state.reviewCount >= state.fullReviews.length) return;
       state.reviewCount += 2;
-      // conditional to fetch more
-      if (state.reviewCount + 2 >= state.count) {
-        state.count += 30;
-      }
+
       state.reviews = state.filteredReviews.length
         ? state.filteredReviews.slice(0, state.reviewCount)
         : state.fullReviews.slice(0, state.reviewCount);
@@ -89,6 +95,7 @@ const rrSlice = createSlice({
     filterQuestions: (state) => {
       const filtered = state.fullReviews.filter((review) => {
         // if filters -> check rating -> else default true to check query condition
+
         const checkFilters = state.filters.length
           ? state.filters.includes(review.rating.toString())
           : true;
@@ -116,7 +123,6 @@ const rrSlice = createSlice({
     });
     builder.addCase(getReviews.fulfilled, (state, action) => {
       // This is for persisting the selected filters (star + query) when fetching new sort
-
       const reviews = action.payload.filter((review) => {
         const query = state.query.toLowerCase();
         const body = review.body.toLowerCase();
@@ -132,12 +138,38 @@ const rrSlice = createSlice({
         }
       });
       state.fullReviews = action.payload;
+
       if (!state.query.length && !state.filters.length) {
         state.filteredReviews = [];
       } else state.filteredReviews = reviews;
-
       state.reviews = reviews.slice(0, state.reviewCount);
       state.isLoading = false;
+
+      // manually build averages and total
+      const totals = action.payload.reduce(
+        (acc, review) => {
+          acc.totalReviews += 1;
+          acc.aggregate += review.rating;
+          acc.average = acc.aggregate / acc.totalReviews;
+          acc.recommend = review.recommend ? acc.recommend + 1 : acc.recommend;
+          acc.ratings[review.rating] += 1;
+          return acc;
+        },
+        {
+          totalReviews: 0,
+          aggregate: 0,
+          average: 0,
+          recommend: 0,
+          ratings: {
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+          },
+        }
+      );
+      state.totals = totals;
     });
     builder.addCase(getReviews.rejected, (state) => {
       state.isLoading = false;
@@ -146,17 +178,6 @@ const rrSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getMetaData.fulfilled, (state, action) => {
-      const productRating = Object.entries(action.payload.ratings);
-      const totals = productRating.reduce(
-        (acc, val) => {
-          acc.reviews += Number(val[1]);
-          acc.aggregate += val[0] * val[1];
-          acc.average = acc.aggregate / acc.reviews;
-          return acc;
-        },
-        { reviews: 0, aggregate: 0, average: 0 }
-      );
-      state.totals = totals;
       state.metaData = action.payload;
       state.isLoading = false;
     });

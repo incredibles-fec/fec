@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadMoreReviews, getReviews } from '../../state/rr';
+import { loadMoreReviews } from '../../state/rr';
 import { debounce } from '../../utils/helpers';
 import RatingsTile from './RatingsTile.jsx';
 import Modal from '../common/Modal.jsx';
@@ -10,14 +10,13 @@ export default function RatingsList() {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [scrollToLoad, setScrollToLoad] = useState(false);
-  const { reviews, sort, count, metaData, totals, fullReviews } = useSelector(
-    (store) => store.rr
-  );
+  const { reviews, sort } = useSelector((store) => store.rr);
 
   const loadMore = () => {
     dispatch(loadMoreReviews());
     setScrollToLoad(true);
   };
+  console.log(reviews);
 
   const ref = useRef();
   const onScrollLoad = useCallback((node) => {
@@ -36,11 +35,6 @@ export default function RatingsList() {
   useEffect(() => {
     setScrollToLoad(false);
   }, [sort]);
-
-  useEffect(() => {
-    if (count > 30 && fullReviews.length < totals.reviews)
-      dispatch(getReviews());
-  }, [count]);
 
   return (
     <div>
