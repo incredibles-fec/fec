@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ImageGallery from './ImageGallery.jsx';
-import AddToBag from './AddToBag.jsx';
+import AddToCart from './AddToCart.jsx';
 import Styles from './Styles.jsx';
 import ShareSocialMedia from './ShareSocialMedia.jsx';
 
@@ -17,12 +17,12 @@ export default function ProductInformation({ product, styles }) {
         <div className="product-price">
           {
             currentStyle.sale_price
-              ? <p><s>${currentStyle.original_price}</s> <b>${currentStyle.sale_price}</b></p>
+              ? <p><s>${currentStyle.original_price}</s> <span className="sale-price">${currentStyle.sale_price}</span></p>
               : <p>${currentStyle.original_price}</p>
           }
         </div>
         <div className="product-styles-container"><Styles styles={styles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} /></div>
-        <div className="add-to-bag"><AddToBag style={currentStyle} /></div>
+        <div className="add-to-bag"><AddToCart style={currentStyle} /></div>
         <div className="share-to-social-media"><ShareSocialMedia /></div>
       </div>
     </div>
