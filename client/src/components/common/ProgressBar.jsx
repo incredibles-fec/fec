@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { addStarFilter } from '../../state/rr';
+import { addStarFilter, filterQuestions } from '../../state/rr';
 
 export default function ProgressBar({ action, progress, filters }) {
   const dispatch = useDispatch();
@@ -8,6 +8,7 @@ export default function ProgressBar({ action, progress, filters }) {
   const addFilter = () => {
     dispatch(addStarFilter(action));
     setSelected(!selected);
+    dispatch(filterQuestions());
   };
 
   useEffect(() => {

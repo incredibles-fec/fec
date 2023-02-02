@@ -30,6 +30,7 @@ module.exports = {
     'no-return-assign': 0,
     'no-nested-ternary': 0,
     camelcase: 0,
+    'operator-linebreak': 0,
   },
   settings: {
     react: {

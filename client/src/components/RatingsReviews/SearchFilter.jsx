@@ -1,8 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  getReviews,
+  updateQuery,
+  updateSort,
+  filterQuestions,
+} from '../../state/rr';
 import { filterOptions } from '../../utils/mappings';
+import { debounce } from '../../utils/helpers';
 
 export default function SearchFilter({ totalReview }) {
-  const [selectedSort, setSelectedSort] = useState('relevant');
+  const dispatch = useDispatch();
+  const { sort } = useSelector((store) => store.rr);
+  const [selectedSort, setSelectedSort] = useState(sort);
+  const [query, setQuery] = useState('');
+
+  const handleSearch = () => {
+    const filter = debounce(() => {
+      dispatch(updateQuery(query));
+      dispatch(filterQuestions());
+    }, 500);
+    filter();
+  };
+
+  const handleFilter = async (e) => {
+    const sortOption = e.target.value;
+    setSelectedSort(sortOption);
+    dispatch(updateSort(sortOption));
+    dispatch(getReviews());
+  };
+
+  useEffect(() => {
+    if (query.length >= 3 || !query.length) handleSearch();
+  }, [query]);
 
   return (
     <div className="filter-search-container">
@@ -12,10 +42,10 @@ export default function SearchFilter({ totalReview }) {
           <select
             className="select-input"
             value={selectedSort}
-            onChange={(e) => setSelectedSort(e.target.value)}
+            onChange={handleFilter}
           >
             {filterOptions.map((option) => (
-              <option key={option.value} value={option.label}>
+              <option key={option.value} value={option.value}>
                 {option.label}
               </option>
             ))}
@@ -27,8 +57,9 @@ export default function SearchFilter({ totalReview }) {
           className="r-search-input"
           type="text"
           placeholder="SEARCH REVIEWS"
+          onChange={(e) => setQuery(e.target.value)}
         />
-        <i className="fa-solid fa-magnifying-glass" />
+        <i className="fa-solid fa-magnifying-glass" onClick={handleSearch} />
       </section>
     </div>
   );

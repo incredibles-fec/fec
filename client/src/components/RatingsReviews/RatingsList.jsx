@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { loadMoreReviews } from '../../state/rr';
 import { debounce } from '../../utils/helpers';
@@ -10,13 +10,12 @@ export default function RatingsList() {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [scrollToLoad, setScrollToLoad] = useState(false);
-  const { reviews } = useSelector((store) => store.rr);
+  const { reviews, sort } = useSelector((store) => store.rr);
 
   const loadMore = () => {
     dispatch(loadMoreReviews());
     setScrollToLoad(true);
   };
-
   const ref = useRef();
   const onScrollLoad = useCallback((node) => {
     if (ref.current) ref.current.disconnect();
@@ -31,6 +30,10 @@ export default function RatingsList() {
     });
     if (node) ref.current.observe(node);
   }, []);
+
+  useEffect(() => {
+    setScrollToLoad(false);
+  }, [sort]);
 
   return (
     <div>
@@ -49,7 +52,7 @@ export default function RatingsList() {
       </section>
 
       <section className="rating-list-footer">
-        {!scrollToLoad && (
+        {!scrollToLoad && reviews.length > 0 && (
           <button type="button" onClick={() => loadMore()}>
             MORE REVIEWS
           </button>

@@ -15,9 +15,6 @@ module.exports = {
   getReviewMeta: async (req, res) => {
     try {
       const metaData = await atelierRequest({
-        params: {
-          product_id: req.body.productId,
-        },
         path: req.url,
       });
       res.status(200).send(metaData.data);

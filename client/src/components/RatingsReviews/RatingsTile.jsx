@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { transformDate } from '../../utils/helpers';
 import { markHelpfulReview, reportReview } from '../../api/rr';
 import StarRatings from '../common/StarRatings.jsx';
@@ -6,6 +7,7 @@ import StarRatings from '../common/StarRatings.jsx';
 export default function RatingsTile({ review }) {
   const [isMarked, setIsMarked] = useState(false);
   const [isReported, setIsReported] = useState(false);
+  const { query } = useSelector((store) => store.rr);
 
   const actionHandler = async (type = 'mark') => {
     if (type === 'report') {
@@ -17,6 +19,21 @@ export default function RatingsTile({ review }) {
       await markHelpfulReview(review.review_id);
       setIsMarked(true);
     }
+  };
+
+  const searchHighlight = (text, highlight) => {
+    const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
+    return (
+      <span>
+        {parts.map((part, idx) => {
+          const key = idx + 1;
+          if (part.toLowerCase() === highlight.toLowerCase()) {
+            return <b key={key}>{part}</b>;
+          }
+          return part;
+        })}
+      </span>
+    );
   };
 
   // TODO: Slice first 250 chars of review body
@@ -37,9 +54,9 @@ export default function RatingsTile({ review }) {
 
       <div className="tile-body">
         <div>
-          <b>{review.summary}</b>
+          <b>{searchHighlight(review.summary, query)}</b>
         </div>
-        <div>{review.body}</div>
+        <div>{searchHighlight(review.body, query)}</div>
       </div>
 
       <div className="a-photos">

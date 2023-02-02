@@ -3,11 +3,13 @@ import axios from 'axios';
 
 const initialState = {
   reviews: [],
+  filteredReviews: [],
   fullReviews: [],
   metaData: {},
   page: 1,
   filters: [],
   query: '',
+  sort: 'relevant',
   count: 30,
   reviewCount: 2,
   isLoading: true,
@@ -15,19 +17,19 @@ const initialState = {
 
 export const getReviews = createAsyncThunk(
   'rr/getReviews',
-  async (productId, thunkAPI) => {
+  async (sort, thunkAPI) => {
     const rrState = thunkAPI.getState().rr;
-
     try {
       const res = await axios({
         url: '/reviews',
         params: {
           page: rrState.page,
           count: rrState.count,
-          sort: 'relevant',
+          sort: rrState.sort,
           product_id: 40355,
         },
       });
+      // TODO: switch product_id to dynamic
       const reviews = res.data.results;
       return reviews;
     } catch (err) {
@@ -44,6 +46,7 @@ export const getMetaData = createAsyncThunk(
         url: '/reviews/meta',
         params: { product_id: 40355 },
       });
+      // TODO: switch product_id
       const metaData = res.data;
       return metaData;
     } catch (err) {
@@ -58,7 +61,9 @@ const rrSlice = createSlice({
   reducers: {
     loadMoreReviews: (state) => {
       state.reviewCount += 2;
-      state.reviews = state.fullReviews.slice(0, state.reviewCount);
+      state.reviews = state.filteredReviews.length
+        ? state.filteredReviews.slice(0, state.reviewCount)
+        : state.fullReviews.slice(0, state.reviewCount);
     },
     addStarFilter: (state, action) => {
       const findIndex = state.filters.indexOf(action.payload);
@@ -68,14 +73,80 @@ const rrSlice = createSlice({
       }
       state.filters.splice(findIndex, 1);
     },
+    updateQuery: (state, action) => {
+      state.query = action.payload;
+    },
+    updateSort: (state, action) => {
+      state.sort = action.payload;
+      state.reviewCount = 2;
+    },
+    filterQuestions: (state) => {
+      const filtered = state.fullReviews.filter((review) => {
+        // if filters -> check rating -> else default true to check query condition
+        const checkFilters = state.filters.length
+          ? state.filters.includes(review.rating.toString())
+          : true;
+        const query = state.query.toLowerCase();
+
+        if (
+          checkFilters &&
+          (review.body.toLowerCase().includes(query) ||
+            review.summary.toLowerCase().includes(query))
+        ) {
+          return review;
+        }
+      });
+
+      state.reviews = filtered.slice(0, state.reviewCount);
+      state.filteredReviews = filtered;
+    },
+    clearFilters: (state) => {
+      state.filters = [];
+      if (!state.query.length) {
+        state.reviews = state.fullReviews.slice(0, state.reviewCount);
+        state.filteredReviews = [];
+        return;
+      }
+      const filtered = state.fullReviews.filter((review) => {
+        const query = state.query.toLowerCase();
+        if (
+          review.summary.toLowerCase().includes(query) ||
+          review.body.toLowerCase().includes(query)
+        ) {
+          return review;
+        }
+      });
+      state.reviews = filtered.slice(0, state.reviewCount);
+      state.filteredReviews = filtered;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getReviews.pending, (state) => {
       state.isLoading = true;
     });
     builder.addCase(getReviews.fulfilled, (state, action) => {
+      // This is for persisting the selected filters (star + query) when fetching new sort
+
+      const reviews = action.payload.filter((review) => {
+        const query = state.query.toLowerCase();
+        const body = review.body.toLowerCase();
+        const summary = review.summary.toLowerCase();
+        const rating = review.rating.toString();
+
+        const checkFilters = state.filters.length
+          ? state.filters.includes(rating)
+          : true;
+
+        if (checkFilters && (body.includes(query) || summary.includes(query))) {
+          return review;
+        }
+      });
       state.fullReviews = action.payload;
-      state.reviews = action.payload.slice(0, state.reviewCount);
+      if (!state.query.length && !state.filters.length) {
+        state.filteredReviews = [];
+      } else state.filteredReviews = reviews;
+
+      state.reviews = reviews.slice(0, state.reviewCount);
       state.isLoading = false;
     });
     builder.addCase(getReviews.rejected, (state) => {
@@ -94,5 +165,12 @@ const rrSlice = createSlice({
   },
 });
 
-export const { loadMoreReviews, addStarFilter } = rrSlice.actions;
+export const {
+  loadMoreReviews,
+  addStarFilter,
+  updateQuery,
+  updateSort,
+  filterQuestions,
+  clearFilters,
+} = rrSlice.actions;
 export default rrSlice.reducer;

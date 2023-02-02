@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addStarFilter } from '../../state/rr';
+import { addStarFilter, filterQuestions, clearFilters } from '../../state/rr';
 import ReviewBar from '../common/ReviewBar.jsx';
 import ProgressBar from '../common/ProgressBar.jsx';
 import StarRatings from '../common/StarRatings.jsx';
@@ -11,6 +11,11 @@ export default function RatingsOverview({ metaData, totals }) {
   const recommendedTotal =
     metaData?.recommended?.true &&
     Math.round((metaData.recommended.true / totals.reviews) * 100);
+
+  const filter = (star) => {
+    dispatch(addStarFilter(star));
+    dispatch(filterQuestions());
+  };
 
   const renderProgressBars = () => (
     <div>
@@ -49,12 +54,21 @@ export default function RatingsOverview({ metaData, totals }) {
           <div
             key={tag}
             className="selected-filter-tag"
-            onClick={() => dispatch(addStarFilter(tag))}
+            onClick={() => filter(tag)}
           >
             {tag} ★
           </div>
         ))}
       </div>
+      {filters.length > 0 && (
+        <button
+          className="button-trans"
+          type="button"
+          onClick={() => dispatch(clearFilters())}
+        >
+          Clear
+        </button>
+      )}
       <div style={{ marginTop: '1rem' }}>
         {Object.entries(metaData?.characteristics ?? {}).map(([key, char]) => (
           <ReviewBar key={key} title={key} characteristic={char} />
