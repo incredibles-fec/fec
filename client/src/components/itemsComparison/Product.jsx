@@ -8,7 +8,6 @@ export default function Product({ item, count }) {
     setvisibleStatus(!visibleStatus);
   };
 
-  console.log('COUNT ', count);
 
   return (
     <div className="productCard" id={count}>

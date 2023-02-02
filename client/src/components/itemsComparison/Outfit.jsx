@@ -3,8 +3,8 @@ import React from 'react';
 const Outfit = ({item}) => {
   return (
     <div className='outfitCard'>
-      <div className="cardContent">
-        <div>Add Item</div>
+      <div className="outfitCardContent">
+        <div>Add to Outfit</div>
         <i className="fa-regular fa-plus"></i>
       </div>
     </div>

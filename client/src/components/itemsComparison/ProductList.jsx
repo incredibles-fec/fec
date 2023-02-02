@@ -1,14 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 import Product from './Product.jsx';
+import ProductDetail from '../ProductDetail/index.jsx';
 
 export default function ProductList() {
   const [products, setProducts] = React.useState([]);
+  const [previousVisble, setPreviousVisble] = React.useState(false);
+  const [nextVisible, setnextVisible] = React.useState(true);
 
   let firstSlide = 0;
-  let lastSlide = 0;
+  let lastSlide = 4;
 
-  // obtain list of products
   const obtainProducts = () => {
     axios.get('/products')
       .then((response) => {
@@ -21,17 +23,34 @@ export default function ProductList() {
   };
 
   const onNext = () => {
+    if (firstSlide >= 0) {
+      setPreviousVisble(true);
+    }
+    if (lastSlide >= 9) {
+      setnextVisible(false);
+    }
+
+    const cardToView = document.getElementById(lastSlide);
+    cardToView.scrollIntoView();
     firstSlide++
     lastSlide++
-    console.log(firstSlide);
+
+    console.log('first', firstSlide);
+    console.log('last', lastSlide);
   };
 
   const onBack = () => {
-    firstSlide--
-    lastSlide--
-    console.log(products);
+    if (firstSlide === 0) {
+      setPreviousVisble(false);
+    }
+    const cardToView = document.getElementById(firstSlide);
+    cardToView.scrollIntoView();
+    firstSlide--;
+    lastSlide--;
+    console.log('first', firstSlide);
+    console.log('last', lastSlide);
   };
-  // on page load, execute function
+
   React.useEffect(() => {
     obtainProducts();
   }, []);
@@ -46,8 +65,12 @@ export default function ProductList() {
           {products.map((item) => (<Product item={item} key={item.id} count={num++}/>))}
         </div>
         <div className="carouselActions">
-          <button type="button" className="previousProduct" onClick={onBack}>previous</button>
-          <button type="button" className="nextProduct" onClick={onNext}>next</button>
+          { previousVisble ?
+          <button type="button" className="previousProduct" onClick={onBack}>&lt;</button> : null }
+
+          {  nextVisible ?
+            <button type="button" className="nextProduct" onClick={onNext}>&gt;</button> : null
+          }
         </div>
       </div>
     </div>
