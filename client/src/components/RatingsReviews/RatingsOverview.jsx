@@ -7,6 +7,7 @@ import StarRatings from '../common/StarRatings.jsx';
 
 export default function RatingsOverview({ metaData, totals }) {
   const { filters } = useSelector((store) => store.rr);
+
   const dispatch = useDispatch();
   const recommendedTotal =
     metaData?.recommended?.true &&
@@ -35,6 +36,11 @@ export default function RatingsOverview({ metaData, totals }) {
     </div>
   );
 
+  const clear = () => {
+    dispatch(clearFilters());
+    dispatch(filterQuestions());
+  };
+
   return (
     <div>
       <div className="total-rating-container">
@@ -61,11 +67,7 @@ export default function RatingsOverview({ metaData, totals }) {
         ))}
       </div>
       {filters.length > 0 && (
-        <button
-          className="button-trans"
-          type="button"
-          onClick={() => dispatch(clearFilters())}
-        >
+        <button className="button-trans" type="button" onClick={() => clear()}>
           Clear
         </button>
       )}

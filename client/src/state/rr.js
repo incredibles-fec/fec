@@ -102,22 +102,6 @@ const rrSlice = createSlice({
     },
     clearFilters: (state) => {
       state.filters = [];
-      if (!state.query.length) {
-        state.reviews = state.fullReviews.slice(0, state.reviewCount);
-        state.filteredReviews = [];
-        return;
-      }
-      const filtered = state.fullReviews.filter((review) => {
-        const query = state.query.toLowerCase();
-        if (
-          review.summary.toLowerCase().includes(query) ||
-          review.body.toLowerCase().includes(query)
-        ) {
-          return review;
-        }
-      });
-      state.reviews = filtered.slice(0, state.reviewCount);
-      state.filteredReviews = filtered;
     },
   },
   extraReducers: (builder) => {
