@@ -8,7 +8,7 @@ import { markQuestionHelpful, reportQuestion } from '../../api/qa';
 
 export default function QAListEntry({ question }) {
   const dispatch = useDispatch();
-  const { questions } = useSelector((store) => store.qa);
+  const { questions, query } = useSelector((store) => store.qa);
   const [isOpen, setIsOpen] = useState(false);
   const [canLoad, setCanLoad] = useState(true);
 
@@ -46,6 +46,21 @@ export default function QAListEntry({ question }) {
     dispatch(loadMoreAnswers(question.question_id));
   };
 
+  const searchHighlight = (text, highlight) => {
+    const parts = text.split(new RegExp(`(${highlight})`, 'gi'));
+    return (
+      <span>
+        {parts.map((part, idx) => {
+          const key = idx + 1;
+          if (part.toLowerCase() === highlight.toLowerCase()) {
+            return <b key={key}>{part}</b>;
+          }
+          return part;
+        })}
+      </span>
+    );
+  };
+
   return (
     <div>
       {/* Header */}
@@ -59,7 +74,9 @@ export default function QAListEntry({ question }) {
       <div className="q-container">
         <div style={{ width: '2%' }}>Q: </div>
         <div className="q-header">
-          <div className="q-body">{question.question_body}</div>
+          <div className="q-body">
+            {searchHighlight(question.question_body, query)}
+          </div>
           {/* Right header section */}
           <div className="q-info">
             <div>

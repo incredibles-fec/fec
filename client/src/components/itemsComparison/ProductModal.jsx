@@ -32,8 +32,9 @@ export default function ProductModal({ visible, onClick }) {
             <td className="checkRight">checkmark</td>
           </tr>
         </table>
-        {/* TODO: Update position to sit top right */}
-        <button className="modalExit" onClick={onClick} type="button">x</button>
+        <button className="modalExit" onClick={onClick} type="button">
+          x
+        </button>
       </div>
     </div>
   );
