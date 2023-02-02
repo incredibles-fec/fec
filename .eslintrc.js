@@ -9,13 +9,14 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
+    'jest/globals': true,
   },
   extends: ['plugin:react/recommended', 'airbnb'],
   parserOptions: {
     sourceType: 'module',
     ecmaVersion: 'latest',
   },
-  plugins: ['react'],
+  plugins: ['react', 'jest'],
   rules: {
     'import/prefer-default-export': 0,
     'react/prop-types': 0,
@@ -31,6 +32,11 @@ module.exports = {
     'no-nested-ternary': 0,
     camelcase: 0,
     'operator-linebreak': 0,
+    'jest/no-disabled-tests': 'warn',
+    'jest/no-focused-tests': 'error',
+    'jest/no-identical-title': 'error',
+    'jest/prefer-to-have-length': 'warn',
+    'jest/valid-expect': 'error',
   },
   settings: {
     react: {

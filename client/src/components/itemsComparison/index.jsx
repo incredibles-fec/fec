@@ -1,13 +1,16 @@
 import React from 'react';
+import App from '../../App.jsx';
+import ProductList from './ProductList.jsx';
+import OutfitList from './OutfitList.jsx';
 
-const ItemsComparison = () => {
-  const [sampleState, setSampleState] = React.useState('');
+const RelatedOutfits = () => {
 
   return (
     <div>
-        Hello World from itemsComparison!
+        <ProductList/>
+        <OutfitList/>
     </div>
   );
-};
+}
 
-export default ItemsComparison;
+export default RelatedOutfits;

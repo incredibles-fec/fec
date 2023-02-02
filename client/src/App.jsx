@@ -1,16 +1,17 @@
 import React from 'react';
 import ProductDetail from './components/ProductDetail/index.jsx';
+import RelatedOutfits from './components/itemsComparison/index.jsx';
 import ItemsComparison from './components/itemsComparison/index.jsx';
-import QA from './components/QA/QA.jsx';
-import RR from './components/RatingsReviews/RR.jsx';
+import QuestionsAnswers from './components/QA/QA.jsx';
+import RatingsReviews from './components/RatingsReviews/RR.jsx';
 
 export default function App() {
   return (
     <div>
       <ProductDetail />
       <ItemsComparison />
-      <QA />
-      <RR />
+      <QuestionsAnswers />
+      <RatingsReviews />
     </div>
   );
 }

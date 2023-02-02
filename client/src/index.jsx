@@ -6,6 +6,7 @@ import store from './state/store';
 import './assets/qa.css';
 import './assets/pd.css';
 import './assets/rr.css';
+import './assets/ro.css';
 
 render(
   <Provider store={store}>
