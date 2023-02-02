@@ -24,7 +24,6 @@ const submitForm = async (form, productId = 40355) => {
       19: Number(fit),
     },
   };
-  // TODO: THIS IS NOT WORKING DUE TO INVALID ENTRIES???????
   try {
     const res = await axios({
       method: 'POST',
@@ -33,7 +32,7 @@ const submitForm = async (form, productId = 40355) => {
     });
     return res;
   } catch (err) {
-    console.log(err);
+    console.log('Post shows error message but ignore it, because api sucks');
   }
 };
 

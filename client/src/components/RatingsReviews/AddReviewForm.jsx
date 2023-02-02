@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getReviews, getMetaData } from '../../state/rr';
 import RadioGroup from '../common/RadioGroup.jsx';
 import RatingsSelector from './RatingsSelector.jsx';
 import { radioGroupOptions } from '../../utils/mappings';
@@ -6,6 +8,7 @@ import { debounce, handleErrors, formValidator } from '../../utils/helpers';
 import { submitForm } from '../../api/rr';
 
 export default function AddReviewForm({ close }) {
+  const dispatch = useDispatch();
   const [form, setForm] = useState({
     rating: 0,
     summary: '',
@@ -58,6 +61,7 @@ export default function AddReviewForm({ close }) {
     const res = formValidator(errors, form);
     if (res.length) return setErrorKeys(res);
     await submitForm(form);
+    await Promise.all([dispatch(getReviews()), dispatch(getMetaData())]);
     close();
   };
 
