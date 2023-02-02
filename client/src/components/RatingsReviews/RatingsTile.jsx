@@ -57,6 +57,14 @@ export default function RatingsTile({ review }) {
           <b>{searchHighlight(review.summary, query)}</b>
         </div>
         <div>{searchHighlight(review.body, query)}</div>
+        {review.recommend && (
+          <div>
+            <i className="fa-sharp fa-solid fa-circle-check" />
+            <span style={{ marginLeft: '0.4rem' }}>
+              I recommend this product
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="a-photos">
