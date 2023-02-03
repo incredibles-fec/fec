@@ -4,10 +4,6 @@
    ================================
 */
 
-.relatedProductsCarousel {
-  /* margin: 0 auto; */
-}
-
 .relatedProductContainer, .outfitItemContainer{
   border: 1px solid rgb(152, 152, 205);
   width: 800px;
@@ -174,11 +170,14 @@
 }
 
 .addToOutfit {
+  border: solid .5px black;
+  margin: 5px 7px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 250px;
+  width: 225px;
+  height: 325px;
 }
 
 .addToOutfitContainer {
@@ -188,7 +187,7 @@
   justify-content: center;
   width: 180px;
   height: 120px;
-  border: solid black;
+  border: solid 1px black;
 }
 
 .addToOutfit h1{
@@ -198,4 +197,12 @@
 .addToOutfit i{
   font-size: 25px;
 }
+
+.fa-circle-xmark {
+  position: relative;
+  bottom: 185px;
+  left: 200px;
+
+}
+
 

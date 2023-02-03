@@ -34,9 +34,6 @@ export default function ProductList() {
     cardToView.scrollIntoView();
     firstSlide++
     lastSlide++
-
-    console.log('first', firstSlide);
-    console.log('last', lastSlide);
   };
 
   const onBack = () => {
@@ -47,8 +44,6 @@ export default function ProductList() {
     cardToView.scrollIntoView();
     firstSlide--;
     lastSlide--;
-    console.log('first', firstSlide);
-    console.log('last', lastSlide);
   };
 
   React.useEffect(() => {

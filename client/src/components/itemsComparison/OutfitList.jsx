@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import RelatedOutfits from './index.jsx';
 import Outfit from './Outfit.jsx';
 
 export default function OutfitList() {
@@ -11,6 +10,9 @@ export default function OutfitList() {
     // access the current product
     // sample data for testing
     const sampleItem = {
+      id: 4552,
+      name: 'Winter Shorts',
+      category: 'potato',
       style: 'short',
       size: 'medium',
       price: '$200',
@@ -26,11 +28,18 @@ export default function OutfitList() {
     if (!isFound) {
       setOutfitList([...outfitList, sampleItem]);
     }
-    console.log('outfitList ', outfitList);
+    // local storage testing
+    // add item to local storage
+    localStorage.setItem('44524', JSON.stringify({
+      category: 'shorts',
+      name: 'tulips'
+    }));
   };
 
-  const onRemoveFromOutfit = () => {
-    console.log('clicked');
+  const onRemoveFromOutfit = (e) => {
+    const currentProductName = e.target.id;
+    const newList = outfitList.filter((product) => product.name !== currentProductName);
+    setOutfitList(newList);
   };
 
   return (
@@ -40,11 +49,12 @@ export default function OutfitList() {
         <div className="addToOutfit">
           <div className="addToOutfitContainer" onClick={onAddToOutfit}>
             <h1>Add to Outfit</h1>
-            <i className="fa-regular fa-plus"></i>
+            <i className="fa-regular fa-plus" />
           </div>
-        </div>
-        <Outfit onRemoveFromOutfit={onRemoveFromOutfit} />
+        </div> { outfitList.map((item) => (
+          <Outfit key={item.id} item={item} onRemoveFromOutfit={onRemoveFromOutfit} />
+        ))}
       </div>
     </div>
   );
-};
+}
