@@ -9,7 +9,6 @@ const initialState = {
   filters: [],
   query: '',
   sort: 'relevant',
-  count: 30,
   totals: {},
   reviewCount: 2,
   isLoading: true,
@@ -20,7 +19,7 @@ export const getReviews = createAsyncThunk(
   async (sort, thunkAPI) => {
     let fetchRequired = true,
       reviews = [],
-      page = 1;
+      count = 30;
 
     const rrState = thunkAPI.getState().rr;
     try {
@@ -28,19 +27,17 @@ export const getReviews = createAsyncThunk(
         const res = await axios({
           url: '/reviews',
           params: {
-            page: page,
-            count: rrState.count,
+            count: count,
             sort: rrState.sort,
             product_id: 40355,
           },
         });
 
-        if (res.data.results.length === rrState.count) {
-          page += 1;
+        if (res.data.results.length === count) {
+          count += 30;
         } else fetchRequired = false;
-        // need to reverse to sort it
-        reviews = [...reviews, ...res.data.results.reverse()];
-        if (!fetchRequired) return reviews.reverse();
+
+        if (!fetchRequired) return res.data.results;
       }
     } catch (err) {
       console.log(err);
@@ -92,10 +89,9 @@ const rrSlice = createSlice({
       state.sort = action.payload;
       state.reviewCount = 2;
     },
-    filterQuestions: (state) => {
+    filterReviews: (state) => {
       const filtered = state.fullReviews.filter((review) => {
         // if filters -> check rating -> else default true to check query condition
-
         const checkFilters = state.filters.length
           ? state.filters.includes(review.rating.toString())
           : true;
@@ -143,7 +139,6 @@ const rrSlice = createSlice({
         state.filteredReviews = [];
       } else state.filteredReviews = reviews;
       state.reviews = reviews.slice(0, state.reviewCount);
-      state.isLoading = false;
 
       // manually build averages and total
       const totals = action.payload.reduce(
@@ -170,6 +165,7 @@ const rrSlice = createSlice({
         }
       );
       state.totals = totals;
+      state.isLoading = false;
     });
     builder.addCase(getReviews.rejected, (state) => {
       state.isLoading = false;
@@ -192,7 +188,7 @@ export const {
   addStarFilter,
   updateQuery,
   updateSort,
-  filterQuestions,
+  filterReviews,
   clearFilters,
 } = rrSlice.actions;
 export default rrSlice.reducer;

@@ -16,7 +16,6 @@ export default function RatingsList() {
     dispatch(loadMoreReviews());
     setScrollToLoad(true);
   };
-  console.log(reviews);
 
   const ref = useRef();
   const onScrollLoad = useCallback((node) => {
