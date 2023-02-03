@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-export default function ShareSocialMedia({ product }) {
+export default function ShareSocialMedia() {
   return (
     <div>
       <a href="#" className="fa fa-facebook" data-testid='fb' />
