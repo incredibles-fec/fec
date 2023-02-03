@@ -1,7 +1,6 @@
 import React from 'react';
 import axios from 'axios';
 import Product from './Product.jsx';
-import ProductDetail from '../ProductDetail/index.jsx';
 
 export default function ProductList() {
   const [products, setProducts] = React.useState([]);
@@ -15,7 +14,10 @@ export default function ProductList() {
     axios.get('/products')
       .then((response) => {
         setProducts(response.data);
-        console.log(products);
+        console.log(response.data);
+      })
+      .then(()=> {
+        // axios get call to products id styles
       })
       .catch((error) => {
         console.log('fetch of products failed with error: ', error);

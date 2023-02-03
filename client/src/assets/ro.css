@@ -8,8 +8,7 @@
   border: 1px solid rgb(152, 152, 205);
   width: 800px;
   height: 325px;
-  overflow-x: auto; /* may need to switch to hidden */
-  overflow-y: hidden;
+  overflow: hidden;
   scroll-behavior: smooth;
   display: flex;
   position: relative;
@@ -31,9 +30,9 @@
 .cardContent {
   display: flex;
   flex-direction: column;
-  align-items: baseline;
   width: 225px;
   height: 275px;
+
 }
 
 .relatedImage {
@@ -41,8 +40,10 @@
   width: 225px;
 }
 
-.productCardName, .productCardPrice, .productCardCategory {
+.productCardName, .productCardCategory, .productCardPrice {
+  font-size: 15px;
   margin: 6px 0px;
+  padding: 0 0 0 20px;
 }
 
 .fas {
