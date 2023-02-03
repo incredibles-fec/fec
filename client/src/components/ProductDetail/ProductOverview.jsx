@@ -1,11 +1,31 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { getProducts } from '../../state/pd';
+import ProductInformation from './ProductInformation.jsx';
+import ProductDescription from './ProductDescription.jsx';
 
-export default function ProductOverview({ product }) {
+export default function ProductDetail() {
+  const { loading } = useSelector((state) => state.pd);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
+
+  if (!loading) {
+    return (
+      <div className="pd-flex-container">
+        <h1 className="nav-bar">Navigation Bar with Logo</h1>
+        <h4 className="site-wide-announcement">SITE-WIDE ANNOUNCEMENT MESSAGE! - <b>NO REFUNDS!!!</b></h4>
+        <ProductInformation />
+        <ProductDescription />
+        ================================================
+      </div>
+    );
+  }
   return (
     <div>
-      <h4 className="product-slogan"><b>Product Slogan: {product.slogan}</b></h4>
-      <ul className="product-description">Description: {product.description}</ul>
+      <h1>LOADING... </h1>
     </div>
   );
 }

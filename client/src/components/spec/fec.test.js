@@ -21,14 +21,31 @@ test('adds 1 + 2 to equal 3', () => {
  * @jest-environment jsdom
  */
 
-const sum = require('./testingFile');
+import React from 'react';
+import { render, unmountComponentAtNode } from 'react-dom';
+import { act } from 'react-dom/test-utils';
 
-// first test attempt
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+import ProductList from '../itemsComparison/ProductList.jsx';
+
+let container = null;
+beforeEach(() => {
+  container = document.createElement('div');
+  document.body.appendChild(container);
 });
 
-// does component render to the screen (example - title)
+afterEach(() => {
+  unmountComponentAtNode(container);
+  container.remove();
+  container = null;
+});
+
+it('Renders product cards to the dom upon page load', () => {
+  act(() => {
+    render(<ProductList />, container);
+  });
+  expect(container.textContent).toEqual('Related Productspreviousnext');
+});
+
 // /* ---- FEC Testing Requirements --------------
 
 // Controller functions (via unit tests)
