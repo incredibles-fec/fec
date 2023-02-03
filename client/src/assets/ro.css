@@ -4,15 +4,11 @@
    ================================
 */
 
-.relatedProductsCarousel {
-  /* margin: 0 auto; */
-}
-
 .relatedProductContainer, .outfitItemContainer{
   border: 1px solid rgb(152, 152, 205);
   width: 800px;
   height: 325px;
-  overflow: auto; /* may need to switch to hidden */
+  overflow: hidden;
   scroll-behavior: smooth;
   display: flex;
   position: relative;
@@ -20,7 +16,7 @@
 
 }
 
-.productCard, .outfitCard{
+.productCard {
   border: .5px solid #000000;
   width: 250px;
   height: 325px;
@@ -34,9 +30,9 @@
 .cardContent {
   display: flex;
   flex-direction: column;
-  align-items: baseline;
   width: 225px;
   height: 275px;
+
 }
 
 .relatedImage {
@@ -44,8 +40,10 @@
   width: 225px;
 }
 
-.productCardName, .productCardPrice, .productCardCategory {
+.productCardName, .productCardCategory, .productCardPrice {
+  font-size: 15px;
   margin: 6px 0px;
+  padding: 0 0 0 20px;
 }
 
 .fas {
@@ -59,14 +57,27 @@
   width: 60px;
 }
 
-.relatedProductsCarousel .carouselActions {
-  display: flex;
-  justify-content: space-between;
-  width: 840px;
-  margin-left: 80px;
-  position: absolute;
-  top: 220px;
+.nextProduct{
+  position: relative;
+  bottom: 210px;
+  left: 870px;
+  font-size: 20px;
 }
+
+.previousProduct{
+  position: absolute;
+  top: 950px;
+  left: 75px;
+  font-size: 20px;
+}
+/* .relatedProductsCarousel .carouselActions {
+  display: flex;
+  /* justify-content: space-between; */
+  /* width: 840px;
+  margin-left: 80px;
+  position: relative;
+  bottom: 210px;
+} */
 
 /* ================================
       Comparison Modal
@@ -148,3 +159,51 @@
       Outfit Item Cards
    ================================
 */
+
+.outfitCardContent {
+ border: .5px solid #000000;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ height: 325px;
+ width: 250px;
+}
+
+.addToOutfit {
+  border: solid .5px black;
+  margin: 5px 7px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 225px;
+  height: 325px;
+}
+
+.addToOutfitContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 180px;
+  height: 120px;
+  border: solid 1px black;
+}
+
+.addToOutfit h1{
+  font-size: 25px;
+}
+
+.addToOutfit i{
+  font-size: 25px;
+}
+
+.fa-circle-xmark {
+  position: relative;
+  bottom: 185px;
+  left: 200px;
+
+}
+
+
