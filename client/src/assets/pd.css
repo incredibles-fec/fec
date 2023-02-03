@@ -28,7 +28,7 @@ Product Information Styling
 }
 
 .image-gallery-container, .product-slogan-description {
-  flex-grow: 2;
+  /* flex-grow: 2; */
 }
 
 .product-info-container, .product-features {
@@ -46,10 +46,12 @@ Product Information Styling
 
 .product-info-container {
   flex-direction: column;
+  margin-left: 1rem;
 }
 
 .image-gallery-container {
   display: flex;
+  flex-grow: 3;
   justify-content: left;
 }
 
@@ -57,18 +59,31 @@ Product Information Styling
   display: flex;
   flex-grow: 1;
   flex-direction: column;
+  align-items: center;
+}
+
+.carousel-item-underlay {
+  width: 50px;
+  height: 50px;
+  padding: 0.5rem;
+  z-index: -5;
+  border-bottom-style: dashed;
+  position: absolute;
 }
 
 .carousel-item-thumbnail {
   width: 50px;
   height: 50px;
   object-fit: cover;
-  margin: 15px;
+  padding: 0.5rem;
 }
 
-button, .carousel-item-thumbnail:hover {
+.carousel-item-thumbnail:hover {
   cursor: pointer;
+  opacity: 75%;
+  transform: scale(1.1);
 }
+
 
 .carousel-container {
   display: flex;
@@ -88,6 +103,19 @@ button, .carousel-item-thumbnail:hover {
   transform: translateY(-50%);
 }
 
+button, select {
+  cursor: pointer;
+}
+
+.navigate {
+  border: none;
+  opacity: 50%;
+  margin: 0.5rem;
+}
+.navigate:hover {
+  opacity: 75%;
+}
+
 #carousel-prev, #carousel-next {
   font-weight: bold;
   font-size: 30px;
@@ -98,13 +126,13 @@ button, .carousel-item-thumbnail:hover {
   font-size: 20px;
 }
 
-.displayed-image {
+#displayed-image {
   height: 500px;
   width: 500px;
   object-fit: cover;
 }
 
-.displayed-image:hover {
+#displayed-image:hover {
   cursor: zoom-in;
 }
 

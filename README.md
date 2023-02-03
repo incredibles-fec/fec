@@ -23,6 +23,6 @@ Personal front-end team capstone project
 
 ## Team Members
 Product Detail - *Mirage* (Jessica)<br>
-Ratings & Reviews - *Frozone* (tbd)<br>
+Ratings & Reviews - *Frozone* (David)<br>
 Questions & Answers - *Rick Dicker* (David)<br>
 Related Items & Outfit Creation - *Edna Mode* (Patrick)
