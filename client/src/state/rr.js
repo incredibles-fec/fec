@@ -16,20 +16,22 @@ const initialState = {
 
 export const getReviews = createAsyncThunk(
   'rr/getReviews',
-  async (sort, thunkAPI) => {
-    let fetchRequired = true,
-      reviews = [],
-      count = 30;
+  async (_, thunkAPI) => {
+    let fetchRequired = true;
+    let count = 30;
 
     const rrState = thunkAPI.getState().rr;
+    const product = thunkAPI.getState().pd;
+
     try {
+      // TODO: Not sure how to handle multiple fetches asynchronously if dependent on first fetch
       while (fetchRequired) {
         const res = await axios({
           url: '/reviews',
           params: {
-            count: count,
+            count,
             sort: rrState.sort,
-            product_id: 40355,
+            product_id: product?.currentProduct?.id ?? 40355,
           },
         });
 

@@ -11,15 +11,14 @@ export default function ProductList() {
   const [lastSlide, setLastSlide] = React.useState(4);
 
   const obtainProducts = () => {
-    axios.get('/products')
+    axios
+      .get('/products')
       .then((response) => {
         setProducts(response.data);
         const productId = response.data[0].id;
-        axios.get(`/products/${productId}/styles`)
-          .then((styleResponse) => {
-            console.log(styleResponse);
-            setStyles(styleResponse);
-          });
+        axios.get(`/products/${productId}/styles`).then((styleResponse) => {
+          setStyles(styleResponse);
+        });
       })
       .catch((error) => {
         console.log('fetch of products failed with error: ', error);
@@ -28,18 +27,18 @@ export default function ProductList() {
 
   // obtain products order of operations
   // user selects a specific product
-    // make call to related products endpoint (products/productId/related)
-      // receive list of related products (array of ids)
-      // create variable to store newlist (will become an array of objects)
-      // iterate over list of related products - for each product
-        // make call to product id endpoint (products/productId)
-          // (response will be an object)
-          // add response to new list of products
-          // capture product id of current product (response.id)
-          // make a call to products/product_id/styles
-            // add responses image, price/sale price to relevant object in newlist
-            //// response[0].original_price, response[0].sale_price, response[0].photos[0].thumbnail_url
-      // set currentproducts equal to newlist
+  // make call to related products endpoint (products/productId/related)
+  // receive list of related products (array of ids)
+  // create variable to store newlist (will become an array of objects)
+  // iterate over list of related products - for each product
+  // make call to product id endpoint (products/productId)
+  // (response will be an object)
+  // add response to new list of products
+  // capture product id of current product (response.id)
+  // make a call to products/product_id/styles
+  // add responses image, price/sale price to relevant object in newlist
+  //// response[0].original_price, response[0].sale_price, response[0].photos[0].thumbnail_url
+  // set currentproducts equal to newlist
 
   const onNext = () => {
     if (firstSlide >= 0) {
@@ -78,14 +77,21 @@ export default function ProductList() {
       <h3>Related Products</h3>
       <div className="relatedProductsCarousel">
         <div className="relatedProductContainer">
-          {products.map((item) => (<Product item={item} key={item.id} count={num++}/>))}
+          {products.map((item) => (
+            <Product item={item} key={item.id} count={num++} />
+          ))}
         </div>
         <div className="carouselActions">
-          { previousVisble ?
-          <button type="button" className="previousProduct" onClick={onBack}>&lt;</button> : null }
-          { nextVisible ?
-            <button type="button" className="nextProduct" onClick={onNext}>&gt;</button> : null
-          }
+          {previousVisble ? (
+            <button type="button" className="previousProduct" onClick={onBack}>
+              &lt;
+            </button>
+          ) : null}
+          {nextVisible ? (
+            <button type="button" className="nextProduct" onClick={onNext}>
+              &gt;
+            </button>
+          ) : null}
         </div>
       </div>
     </div>

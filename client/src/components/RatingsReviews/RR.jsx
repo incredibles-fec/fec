@@ -4,7 +4,6 @@ import { getReviews, getMetaData } from '../../state/rr';
 import RatingsList from './RatingsList.jsx';
 import RatingsOverview from './RatingsOverview.jsx';
 import SearchFilter from './SearchFilter.jsx';
-import { getRatings } from '../../utils/helpers';
 
 export default function RR() {
   const dispatch = useDispatch();

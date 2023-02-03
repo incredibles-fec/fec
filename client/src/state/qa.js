@@ -9,36 +9,31 @@ const initialState = {
   query: '',
 };
 
-export const getQA = createAsyncThunk(
-  'qa/getQA',
-  async (productId, thunkAPI) => {
-    let fetchRequired = true,
-      questions = [],
-      count = 30;
+export const getQA = createAsyncThunk('qa/getQA', async (_, thunkAPI) => {
+  let fetchRequired = true;
+  let count = 30;
 
-    try {
-      while (fetchRequired) {
-        const res = await axios({
-          url: '/qa/questions',
-          params: { product_id: 40355, count: 30 },
-        });
+  try {
+    while (fetchRequired) {
+      const res = await axios({
+        url: '/qa/questions',
+        params: { product_id: 40355, count },
+      });
 
-        if (res.data.results.length === count) {
-          count += 30;
-        } else fetchRequired = false;
-
-        if (!fetchRequired) {
-          const questions = res.data.results
-            .sort((a, b) => b.question_helpfulness - a.question_helpfulness)
-            .map((q) => ({ ...q, answer_count: 2 }));
-          return questions;
-        }
+      if (res.data.results.length === count) {
+        count += 30;
+      } else fetchRequired = false;
+      if (!fetchRequired) {
+        const questions = res.data.results
+          .sort((a, b) => b.question_helpfulness - a.question_helpfulness)
+          .map((q) => ({ ...q, answer_count: 2 }));
+        return questions;
       }
-    } catch (err) {
-      console.log(err);
     }
+  } catch (err) {
+    console.log(err);
   }
-);
+});
 
 const qaSlice = createSlice({
   name: 'qa',
@@ -80,6 +75,7 @@ const qaSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getQA.fulfilled, (state, action) => {
+      // TODO ONLY DISPLAY QUESTIONS WITH ANSWERS
       state.isLoading = false;
       const filtered = action.payload.filter(
         (questions) => Object.values(questions.answers).length

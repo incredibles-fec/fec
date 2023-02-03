@@ -10,7 +10,7 @@ export default function RatingsList() {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const [scrollToLoad, setScrollToLoad] = useState(false);
-  const { reviews, sort } = useSelector((store) => store.rr);
+  const { reviews, fullReviews, sort } = useSelector((store) => store.rr);
 
   const loadMore = () => {
     dispatch(loadMoreReviews());
@@ -51,7 +51,7 @@ export default function RatingsList() {
         ))}
       </section>
       <section className="rating-list-footer">
-        {!scrollToLoad && (
+        {!scrollToLoad && fullReviews.length > 2 && (
           <button type="button" onClick={() => loadMore()}>
             MORE REVIEWS
           </button>
