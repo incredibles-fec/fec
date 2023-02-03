@@ -32,7 +32,9 @@ export default function ProductModal({ visible, onClick }) {
             <td className="checkRight">checkmark</td>
           </tr>
         </table>
-        <button className="modalExit" onClick={onClick} type="button">x</button>
+        <button className="modalExit" onClick={onClick} type="button">
+          x
+        </button>
       </div>
     </div>
   );

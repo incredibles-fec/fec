@@ -1,27 +1,13 @@
 import validator from 'validator';
 
-const formMappings = {
-  question: {
-    header: 'Ask Your Question',
-    nicknamePH: 'Example: jackson11!',
-    emailPH: 'jackson@email.com',
-  },
-  answer: {
-    header: 'Submit Your Answer',
-    nicknamePH: 'Example: jack5!',
-    emailPH: 'jack@email.com',
-  },
-};
-
-const handleErrors = (e) => {
-  const { name, value } = e.target;
+const handleErrors = (name, value) => {
   let error;
-
   if (name === 'body') error = value.length < 10 ? 'Question error' : '';
   if (name === 'name') error = value.length < 8 ? 'Nickname error' : '';
   if (name === 'email') error = !validator.isEmail(value) ? 'Email error' : '';
+  if (name === 'summary') error = value.length < 10 ? 'Summary error' : '';
 
-  return { error, name, value };
+  return { error };
 };
 
 const clearErrors = (form, callback) => {
@@ -49,6 +35,17 @@ const transformDate = (date) => {
   )}, ${newDate.getDate()}, ${newDate.getFullYear()}`;
 };
 
+const getRatings = (ratings) =>
+  ratings.reduce(
+    (acc, val) => {
+      acc.reviews += Number(val[1]);
+      acc.aggregate += val[0] * val[1];
+      acc.average = acc.aggregate / acc.reviews;
+      return acc;
+    },
+    { reviews: 0, aggregate: 0, average: 0 }
+  );
+
 const debounce = (func, timeout = 500) => {
   let timer;
   return (...args) => {
@@ -60,10 +57,10 @@ const debounce = (func, timeout = 500) => {
 };
 
 export {
-  formMappings,
   handleErrors,
   clearErrors,
   formValidator,
   transformDate,
   debounce,
+  getRatings,
 };
