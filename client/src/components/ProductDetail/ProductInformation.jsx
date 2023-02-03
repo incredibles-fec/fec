@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import ImageGallery from './ImageGallery.jsx';
 import AddToCart from './AddToCart.jsx';
 import Styles from './Styles.jsx';
 import ShareSocialMedia from './ShareSocialMedia.jsx';
 
-export default function ProductInformation({ product, styles }) {
+export default function ProductInformation() {
+  const { currentProduct, currentProductStyles } = useSelector((state) => state.pd);
+  const product = currentProduct;
+  const styles = currentProductStyles;
+
   const [currentStyle, setCurrentStyle] = useState(styles.filter((s) => s['default?'])[0]);
 
   return (

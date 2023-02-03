@@ -1,13 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-export default function ProductOverview({ product }) {
+export default function ProductOverview() {
+  const { currentProduct } = useSelector((state) => state.pd);
   // eslint-disable-next-line max-len
-  const feats = product.features.map((feat) => <li key={feat.feature + feat.value}>{feat.feature}: {feat.value}</li>);
+  const feats = currentProduct.features.map((feat) => <li key={feat.feature + feat.value}>{feat.feature}: {feat.value}</li>);
   return (
     <div className="product-overview-container">
       <div className="product-slogan-description">
-        <h4><b>{product.slogan}</b></h4>
-        <p>{product.description}</p>
+        <h4><b>{currentProduct.slogan}</b></h4>
+        <p>{currentProduct.description}</p>
       </div>
       <div className="product-features">
         <ul>{feats}</ul>
