@@ -12,15 +12,28 @@ const initialState = {
 export const getQA = createAsyncThunk(
   'qa/getQA',
   async (productId, thunkAPI) => {
+    let fetchRequired = true,
+      questions = [],
+      count = 30;
+
     try {
-      const res = await axios({
-        url: '/qa/questions',
-        params: { product_id: 40355, count: 30 },
-      });
-      const questions = res.data.results
-        .sort((a, b) => b.question_helpfulness - a.question_helpfulness)
-        .map((q) => ({ ...q, answer_count: 2 }));
-      return questions;
+      while (fetchRequired) {
+        const res = await axios({
+          url: '/qa/questions',
+          params: { product_id: 40355, count: 30 },
+        });
+
+        if (res.data.results.length === count) {
+          count += 30;
+        } else fetchRequired = false;
+
+        if (!fetchRequired) {
+          const questions = res.data.results
+            .sort((a, b) => b.question_helpfulness - a.question_helpfulness)
+            .map((q) => ({ ...q, answer_count: 2 }));
+          return questions;
+        }
+      }
     } catch (err) {
       console.log(err);
     }

@@ -4,7 +4,7 @@ import {
   getReviews,
   updateQuery,
   updateSort,
-  filterQuestions,
+  filterReviews,
 } from '../../state/rr';
 import { filterOptions } from '../../utils/mappings';
 import { debounce } from '../../utils/helpers';
@@ -13,15 +13,6 @@ export default function SearchFilter() {
   const dispatch = useDispatch();
   const { sort, totals } = useSelector((store) => store.rr);
   const [selectedSort, setSelectedSort] = useState(sort);
-  const [query, setQuery] = useState('');
-
-  const handleSearch = () => {
-    const filter = debounce(() => {
-      dispatch(updateQuery(query));
-      dispatch(filterQuestions());
-    }, 500);
-    filter();
-  };
 
   const handleFilter = async (e) => {
     const sortOption = e.target.value;
@@ -30,15 +21,19 @@ export default function SearchFilter() {
     dispatch(getReviews());
   };
 
-  useEffect(() => {
-    if (query.length >= 3 || !query.length) handleSearch();
-  }, [query]);
+  const handleInput = (e) => {
+    const filter = debounce(() => {
+      dispatch(updateQuery(e.target.value));
+      dispatch(filterReviews());
+    }, 500);
+    filter();
+  };
 
   return (
     <div className="filter-search-container">
       <section className="filter-sort">
         <div>
-          {totals?.reviews} reviews, sorted by
+          {totals?.totalReviews} reviews, sorted by
           <select
             className="select-input"
             value={selectedSort}
@@ -57,9 +52,9 @@ export default function SearchFilter() {
           className="r-search-input"
           type="text"
           placeholder="SEARCH REVIEWS"
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleInput}
         />
-        <i className="fa-solid fa-magnifying-glass" onClick={handleSearch} />
+        <i className="fa-solid fa-magnifying-glass" />
       </section>
     </div>
   );
