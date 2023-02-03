@@ -52,7 +52,7 @@ export default function ImageGallery({ style }) {
     if (normalView) {
       setNormalView(false);
       img.style.cursor = 'cell';
-      img.style.overflow = 'hidden';
+      // img.style.overflow = 'hidden';
       imageGalleryContainer.style['z-index'] = 5;
       imageGalleryContainer.style.width = 'auto';
       img.style.transform = 'scale(1.5)';
