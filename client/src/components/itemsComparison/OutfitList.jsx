@@ -12,7 +12,7 @@ export default function OutfitList() {
     const sampleItem = {
       id: 4552,
       name: 'Winter Shorts',
-      category: 'potato',
+      category: 'Outdoor',
       style: 'short',
       size: 'medium',
       price: '$200',
