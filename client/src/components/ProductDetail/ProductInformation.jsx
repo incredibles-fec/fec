@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import ImageGallery from './ImageGallery.jsx';
-import AddToCart from './AddToCart.jsx';
+import StarRatings from '../common/StarRatings.jsx';
 import Styles from './Styles.jsx';
+import AddToCart from './AddToCart.jsx';
 import ShareSocialMedia from './ShareSocialMedia.jsx';
 
 export default function ProductInformation() {
   const { currentProduct, currentProductStyles } = useSelector((state) => state.pd);
+  const { totals } = useSelector((store) => store.rr);
+
   const product = currentProduct;
   const styles = currentProductStyles;
 
@@ -16,7 +19,7 @@ export default function ProductInformation() {
     <div className="gallery-and-styles-container">
       <ImageGallery style={currentStyle} />
       <div className="product-info-container">
-        <div className="star-rating">Star Rating: &#9733; &#9734; &#9733; &#9734; &#9733;</div>
+        <StarRatings rating={totals?.average} /><span>Read all reviews</span>
         <div className="product-category"><h4>Category: {product.category}</h4></div>
         <div className="product-name"><h3>{product.name}</h3></div>
         <div className="product-price">
@@ -26,7 +29,7 @@ export default function ProductInformation() {
               : <p>${currentStyle.original_price}</p>
           }
         </div>
-        <div className="product-styles-container"><Styles styles={styles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} /></div>
+        <div className="product-styles-container"><Styles currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} /></div>
         <div className="add-to-bag"><AddToCart style={currentStyle} /></div>
         <div className="share-to-social-media"><ShareSocialMedia /></div>
       </div>

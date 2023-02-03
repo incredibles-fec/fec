@@ -1,6 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
-export default function Styles({ styles, currentStyle, setCurrentStyle }) {
+export default function Styles({ currentStyle, setCurrentStyle }) {
+  const { currentProductStyles } = useSelector((state) => state.pd);
+
+  const styles = currentProductStyles;
+
   if (styles) {
     const rows = [...Array(Math.ceil(styles.length / 4))];
     const styleRows = rows.map((row, index) => styles.slice(index * 4, index * 4 + 4));
