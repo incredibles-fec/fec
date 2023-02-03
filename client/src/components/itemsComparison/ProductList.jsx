@@ -56,7 +56,7 @@ export default function ProductList() {
   const onBack = () => {
     if (firstSlide === 0) {
       setPreviousVisble(false);
-    } else if (firstSlide === -1) {
+    } else if (lastSlide >= 9) {
       setnextVisible(true);
     }
     const cardToView = document.getElementById(firstSlide);
