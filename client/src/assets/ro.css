@@ -5,7 +5,7 @@
 */
 
 .relatedProductContainer, .outfitItemContainer{
-  border: 1px solid rgb(152, 152, 205);
+  /* border: 1px solid rgb(152, 152, 205); */
   width: 800px;
   height: 325px;
   overflow: hidden;
@@ -13,14 +13,13 @@
   display: flex;
   position: relative;
   margin-left: 100px;
-
 }
 
-.productCard {
+.productCard, .outfitCard {
   border: .5px solid #000000;
-  width: 250px;
-  height: 325px;
-  margin: 5px 7px;
+  width: 225px;
+  height: 315px;
+  margin: 5px;
 }
 
 .removed {
@@ -32,7 +31,6 @@
   flex-direction: column;
   width: 225px;
   height: 275px;
-
 }
 
 .relatedImage {
@@ -160,16 +158,6 @@
    ================================
 */
 
-.outfitCardContent {
- border: .5px solid #000000;
- display: flex;
- flex-direction: column;
- align-items: center;
- justify-content: center;
- height: 325px;
- width: 250px;
-}
-
 .addToOutfit {
   border: solid .5px black;
   margin: 5px 7px;
@@ -178,7 +166,7 @@
   align-items: center;
   justify-content: center;
   width: 225px;
-  height: 325px;
+  height: 315px;
 }
 
 .addToOutfitContainer {

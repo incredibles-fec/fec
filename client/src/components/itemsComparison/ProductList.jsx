@@ -28,15 +28,17 @@ export default function ProductList() {
 
   // obtain products order of operations
   // user selects a specific product
-    // make call to related products endpoint
-      // receive list of related products (ids)
-      // create variable to store newlist
-      // iterate over list of products - for each product
-        // make call to products/product_id endpoint
+    // make call to related products endpoint (products/productId/related)
+      // receive list of related products (array of ids)
+      // create variable to store newlist (will become an array of objects)
+      // iterate over list of related products - for each product
+        // make call to product id endpoint (products/productId)
+          // (response will be an object)
           // add response to new list of products
-          // capture id of current product
+          // capture product id of current product (response.id)
           // make a call to products/product_id/styles
-            // add responses image to relevant object in newlist
+            // add responses image, price/sale price to relevant object in newlist
+            //// response[0].original_price, response[0].sale_price, response[0].photos[0].thumbnail_url
       // set currentproducts equal to newlist
 
   const onNext = () => {
@@ -65,8 +67,6 @@ export default function ProductList() {
     setLastSlide(lastSlide - 1);
   };
 
-  console.log('first ', firstSlide);
-  console.log('last ', lastSlide);
   React.useEffect(() => {
     obtainProducts();
   }, []);
@@ -83,7 +83,7 @@ export default function ProductList() {
         <div className="carouselActions">
           { previousVisble ?
           <button type="button" className="previousProduct" onClick={onBack}>&lt;</button> : null }
-          {  nextVisible ?
+          { nextVisible ?
             <button type="button" className="nextProduct" onClick={onNext}>&gt;</button> : null
           }
         </div>
