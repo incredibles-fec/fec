@@ -48,7 +48,6 @@ export default function ImageGallery({ style }) {
 
   const enlargeImage = () => {
     const img = document.getElementById('displayed-image');
-    const carouselContainer = document.getElementById('carousel-container');
     const imageGalleryContainer = document.getElementById('image-gallery-container');
     if (normalView) {
       setNormalView(false);
