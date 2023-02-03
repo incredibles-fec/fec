@@ -19,7 +19,7 @@
 }
 
 /* ======================================================
-Product Information Styling
+Product Information (Primarily Image Gallery) Styling
 ====================================================== */
 
 .sale-price {
@@ -27,17 +27,14 @@ Product Information Styling
   color: red;
 }
 
-.image-gallery-container, .product-slogan-description {
-  /* flex-grow: 2; */
-}
-
 .product-info-container, .product-features {
-  flex-grow: 1;
+  /* flex: 1; */
 }
 
 .gallery-and-styles-container, .product-overview-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .product-styles-container {
@@ -49,17 +46,17 @@ Product Information Styling
   margin-left: 1rem;
 }
 
-.image-gallery-container {
+#image-gallery-container {
   display: flex;
-  flex-grow: 3;
-  justify-content: left;
+  /* flex: 3; */
+  justify-content: center;
 }
 
-.carousel-thumbnail-container {
+#carousel-thumbnail-container {
   display: flex;
-  flex-grow: 1;
   flex-direction: column;
   align-items: center;
+  margin-right: 0.5rem;
 }
 
 .carousel-item-underlay {
@@ -76,6 +73,7 @@ Product Information Styling
   height: 50px;
   object-fit: cover;
   padding: 0.5rem;
+  border-radius: 1rem;
 }
 
 .carousel-item-thumbnail:hover {
@@ -85,11 +83,11 @@ Product Information Styling
 }
 
 
-.carousel-container {
+#carousel-container {
   display: flex;
-  flex-grow: 5;
+  flex: 5;
   overflow: hidden;
-  max-width: 500px;
+  /* max-width: 500px; */
   /* transform: translateX(100px); */
   position: relative;
 }
@@ -101,10 +99,6 @@ Product Information Styling
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-}
-
-button, select {
-  cursor: pointer;
 }
 
 .navigate {
@@ -135,6 +129,10 @@ button, select {
 #displayed-image:hover {
   cursor: zoom-in;
 }
+
+/* ======================================================
+Product Information Styling
+====================================================== */
 
 .style-item-overlay {
   display: inline-block;
@@ -196,7 +194,7 @@ Social Media Icons Styling
 }
 
 /* ======================================================
-Product Overview Styling
+Product Description Styling
 ====================================================== */
 
 ul {
