@@ -47,6 +47,7 @@ Product Information (Primarily Image Gallery) Styling
 }
 
 #image-gallery-container {
+  background: red;
   display: flex;
   /* flex: 3; */
   justify-content: center;
