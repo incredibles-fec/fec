@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getProducts } from '../../state/pd';
+import { getProducts, changeCurrentProductById } from '../../state/pd';
 import ProductInformation from './ProductInformation.jsx';
 import ProductDescription from './ProductDescription.jsx';
 
@@ -10,6 +10,8 @@ export default function ProductDetail() {
 
   useEffect(() => {
     dispatch(getProducts());
+    // dispatch(changeCurrentProductById(40355));
+    // dispatch(changeCurrentProductById(40346));
   }, []);
 
   if (!loading) {
@@ -19,7 +21,6 @@ export default function ProductDetail() {
         <h4 className="site-wide-announcement">SITE-WIDE ANNOUNCEMENT MESSAGE! - <b>NO REFUNDS!!!</b></h4>
         <ProductInformation />
         <ProductDescription />
-        ================================================
       </div>
     );
   }

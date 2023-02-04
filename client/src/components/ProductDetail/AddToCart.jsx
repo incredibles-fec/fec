@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import $ from 'jquery';
-import select2 from 'select2';
 
 export default function AddToCart({ style }) {
   const [sizes, setSizes] = useState([]);
@@ -61,11 +59,9 @@ export default function AddToCart({ style }) {
           {quantity}
         </select>
       </form>
-      <div className="cart-and-favorites-buttons">
-        <button id="add-to-cart-button" type="submit" value="Add to Cart (+)" onClick={handleAddToCart}>Add to Cart</button>
-        <form className="add-to-favorites">
-          <input type="submit" value="&#9734;" onClick={(e) => e.preventDefault()} />
-        </form>
+      <div id="cart-and-favorites-buttons">
+        <button id="add-to-cart-button" type="submit" value="Add to Cart" onClick={handleAddToCart}>Add to Cart</button>
+        <button id="add-to-favorites" type="submit" value="Add to Favorites" onClick={(e) => e.preventDefault()}>&#9734;</button>
       </div>
     </div>
   );

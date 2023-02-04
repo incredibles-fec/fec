@@ -7,7 +7,6 @@ export default function ImageGallery({ style }) {
   const [currentThumbnail, setCurrentThumbnail] = useState(photos[0].url);
   const [normalView, setNormalView] = useState(true);
   const [expandedView, setExpandedView] = useState(false);
-  const [zoomedView, setZoomedView] = useState(false);
 
   const thumbnails = photos.map((p, i) => (
     <div className="carousel-item-container" key={p.url} onClick={() => { setCurrentThumbnail(photos[i].url); setIndex(i); }}>
@@ -18,12 +17,12 @@ export default function ImageGallery({ style }) {
 
   useEffect(() => {
     setCurrentThumbnail(photos[0].url);
+    setIndex(0);
   }, [style]);
 
   useEffect(() => {
     const prevArrows = document.querySelectorAll('.prev');
     const nextArrows = document.querySelectorAll('.next');
-
     if (index === 0) {
       prevArrows.forEach((e) => { e.style.visibility = 'hidden'; });
       nextArrows.forEach((e) => { e.style.visibility = 'visible'; });
@@ -36,6 +35,7 @@ export default function ImageGallery({ style }) {
       nextArrows.forEach((e) => { e.style.visibility = 'visible'; });
       prevArrows.forEach((e) => { e.style.visibility = 'visible'; });
     }
+    setCurrentThumbnail(photos[index].url);
   }, [index]);
 
   const getNext = () => {
@@ -48,32 +48,32 @@ export default function ImageGallery({ style }) {
 
   const enlargeImage = () => {
     const img = document.getElementById('displayed-image');
+    const displayImageContainer = document.getElementById('display-image-container');
     const imageGalleryContainer = document.getElementById('image-gallery-container');
+    const productInfoContainer = document.getElementById('product-info-container');
+
     if (normalView) {
       setNormalView(false);
-      img.style.cursor = 'cell';
-      // img.style.overflow = 'hidden';
+      imageGalleryContainer.style.height = '60vh';
+      displayImageContainer.style.width = '90vh';
+      productInfoContainer.style.display = 'none';
       imageGalleryContainer.style['z-index'] = 5;
-      imageGalleryContainer.style.width = 'auto';
-      img.style.transform = 'scale(1.5)';
-      img.style.height = 'auto';
-      img.style.width = 'auto';
-      img.style['object-fit'] = 'cover';
-      img.style.transition = 'transform 0.25s ease';
+      img.style.cursor = 'cell';
+      img.style.transform = 'scale(1.0)';
       setExpandedView(true);
     } else if (expandedView) {
       img.style.cursor = 'zoom-out';
-      img.style.transform = 'scale(1)';
       img.style.transform = 'scale(2.5)';
       setExpandedView(false);
-      setZoomedView(true);
-    } else {
+    } else { // zoomed view
+      productInfoContainer.style.display = 'block';
+      imageGalleryContainer.style.height = '';
+      displayImageContainer.style.width = '';
       img.style.cursor = 'zoom-in';
       img.style.transform = 'scale(1)';
       img.style.height = '500px';
       img.style.width = '500px';
       imageGalleryContainer.style['z-index'] = 0;
-      setZoomedView(false);
       setNormalView(true);
     }
   };
@@ -85,7 +85,7 @@ export default function ImageGallery({ style }) {
         {thumbnails}
         <button className="next navigate" id="carousel-thumbnail-next" aria-label="next" type="button" onClick={getNext}>&or;</button>
       </div>
-      <div id="carousel-container">
+      <div id="display-image-container">
         <img id="displayed-image" role="presentation" src={photos[index].url} alt={name} onClick={enlargeImage} />
         <div className="carousel-actions">
           <button className="prev navigate" id="carousel-prev" aria-label="previous" type="button" onClick={getPrev}>&lt;</button>
