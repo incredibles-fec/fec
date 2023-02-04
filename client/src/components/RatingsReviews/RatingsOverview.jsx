@@ -9,9 +9,8 @@ export default function RatingsOverview() {
   const { metaData, filters, totals } = useSelector((store) => store.rr);
 
   const dispatch = useDispatch();
-  const recommendedTotal = Math.round(
-    (totals?.recommend / totals?.totalReviews) * 100
-  );
+  const recommendedTotal =
+    totals && Math.round((totals.recommend / totals.totalReviews) * 100);
 
   const filter = (star) => {
     dispatch(addStarFilter(star));
@@ -24,7 +23,7 @@ export default function RatingsOverview() {
         .reverse()
         .map(([star, n]) => {
           const percentage = Math.round(
-            (Number(n) / totals?.totalReviews) * 100
+            (Number(n) / totals.totalReviews) * 100
           );
           return (
             <ProgressBar

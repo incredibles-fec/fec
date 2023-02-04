@@ -1,14 +1,39 @@
 import axios from 'axios';
 
-const submitForm = async (params, type, id) => {
+const uploadCloudinary = (files) => {
+  const uploads = [];
+  for (let i = 0; i < files.length; i += 1) {
+    const formData = new FormData();
+    formData.append('file', files[i]);
+    formData.append('upload_preset', 'q6mobdff');
+    uploads.push(
+      axios.post(
+        'https://api.cloudinary.com/v1_1/dpwqi5o83/image/upload',
+        formData
+      )
+    );
+  }
+  return Promise.all(uploads);
+};
+
+const submitForm = async ({ form, type, questionId, files }) => {
   const routes = {
     question: '/qa/questions',
-    answer: `/qa/questions/${id}/answers`,
+    answer: `/qa/questions/${questionId}/answers`,
   };
 
   // TODO: CHANGE THIS TO DYNAMIC PRODUCT_ID
-  const questionParams = { ...params, product_id: 40355 };
+  const questionParams = { ...form, product_id: 40355 };
+  let photos = [];
+  if (type === 'answer' && files.length) {
+    const res = await uploadCloudinary(files);
+    photos = res.map((upload) => upload.data.url);
+  }
 
+  const params = {
+    ...form,
+    photos,
+  };
   try {
     const res = await axios({
       method: 'POST',

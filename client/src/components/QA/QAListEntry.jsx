@@ -39,7 +39,7 @@ export default function QAListEntry({ question }) {
   };
 
   const loadMore = () => {
-    if (answerCount >= Object.values(question.answers).length) {
+    if (answerCount + 2 >= Object.values(question.answers).length) {
       setCanLoad(false);
     }
 
@@ -128,7 +128,10 @@ export default function QAListEntry({ question }) {
             type="answer"
             question={question.question_body}
             questionId={question.question_id}
-            close={() => setIsOpen(false)}
+            close={() => {
+              setIsOpen(false);
+              setCanLoad(true);
+            }}
           />
         </Modal>
       )}
