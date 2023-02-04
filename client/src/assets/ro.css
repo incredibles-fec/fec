@@ -38,10 +38,29 @@
   width: 225px;
 }
 
-.productCardName, .productCardCategory, .productCardPrice {
+.productCardName, .productCardCategory, .productCardPrice, .productCardSale {
   font-size: 15px;
   margin: 6px 0px;
   padding: 0 0 0 20px;
+}
+
+.productCardPriceSale {
+  font-size: 15px;
+  margin: 6px 0px;
+  padding: 0 0 0 20px;
+  text-decoration: line-through;
+}
+
+.productCardSale {
+  font-size: 15px;
+  margin: 6px 0px;
+  padding: 0 0 0 20px;
+  color: red;
+}
+
+.priceInfo {
+  display: flex;
+  flex-direction: row;
 }
 
 .fas {
