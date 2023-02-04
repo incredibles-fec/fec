@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import Outfit from './Outfit.jsx';
 
 export default function OutfitList() {
