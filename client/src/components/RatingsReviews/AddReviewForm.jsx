@@ -17,7 +17,6 @@ export default function AddReviewForm({ close }) {
     recommend: '',
     name: '',
     email: '',
-    photos: [],
     size: 0,
     width: 0,
     comfort: 0,
@@ -26,20 +25,11 @@ export default function AddReviewForm({ close }) {
     fit: 0,
   });
   const [errors, setErrors] = useState({
-    rating: 0,
     summary: '',
-    body: '',
-    recommend: '',
     name: '',
     email: '',
-    photos: [],
-    size: '',
-    width: '',
-    comfort: '',
-    quality: '',
-    length: '',
-    fit: '',
   });
+
   const [files, setFiles] = useState([]);
   const [fileError, setFileError] = useState('');
   const [errorKeys, setErrorKeys] = useState([]);
