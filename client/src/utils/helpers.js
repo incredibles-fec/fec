@@ -2,8 +2,8 @@ import validator from 'validator';
 
 const handleErrors = (name, value) => {
   let error;
-  if (name === 'body') error = value.length < 10 ? 'Question error' : '';
-  if (name === 'name') error = value.length < 8 ? 'Nickname error' : '';
+  if (name === 'body') error = value.length < 2 ? 'Question error' : '';
+  if (name === 'name') error = value.length < 5 ? 'Nickname error' : '';
   if (name === 'email') error = !validator.isEmail(value) ? 'Email error' : '';
   if (name === 'summary') error = value.length < 10 ? 'Summary error' : '';
 

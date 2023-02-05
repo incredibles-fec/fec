@@ -44,7 +44,12 @@ export default function AddQAForm({
   const handleSubmit = async () => {
     const res = formValidator(errors, form);
     if (res.length || fileError) return setErrorKeys(res);
-    await submitForm({ form, type, questionId, files });
+    await submitForm({
+      form,
+      type,
+      questionId,
+      files,
+    });
     await dispatch(getQA());
     close();
   };

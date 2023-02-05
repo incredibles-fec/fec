@@ -8,10 +8,10 @@ import RatingsReviews from './components/RatingsReviews/RR.jsx';
 export default function App() {
   return (
     <div>
-      <ProductDetail />
-      <ItemsComparison />
+      {/* <ProductDetail />
+      <ItemsComparison /> */}
       <QuestionsAnswers />
-      {/* <RatingsReviews /> */}
+      <RatingsReviews />
     </div>
   );
 }

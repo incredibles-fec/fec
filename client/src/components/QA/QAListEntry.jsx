@@ -100,16 +100,21 @@ export default function QAListEntry({ question }) {
         <AnswerEntry key={answer.questionId} answer={answer} />
       ))}
 
-      {Object.values(question.answers).length > answerCount && (
-        <div>
+      <div style={{ display: 'flex', gap: '0.3rem' }}>
+        {Object.values(question.answers).length > answerCount && (
           <button
             type="button"
             onClick={() => setAnswerCount((prev) => prev + 2)}
           >
             LOAD MORE ANSWERS
           </button>
-        </div>
-      )}
+        )}
+        {answerCount > 2 && (
+          <button type="button" onClick={() => setAnswerCount(2)}>
+            HIDE ANSWERS
+          </button>
+        )}
+      </div>
 
       {isOpen && (
         <Modal close={() => setIsOpen(false)}>

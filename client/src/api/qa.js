@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { uploadCloudinary } from './apiHelpers';
 
+// TODO: Toast and Loading component
 const submitForm = async ({ form, type, questionId, files }) => {
   const routes = {
     question: '/qa/questions',

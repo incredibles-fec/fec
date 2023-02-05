@@ -15,6 +15,7 @@ export const getQA = createAsyncThunk('qa/getQA', async (_, thunkAPI) => {
 
   try {
     while (fetchRequired) {
+      /* eslint-disable no-await-in-loop */
       const res = await axios({
         url: '/qa/questions',
         params: { product_id: 40355, count },
@@ -50,11 +51,13 @@ const qaSlice = createSlice({
       }
 
       state.questions = state.fullQuestions.filter((ele) => {
-        if (ele.question_body.toLowerCase().includes(state.query)) return ele;
+        const query = state.query.toLowerCase();
+        if (ele.question_body.toLowerCase().includes(query)) return ele;
         const answers = Object.values(ele.answers);
         for (let i = 0; i < answers.length; i += 1) {
-          if (answers[i].body.toLowerCase().includes(state.query)) return ele;
+          if (answers[i].body.toLowerCase().includes(query)) return ele;
         }
+        return false;
       });
     },
     updateQuery: (state, action) => {

@@ -25,7 +25,6 @@ export default function QAList() {
     if (ref.current) ref.current.disconnect();
     ref.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        // TODO: Do fetch if again if not enough questions left
         const load = debounce(() => {
           dispatch(loadMoreQuestions());
         });

@@ -26,6 +26,7 @@ export const getReviews = createAsyncThunk(
     try {
       // TODO: Not sure how to handle multiple fetches asynchronously if dependent on first fetch
       while (fetchRequired) {
+        /* eslint-disable no-await-in-loop */
         const res = await axios({
           url: '/reviews',
           params: {
