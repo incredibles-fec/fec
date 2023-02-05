@@ -2,6 +2,7 @@ import axios from 'axios';
 
 const uploadCloudinary = (files) => {
   const uploads = [];
+  // Doesn't seem to work with appending all files onto formData then doing 1 post request
   for (let i = 0; i < files.length; i += 1) {
     const formData = new FormData();
     formData.append('file', files[i]);

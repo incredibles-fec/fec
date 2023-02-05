@@ -10,7 +10,7 @@ export default function App() {
     <div>
       {/* <ProductDetail />
       <ItemsComparison /> */}
-      <QuestionsAnswers />
+      {/* <QuestionsAnswers /> */}
       <RatingsReviews />
     </div>
   );

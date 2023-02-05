@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { uploadCloudinary } from './apiHelpers';
 
-const submitForm = async (form, productId = 40355) => {
+const submitForm = async (form, productId, files) => {
   const {
     size,
     width,
@@ -11,6 +12,13 @@ const submitForm = async (form, productId = 40355) => {
     recommend,
     ...otherParams
   } = form;
+
+  let photos = [];
+  if (files.length) {
+    const res = await uploadCloudinary(files);
+    photos = res.map((upload) => upload.data.url);
+  }
+
   const params = {
     ...otherParams,
     product_id: productId,
@@ -23,7 +31,9 @@ const submitForm = async (form, productId = 40355) => {
       18: Number(length),
       19: Number(fit),
     },
+    photos,
   };
+
   try {
     const res = await axios({
       method: 'POST',

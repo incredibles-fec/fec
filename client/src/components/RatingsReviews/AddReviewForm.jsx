@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getReviews, getMetaData } from '../../state/rr';
 import RadioGroup from '../common/RadioGroup.jsx';
+import UploadFile from '../common/UploadFile.jsx';
 import RatingsSelector from './RatingsSelector.jsx';
 import { radioGroupOptions } from '../../utils/mappings';
 import { debounce, handleErrors, formValidator } from '../../utils/helpers';
@@ -39,6 +40,8 @@ export default function AddReviewForm({ close }) {
     length: '',
     fit: '',
   });
+  const [files, setFiles] = useState([]);
+  const [fileError, setFileError] = useState('');
   const [errorKeys, setErrorKeys] = useState([]);
 
   const charRadioGroup = Object.entries(radioGroupOptions.characteristics);
@@ -59,8 +62,9 @@ export default function AddReviewForm({ close }) {
 
   const handleSubmit = async () => {
     const res = formValidator(errors, form);
-    if (res.length) return setErrorKeys(res);
-    await submitForm(form);
+    if (res.length || fileError) return setErrorKeys(res);
+    // TODO: change to dynamic productId
+    await submitForm(form, 40355, files);
     await Promise.all([dispatch(getReviews()), dispatch(getMetaData())]);
     close();
   };
@@ -145,6 +149,13 @@ export default function AddReviewForm({ close }) {
         ) : (
           <span>For authentication reasons, you will not be emailed</span>
         )}
+
+        <UploadFile
+          files={files}
+          fileError={fileError}
+          setError={(v) => setFileError(v)}
+          setFiles={(uploads) => setFiles(uploads)}
+        />
 
         {errorKeys.length ? (
           <span className="errorMessage">
