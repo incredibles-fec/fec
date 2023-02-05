@@ -32,6 +32,7 @@ export default function AddQAForm({
   const handleInput = (e) => {
     const { name, value } = e.target;
     setErrorKeys([]);
+    setFileError('');
     const checkErrors = debounce(() => {
       const res = handleErrors(name, value);
       setErrors({ ...errors, [name]: value ? res.error : '' });

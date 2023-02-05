@@ -66,11 +66,16 @@ const qaSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getQA.fulfilled, (state, action) => {
-      // TODO ONLY DISPLAY QUESTIONS WITH ANSWERS
       state.isLoading = false;
-      const filtered = action.payload.filter(
-        (questions) => Object.values(questions.answers).length
-      );
+      const filtered = action.payload.filter((q) => {
+        const date = new Date(q.question_date);
+        const today = new Date();
+        const checkIfSameDate =
+          date.getFullYear() === today.getFullYear() &&
+          date.getMonth() === today.getMonth() &&
+          date.getDate() === today.getDate();
+        return Object.values(q.answers).length || checkIfSameDate;
+      });
       state.questions = filtered.slice(0, state.questionCount);
       state.fullQuestions = filtered;
     });

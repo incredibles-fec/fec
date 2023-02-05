@@ -99,13 +99,11 @@ const rrSlice = createSlice({
           : true;
         const query = state.query.toLowerCase();
 
-        if (
+        return (
           checkFilters &&
           (review.body.toLowerCase().includes(query) ||
             review.summary.toLowerCase().includes(query))
-        ) {
-          return review;
-        }
+        );
       });
 
       state.reviews = filtered.slice(0, state.reviewCount);
@@ -131,9 +129,9 @@ const rrSlice = createSlice({
           ? state.filters.includes(rating)
           : true;
 
-        if (checkFilters && (body.includes(query) || summary.includes(query))) {
-          return review;
-        }
+        return (
+          checkFilters && (body.includes(query) || summary.includes(query))
+        );
       });
       state.fullReviews = action.payload;
 
