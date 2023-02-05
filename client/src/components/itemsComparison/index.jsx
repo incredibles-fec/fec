@@ -15,6 +15,7 @@ function RelatedOutfits() {
       .then((response) => {
         const options = [];
         const relatedProducts = response.data.concat(currentProduct.id);
+
         relatedProducts.forEach((related) => {
           axios.get(`/products/${related}`)
             .then((idResponse) => {
@@ -57,7 +58,7 @@ function RelatedOutfits() {
   return (
     <div>
       <ProductList currentProduct={currentProduct} relatedList={relatedList} />
-      <OutfitList relatedList={relatedList} />
+      <OutfitList currentProduct={currentProduct} relatedList={relatedList} />
     </div>
   );
 }
