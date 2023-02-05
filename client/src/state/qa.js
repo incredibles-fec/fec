@@ -24,10 +24,9 @@ export const getQA = createAsyncThunk('qa/getQA', async (_, thunkAPI) => {
         count += 30;
       } else fetchRequired = false;
       if (!fetchRequired) {
-        // everytime we refetch, answer count gets set to 2
-        const questions = res.data.results
-          .sort((a, b) => b.question_helpfulness - a.question_helpfulness)
-          .map((q) => ({ ...q, answer_count: 2 }));
+        const questions = res.data.results.sort(
+          (a, b) => b.question_helpfulness - a.question_helpfulness
+        );
         return questions;
       }
     }
@@ -43,23 +42,6 @@ const qaSlice = createSlice({
     loadMoreQuestions: (state) => {
       state.questionCount += 2;
       state.questions = state.fullQuestions.slice(0, state.questionCount);
-    },
-    loadMoreAnswers: (state, action) => {
-      state.questions = state.questions.map((q) => ({
-        ...q,
-        answer_count:
-          q.question_id === action.payload
-            ? (q.answer_count += 2)
-            : q.answer_count,
-      }));
-      // need to update answer count here too
-      state.fullQuestions = state.fullQuestions.map((q) => ({
-        ...q,
-        answer_count:
-          q.question_id === action.payload
-            ? (q.answer_count += 2)
-            : q.answer_count,
-      }));
     },
     filterQuestions: (state) => {
       if (!state.query.length) {
@@ -98,10 +80,6 @@ const qaSlice = createSlice({
   },
 });
 
-export const {
-  loadMoreQuestions,
-  loadMoreAnswers,
-  filterQuestions,
-  updateQuery,
-} = qaSlice.actions;
+export const { loadMoreQuestions, filterQuestions, updateQuery } =
+  qaSlice.actions;
 export default qaSlice.reducer;
