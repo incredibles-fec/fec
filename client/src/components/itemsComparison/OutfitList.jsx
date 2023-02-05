@@ -31,10 +31,10 @@ export default function OutfitList({ relatedList }) {
 
     // local storage testing
     // add item to local storage
-    // localStorage.setItem('44524', JSON.stringify({
-    //   category: 'shorts',
-    //   name: 'tulips'
-    // }));
+    localStorage.setItem('44524', JSON.stringify({
+      category: 'shorts',
+      name: 'tulips'
+    }));
   };
 
   const onRemoveFromOutfit = (e) => {

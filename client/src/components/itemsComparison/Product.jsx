@@ -1,7 +1,7 @@
 import React from 'react';
 import ProductModal from './ProductModal.jsx';
 
-export default function Product({ item, count }) {
+export default function Product({ item, count, onUpdate }) {
   const [visibleStatus, setvisibleStatus] = React.useState(false);
 
   const changeModal = () => {
@@ -9,8 +9,8 @@ export default function Product({ item, count }) {
   };
 
   return (
-    <div className="productCard" id={count}>
-      <div className="cardContent">
+    <div className="productCard" id={count} onClick={onUpdate}>
+      <div className="cardContent" id={item.id}>
         <img className="relatedImage" src={item.image} alt="current product" />
         <i onClick={changeModal} className="fas fa-star" />
         <div className="productCardCategory">{item.category}</div>

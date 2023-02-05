@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import Product from './Product.jsx';
+import { changeCurrentProductById } from '../../state/pd.js';
 
 export default function ProductList({ currentProduct, relatedList }) {
   const [previousVisble, setPreviousVisble] = React.useState(false);
@@ -34,6 +35,14 @@ export default function ProductList({ currentProduct, relatedList }) {
     setLastSlide(lastSlide - 1);
   };
 
+  const onUpdate = (e) => {
+    if (e.target.className !== 'fas fa-star' && e.target.className !== 'modalExit') {
+      const currentProductId = e.nativeEvent.path[1].id;
+      changeCurrentProductById(currentProductId);
+      console.log(changeCurrentProductById);
+    }
+  };
+
   let num = 0;
 
   return (
@@ -43,7 +52,7 @@ export default function ProductList({ currentProduct, relatedList }) {
         <div className="relatedProductContainer">
           {relatedList.map((item, index) => {
             if (item.id !== currentProduct.id) {
-              return (<Product key={index} item={item} count={num++} />);
+              return (<Product key={index} item={item} count={num++} onUpdate={onUpdate}/>);
             }
           })}
         </div>
