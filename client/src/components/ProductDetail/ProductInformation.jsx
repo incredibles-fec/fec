@@ -16,12 +16,12 @@ export default function ProductInformation() {
   const [currentStyle, setCurrentStyle] = useState(styles.filter((s) => s['default?'])[0]);
 
   return (
-    <div className="gallery-and-styles-container">
+    <div id="gallery-and-styles-container">
       <ImageGallery style={currentStyle} />
-      <div className="product-info-container">
+      <div id="product-info-container">
         <StarRatings rating={totals?.average} /><span>Read all reviews</span>
-        <div className="product-category"><h4>Category: {product.category}</h4></div>
-        <div className="product-name"><h3>{product.name}</h3></div>
+        <div className="product-category"><p>Category: {product.category}</p></div>
+        <div className="product-name"><p>{product.name}</p></div>
         <div className="product-price">
           {
             currentStyle.sale_price

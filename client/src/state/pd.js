@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
@@ -10,7 +10,7 @@ const initialState = {
 
 export const getProducts = createAsyncThunk(
   'pd/getProducts',
-  async (thunkAPI, { rejectWithValue }) => {
+  async (thunkAPI) => {
     try {
       const prods = await axios.get('/products');
       const { id } = prods.data[0];
@@ -22,7 +22,23 @@ export const getProducts = createAsyncThunk(
         loadCurrentStyles: firstProdStyles.data.results,
       };
     } catch (err) {
-      return rejectWithValue('Error getting products');
+      return 'Error getting products';
+    }
+  }
+);
+
+export const changeCurrentProductById = createAsyncThunk(
+  'pd/changeCurrentProductById',
+  async (id, thunkAPI) => {
+    try {
+      const newProduct = await axios.get(`/products/${id}`);
+      const newProductStyles = await axios.get(`/products/${id}/styles`);
+      return {
+        newProduct: newProduct.data,
+        newProductStyles: newProductStyles.data.results,
+      };
+    } catch (err) {
+      return 'Error changing product by id';
     }
   }
 );
@@ -31,39 +47,38 @@ export const pdSlice = createSlice({
   name: 'pd',
   initialState,
   reducers: {
-    changeCurrentProductById: (state, action) => {
-      const product = state.products.filter((p) => p.id === action.payload);
-      if (product.length) {
-        state.currentProduct = product;
-        try {
-          axios.get(`/products${action.payload}/styles`).then((res) => {
-            state.currentProductStyles = res.data.results;
-          });
-        } catch (err) {
-          console.log('Error loading styles of specified product');
-        }
-      } else {
-        console.log('Error finding specified product');
-      }
+    test: (state, action) => {
+      console.log('Testing reducers in state/pd.js');
     },
   },
-  extraReducers: {
-    [getProducts.pending]: (state) => {
+  extraReducers: (builder) => {
+    builder.addCase(getProducts.pending, (state) => {
       state.loading = true;
-    },
-    [getProducts.fulfilled]: (state, { payload }) => {
+    });
+    builder.addCase(getProducts.fulfilled, (state, action) => {
+      state.products = action.payload.loadProducts;
+      state.currentProduct = action.payload.loadCurrent;
+      state.currentProductStyles = action.payload.loadCurrentStyles;
       state.loading = false;
-      state.products = payload.loadProducts;
-      state.currentProduct = payload.loadCurrent;
-      state.currentProductStyles = payload.loadCurrentStyles;
-    },
-    [getProducts.rejected]: (state, action) => {
+    });
+    builder.addCase(getProducts.rejected, (state) => {
       state.loading = false;
-    },
+    });
+    builder.addCase(changeCurrentProductById.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(changeCurrentProductById.fulfilled, (state, action) => {
+      state.currentProduct = action.payload.newProduct;
+      state.currentProductStyles = action.payload.newProductStyles;
+      state.loading = false;
+    });
+    builder.addCase(changeCurrentProductById.rejected, (state) => {
+      state.loading = false;
+    });
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { changeCurrentProductById } = pdSlice.actions;
+export const { test } = pdSlice.actions;
 
 export default pdSlice.reducer;
