@@ -39,7 +39,6 @@ export default function ProductList({ currentProduct, relatedList }) {
     if (e.target.className !== 'fas fa-star' && e.target.className !== 'modalExit') {
       const currentProductId = e.nativeEvent.path[1].id;
       changeCurrentProductById(currentProductId);
-      console.log(changeCurrentProductById);
     }
   };
 
@@ -52,7 +51,15 @@ export default function ProductList({ currentProduct, relatedList }) {
         <div className="relatedProductContainer">
           {relatedList.map((item, index) => {
             if (item.id !== currentProduct.id) {
-              return (<Product key={index} item={item} count={num++} onUpdate={onUpdate}/>);
+              return (
+                <Product
+                  key={index}
+                  item={item}
+                  count={num++}
+                  onUpdate={onUpdate}
+                  currentProduct={currentProduct}
+                />
+              );
             }
           })}
         </div>

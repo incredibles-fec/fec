@@ -162,6 +162,11 @@
 .productInfo {
   text-align: center;
   width: 66%;
+  font-weight: bold;
+}
+
+td {
+  text-align: center;
 }
 
 
