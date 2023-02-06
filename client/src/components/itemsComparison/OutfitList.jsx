@@ -35,6 +35,15 @@ export default function OutfitList({ relatedList }) {
       category: 'shorts',
       name: 'tulips'
     }));
+
+    localStorage.setItem('44059', JSON.stringify({
+      category: correctProduct[0].category,
+      name: correctProduct[0].name,
+      default_price: correctProduct[0].default_price,
+      sale_price: correctProduct[0].salePrice,
+      image: correctProduct[0].image,
+      id: correctProduct[0].id,
+    }));
   };
 
   const onRemoveFromOutfit = (e) => {
