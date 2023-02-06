@@ -29,14 +29,8 @@ export default function OutfitList({ relatedList }) {
       setOutfitList([...outfitList, product]);
     }
 
-    // local storage testing
-    // add item to local storage
-    localStorage.setItem('44524', JSON.stringify({
-      category: 'shorts',
-      name: 'tulips'
-    }));
 
-    localStorage.setItem('44059', JSON.stringify({
+    localStorage.setItem(correctProduct[0].id, JSON.stringify({
       category: correctProduct[0].category,
       name: correctProduct[0].name,
       default_price: correctProduct[0].default_price,
@@ -44,7 +38,17 @@ export default function OutfitList({ relatedList }) {
       image: correctProduct[0].image,
       id: correctProduct[0].id,
     }));
+
+    // get all items from local storage
+    // set current list equal to these items
+    Object.values(localStorage).map((storage) => {
+      let storageObject = JSON.parse(storage);
+      // console.log('individual ', storageObject);
+      // setOutfitList([...outfitList, storageObject]);
+    });
   };
+
+
 
   const onRemoveFromOutfit = (e) => {
     const currentProductName = e.target.id;

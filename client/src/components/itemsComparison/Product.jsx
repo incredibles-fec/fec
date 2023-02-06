@@ -8,9 +8,6 @@ export default function Product({
 
   const changeModal = (e) => {
     setvisibleStatus(!visibleStatus);
-    // const currentProductInfo = currentProduct;
-    // return currentProductInfo;
-    console.log(e);
   };
 
   // TODO - outline characteristics
