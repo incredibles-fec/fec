@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Product from './Product.jsx';
 import { changeCurrentProductById } from '../../state/pd.js';
 
@@ -9,6 +9,8 @@ export default function ProductList({ currentProduct, relatedList }) {
   const [nextVisible, setnextVisible] = React.useState(true);
   const [firstSlide, setFirstSlide] = React.useState(0);
   const [lastSlide, setLastSlide] = React.useState(3);
+
+  const dispatch = useDispatch();
 
   const onNext = () => {
     if (firstSlide >= 0) {
@@ -41,14 +43,15 @@ export default function ProductList({ currentProduct, relatedList }) {
       e.target.className !== 'modalExit'
     ) {
       const currentProductId = e.nativeEvent.path[1].id;
-      changeCurrentProductById(currentProductId);
+      console.log('id ', currentProductId);
+      dispatch(changeCurrentProductById(currentProductId));
     }
   };
 
   let num = 0;
 
   return (
-    <div>
+    <div className="relatedProductsContainer">
       <h3>Related Products</h3>
       <div className="relatedProductsCarousel">
         <div className="relatedProductContainer">

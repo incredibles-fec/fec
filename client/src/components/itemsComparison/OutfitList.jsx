@@ -53,7 +53,7 @@ export default function OutfitList({ relatedList }) {
   };
 
   return (
-    <div>
+    <div className="outfitContainer">
       <h3>Your Outfit</h3>
       <div className="outfitItemContainer">
         <div className="addToOutfit">
