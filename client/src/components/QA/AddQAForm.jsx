@@ -62,12 +62,7 @@ export default function AddQAForm({
       <div>{type === 'answer' ? question : ''}</div>
       <label>
         Your {type}:
-        <textarea
-          name="body"
-          value={form.body}
-          maxLength="1000"
-          onChange={handleInput}
-        />
+        <textarea name="body" maxLength="1000" onChange={handleInput} />
       </label>
       <span className="errorMessage">{errors.body}</span>
       <label>
@@ -76,7 +71,6 @@ export default function AddQAForm({
           name="name"
           type="text"
           placeholder={formMappings[type].nicknamePH}
-          value={form.name}
           maxLength="60"
           onChange={handleInput}
         />
@@ -94,7 +88,6 @@ export default function AddQAForm({
           name="email"
           type="text"
           placeholder={formMappings[type].emailPH}
-          value={form.email}
           onChange={handleInput}
         />
       </label>

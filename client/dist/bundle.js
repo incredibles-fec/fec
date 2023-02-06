@@ -1189,7 +1189,6 @@ function AddQAForm(_ref) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("label", {
       children: ["Your ", type, ":", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("textarea", {
         name: "body",
-        value: form.body,
         maxLength: "1000",
         onChange: handleInput
       })]
@@ -1201,7 +1200,6 @@ function AddQAForm(_ref) {
         name: "name",
         type: "text",
         placeholder: _utils_mappings__WEBPACK_IMPORTED_MODULE_5__.formMappings[type].nicknamePH,
-        value: form.name,
         maxLength: "60",
         onChange: handleInput
       })]
@@ -1215,7 +1213,6 @@ function AddQAForm(_ref) {
         name: "email",
         type: "text",
         placeholder: _utils_mappings__WEBPACK_IMPORTED_MODULE_5__.formMappings[type].emailPH,
-        value: form.email,
         onChange: handleInput
       })]
     }), errors.email ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
@@ -1369,8 +1366,18 @@ function AnswerEntry(_ref) {
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "a-container",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-      children: searchHighlight(answer.body, query)
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      style: {
+        display: 'flex'
+      },
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        style: {
+          marginRight: '0.3rem'
+        },
+        children: "A: "
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        children: searchHighlight(answer.body, query)
+      })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "a-photos",
       children: answer.photos.map(function (photo) {
@@ -2054,7 +2061,6 @@ function AddReviewForm(_ref) {
           type: "text",
           placeholder: "Example: Best purchase ever!",
           maxLength: "60",
-          value: form.summary,
           onChange: handleInput
         })]
       }), errors.summary && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
@@ -2066,7 +2072,6 @@ function AddReviewForm(_ref) {
           type: "text",
           placeholder: "Why did you like the product or not?",
           maxLength: "1000",
-          value: form.body,
           onChange: handleInput
         })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
@@ -2076,7 +2081,6 @@ function AddReviewForm(_ref) {
           name: "name",
           type: "text",
           placeholder: "Example: jackson11!",
-          value: form.name,
           maxLength: "60",
           onChange: handleInput
         })]
@@ -2090,7 +2094,6 @@ function AddReviewForm(_ref) {
           name: "email",
           type: "text",
           placeholder: "Example: jackson11@email.com",
-          value: form.email,
           onChange: handleInput
         })]
       }), errors.email ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)("span", {
@@ -3876,13 +3879,12 @@ var getQA = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)('
         case 0:
           fetchRequired = true;
           count = 30;
-          _context.prev = 2;
-        case 3:
+        case 2:
           if (!fetchRequired) {
-            _context.next = 13;
+            _context.next = 12;
             break;
           }
-          _context.next = 6;
+          _context.next = 5;
           return axios__WEBPACK_IMPORTED_MODULE_0___default()({
             url: '/qa/questions',
             params: {
@@ -3890,34 +3892,27 @@ var getQA = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)('
               count: count
             }
           });
-        case 6:
+        case 5:
           res = _context.sent;
           if (res.data.results.length === count) {
             count += 30;
           } else fetchRequired = false;
           if (fetchRequired) {
-            _context.next = 11;
+            _context.next = 10;
             break;
           }
           questions = res.data.results.sort(function (a, b) {
             return b.question_helpfulness - a.question_helpfulness;
           });
           return _context.abrupt("return", questions);
-        case 11:
-          _context.next = 3;
+        case 10:
+          _context.next = 2;
           break;
-        case 13:
-          _context.next = 18;
-          break;
-        case 15:
-          _context.prev = 15;
-          _context.t0 = _context["catch"](2);
-          console.log(_context.t0);
-        case 18:
+        case 12:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[2, 15]]);
+    }, _callee);
   }));
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
@@ -4080,28 +4075,23 @@ var getMetaData = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncTh
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          _context2.prev = 0;
-          _context2.next = 3;
+          _context2.next = 2;
           return axios__WEBPACK_IMPORTED_MODULE_0___default()({
             url: '/reviews/meta',
             params: {
               product_id: 40355
             }
           });
-        case 3:
+        case 2:
           res = _context2.sent;
           // TODO: switch product_id
           metaData = res.data;
           return _context2.abrupt("return", metaData);
-        case 8:
-          _context2.prev = 8;
-          _context2.t0 = _context2["catch"](0);
-          console.log(_context2.t0);
-        case 11:
+        case 5:
         case "end":
           return _context2.stop();
       }
-    }, _callee2, null, [[0, 8]]);
+    }, _callee2);
   }));
   return function (_x3, _x4) {
     return _ref2.apply(this, arguments);
@@ -4225,9 +4215,10 @@ var _rrSlice$actions = rrSlice.actions,
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "setupStore": () => (/* binding */ setupStore)
 /* harmony export */ });
-/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
 /* harmony import */ var _qa__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./qa */ "./client/src/state/qa.js");
 /* harmony import */ var _rr__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rr */ "./client/src/state/rr.js");
 /* harmony import */ var _pd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pd */ "./client/src/state/pd.js");
@@ -4237,13 +4228,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // This is the setup of a redux store -> may potentially need more stores for different modules
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.configureStore)({
-  reducer: {
-    qa: _qa__WEBPACK_IMPORTED_MODULE_0__["default"],
-    rr: _rr__WEBPACK_IMPORTED_MODULE_1__["default"],
-    pd: _pd__WEBPACK_IMPORTED_MODULE_2__["default"]
-  }
-}));
+var rootReducer = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_3__.combineReducers)({
+  qa: _qa__WEBPACK_IMPORTED_MODULE_0__["default"],
+  rr: _rr__WEBPACK_IMPORTED_MODULE_1__["default"],
+  pd: _pd__WEBPACK_IMPORTED_MODULE_2__["default"]
+});
+function setupStore(preloadedState) {
+  return (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_4__.configureStore)({
+    reducer: rootReducer,
+    preloadedState: preloadedState
+  });
+}
 
 /***/ }),
 
@@ -28760,7 +28755,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 (0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, {
-  store: _state_store__WEBPACK_IMPORTED_MODULE_4__["default"],
+  store: (0,_state_store__WEBPACK_IMPORTED_MODULE_4__.setupStore)(),
   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_App_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})
 }), document.getElementById('root'));
 })();

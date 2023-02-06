@@ -51,17 +51,13 @@ export const getReviews = createAsyncThunk(
 export const getMetaData = createAsyncThunk(
   'rr/getMetaData',
   async (productId, thunkAPI) => {
-    try {
-      const res = await axios({
-        url: '/reviews/meta',
-        params: { product_id: 40355 },
-      });
-      // TODO: switch product_id
-      const metaData = res.data;
-      return metaData;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await axios({
+      url: '/reviews/meta',
+      params: { product_id: 40355 },
+    });
+    // TODO: switch product_id
+    const metaData = res.data;
+    return metaData;
   }
 );
 

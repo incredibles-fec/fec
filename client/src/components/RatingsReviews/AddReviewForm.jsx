@@ -82,7 +82,6 @@ export default function AddReviewForm({ close }) {
             type="text"
             placeholder="Example: Best purchase ever!"
             maxLength="60"
-            value={form.summary}
             onChange={handleInput}
           />
         </label>
@@ -96,7 +95,6 @@ export default function AddReviewForm({ close }) {
             type="text"
             placeholder="Why did you like the product or not?"
             maxLength="1000"
-            value={form.body}
             onChange={handleInput}
           />
         </label>
@@ -112,7 +110,6 @@ export default function AddReviewForm({ close }) {
             name="name"
             type="text"
             placeholder="Example: jackson11!"
-            value={form.name}
             maxLength="60"
             onChange={handleInput}
           />
@@ -131,7 +128,6 @@ export default function AddReviewForm({ close }) {
             name="email"
             type="text"
             placeholder="Example: jackson11@email.com"
-            value={form.email}
             onChange={handleInput}
           />
         </label>
