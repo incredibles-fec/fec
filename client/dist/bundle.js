@@ -3093,13 +3093,14 @@ __webpack_require__.r(__webpack_exports__);
 function Outfit(_ref) {
   var item = _ref.item,
     onRemoveFromOutfit = _ref.onRemoveFromOutfit;
+  console.log('ITEM ', item);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "outfitCard",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "cardContent",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
         className: "relatedImage",
-        src: "https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
+        src: item.image,
         alt: "current item - need to update"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
         className: "fa-regular fa-circle-xmark fa-lg",
@@ -3111,9 +3112,18 @@ function Outfit(_ref) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "productCardName",
         children: item.name
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      }), item.sale_price !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "priceInfo",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "productCardSale",
+          children: item.sale_price
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "productCardPriceSale",
+          children: ["$", item.default_price]
+        })]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         className: "productCardPrice",
-        children: item.price
+        children: ["$", item.default_price]
       })]
     })
   });
@@ -3133,9 +3143,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ OutfitList)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Outfit_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Outfit.jsx */ "./client/src/components/itemsComparison/Outfit.jsx");
+/* harmony import */ var _Outfit_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Outfit.jsx */ "./client/src/components/itemsComparison/Outfit.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -3152,37 +3161,51 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-function OutfitList() {
+function OutfitList(_ref) {
+  var relatedList = _ref.relatedList;
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
+      return state.pd;
+    }),
+    currentProduct = _useSelector.currentProduct;
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState([]),
     _React$useState2 = _slicedToArray(_React$useState, 2),
     outfitList = _React$useState2[0],
     setOutfitList = _React$useState2[1];
   var onAddToOutfit = function onAddToOutfit() {
-    // TODO: connect to product overview section to access current product
-    // access the current product
-    // sample data for testing
-    var sampleItem = {
-      id: 4552,
-      name: 'Winter Shorts',
-      category: 'Outdoor',
-      style: 'short',
-      size: 'medium',
-      price: '$200'
+    var correctProduct = relatedList.filter(function (item) {
+      return item.id === currentProduct.id;
+    });
+    var product = {
+      category: correctProduct[0].category,
+      name: correctProduct[0].name,
+      default_price: correctProduct[0].default_price,
+      sale_price: correctProduct[0].salePrice,
+      image: correctProduct[0].image,
+      id: correctProduct[0].id
     };
     var isFound = outfitList.some(function (value) {
-      if (value.style === sampleItem.style) {
+      if (value.id === product.id) {
         return true;
       }
       return false;
     });
     if (!isFound) {
-      setOutfitList([].concat(_toConsumableArray(outfitList), [sampleItem]));
+      setOutfitList([].concat(_toConsumableArray(outfitList), [product]));
     }
+
     // local storage testing
     // add item to local storage
     localStorage.setItem('44524', JSON.stringify({
       category: 'shorts',
       name: 'tulips'
+    }));
+    localStorage.setItem('44059', JSON.stringify({
+      category: correctProduct[0].category,
+      name: correctProduct[0].name,
+      default_price: correctProduct[0].default_price,
+      sale_price: correctProduct[0].salePrice,
+      image: correctProduct[0].image,
+      id: correctProduct[0].id
     }));
   };
   var onRemoveFromOutfit = function onRemoveFromOutfit(e) {
@@ -3208,77 +3231,12 @@ function OutfitList() {
             className: "fa-regular fa-plus"
           })]
         })
-      }), " ", outfitList.map(function (item) {
-        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Outfit_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      }), " ", outfitList.length > 0 ? outfitList.map(function (item) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Outfit_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
           item: item,
           onRemoveFromOutfit: onRemoveFromOutfit
         }, item.id);
-      })]
-    })]
-  });
-}
-
-/***/ }),
-
-/***/ "./client/src/components/itemsComparison/Product.jsx":
-/*!***********************************************************!*\
-  !*** ./client/src/components/itemsComparison/Product.jsx ***!
-  \***********************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Product)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _ProductModal_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductModal.jsx */ "./client/src/components/itemsComparison/ProductModal.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-function Product(_ref) {
-  var item = _ref.item,
-    count = _ref.count;
-  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(false),
-    _React$useState2 = _slicedToArray(_React$useState, 2),
-    visibleStatus = _React$useState2[0],
-    setvisibleStatus = _React$useState2[1];
-  var changeModal = function changeModal() {
-    setvisibleStatus(!visibleStatus);
-  };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-    className: "productCard",
-    id: count,
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      className: "cardContent",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
-        className: "relatedImage",
-        src: "https://images.unsplash.com/photo-1501088430049-71c79fa3283e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=300&q=80",
-        alt: "current item - need to update"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-        onClick: changeModal,
-        className: "fas fa-star"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "productCardCategory",
-        children: item.category
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "productCardName",
-        children: item.name
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "productCardPrice",
-        children: item.default_price
-      })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_ProductModal_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
-      visible: visibleStatus,
-      onClick: changeModal
+      }) : null]
     })]
   });
 }
@@ -3289,220 +3247,9 @@ function Product(_ref) {
 /*!***************************************************************!*\
   !*** ./client/src/components/itemsComparison/ProductList.jsx ***!
   \***************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ProductList)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _Product_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Product.jsx */ "./client/src/components/itemsComparison/Product.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-
-function ProductList() {
-  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState([]),
-    _React$useState2 = _slicedToArray(_React$useState, 2),
-    products = _React$useState2[0],
-    setProducts = _React$useState2[1];
-  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0__.useState([]),
-    _React$useState4 = _slicedToArray(_React$useState3, 2),
-    styles = _React$useState4[0],
-    setStyles = _React$useState4[1];
-  var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_0__.useState(false),
-    _React$useState6 = _slicedToArray(_React$useState5, 2),
-    previousVisble = _React$useState6[0],
-    setPreviousVisble = _React$useState6[1];
-  var _React$useState7 = react__WEBPACK_IMPORTED_MODULE_0__.useState(true),
-    _React$useState8 = _slicedToArray(_React$useState7, 2),
-    nextVisible = _React$useState8[0],
-    setnextVisible = _React$useState8[1];
-  var _React$useState9 = react__WEBPACK_IMPORTED_MODULE_0__.useState(0),
-    _React$useState10 = _slicedToArray(_React$useState9, 2),
-    firstSlide = _React$useState10[0],
-    setFirstSlide = _React$useState10[1];
-  var _React$useState11 = react__WEBPACK_IMPORTED_MODULE_0__.useState(4),
-    _React$useState12 = _slicedToArray(_React$useState11, 2),
-    lastSlide = _React$useState12[0],
-    setLastSlide = _React$useState12[1];
-  var obtainProducts = function obtainProducts() {
-    axios__WEBPACK_IMPORTED_MODULE_1___default().get('/products').then(function (response) {
-      setProducts(response.data);
-      var productId = response.data[0].id;
-      axios__WEBPACK_IMPORTED_MODULE_1___default().get("/products/".concat(productId, "/styles")).then(function (styleResponse) {
-        setStyles(styleResponse);
-      });
-    })["catch"](function (error) {
-      console.log('fetch of products failed with error: ', error);
-    });
-  };
-
-  // obtain products order of operations
-  // user selects a specific product
-  // make call to related products endpoint (products/productId/related)
-  // receive list of related products (array of ids)
-  // create variable to store newlist (will become an array of objects)
-  // iterate over list of related products - for each product
-  // make call to product id endpoint (products/productId)
-  // (response will be an object)
-  // add response to new list of products
-  // capture product id of current product (response.id)
-  // make a call to products/product_id/styles
-  // add responses image, price/sale price to relevant object in newlist
-  //// response[0].original_price, response[0].sale_price, response[0].photos[0].thumbnail_url
-  // set currentproducts equal to newlist
-
-  var onNext = function onNext() {
-    if (firstSlide >= 0) {
-      setPreviousVisble(true);
-    }
-    if (lastSlide >= 9) {
-      setnextVisible(false);
-    }
-    var cardToView = document.getElementById(lastSlide);
-    cardToView.scrollIntoView();
-    setFirstSlide(firstSlide + 1);
-    setLastSlide(lastSlide + 1);
-  };
-  var onBack = function onBack() {
-    if (firstSlide === 0) {
-      setPreviousVisble(false);
-    } else if (lastSlide >= 9) {
-      setnextVisible(true);
-    }
-    var cardToView = document.getElementById(firstSlide);
-    cardToView.scrollIntoView();
-    setFirstSlide(firstSlide - 1);
-    setLastSlide(lastSlide - 1);
-  };
-  react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
-    obtainProducts();
-  }, []);
-  var num = 0;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
-      children: "Related Products"
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "relatedProductsCarousel",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-        className: "relatedProductContainer",
-        children: products.map(function (item) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_Product_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
-            item: item,
-            count: num++
-          }, item.id);
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        className: "carouselActions",
-        children: [previousVisble ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-          type: "button",
-          className: "previousProduct",
-          onClick: onBack,
-          children: "<"
-        }) : null, nextVisible ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-          type: "button",
-          className: "nextProduct",
-          onClick: onNext,
-          children: ">"
-        }) : null]
-      })]
-    })]
-  });
-}
-
-/***/ }),
-
-/***/ "./client/src/components/itemsComparison/ProductModal.jsx":
-/*!****************************************************************!*\
-  !*** ./client/src/components/itemsComparison/ProductModal.jsx ***!
-  \****************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ ProductModal)
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-
-
-
-function ProductModal(_ref) {
-  var visible = _ref.visible,
-    onClick = _ref.onClick;
-  if (!visible) {
-    return null;
-  }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "productModal",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
-        children: "COMPARING"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("thead", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            className: "leftHeader",
-            children: "Current Product"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            className: "rightHeader",
-            children: "Compared Product"
-          })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
-        className: "compareTable",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("thead", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            className: "checkLeftHeader"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            className: "productInfo"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-            className: "checkRightHeader"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            className: "checkLeft",
-            children: "checkmark"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            className: "productInfo",
-            children: "Sample product information"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            className: "checkRight",
-            children: "checkmark"
-          })]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            className: "checkLeft",
-            children: "checkmark"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            className: "productInfo",
-            children: "Another detail"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-            className: "checkRight",
-            children: "checkmark"
-          })]
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-        className: "modalExit",
-        onClick: onClick,
-        type: "button",
-        children: "x"
-      })]
-    })
-  });
-}
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/davidzhang/Desktop/HackReactor/RFP2212/fec/client/src/components/itemsComparison/ProductList.jsx: Unexpected token (11:1)\n\n\u001b[0m \u001b[90m  9 |\u001b[39m   \u001b[36mconst\u001b[39m [nextVisible\u001b[33m,\u001b[39m setnextVisible] \u001b[33m=\u001b[39m \u001b[33mReact\u001b[39m\u001b[33m.\u001b[39museState(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m   \u001b[36mconst\u001b[39m [firstSlide\u001b[33m,\u001b[39m setFirstSlide] \u001b[33m=\u001b[39m \u001b[33mReact\u001b[39m\u001b[33m.\u001b[39museState(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 11 |\u001b[39m \u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m   \u001b[36mconst\u001b[39m [lastSlide\u001b[33m,\u001b[39m setLastSlide] \u001b[33m=\u001b[39m \u001b[33mReact\u001b[39m\u001b[33m.\u001b[39museState(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 14 |\u001b[39m   \u001b[36mconst\u001b[39m obtainProducts \u001b[33m=\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n    at instantiate (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:64:32)\n    at constructor (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:361:12)\n    at JSXParserMixin.raise (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:3251:19)\n    at JSXParserMixin.unexpected (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:3281:16)\n    at JSXParserMixin.jsxParseIdentifier (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:6786:12)\n    at JSXParserMixin.jsxParseNamespacedName (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:6793:23)\n    at JSXParserMixin.jsxParseElementName (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:6802:21)\n    at JSXParserMixin.jsxParseOpeningElementAt (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:6882:22)\n    at JSXParserMixin.jsxParseElementAt (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:6907:33)\n    at JSXParserMixin.jsxParseElement (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:6976:17)\n    at JSXParserMixin.parseExprAtom (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:6988:19)\n    at JSXParserMixin.parseExprSubscripts (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10849:23)\n    at JSXParserMixin.parseUpdate (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10832:21)\n    at JSXParserMixin.parseMaybeUnary (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10808:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10646:61)\n    at JSXParserMixin.parseExprOps (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10651:23)\n    at JSXParserMixin.parseMaybeConditional (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10628:23)\n    at JSXParserMixin.parseMaybeAssign (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10589:21)\n    at JSXParserMixin.parseExpressionBase (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10543:23)\n    at /Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10539:39\n    at JSXParserMixin.allowInAnd (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12233:16)\n    at JSXParserMixin.parseExpression (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10539:17)\n    at JSXParserMixin.parseStatementContent (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12675:23)\n    at JSXParserMixin.parseStatementLike (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12535:17)\n    at JSXParserMixin.parseStatementListItem (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12522:17)\n    at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13106:61)\n    at JSXParserMixin.parseBlockBody (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13099:10)\n    at JSXParserMixin.parseBlock (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13087:10)\n    at JSXParserMixin.parseFunctionBody (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:11905:24)\n    at JSXParserMixin.parseFunctionBodyAndFinish (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:11891:10)\n    at /Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13237:12\n    at JSXParserMixin.withSmartMixTopicForbiddingContext (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12215:14)\n    at JSXParserMixin.parseFunction (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13236:10)\n    at JSXParserMixin.parseExportDefaultExpression (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13718:19)\n    at JSXParserMixin.parseExport (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13645:25)\n    at JSXParserMixin.parseStatementContent (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12653:27)\n    at JSXParserMixin.parseStatementLike (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12535:17)\n    at JSXParserMixin.parseModuleItem (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12519:17)\n    at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13106:36)\n    at JSXParserMixin.parseBlockBody (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13099:10)\n    at JSXParserMixin.parseProgram (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12433:10)\n    at JSXParserMixin.parseTopLevel (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12423:25)\n    at JSXParserMixin.parse (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:14226:10)\n    at parse (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:14268:38)\n    at parser (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/core/lib/parser/index.js:41:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/core/lib/transformation/normalize-file.js:65:38)\n    at normalizeFile.next (<anonymous>)\n    at run (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/core/lib/transformation/index.js:21:50)\n    at run.next (<anonymous>)");
 
 /***/ }),
 
@@ -3518,24 +3265,89 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var _App_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../App.jsx */ "./client/src/App.jsx");
-/* harmony import */ var _ProductList_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ProductList.jsx */ "./client/src/components/itemsComparison/ProductList.jsx");
-/* harmony import */ var _OutfitList_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./OutfitList.jsx */ "./client/src/components/itemsComparison/OutfitList.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _App_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../App.jsx */ "./client/src/App.jsx");
+/* harmony import */ var _ProductList_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProductList.jsx */ "./client/src/components/itemsComparison/ProductList.jsx");
+/* harmony import */ var _OutfitList_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./OutfitList.jsx */ "./client/src/components/itemsComparison/OutfitList.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
 
 
 
-var RelatedOutfits = function RelatedOutfits() {
-  // I believe we need to import this module into product detail -- then we
-  // can transfer the target value down as a prop
 
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductList_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_OutfitList_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})]
+
+function RelatedOutfits() {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__.useSelector)(function (state) {
+      return state.pd;
+    }),
+    currentProduct = _useSelector.currentProduct,
+    setCurrentProduct = _useSelector.setCurrentProduct;
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState([]),
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    relatedList = _React$useState2[0],
+    setRelatedList = _React$useState2[1];
+  var obtainProducts = function obtainProducts() {
+    var productId = currentProduct.id;
+    axios__WEBPACK_IMPORTED_MODULE_1___default().get("/products/".concat(productId, "/related")).then(function (response) {
+      var options = [];
+      var relatedProducts = response.data.concat(currentProduct.id);
+      relatedProducts.forEach(function (related) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default().get("/products/".concat(related)).then(function (idResponse) {
+          options.push(idResponse.data);
+          setRelatedList([].concat(_toConsumableArray(relatedList), [idResponse.data]));
+          setRelatedList(options);
+          axios__WEBPACK_IMPORTED_MODULE_1___default().get("/products/".concat(related, "/styles")).then(function (styleInfo) {
+            var photo = styleInfo.data.results[0].photos[0].thumbnail_url;
+            var price = styleInfo.data.results[0].original_price;
+            var salePrice = styleInfo.data.results[0].sale_price;
+            var id = styleInfo.data.product_id;
+            options.forEach(function (product) {
+              if (product.id.toString() === id) {
+                product.image = photo;
+                product.price = price;
+                product.salePrice = salePrice;
+              }
+            });
+            setRelatedList([].concat(_toConsumableArray(relatedList), [styleInfo.data]));
+            setRelatedList(options);
+          });
+        })["catch"](function (err) {
+          console.log('product ID fetch failed with err ', err);
+        });
+      });
+    })["catch"](function (error) {
+      console.log('fetch of products failed with error: ', error);
+    });
+  };
+  react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
+    if (currentProduct !== null) {
+      obtainProducts();
+    }
+  }, [currentProduct]);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ProductList_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      currentProduct: currentProduct,
+      relatedList: relatedList
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_OutfitList_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      currentProduct: currentProduct,
+      relatedList: relatedList
+    })]
   });
-};
+}
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RelatedOutfits);
 
 /***/ }),
@@ -27678,7 +27490,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer, .outfitItemContainer{\n  /* border: 1px solid rgb(152, 152, 205); */\n  width: 800px;\n  height: 325px;\n  overflow: hidden;\n  scroll-behavior: smooth;\n  display: flex;\n  position: relative;\n  margin-left: 100px;\n}\n\n.productCard, .outfitCard {\n  border: .5px solid #000000;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.relatedImage {\n  height: 200px;\n  width: 225px;\n}\n\n.productCardName, .productCardCategory, .productCardPrice {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n}\n\n.previousProduct, .nextProduct{\n  height: 40px;\n  width: 60px;\n}\n\n.nextProduct{\n  position: relative;\n  bottom: 210px;\n  left: 870px;\n  font-size: 20px;\n}\n\n.previousProduct{\n  position: absolute;\n  top: 950px;\n  left: 75px;\n  font-size: 20px;\n}\n/* .relatedProductsCarousel .carouselActions {\n  display: flex;\n  /* justify-content: space-between; */\n  /* width: 840px;\n  margin-left: 80px;\n  position: relative;\n  bottom: 210px;\n} */\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 500px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalExit {\n  position: relative;\n  left: 465px;\n  bottom: 140px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 100%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 33%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 33%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 66%;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.addToOutfit {\n  border: solid .5px black;\n  margin: 5px 7px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 225px;\n  height: 315px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 180px;\n  height: 120px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 25px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n\n}\n\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/ro.css"],"names":[],"mappings":";AACA;;;CAGC;;AAED;EACE,0CAA0C;EAC1C,YAAY;EACZ,aAAa;EACb,gBAAgB;EAChB,uBAAuB;EACvB,aAAa;EACb,kBAAkB;EAClB,kBAAkB;AACpB;;AAEA;EACE,0BAA0B;EAC1B,YAAY;EACZ,aAAa;EACb,WAAW;AACb;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,YAAY;AACd;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;AACb;;AAEA;EACE,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;EACX,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,UAAU;EACV,UAAU;EACV,eAAe;AACjB;AACA;;sCAEsC;EACpC;;;;GAIC;;AAEH;;;CAGC;;AAED;EACE,YAAY;EACZ,aAAa;EACb,eAAe;EACf,WAAW;EACX,UAAU;EACV,QAAQ;EACR,SAAS;EACT,yBAAyB;EACzB,aAAa;EACb,sBAAsB;AACxB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,aAAa;EACb,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,eAAe;EACf,mBAAmB;EACnB,0BAA0B;AAC5B;;AAEA;EACE,iBAAiB;EACjB,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,eAAe;EACf,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,0BAA0B;EAC1B,mBAAmB;EACnB,WAAW;EACX,yBAAyB;AAC3B;;AAEA;EACE,iBAAiB;EACjB,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,UAAU;AACZ;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,yBAAyB;AAC3B;;AAEA;EACE,kBAAkB;EAClB,UAAU;AACZ;;;AAGA;;;CAGC;;AAED;EACE,wBAAwB;EACxB,eAAe;EACf,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;;AAEb","sourcesContent":["\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer, .outfitItemContainer{\n  /* border: 1px solid rgb(152, 152, 205); */\n  width: 800px;\n  height: 325px;\n  overflow: hidden;\n  scroll-behavior: smooth;\n  display: flex;\n  position: relative;\n  margin-left: 100px;\n}\n\n.productCard, .outfitCard {\n  border: .5px solid #000000;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.relatedImage {\n  height: 200px;\n  width: 225px;\n}\n\n.productCardName, .productCardCategory, .productCardPrice {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n}\n\n.previousProduct, .nextProduct{\n  height: 40px;\n  width: 60px;\n}\n\n.nextProduct{\n  position: relative;\n  bottom: 210px;\n  left: 870px;\n  font-size: 20px;\n}\n\n.previousProduct{\n  position: absolute;\n  top: 950px;\n  left: 75px;\n  font-size: 20px;\n}\n/* .relatedProductsCarousel .carouselActions {\n  display: flex;\n  /* justify-content: space-between; */\n  /* width: 840px;\n  margin-left: 80px;\n  position: relative;\n  bottom: 210px;\n} */\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 500px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalExit {\n  position: relative;\n  left: 465px;\n  bottom: 140px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 100%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 33%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 33%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 66%;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.addToOutfit {\n  border: solid .5px black;\n  margin: 5px 7px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 225px;\n  height: 315px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 180px;\n  height: 120px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 25px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n\n}\n\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer, .outfitItemContainer{\n  /* border: 1px solid rgb(152, 152, 205); */\n  width: 800px;\n  height: 325px;\n  overflow: hidden;\n  scroll-behavior: smooth;\n  display: flex;\n  position: relative;\n  margin-left: 100px;\n}\n\n.productCard, .outfitCard {\n  border: .5px solid #000000;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.relatedImage {\n  height: 200px;\n  width: 225px;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n}\n\n.previousProduct, .nextProduct{\n  height: 40px;\n  width: 60px;\n}\n\n.nextProduct{\n  position: relative;\n  bottom: 210px;\n  left: 870px;\n  font-size: 20px;\n}\n\n.previousProduct{\n  position: absolute;\n  top: 950px;\n  left: 75px;\n  font-size: 20px;\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 500px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 100%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 33%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 33%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 66%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.addToOutfit {\n  border: solid .5px black;\n  margin: 5px 7px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 225px;\n  height: 315px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 180px;\n  height: 120px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 25px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n\n}\n\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/ro.css"],"names":[],"mappings":";AACA;;;CAGC;;AAED;EACE,0CAA0C;EAC1C,YAAY;EACZ,aAAa;EACb,gBAAgB;EAChB,uBAAuB;EACvB,aAAa;EACb,kBAAkB;EAClB,kBAAkB;AACpB;;AAEA;EACE,0BAA0B;EAC1B,YAAY;EACZ,aAAa;EACb,WAAW;AACb;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,YAAY;AACd;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;EACnB,6BAA6B;AAC/B;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;EACnB,UAAU;AACZ;;AAEA;EACE,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;AACb;;AAEA;EACE,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;EACX,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,UAAU;EACV,UAAU;EACV,eAAe;AACjB;;AAEA;;;CAGC;;AAED;EACE,YAAY;EACZ,aAAa;EACb,eAAe;EACf,WAAW;EACX,UAAU;EACV,QAAQ;EACR,SAAS;EACT,yBAAyB;EACzB,UAAU;EACV,aAAa;EACb,sBAAsB;AACxB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,SAAS;EACT,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,eAAe;EACf,mBAAmB;EACnB,0BAA0B;AAC5B;;AAEA;EACE,iBAAiB;EACjB,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,eAAe;EACf,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,0BAA0B;EAC1B,mBAAmB;EACnB,WAAW;EACX,yBAAyB;AAC3B;;AAEA;EACE,iBAAiB;EACjB,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,UAAU;AACZ;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,yBAAyB;AAC3B;;AAEA;EACE,kBAAkB;EAClB,UAAU;EACV,iBAAiB;AACnB;;AAEA;EACE,kBAAkB;AACpB;;;AAGA;;;CAGC;;AAED;EACE,wBAAwB;EACxB,eAAe;EACf,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;;AAEb","sourcesContent":["\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer, .outfitItemContainer{\n  /* border: 1px solid rgb(152, 152, 205); */\n  width: 800px;\n  height: 325px;\n  overflow: hidden;\n  scroll-behavior: smooth;\n  display: flex;\n  position: relative;\n  margin-left: 100px;\n}\n\n.productCard, .outfitCard {\n  border: .5px solid #000000;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.relatedImage {\n  height: 200px;\n  width: 225px;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n}\n\n.previousProduct, .nextProduct{\n  height: 40px;\n  width: 60px;\n}\n\n.nextProduct{\n  position: relative;\n  bottom: 210px;\n  left: 870px;\n  font-size: 20px;\n}\n\n.previousProduct{\n  position: absolute;\n  top: 950px;\n  left: 75px;\n  font-size: 20px;\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 500px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 100%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 33%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 33%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 66%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.addToOutfit {\n  border: solid .5px black;\n  margin: 5px 7px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 225px;\n  height: 315px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 180px;\n  height: 120px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 25px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n\n}\n\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -1,38 +1,48 @@
 import React from 'react';
-import axios from 'axios';
 import Outfit from './Outfit.jsx';
+import { useSelector } from 'react-redux';
 
-export default function OutfitList() {
+export default function OutfitList({ relatedList }) {
+  const { currentProduct } = useSelector((state) => state.pd);
   const [outfitList, setOutfitList] = React.useState([]);
 
   const onAddToOutfit = () => {
-    // TODO: connect to product overview section to access current product
-    // access the current product
-    // sample data for testing
-    const sampleItem = {
-      id: 4552,
-      name: 'Winter Shorts',
-      category: 'Outdoor',
-      style: 'short',
-      size: 'medium',
-      price: '$200',
+    const correctProduct = relatedList.filter((item) => item.id === currentProduct.id);
+
+    const product = {
+      category: correctProduct[0].category,
+      name: correctProduct[0].name,
+      default_price: correctProduct[0].default_price,
+      sale_price: correctProduct[0].salePrice,
+      image: correctProduct[0].image,
+      id: correctProduct[0].id,
     };
 
     const isFound = outfitList.some((value) => {
-      if (value.style === sampleItem.style) {
+      if (value.id === product.id) {
         return true;
       }
       return false;
     });
 
     if (!isFound) {
-      setOutfitList([...outfitList, sampleItem]);
+      setOutfitList([...outfitList, product]);
     }
+
     // local storage testing
     // add item to local storage
     localStorage.setItem('44524', JSON.stringify({
       category: 'shorts',
       name: 'tulips'
+    }));
+
+    localStorage.setItem('44059', JSON.stringify({
+      category: correctProduct[0].category,
+      name: correctProduct[0].name,
+      default_price: correctProduct[0].default_price,
+      sale_price: correctProduct[0].salePrice,
+      image: correctProduct[0].image,
+      id: correctProduct[0].id,
     }));
   };
 
@@ -51,9 +61,10 @@ export default function OutfitList() {
             <h1>Add to Outfit</h1>
             <i className="fa-regular fa-plus" />
           </div>
-        </div> { outfitList.map((item) => (
-          <Outfit key={item.id} item={item} onRemoveFromOutfit={onRemoveFromOutfit} />
-        ))}
+        </div> { outfitList.length > 0 ?
+          outfitList.map((item) => (
+            <Outfit key={item.id} item={item} onRemoveFromOutfit={onRemoveFromOutfit} />
+          )) : null }
       </div>
     </div>
   );

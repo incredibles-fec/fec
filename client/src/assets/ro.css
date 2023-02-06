@@ -38,10 +38,29 @@
   width: 225px;
 }
 
-.productCardName, .productCardCategory, .productCardPrice {
+.productCardName, .productCardCategory, .productCardPrice, .productCardSale {
   font-size: 15px;
   margin: 6px 0px;
   padding: 0 0 0 20px;
+}
+
+.productCardPriceSale {
+  font-size: 15px;
+  margin: 6px 0px;
+  padding: 0 0 0 20px;
+  text-decoration: line-through;
+}
+
+.productCardSale {
+  font-size: 15px;
+  margin: 6px 0px;
+  padding: 0 0 0 20px;
+  color: red;
+}
+
+.priceInfo {
+  display: flex;
+  flex-direction: row;
 }
 
 .fas {
@@ -68,14 +87,6 @@
   left: 75px;
   font-size: 20px;
 }
-/* .relatedProductsCarousel .carouselActions {
-  display: flex;
-  /* justify-content: space-between; */
-  /* width: 840px;
-  margin-left: 80px;
-  position: relative;
-  bottom: 210px;
-} */
 
 /* ================================
       Comparison Modal
@@ -91,14 +102,19 @@
   right: 0;
   bottom: 0;
   background-color: #f7f7f7;
+  z-index: 1;
   display: flex;
   flex-direction: column;
 }
 
+.modalHeader {
+  position: sticky;
+}
+
 .modalExit {
-  position: relative;
+  position: absolute;
   left: 465px;
-  bottom: 140px;
+  top: 10px;
   height: 20px;
   width: 20px;
 }
@@ -150,6 +166,11 @@
 .productInfo {
   text-align: center;
   width: 66%;
+  font-weight: bold;
+}
+
+td {
+  text-align: center;
 }
 
 
