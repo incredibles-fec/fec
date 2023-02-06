@@ -43,7 +43,7 @@ export default function OutfitList({ relatedList }) {
     // set current list equal to these items
     Object.values(localStorage).map((storage) => {
       let storageObject = JSON.parse(storage);
-      console.log('individual ', storageObject);
+      // console.log('individual ', storageObject);
       // setOutfitList([...outfitList, storageObject]);
     });
   };
