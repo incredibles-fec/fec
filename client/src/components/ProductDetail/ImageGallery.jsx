@@ -3,39 +3,30 @@ import React, { useState, useEffect } from 'react';
 export default function ImageGallery({ style }) {
   const { name, photos } = style;
   const [index, setIndex] = useState(0);
-  const [thumbnailIndex, setThumbnailIndex] = useState(0);
+  const [thumbnailIndexStart, setThumbnailIndexStart] = useState(0);
+  const [thumbnailIndexEnd, setThumbnailIndexEnd] = useState(0);
   const [currentThumbnail, setCurrentThumbnail] = useState(photos[0].url);
-  const [displayedThumbnails, setDisplayedThumbnails] = useState([]);
   const [normalView, setNormalView] = useState(true);
   const [expandedView, setExpandedView] = useState(false);
-
-  const handleThumbnailClick = (i) => {
-    console.log(currentThumbnail, 'cur');
-    console.log(photos[i].url, 'photos[i]url', i);
-    // setCurrentThumbnail(photos[i].url);
-    setIndex(i);
-  };
+  const maxThumbnailDisplay = 5;
 
   const thumbnails = photos.map((p, i) => (
-    <div className="carousel-item-container" key={p.url} onClick={() => { handleThumbnailClick(i); }}>
+    <div className="carousel-item-container" key={p.url} onClick={() => { setIndex(i); }}>
       {currentThumbnail === photos[i].url && <div className="carousel-item-underlay" />}
-      {/* {currentThumbnail === photos[i].url ? <div className="carousel-item-underlay" /> : null} */}
       <img className="carousel-item-thumbnail" src={p.thumbnail_url} alt={name} />
     </div>
   ));
 
   useEffect(() => {
-    console.log('style changed');
-    setDisplayedThumbnails(thumbnails.slice(0, 4)); // testing max of 4 elements
-    //setCurrentThumbnail(photos[0].url);
     setIndex(0);
-    setThumbnailIndex(0);
+    setThumbnailIndexStart(0);
+    setCurrentThumbnail(photos[index].url);
+    // eslint-disable-next-line max-len
+    setThumbnailIndexEnd(maxThumbnailDisplay > thumbnails.length ? thumbnails.length : maxThumbnailDisplay);
   }, [style]);
 
   useEffect(() => {
     setCurrentThumbnail(photos[index].url);
-    console.log('index changed');
-    console.log(photos[index].url, 'photos[index]url', index);
 
     const prevArrows = document.querySelectorAll('.prev');
     const nextArrows = document.querySelectorAll('.next');
@@ -54,24 +45,21 @@ export default function ImageGallery({ style }) {
   }, [index]);
 
   const getNext = () => {
-    if (thumbnailIndex + 1 === displayedThumbnails.length && index + 1 < thumbnails.length) {
-      setDisplayedThumbnails([...displayedThumbnails.slice(1), thumbnails[index + 1]]);
+    if (thumbnailIndexEnd < thumbnails.length) {
+      setThumbnailIndexStart(thumbnailIndexStart + 1);
+      setThumbnailIndexEnd(thumbnailIndexEnd + 1);
     }
-    // eslint-disable-next-line max-len
-    setThumbnailIndex(thumbnailIndex + 1 === displayedThumbnails.length ? thumbnailIndex : thumbnailIndex + 1);
+
     setIndex(index + 1 === photos.length ? index : index + 1);
   };
 
   const getPrev = () => {
-    if (thumbnailIndex === 0) {
-      if (index - 1 >= 0) {
-        setDisplayedThumbnails(thumbnails.slice(index - 1, index + 3));
-        setIndex(index - 1);
-      }
-    } else {
-      setThumbnailIndex(thumbnailIndex - 1);
-      setIndex(index - 1);
+    if (thumbnailIndexStart > 0) {
+      setThumbnailIndexStart(thumbnailIndexStart - 1);
+      setThumbnailIndexEnd(thumbnailIndexEnd - 1);
     }
+
+    setIndex(index - 1 > 0 ? index - 1 : 0);
   };
 
   const panImage = (e) => {
@@ -88,6 +76,8 @@ export default function ImageGallery({ style }) {
     const displayImageContainer = document.getElementById('display-image-container');
     const imageGalleryContainer = document.getElementById('image-gallery-container');
     const productInfoContainer = document.getElementById('product-info-container');
+    const navButtons = document.querySelectorAll('.navigate');
+    const thumbnailContainer = document.getElementById('carousel-thumbnail-container');
 
     if (normalView) {
       setNormalView(false);
@@ -97,10 +87,14 @@ export default function ImageGallery({ style }) {
       imageGalleryContainer.style['z-index'] = 5;
       img.style.cursor = 'cell';
       img.style.transform = 'scale(1.0)';
+
       setExpandedView(true);
     } else if (expandedView) {
       img.style.cursor = 'zoom-out';
       img.style.transform = 'scale(2.5)';
+      thumbnailContainer.style.visibility = 'hidden';
+      navButtons.forEach((b) => b.style.visibility = 'hidden');
+
       setExpandedView(false);
     } else { // zoomed view
       productInfoContainer.style.display = 'block';
@@ -112,6 +106,9 @@ export default function ImageGallery({ style }) {
       img.style.width = '500px';
       imageGalleryContainer.style['z-index'] = 0;
 
+      thumbnailContainer.style.visibility = 'visible';
+      navButtons.forEach((b) => b.style.visibility = 'visible');
+
       setNormalView(true);
     }
   };
@@ -120,7 +117,7 @@ export default function ImageGallery({ style }) {
     <div id="image-gallery-container">
       <div id="carousel-thumbnail-container">
         <button className="prev navigate" id="carousel-thumbnail-prev" aria-label="previous" type="button" onClick={getPrev}>&and;</button>
-        {displayedThumbnails}
+        {thumbnails.slice(thumbnailIndexStart, thumbnailIndexEnd)}
         <button className="next navigate" id="carousel-thumbnail-next" aria-label="next" type="button" onClick={getNext}>&or;</button>
       </div>
       <div id="display-image-container">
