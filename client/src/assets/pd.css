@@ -29,6 +29,23 @@ html {
   margin-bottom: 0.3rem;
 }
 
+.search {
+  display: inline-block;
+  align-self: center;
+}
+
+input {
+  background: none;
+  color: white;
+  border: none;
+  border-bottom: 0.1rem solid white;
+}
+
+::placeholder {
+  color: white;
+  opacity: 1;
+}
+
 .site-wide-announcement {
   text-align: center;
   display: inline-block;
@@ -56,8 +73,22 @@ button, select {
 
 }
 
+.product-category p{
+  text-transform: uppercase;
+  margin-bottom: 0em;
+}
+
+.product-name p{
+  font-size: xx-large;
+  font-weight: bold;
+  margin-top: 0em;
+  margin-bottom: 0em;
+  text-decoration: underline dotted;
+}
+
 .product-price p {
   margin-bottom: 0;
+  font-size: large;
 }
 
 .sale-price {
@@ -65,18 +96,16 @@ button, select {
   color: red;
 }
 
-#product-info-container, .product-features {
-  /* flex: 1; */
-}
-
-#gallery-and-styles-container, .product-overview-container {
+.product-overview-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 #gallery-and-styles-container {
-  /* background: yellow; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 #product-info-container {
@@ -88,6 +117,7 @@ button, select {
   display: flex;
   justify-content: center;
   transition: all 1s ease;
+  align-items: center;
 }
 
 #carousel-thumbnail-container {
@@ -218,7 +248,6 @@ Product Information Styling
 
 #cart-and-favorites-buttons {
   display: flex;
-  /* justify-content: space-between; */
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
@@ -253,7 +282,6 @@ select {
 #add-to-cart-button, #add-to-favorites {
   background-color: silver;
   color: black;
-  padding: 0.5em 1em;
   border: none;
   text-align: center;
   text-decoration: none;

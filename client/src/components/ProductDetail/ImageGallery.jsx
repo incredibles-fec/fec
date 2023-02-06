@@ -10,7 +10,7 @@ export default function ImageGallery({ style }) {
   const [expandedView, setExpandedView] = useState(false);
   const maxThumbnailDisplay = 5;
 
-  const thumbnails = photos.map((p, i) => (
+  let thumbnails = photos.map((p, i) => (
     <div className="carousel-item-container" key={p.url} onClick={() => { setIndex(i); }}>
       {currentThumbnail === photos[i].url && <div className="carousel-item-underlay" />}
       <img className="carousel-item-thumbnail" src={p.thumbnail_url} alt={name} />
@@ -18,6 +18,12 @@ export default function ImageGallery({ style }) {
   ));
 
   useEffect(() => {
+    thumbnails = photos.map((p, i) => (
+      <div className="carousel-item-container" key={p.url} onClick={() => { setIndex(i); }}>
+        {currentThumbnail === photos[i].url && <div className="carousel-item-underlay" />}
+        <img className="carousel-item-thumbnail" src={p.thumbnail_url} alt={name} />
+      </div>
+    ));
     setIndex(0);
     setThumbnailIndexStart(0);
     setCurrentThumbnail(photos[index].url);
