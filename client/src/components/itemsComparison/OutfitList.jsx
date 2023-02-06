@@ -66,9 +66,10 @@ export default function OutfitList({ relatedList }) {
             <i className="fa-regular fa-plus" />
           </div>
         </div> { outfitList.length > 0 ?
-          outfitList.map((item) => (
+          outfitList.map((item) => {
+           return (
             <Outfit key={item.id} item={item} onRemoveFromOutfit={onRemoveFromOutfit} />
-          )) : null }
+          )}) : null }
       </div>
     </div>
   );
