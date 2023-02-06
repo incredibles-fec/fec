@@ -9,8 +9,8 @@ export default function App() {
   return (
     <React.StrictMode>
       <div>
-        {/* <ProductDetail />
-      <ItemsComparison /> */}
+        <ProductDetail />
+        <ItemsComparison />
         <QuestionsAnswers />
         <RatingsReviews />
       </div>

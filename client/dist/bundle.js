@@ -29,7 +29,7 @@ __webpack_require__.r(__webpack_exports__);
 function App() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_QA_QA_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_RatingsReviews_RR_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ProductDetail_ProductOverview_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_itemsComparison_index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_QA_QA_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_RatingsReviews_RR_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
     })
   });
 }
@@ -3243,13 +3243,364 @@ function OutfitList(_ref) {
 
 /***/ }),
 
+/***/ "./client/src/components/itemsComparison/Product.jsx":
+/*!***********************************************************!*\
+  !*** ./client/src/components/itemsComparison/Product.jsx ***!
+  \***********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Product)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var _ProductModal_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductModal.jsx */ "./client/src/components/itemsComparison/ProductModal.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+function Product(_ref) {
+  var item = _ref.item,
+    count = _ref.count,
+    onUpdate = _ref.onUpdate,
+    currentProduct = _ref.currentProduct;
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(false),
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    visibleStatus = _React$useState2[0],
+    setvisibleStatus = _React$useState2[1];
+  var changeModal = function changeModal(e) {
+    setvisibleStatus(!visibleStatus);
+    // const currentProductInfo = currentProduct;
+    // return currentProductInfo;
+    console.log(e);
+  };
+
+  // TODO - outline characteristics
+
+  // capture id of current product being viewed (current)
+  // capture id of current product in card (card)
+
+  // make call to get information about current
+  // store relevant information in an object
+  // make call to get information about card
+  // store relevant information in an object
+
+  // iterate over first object
+  // iterate over second object as inner loop
+  // add row to table
+  /// / add key of first object as characteristic to second column
+  /// / add value of first object to first column
+  /// / add value of second object as characteristic to third column
+
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    className: "productCard",
+    id: count,
+    onClick: onUpdate,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      className: "cardContent",
+      id: item.id,
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
+        className: "relatedImage",
+        src: item.image,
+        alt: "current product"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+        onClick: changeModal,
+        className: "fas fa-star"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "productCardCategory",
+        children: item.category
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        className: "productCardName",
+        children: item.name
+      }), item.salePrice !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "priceInfo",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+          className: "productCardSale",
+          children: ["$", item.salePrice]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+          className: "productCardPriceSale",
+          children: ["$", item.price]
+        })]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        className: "productCardPrice",
+        children: ["$", item.price]
+      })]
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_ProductModal_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      visible: visibleStatus,
+      onClick: changeModal,
+      currentProduct: currentProduct,
+      item: item
+    })]
+  });
+}
+
+/***/ }),
+
 /***/ "./client/src/components/itemsComparison/ProductList.jsx":
 /*!***************************************************************!*\
   !*** ./client/src/components/itemsComparison/ProductList.jsx ***!
   \***************************************************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/davidzhang/Desktop/HackReactor/RFP2212/fec/client/src/components/itemsComparison/ProductList.jsx: Unexpected token (11:1)\n\n\u001b[0m \u001b[90m  9 |\u001b[39m   \u001b[36mconst\u001b[39m [nextVisible\u001b[33m,\u001b[39m setnextVisible] \u001b[33m=\u001b[39m \u001b[33mReact\u001b[39m\u001b[33m.\u001b[39museState(\u001b[36mtrue\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 10 |\u001b[39m   \u001b[36mconst\u001b[39m [firstSlide\u001b[33m,\u001b[39m setFirstSlide] \u001b[33m=\u001b[39m \u001b[33mReact\u001b[39m\u001b[33m.\u001b[39museState(\u001b[35m0\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 11 |\u001b[39m \u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 12 |\u001b[39m   \u001b[36mconst\u001b[39m [lastSlide\u001b[33m,\u001b[39m setLastSlide] \u001b[33m=\u001b[39m \u001b[33mReact\u001b[39m\u001b[33m.\u001b[39museState(\u001b[35m4\u001b[39m)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 13 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 14 |\u001b[39m   \u001b[36mconst\u001b[39m obtainProducts \u001b[33m=\u001b[39m () \u001b[33m=>\u001b[39m {\u001b[0m\n    at instantiate (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:64:32)\n    at constructor (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:361:12)\n    at JSXParserMixin.raise (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:3251:19)\n    at JSXParserMixin.unexpected (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:3281:16)\n    at JSXParserMixin.jsxParseIdentifier (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:6786:12)\n    at JSXParserMixin.jsxParseNamespacedName (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:6793:23)\n    at JSXParserMixin.jsxParseElementName (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:6802:21)\n    at JSXParserMixin.jsxParseOpeningElementAt (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:6882:22)\n    at JSXParserMixin.jsxParseElementAt (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:6907:33)\n    at JSXParserMixin.jsxParseElement (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:6976:17)\n    at JSXParserMixin.parseExprAtom (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:6988:19)\n    at JSXParserMixin.parseExprSubscripts (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10849:23)\n    at JSXParserMixin.parseUpdate (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10832:21)\n    at JSXParserMixin.parseMaybeUnary (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10808:23)\n    at JSXParserMixin.parseMaybeUnaryOrPrivate (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10646:61)\n    at JSXParserMixin.parseExprOps (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10651:23)\n    at JSXParserMixin.parseMaybeConditional (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10628:23)\n    at JSXParserMixin.parseMaybeAssign (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10589:21)\n    at JSXParserMixin.parseExpressionBase (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10543:23)\n    at /Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10539:39\n    at JSXParserMixin.allowInAnd (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12233:16)\n    at JSXParserMixin.parseExpression (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:10539:17)\n    at JSXParserMixin.parseStatementContent (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12675:23)\n    at JSXParserMixin.parseStatementLike (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12535:17)\n    at JSXParserMixin.parseStatementListItem (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12522:17)\n    at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13106:61)\n    at JSXParserMixin.parseBlockBody (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13099:10)\n    at JSXParserMixin.parseBlock (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13087:10)\n    at JSXParserMixin.parseFunctionBody (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:11905:24)\n    at JSXParserMixin.parseFunctionBodyAndFinish (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:11891:10)\n    at /Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13237:12\n    at JSXParserMixin.withSmartMixTopicForbiddingContext (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12215:14)\n    at JSXParserMixin.parseFunction (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13236:10)\n    at JSXParserMixin.parseExportDefaultExpression (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13718:19)\n    at JSXParserMixin.parseExport (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13645:25)\n    at JSXParserMixin.parseStatementContent (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12653:27)\n    at JSXParserMixin.parseStatementLike (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12535:17)\n    at JSXParserMixin.parseModuleItem (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12519:17)\n    at JSXParserMixin.parseBlockOrModuleBlockBody (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13106:36)\n    at JSXParserMixin.parseBlockBody (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:13099:10)\n    at JSXParserMixin.parseProgram (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12433:10)\n    at JSXParserMixin.parseTopLevel (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:12423:25)\n    at JSXParserMixin.parse (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:14226:10)\n    at parse (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/parser/lib/index.js:14268:38)\n    at parser (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/core/lib/parser/index.js:41:34)\n    at parser.next (<anonymous>)\n    at normalizeFile (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/core/lib/transformation/normalize-file.js:65:38)\n    at normalizeFile.next (<anonymous>)\n    at run (/Users/davidzhang/Desktop/HackReactor/RFP2212/fec/node_modules/@babel/core/lib/transformation/index.js:21:50)\n    at run.next (<anonymous>)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ProductList)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _Product_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Product.jsx */ "./client/src/components/itemsComparison/Product.jsx");
+/* harmony import */ var _state_pd_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../state/pd.js */ "./client/src/state/pd.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+function ProductList(_ref) {
+  var currentProduct = _ref.currentProduct,
+    relatedList = _ref.relatedList;
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState(false),
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    previousVisble = _React$useState2[0],
+    setPreviousVisble = _React$useState2[1];
+  var _React$useState3 = react__WEBPACK_IMPORTED_MODULE_0__.useState(true),
+    _React$useState4 = _slicedToArray(_React$useState3, 2),
+    nextVisible = _React$useState4[0],
+    setnextVisible = _React$useState4[1];
+  var _React$useState5 = react__WEBPACK_IMPORTED_MODULE_0__.useState(0),
+    _React$useState6 = _slicedToArray(_React$useState5, 2),
+    firstSlide = _React$useState6[0],
+    setFirstSlide = _React$useState6[1];
+  var _React$useState7 = react__WEBPACK_IMPORTED_MODULE_0__.useState(3),
+    _React$useState8 = _slicedToArray(_React$useState7, 2),
+    lastSlide = _React$useState8[0],
+    setLastSlide = _React$useState8[1];
+  var onNext = function onNext() {
+    if (firstSlide >= 0) {
+      setPreviousVisble(true);
+    }
+    if (lastSlide >= relatedList.length - 2) {
+      setnextVisible(false);
+    }
+    var cardToView = document.getElementById(lastSlide);
+    cardToView.scrollIntoView();
+    setFirstSlide(firstSlide + 1);
+    setLastSlide(lastSlide + 1);
+  };
+  var onBack = function onBack() {
+    if (firstSlide === 0) {
+      setPreviousVisble(false);
+    } else if (lastSlide >= relatedList.length - 2) {
+      setnextVisible(true);
+    }
+    var cardToView = document.getElementById(firstSlide);
+    cardToView.scrollIntoView();
+    setFirstSlide(firstSlide - 1);
+    setLastSlide(lastSlide - 1);
+  };
+  var onUpdate = function onUpdate(e) {
+    if (e.target.className !== 'fas fa-star' && e.target.className !== 'modalExit') {
+      var currentProductId = e.nativeEvent.path[1].id;
+      (0,_state_pd_js__WEBPACK_IMPORTED_MODULE_4__.changeCurrentProductById)(currentProductId);
+    }
+  };
+  var num = 0;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
+      children: "Related Products"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "relatedProductsCarousel",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "relatedProductContainer",
+        children: relatedList.map(function (item, index) {
+          if (item.id !== currentProduct.id) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_Product_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+              item: item,
+              count: num++,
+              onUpdate: onUpdate,
+              currentProduct: currentProduct
+            }, index);
+          }
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "carouselActions",
+        children: [previousVisble ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+          type: "button",
+          className: "previousProduct",
+          onClick: onBack,
+          children: "<"
+        }) : null, nextVisible ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+          type: "button",
+          className: "nextProduct",
+          onClick: onNext,
+          children: ">"
+        }) : null]
+      })]
+    })]
+  });
+}
+
+/***/ }),
+
+/***/ "./client/src/components/itemsComparison/ProductModal.jsx":
+/*!****************************************************************!*\
+  !*** ./client/src/components/itemsComparison/ProductModal.jsx ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ProductModal)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/* eslint-disable no-restricted-syntax */
+
+
+
+function ProductModal(_ref) {
+  var visible = _ref.visible,
+    onClick = _ref.onClick,
+    currentProduct = _ref.currentProduct,
+    item = _ref.item;
+  if (!visible) {
+    return null;
+  }
+  var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState({}),
+    _React$useState2 = _slicedToArray(_React$useState, 2),
+    finalObject = _React$useState2[0],
+    setFinalObject = _React$useState2[1];
+  react__WEBPACK_IMPORTED_MODULE_0__.useEffect(function () {
+    var sample = {};
+    for (var property in currentProduct) {
+      if (property !== 'campus' && property !== 'created_at' && property !== 'updated_at' && _typeof(property) !== 'object') {
+        sample[property] = [currentProduct[property]];
+      }
+      if (Array.isArray(currentProduct[property])) {
+        currentProduct[property].forEach(function (detail) {
+          sample[detail.feature] = [detail.value];
+        });
+      }
+    }
+
+    // eslint-disable-next-line guard-for-in
+    for (var _property in item) {
+      if (sample[_property] !== undefined && _property !== 'campus' && _property !== 'created_at' && _property !== 'updated_at') {
+        sample[_property].push(item[_property]);
+      } else if (_property !== 'campus' && _property !== 'created_at' && _property !== 'updated_at') {
+        sample[_property] = [item[_property]];
+      }
+      if (Array.isArray(item[_property])) {
+        item[_property].forEach(function (detail) {
+          if (sample[detail.feature] !== undefined) {
+            sample[detail.feature].push(detail.value);
+          } else {
+            sample[detail.feature] = [detail.value];
+          }
+        });
+      }
+    }
+    setFinalObject(sample);
+  }, []);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      className: "productModal",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
+        children: "COMPARING"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+        className: "modalExit",
+        onClick: onClick,
+        type: "button",
+        children: "x"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+            className: "modalHeader",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              className: "leftHeader",
+              children: "Current Viewed Product"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              className: "rightHeader",
+              children: "Compared Product Card"
+            })]
+          })
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
+        className: "compareTable",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("thead", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              className: "checkLeftHeader",
+              "aria-label": "left check header"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              className: "productInfo",
+              "aria-label": "product information"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+              className: "checkRightHeader",
+              "aria-label": "right check header"
+            })]
+          }), Object.values(finalObject).length > 0 ? Object.keys(finalObject).map(function (product, index) {
+            console.log('FINAL ', finalObject);
+            if (product !== 'features' && product !== 'image' && product !== 'slogan' && product !== 'description' && product !== 'price') {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  children: finalObject[product][0]
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  className: "productInfo",
+                  children: product
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  children: finalObject[product][1]
+                })]
+              });
+            }
+          }) : null]
+        })
+      })]
+    })
+  });
+}
+
+// <tr>
+// <td>{currentProduct.id}</td>
+// <td className="productInfo">Product Id</td>
+// <td>{item.id}
+//   {/* <i className="fa-solid fa-check" /> */}
+// </td>
+// </tr>
+// <tr>
+// <td>${currentProduct.default_price}</td>
+// <td className="productInfo">Default Price</td>
+// <td>{item.default_price}
+//   {/* <i className="fa-solid fa-check" /> */}
+// </td>
+// </tr>
 
 /***/ }),
 
