@@ -20,65 +20,37 @@ const submitForm = async ({ form, type, questionId, files }) => {
     ...form,
     photos,
   };
-  try {
-    const res = await axios({
-      method: 'POST',
-      url: routes[type],
-      data: type === 'question' ? questionParams : params,
-    });
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
+
+  return axios({
+    method: 'POST',
+    url: routes[type],
+    data: type === 'question' ? questionParams : params,
+  });
 };
 
-const markQuestionHelpful = async (questionId) => {
-  try {
-    const res = await axios({
-      method: 'PUT',
-      url: `/qa/questions/${questionId}/helpful`,
-    });
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
-};
+const markQuestionHelpful = (questionId) =>
+  axios({
+    method: 'PUT',
+    url: `/qa/questions/${questionId}/helpful`,
+  });
 
-const markAnswerHelpful = async (answerId) => {
-  try {
-    const res = await axios({
-      method: 'PUT',
-      url: `/qa/answers/${answerId}/helpful`,
-    });
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
-};
+const markAnswerHelpful = (answerId) =>
+  axios({
+    method: 'PUT',
+    url: `/qa/answers/${answerId}/helpful`,
+  });
 
-const reportQuestion = async (questionId) => {
-  try {
-    const res = await axios({
-      method: 'PUT',
-      url: `/qa/questions/${questionId}/report`,
-    });
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
-};
+const reportQuestion = (questionId) =>
+  axios({
+    method: 'PUT',
+    url: `/qa/questions/${questionId}/report`,
+  });
 
-const reportAnswer = async (answerId) => {
-  try {
-    const res = await axios({
-      method: 'PUT',
-      url: `/qa/answers/${answerId}/report`,
-    });
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
-};
+const reportAnswer = (answerId) =>
+  axios({
+    method: 'PUT',
+    url: `/qa/answers/${answerId}/report`,
+  });
 
 export {
   submitForm,

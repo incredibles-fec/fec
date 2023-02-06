@@ -98,7 +98,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 // TODO: Toast and Loading component
 var submitForm = /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(_ref) {
-    var form, type, questionId, files, routes, questionParams, photos, res, params, _res;
+    var form, type, questionId, files, routes, questionParams, photos, res, params;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -126,146 +126,45 @@ var submitForm = /*#__PURE__*/function () {
           params = _objectSpread(_objectSpread({}, form), {}, {
             photos: photos
           });
-          _context.prev = 10;
-          _context.next = 13;
-          return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+          return _context.abrupt("return", axios__WEBPACK_IMPORTED_MODULE_0___default()({
             method: 'POST',
             url: routes[type],
             data: type === 'question' ? questionParams : params
-          });
-        case 13:
-          _res = _context.sent;
-          return _context.abrupt("return", _res);
-        case 17:
-          _context.prev = 17;
-          _context.t0 = _context["catch"](10);
-          console.log(_context.t0);
-        case 20:
+          }));
+        case 11:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[10, 17]]);
+    }, _callee);
   }));
   return function submitForm(_x) {
     return _ref2.apply(this, arguments);
   };
 }();
-var markQuestionHelpful = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(questionId) {
-    var res;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
-        case 0:
-          _context2.prev = 0;
-          _context2.next = 3;
-          return axios__WEBPACK_IMPORTED_MODULE_0___default()({
-            method: 'PUT',
-            url: "/qa/questions/".concat(questionId, "/helpful")
-          });
-        case 3:
-          res = _context2.sent;
-          return _context2.abrupt("return", res);
-        case 7:
-          _context2.prev = 7;
-          _context2.t0 = _context2["catch"](0);
-          console.log(_context2.t0);
-        case 10:
-        case "end":
-          return _context2.stop();
-      }
-    }, _callee2, null, [[0, 7]]);
-  }));
-  return function markQuestionHelpful(_x2) {
-    return _ref3.apply(this, arguments);
-  };
-}();
-var markAnswerHelpful = /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(answerId) {
-    var res;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
-        case 0:
-          _context3.prev = 0;
-          _context3.next = 3;
-          return axios__WEBPACK_IMPORTED_MODULE_0___default()({
-            method: 'PUT',
-            url: "/qa/answers/".concat(answerId, "/helpful")
-          });
-        case 3:
-          res = _context3.sent;
-          return _context3.abrupt("return", res);
-        case 7:
-          _context3.prev = 7;
-          _context3.t0 = _context3["catch"](0);
-          console.log(_context3.t0);
-        case 10:
-        case "end":
-          return _context3.stop();
-      }
-    }, _callee3, null, [[0, 7]]);
-  }));
-  return function markAnswerHelpful(_x3) {
-    return _ref4.apply(this, arguments);
-  };
-}();
-var reportQuestion = /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(questionId) {
-    var res;
-    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-      while (1) switch (_context4.prev = _context4.next) {
-        case 0:
-          _context4.prev = 0;
-          _context4.next = 3;
-          return axios__WEBPACK_IMPORTED_MODULE_0___default()({
-            method: 'PUT',
-            url: "/qa/questions/".concat(questionId, "/report")
-          });
-        case 3:
-          res = _context4.sent;
-          return _context4.abrupt("return", res);
-        case 7:
-          _context4.prev = 7;
-          _context4.t0 = _context4["catch"](0);
-          console.log(_context4.t0);
-        case 10:
-        case "end":
-          return _context4.stop();
-      }
-    }, _callee4, null, [[0, 7]]);
-  }));
-  return function reportQuestion(_x4) {
-    return _ref5.apply(this, arguments);
-  };
-}();
-var reportAnswer = /*#__PURE__*/function () {
-  var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(answerId) {
-    var res;
-    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-      while (1) switch (_context5.prev = _context5.next) {
-        case 0:
-          _context5.prev = 0;
-          _context5.next = 3;
-          return axios__WEBPACK_IMPORTED_MODULE_0___default()({
-            method: 'PUT',
-            url: "/qa/answers/".concat(answerId, "/report")
-          });
-        case 3:
-          res = _context5.sent;
-          return _context5.abrupt("return", res);
-        case 7:
-          _context5.prev = 7;
-          _context5.t0 = _context5["catch"](0);
-          console.log(_context5.t0);
-        case 10:
-        case "end":
-          return _context5.stop();
-      }
-    }, _callee5, null, [[0, 7]]);
-  }));
-  return function reportAnswer(_x5) {
-    return _ref6.apply(this, arguments);
-  };
-}();
+var markQuestionHelpful = function markQuestionHelpful(questionId) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+    method: 'PUT',
+    url: "/qa/questions/".concat(questionId, "/helpful")
+  });
+};
+var markAnswerHelpful = function markAnswerHelpful(answerId) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+    method: 'PUT',
+    url: "/qa/answers/".concat(answerId, "/helpful")
+  });
+};
+var reportQuestion = function reportQuestion(questionId) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+    method: 'PUT',
+    url: "/qa/questions/".concat(questionId, "/report")
+  });
+};
+var reportAnswer = function reportAnswer(answerId) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+    method: 'PUT',
+    url: "/qa/answers/".concat(answerId, "/report")
+  });
+};
 
 
 /***/ }),
@@ -302,7 +201,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var submitForm = /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(form, productId, files) {
-    var size, width, comfort, quality, length, fit, recommend, otherParams, photos, res, params, _res;
+    var size, width, comfort, quality, length, fit, recommend, otherParams, photos, res, params;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -333,88 +232,33 @@ var submitForm = /*#__PURE__*/function () {
             },
             photos: photos
           });
-          _context.prev = 8;
-          _context.next = 11;
-          return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+          return _context.abrupt("return", axios__WEBPACK_IMPORTED_MODULE_0___default()({
             method: 'POST',
             url: '/reviews',
             data: params
-          });
-        case 11:
-          _res = _context.sent;
-          return _context.abrupt("return", _res);
-        case 15:
-          _context.prev = 15;
-          _context.t0 = _context["catch"](8);
-          console.log('Post shows error message but ignore it, because api sucks');
-        case 18:
+          }));
+        case 9:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[8, 15]]);
+    }, _callee);
   }));
   return function submitForm(_x, _x2, _x3) {
     return _ref.apply(this, arguments);
   };
 }();
-var markHelpfulReview = /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(reviewId) {
-    var res;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
-        case 0:
-          _context2.prev = 0;
-          _context2.next = 3;
-          return axios__WEBPACK_IMPORTED_MODULE_0___default()({
-            method: 'PUT',
-            url: "/reviews/".concat(reviewId, "/helpful")
-          });
-        case 3:
-          res = _context2.sent;
-          return _context2.abrupt("return", res);
-        case 7:
-          _context2.prev = 7;
-          _context2.t0 = _context2["catch"](0);
-          console.log(_context2.t0);
-        case 10:
-        case "end":
-          return _context2.stop();
-      }
-    }, _callee2, null, [[0, 7]]);
-  }));
-  return function markHelpfulReview(_x4) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-var reportReview = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(reviewId) {
-    var res;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
-        case 0:
-          _context3.prev = 0;
-          _context3.next = 3;
-          return axios__WEBPACK_IMPORTED_MODULE_0___default()({
-            method: 'PUT',
-            url: "/reviews/".concat(reviewId, "/report")
-          });
-        case 3:
-          res = _context3.sent;
-          return _context3.abrupt("return", res);
-        case 7:
-          _context3.prev = 7;
-          _context3.t0 = _context3["catch"](0);
-          console.log(_context3.t0);
-        case 10:
-        case "end":
-          return _context3.stop();
-      }
-    }, _callee3, null, [[0, 7]]);
-  }));
-  return function reportReview(_x5) {
-    return _ref3.apply(this, arguments);
-  };
-}();
+var markHelpfulReview = function markHelpfulReview(reviewId) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+    method: 'PUT',
+    url: "/reviews/".concat(reviewId, "/helpful")
+  });
+};
+var reportReview = function reportReview(reviewId) {
+  return axios__WEBPACK_IMPORTED_MODULE_0___default()({
+    method: 'PUT',
+    url: "/reviews/".concat(reviewId, "/report")
+  });
+};
 
 
 /***/ }),

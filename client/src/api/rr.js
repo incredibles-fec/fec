@@ -34,40 +34,23 @@ const submitForm = async (form, productId, files) => {
     photos,
   };
 
-  try {
-    const res = await axios({
-      method: 'POST',
-      url: '/reviews',
-      data: params,
-    });
-    return res;
-  } catch (err) {
-    console.log('Post shows error message but ignore it, because api sucks');
-  }
+  return axios({
+    method: 'POST',
+    url: '/reviews',
+    data: params,
+  });
 };
 
-const markHelpfulReview = async (reviewId) => {
-  try {
-    const res = await axios({
-      method: 'PUT',
-      url: `/reviews/${reviewId}/helpful`,
-    });
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
-};
+const markHelpfulReview = (reviewId) =>
+  axios({
+    method: 'PUT',
+    url: `/reviews/${reviewId}/helpful`,
+  });
 
-const reportReview = async (reviewId) => {
-  try {
-    const res = await axios({
-      method: 'PUT',
-      url: `/reviews/${reviewId}/report`,
-    });
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
-};
+const reportReview = (reviewId) =>
+  axios({
+    method: 'PUT',
+    url: `/reviews/${reviewId}/report`,
+  });
 
 export { submitForm, markHelpfulReview, reportReview };
