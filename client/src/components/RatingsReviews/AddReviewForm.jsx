@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getReviews, getMetaData } from '../../state/rr';
 import RadioGroup from '../common/RadioGroup.jsx';
+import UploadFile from '../common/UploadFile.jsx';
 import RatingsSelector from './RatingsSelector.jsx';
 import { radioGroupOptions } from '../../utils/mappings';
 import { debounce, handleErrors, formValidator } from '../../utils/helpers';
@@ -16,7 +17,6 @@ export default function AddReviewForm({ close }) {
     recommend: '',
     name: '',
     email: '',
-    photos: [],
     size: 0,
     width: 0,
     comfort: 0,
@@ -25,20 +25,13 @@ export default function AddReviewForm({ close }) {
     fit: 0,
   });
   const [errors, setErrors] = useState({
-    rating: 0,
     summary: '',
-    body: '',
-    recommend: '',
     name: '',
     email: '',
-    photos: [],
-    size: '',
-    width: '',
-    comfort: '',
-    quality: '',
-    length: '',
-    fit: '',
   });
+
+  const [files, setFiles] = useState([]);
+  const [fileError, setFileError] = useState('');
   const [errorKeys, setErrorKeys] = useState([]);
 
   const charRadioGroup = Object.entries(radioGroupOptions.characteristics);
@@ -46,6 +39,7 @@ export default function AddReviewForm({ close }) {
   const handleInput = (e) => {
     const { name, value } = e.target;
     setErrorKeys([]);
+    setFileError('');
     const checkErrors = debounce(() => {
       const res = handleErrors(name, value);
       setErrors({
@@ -59,8 +53,9 @@ export default function AddReviewForm({ close }) {
 
   const handleSubmit = async () => {
     const res = formValidator(errors, form);
-    if (res.length) return setErrorKeys(res);
-    await submitForm(form);
+    if (res.length || fileError) return setErrorKeys(res);
+    // TODO: change to dynamic productId
+    await submitForm(form, 40355, files);
     await Promise.all([dispatch(getReviews()), dispatch(getMetaData())]);
     close();
   };
@@ -87,7 +82,6 @@ export default function AddReviewForm({ close }) {
             type="text"
             placeholder="Example: Best purchase ever!"
             maxLength="60"
-            value={form.summary}
             onChange={handleInput}
           />
         </label>
@@ -101,7 +95,6 @@ export default function AddReviewForm({ close }) {
             type="text"
             placeholder="Why did you like the product or not?"
             maxLength="1000"
-            value={form.body}
             onChange={handleInput}
           />
         </label>
@@ -117,7 +110,6 @@ export default function AddReviewForm({ close }) {
             name="name"
             type="text"
             placeholder="Example: jackson11!"
-            value={form.name}
             maxLength="60"
             onChange={handleInput}
           />
@@ -136,7 +128,6 @@ export default function AddReviewForm({ close }) {
             name="email"
             type="text"
             placeholder="Example: jackson11@email.com"
-            value={form.email}
             onChange={handleInput}
           />
         </label>
@@ -145,6 +136,13 @@ export default function AddReviewForm({ close }) {
         ) : (
           <span>For authentication reasons, you will not be emailed</span>
         )}
+
+        <UploadFile
+          files={files}
+          fileError={fileError}
+          setError={(v) => setFileError(v)}
+          setFiles={(uploads) => setFiles(uploads)}
+        />
 
         {errorKeys.length ? (
           <span className="errorMessage">

@@ -36,7 +36,10 @@ export default function ProductList({ currentProduct, relatedList }) {
   };
 
   const onUpdate = (e) => {
-    if (e.target.className !== 'fas fa-star' && e.target.className !== 'modalExit') {
+    if (
+      e.target.className !== 'fas fa-star' &&
+      e.target.className !== 'modalExit'
+    ) {
       const currentProductId = e.nativeEvent.path[1].id;
       changeCurrentProductById(currentProductId);
     }
@@ -64,10 +67,16 @@ export default function ProductList({ currentProduct, relatedList }) {
           })}
         </div>
         <div className="carouselActions">
-          { previousVisble ?
-            <button type="button" className="previousProduct" onClick={onBack}>&lt;</button> : null }
-          { nextVisible ?
-            <button type="button" className="nextProduct" onClick={onNext}>&gt;</button> : null}
+          {previousVisble ? (
+            <button type="button" className="previousProduct" onClick={onBack}>
+              &lt;
+            </button>
+          ) : null}
+          {nextVisible ? (
+            <button type="button" className="nextProduct" onClick={onNext}>
+              &gt;
+            </button>
+          ) : null}
         </div>
       </div>
     </div>

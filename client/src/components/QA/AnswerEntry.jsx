@@ -44,7 +44,10 @@ export default function AnswerEntry({ answer }) {
 
   return (
     <div className="a-container">
-      <div>{searchHighlight(answer.body, query)}</div>
+      <div style={{ display: 'flex' }}>
+        <div style={{ marginRight: '0.3rem' }}>A: </div>
+        <div>{searchHighlight(answer.body, query)}</div>
+      </div>
       <div className="a-photos">
         {answer.photos.map((photo) => (
           <div

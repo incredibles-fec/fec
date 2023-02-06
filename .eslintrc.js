@@ -37,6 +37,9 @@ module.exports = {
     'jest/no-identical-title': 'error',
     'jest/prefer-to-have-length': 'warn',
     'jest/valid-expect': 'error',
+    'react/jsx-filename-extension': 0,
+    'implicit-arrow-linebreak': 0,
+    'function-paren-newline': 0,
   },
   settings: {
     react: {

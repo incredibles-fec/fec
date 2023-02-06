@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { uploadCloudinary } from './apiHelpers';
 
-const submitForm = async (form, productId = 40355) => {
+const submitForm = async (form, productId, files) => {
   const {
     size,
     width,
@@ -11,6 +12,13 @@ const submitForm = async (form, productId = 40355) => {
     recommend,
     ...otherParams
   } = form;
+
+  let photos = [];
+  if (files.length) {
+    const res = await uploadCloudinary(files);
+    photos = res.map((upload) => upload.data.url);
+  }
+
   const params = {
     ...otherParams,
     product_id: productId,
@@ -23,41 +31,26 @@ const submitForm = async (form, productId = 40355) => {
       18: Number(length),
       19: Number(fit),
     },
+    photos,
   };
-  try {
-    const res = await axios({
-      method: 'POST',
-      url: '/reviews',
-      data: params,
-    });
-    return res;
-  } catch (err) {
-    console.log('Post shows error message but ignore it, because api sucks');
-  }
+
+  return axios({
+    method: 'POST',
+    url: '/reviews',
+    data: params,
+  });
 };
 
-const markHelpfulReview = async (reviewId) => {
-  try {
-    const res = await axios({
-      method: 'PUT',
-      url: `/reviews/${reviewId}/helpful`,
-    });
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
-};
+const markHelpfulReview = (reviewId) =>
+  axios({
+    method: 'PUT',
+    url: `/reviews/${reviewId}/helpful`,
+  });
 
-const reportReview = async (reviewId) => {
-  try {
-    const res = await axios({
-      method: 'PUT',
-      url: `/reviews/${reviewId}/report`,
-    });
-    return res;
-  } catch (err) {
-    console.log(err);
-  }
-};
+const reportReview = (reviewId) =>
+  axios({
+    method: 'PUT',
+    url: `/reviews/${reviewId}/report`,
+  });
 
 export { submitForm, markHelpfulReview, reportReview };

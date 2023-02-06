@@ -16,20 +16,23 @@ const initialState = {
 
 export const getReviews = createAsyncThunk(
   'rr/getReviews',
-  async (sort, thunkAPI) => {
-    let fetchRequired = true,
-      reviews = [],
-      count = 30;
+  async (_, thunkAPI) => {
+    let fetchRequired = true;
+    let count = 30;
 
     const rrState = thunkAPI.getState().rr;
+    const product = thunkAPI.getState().pd;
+
     try {
+      // TODO: Not sure how to handle multiple fetches asynchronously if dependent on first fetch
       while (fetchRequired) {
+        /* eslint-disable no-await-in-loop */
         const res = await axios({
           url: '/reviews',
           params: {
-            count: count,
+            count,
             sort: rrState.sort,
-            product_id: 40355,
+            product_id: product?.currentProduct?.id ?? 40355,
           },
         });
 
@@ -48,17 +51,13 @@ export const getReviews = createAsyncThunk(
 export const getMetaData = createAsyncThunk(
   'rr/getMetaData',
   async (productId, thunkAPI) => {
-    try {
-      const res = await axios({
-        url: '/reviews/meta',
-        params: { product_id: 40355 },
-      });
-      // TODO: switch product_id
-      const metaData = res.data;
-      return metaData;
-    } catch (err) {
-      console.log(err);
-    }
+    const res = await axios({
+      url: '/reviews/meta',
+      params: { product_id: 40355 },
+    });
+    // TODO: switch product_id
+    const metaData = res.data;
+    return metaData;
   }
 );
 
@@ -97,13 +96,11 @@ const rrSlice = createSlice({
           : true;
         const query = state.query.toLowerCase();
 
-        if (
+        return (
           checkFilters &&
           (review.body.toLowerCase().includes(query) ||
             review.summary.toLowerCase().includes(query))
-        ) {
-          return review;
-        }
+        );
       });
 
       state.reviews = filtered.slice(0, state.reviewCount);
@@ -129,9 +126,9 @@ const rrSlice = createSlice({
           ? state.filters.includes(rating)
           : true;
 
-        if (checkFilters && (body.includes(query) || summary.includes(query))) {
-          return review;
-        }
+        return (
+          checkFilters && (body.includes(query) || summary.includes(query))
+        );
       });
       state.fullReviews = action.payload;
 

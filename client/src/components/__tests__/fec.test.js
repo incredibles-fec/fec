@@ -7,16 +7,7 @@ Seeding function (via unit tests)
 One end-to-end test for each service
 
   ---------------------------------------------
-*/
-
-const sum = require('./testingFile');
-
-// first test attempt
-test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
-});
-
-// does component render to the screen (example - title)
+  */
 /**
  * @jest-environment jsdom
  */
@@ -26,6 +17,15 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
 import ProductList from '../itemsComparison/ProductList.jsx';
+
+const sum = require('./testingFile');
+
+// first test attempt
+test('adds 1 + 2 to equal 3', () => {
+  expect(sum(1, 2)).toBe(3);
+});
+
+// does component render to the screen (example - title)
 
 let container = null;
 beforeEach(() => {

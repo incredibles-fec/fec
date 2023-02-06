@@ -10,6 +10,7 @@ export default function RatingsTile({ review }) {
   const [isReported, setIsReported] = useState(false);
   const [currentPhoto, setCurrentPhoto] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const [readMore, setReadMore] = useState(false);
   const { query } = useSelector((store) => store.rr);
 
   const actionHandler = async (type = 'mark') => {
@@ -44,7 +45,11 @@ export default function RatingsTile({ review }) {
     setIsOpen(true);
   };
 
-  // TODO: Slice first 250 chars of review body
+  const setPreview = (text) => {
+    if (text.length > 250) return `${text.slice(0, 247)}...`;
+    return text;
+  };
+  const showButton = review.body.length > 250;
 
   return (
     <div>
@@ -61,10 +66,19 @@ export default function RatingsTile({ review }) {
       </div>
 
       <div className="tile-body">
-        <div>
-          <b>{searchHighlight(review.summary, query)}</b>
-        </div>
-        <div>{searchHighlight(review.body, query)}</div>
+        <b>{searchHighlight(review.summary, query)}</b>
+        {readMore ? (
+          <div>{searchHighlight(review.body, query)}</div>
+        ) : (
+          <div>
+            <div>{searchHighlight(setPreview(review.body), query)}</div>
+            {showButton && (
+              <button type="button" onClick={() => setReadMore(true)}>
+                Read more
+              </button>
+            )}
+          </div>
+        )}
         {review.recommend && (
           <div>
             <i className="fa-sharp fa-solid fa-circle-check" />

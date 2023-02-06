@@ -1,20 +1,14 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { loadMoreAnswers } from '../../state/qa';
+import { useSelector } from 'react-redux';
 import Modal from '../common/Modal.jsx';
 import AddQAForm from './AddQAForm.jsx';
 import AnswerEntry from './AnswerEntry.jsx';
 import { markQuestionHelpful, reportQuestion } from '../../api/qa';
 
 export default function QAListEntry({ question }) {
-  const dispatch = useDispatch();
-  const { questions, query } = useSelector((store) => store.qa);
+  const { query } = useSelector((store) => store.qa);
   const [isOpen, setIsOpen] = useState(false);
-  const [canLoad, setCanLoad] = useState(true);
-
-  const answerCount = questions.find(
-    (q) => q.question_id === question.question_id
-  )?.answer_count;
+  const [answerCount, setAnswerCount] = useState(2);
 
   const answers = Object.keys(question.answers)
     .map((questionId) => ({
@@ -36,14 +30,6 @@ export default function QAListEntry({ question }) {
       await markQuestionHelpful(question.question_id);
       setIsMarked(true);
     }
-  };
-
-  const loadMore = () => {
-    if (answerCount >= Object.values(question.answers).length) {
-      setCanLoad(false);
-    }
-
-    dispatch(loadMoreAnswers(question.question_id));
   };
 
   const searchHighlight = (text, highlight) => {
@@ -114,13 +100,21 @@ export default function QAListEntry({ question }) {
         <AnswerEntry key={answer.questionId} answer={answer} />
       ))}
 
-      {Object.values(question.answers).length > 2 && canLoad && (
-        <div>
-          <button type="button" onClick={loadMore}>
+      <div style={{ display: 'flex', gap: '0.3rem' }}>
+        {Object.values(question.answers).length > answerCount && (
+          <button
+            type="button"
+            onClick={() => setAnswerCount((prev) => prev + 2)}
+          >
             LOAD MORE ANSWERS
           </button>
-        </div>
-      )}
+        )}
+        {answerCount > 2 && (
+          <button type="button" onClick={() => setAnswerCount(2)}>
+            HIDE ANSWERS
+          </button>
+        )}
+      </div>
 
       {isOpen && (
         <Modal close={() => setIsOpen(false)}>

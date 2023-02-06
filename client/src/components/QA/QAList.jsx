@@ -25,7 +25,6 @@ export default function QAList() {
     if (ref.current) ref.current.disconnect();
     ref.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting) {
-        // TODO: Do fetch if again if not enough questions left
         const load = debounce(() => {
           dispatch(loadMoreQuestions());
         });
@@ -72,7 +71,7 @@ export default function QAList() {
         </Accordion>
       </div>
 
-      {!scrollToLoad && (
+      {!scrollToLoad && fullQuestions.length > 2 && (
         <button
           style={{ marginRight: '5px' }}
           type="button"

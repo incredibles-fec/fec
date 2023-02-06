@@ -5,7 +5,7 @@ const initialState = {
   products: [],
   currentProduct: null,
   currentProductStyles: [],
-  loading: true
+  loading: true,
 };
 
 export const getProducts = createAsyncThunk(
@@ -19,7 +19,7 @@ export const getProducts = createAsyncThunk(
       return {
         loadProducts: prods.data,
         loadCurrent: firstProd.data,
-        loadCurrentStyles: firstProdStyles.data.results
+        loadCurrentStyles: firstProdStyles.data.results,
       };
     } catch (err) {
       return 'Error getting products';
@@ -35,7 +35,7 @@ export const changeCurrentProductById = createAsyncThunk(
       const newProductStyles = await axios.get(`/products/${id}/styles`);
       return {
         newProduct: newProduct.data,
-        newProductStyles: newProductStyles.data.results
+        newProductStyles: newProductStyles.data.results,
       };
     } catch (err) {
       return 'Error changing product by id';
@@ -49,35 +49,33 @@ export const pdSlice = createSlice({
   reducers: {
     test: (state, action) => {
       console.log('Testing reducers in state/pd.js');
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getProducts.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(getProducts.fulfilled, (state, action) => {
-      state.loading = false;
       state.products = action.payload.loadProducts;
       state.currentProduct = action.payload.loadCurrent;
       state.currentProductStyles = action.payload.loadCurrentStyles;
-    });
-    builder.addCase(getProducts.rejected, (state, action) => {
       state.loading = false;
-      console.log(action.payload);
+    });
+    builder.addCase(getProducts.rejected, (state) => {
+      state.loading = false;
     });
     builder.addCase(changeCurrentProductById.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(changeCurrentProductById.fulfilled, (state, action) => {
-      state.loading = false;
       state.currentProduct = action.payload.newProduct;
       state.currentProductStyles = action.payload.newProductStyles;
-    });
-    builder.addCase(changeCurrentProductById.rejected, (state, action) => {
       state.loading = false;
-      console.log(action.payload);
     });
-  }
+    builder.addCase(changeCurrentProductById.rejected, (state) => {
+      state.loading = false;
+    });
+  },
 });
 
 // Action creators are generated for each case reducer function

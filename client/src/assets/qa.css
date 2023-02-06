@@ -138,6 +138,15 @@
   color: red;
 }
 
+.hidden-input-file {
+  display: none
+}
+
+.choose-file-button {
+  cursor: pointer;
+  border: 1px solid black
+}
+
 /* ACCORDION */
 .expanded {
   max-height: 700px;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { getQA } from '../../state/qa';
+import UploadFile from '../common/UploadFile.jsx';
 import { handleErrors, formValidator, debounce } from '../../utils/helpers';
 import { formMappings } from '../../utils/mappings';
 import { submitForm } from '../../api/qa';
@@ -23,13 +24,17 @@ export default function AddQAForm({
     name: '',
     email: '',
   });
+
+  const [files, setFiles] = useState([]);
+  const [fileError, setFileError] = useState('');
   const [errorKeys, setErrorKeys] = useState([]);
 
   const handleInput = (e) => {
     const { name, value } = e.target;
     setErrorKeys([]);
+    setFileError('');
     const checkErrors = debounce(() => {
-      const res = handleErrors(e);
+      const res = handleErrors(name, value);
       setErrors({ ...errors, [name]: value ? res.error : '' });
     }, 500);
     checkErrors();
@@ -38,8 +43,13 @@ export default function AddQAForm({
 
   const handleSubmit = async () => {
     const res = formValidator(errors, form);
-    if (res.length) return setErrorKeys(res);
-    await submitForm(form, type, questionId);
+    if (res.length || fileError) return setErrorKeys(res);
+    await submitForm({
+      form,
+      type,
+      questionId,
+      files,
+    });
     await dispatch(getQA());
     close();
   };
@@ -52,12 +62,7 @@ export default function AddQAForm({
       <div>{type === 'answer' ? question : ''}</div>
       <label>
         Your {type}:
-        <textarea
-          name="body"
-          value={form.body}
-          maxLength="1000"
-          onChange={handleInput}
-        />
+        <textarea name="body" maxLength="1000" onChange={handleInput} />
       </label>
       <span className="errorMessage">{errors.body}</span>
       <label>
@@ -66,7 +71,6 @@ export default function AddQAForm({
           name="name"
           type="text"
           placeholder={formMappings[type].nicknamePH}
-          value={form.name}
           maxLength="60"
           onChange={handleInput}
         />
@@ -84,7 +88,6 @@ export default function AddQAForm({
           name="email"
           type="text"
           placeholder={formMappings[type].emailPH}
-          value={form.email}
           onChange={handleInput}
         />
       </label>
@@ -94,8 +97,14 @@ export default function AddQAForm({
         <span>For authentication reasons, you will not be emailed</span>
       )}
 
-      {/* NEED UPLOAD PHOTO SECTION */}
-      {/* {type === 'answer' && <input type="file" />} */}
+      {type === 'answer' && (
+        <UploadFile
+          files={files}
+          fileError={fileError}
+          setError={(v) => setFileError(v)}
+          setFiles={(uploads) => setFiles(uploads)}
+        />
+      )}
 
       {errorKeys.length ? (
         <span className="errorMessage">

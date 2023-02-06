@@ -9,36 +9,28 @@ const initialState = {
   query: '',
 };
 
-export const getQA = createAsyncThunk(
-  'qa/getQA',
-  async (productId, thunkAPI) => {
-    let fetchRequired = true,
-      questions = [],
-      count = 30;
+export const getQA = createAsyncThunk('qa/getQA', async (_, thunkAPI) => {
+  let fetchRequired = true;
+  let count = 30;
 
-    try {
-      while (fetchRequired) {
-        const res = await axios({
-          url: '/qa/questions',
-          params: { product_id: 40355, count: 30 },
-        });
+  while (fetchRequired) {
+    /* eslint-disable no-await-in-loop */
+    const res = await axios({
+      url: '/qa/questions',
+      params: { product_id: 40355, count },
+    });
 
-        if (res.data.results.length === count) {
-          count += 30;
-        } else fetchRequired = false;
-
-        if (!fetchRequired) {
-          const questions = res.data.results
-            .sort((a, b) => b.question_helpfulness - a.question_helpfulness)
-            .map((q) => ({ ...q, answer_count: 2 }));
-          return questions;
-        }
-      }
-    } catch (err) {
-      console.log(err);
+    if (res.data.results.length === count) {
+      count += 30;
+    } else fetchRequired = false;
+    if (!fetchRequired) {
+      const questions = res.data.results.sort(
+        (a, b) => b.question_helpfulness - a.question_helpfulness
+      );
+      return questions;
     }
   }
-);
+});
 
 const qaSlice = createSlice({
   name: 'qa',
@@ -48,15 +40,6 @@ const qaSlice = createSlice({
       state.questionCount += 2;
       state.questions = state.fullQuestions.slice(0, state.questionCount);
     },
-    loadMoreAnswers: (state, action) => {
-      state.questions = state.questions.map((q) => ({
-        ...q,
-        answer_count:
-          q.question_id === action.payload
-            ? (q.answer_count += 2)
-            : q.answer_count,
-      }));
-    },
     filterQuestions: (state) => {
       if (!state.query.length) {
         state.questions = state.fullQuestions.slice(0, state.questionCount);
@@ -64,11 +47,13 @@ const qaSlice = createSlice({
       }
 
       state.questions = state.fullQuestions.filter((ele) => {
-        if (ele.question_body.toLowerCase().includes(state.query)) return ele;
+        const query = state.query.toLowerCase();
+        if (ele.question_body.toLowerCase().includes(query)) return ele;
         const answers = Object.values(ele.answers);
         for (let i = 0; i < answers.length; i += 1) {
-          if (answers[i].body.toLowerCase().includes(state.query)) return ele;
+          if (answers[i].body.toLowerCase().includes(query)) return ele;
         }
+        return false;
       });
     },
     updateQuery: (state, action) => {
@@ -81,9 +66,15 @@ const qaSlice = createSlice({
     });
     builder.addCase(getQA.fulfilled, (state, action) => {
       state.isLoading = false;
-      const filtered = action.payload.filter(
-        (questions) => Object.values(questions.answers).length
-      );
+      const filtered = action.payload.filter((q) => {
+        const date = new Date(q.question_date);
+        const today = new Date();
+        const checkIfSameDate =
+          date.getFullYear() === today.getFullYear() &&
+          date.getMonth() === today.getMonth() &&
+          date.getDate() === today.getDate();
+        return Object.values(q.answers).length || checkIfSameDate;
+      });
       state.questions = filtered.slice(0, state.questionCount);
       state.fullQuestions = filtered;
     });
@@ -93,10 +84,6 @@ const qaSlice = createSlice({
   },
 });
 
-export const {
-  loadMoreQuestions,
-  loadMoreAnswers,
-  filterQuestions,
-  updateQuery,
-} = qaSlice.actions;
+export const { loadMoreQuestions, filterQuestions, updateQuery } =
+  qaSlice.actions;
 export default qaSlice.reducer;
