@@ -3,32 +3,34 @@
  */
 
 import React from 'react';
-import { setupServer } from 'msw/node';
 import '@testing-library/jest-dom';
 import 'intersection-observer';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
 // import { setupStore } from '../../state/store';
 import { renderWithProviders } from '../__mocks__/test-utils.js';
 import { question, questions } from '../__mocks__/QA/mockData.js';
-import { handlers } from '../__mocks__/QA/handlers';
+import {
+  markQuestionHelpful,
+  reportQuestion,
+  markAnswerHelpful,
+  reportAnswer,
+} from '../../api/qa';
 import QAList from '../QA/QAList.jsx';
 import QAListEntry from '../QA/QAListEntry.jsx';
 
-const server = setupServer(...handlers);
+jest.mock('../../api/qa');
+beforeEach(jest.clearAllMocks);
 
-beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
-afterAll(() => server.close());
+const qState = {
+  questions: questions.slice(0, 2),
+  fullQuestions: questions,
+  questionCount: 2,
+  query: '',
+};
 
 describe('Question tests', () => {
-  const qState = {
-    questions: questions.slice(0, 2),
-    fullQuestions: questions,
-    questionCount: 2,
-    query: '',
-  };
-
   it('Should load 2 questions on click', async () => {
     renderWithProviders(<QAList />, { preloadedState: { qa: qState } });
     const loadedQuestions = await screen.findAllByText('Q:', { exact: false });
@@ -40,7 +42,14 @@ describe('Question tests', () => {
     expect(await screen.findAllByText(/Q:/i)).toHaveLength(4);
   });
 
-  // it('');
+  it('clicking add a question button renders a question modal', async () => {
+    render(<div id="modal" />);
+    renderWithProviders(<QAList />, { preloadedState: { qa: qState } });
+    await fireEvent.click(
+      screen.getByRole('button', { name: 'Add a question' })
+    );
+    expect(screen.getByText(/Submit question/i)).toBeInTheDocument();
+  });
 });
 
 describe('Answers tests', () => {
@@ -91,3 +100,34 @@ describe('Answers tests', () => {
   //   await submitForm();
   // });
 });
+
+// describe('Mark helpful and report', () => {
+//   it('Clicking yes marks question as helpful', async () => {
+//     markQuestionHelpful.mockResolvedValue();
+//     renderWithProviders(<QAListEntry question={question} />);
+//     await fireEvent.click(screen.getAllByText(/yes/i)[0]);
+//     // await fireEvent.click(screen.getAllByText(/yes/i)[0]);
+//     expect(await markQuestionHelpful).toHaveBeenCalledTimes(1);
+//   });
+//   it('Clicking report reports the question', async () => {
+//     reportQuestion.mockResolvedValue();
+//     renderWithProviders(<QAListEntry question={question} />);
+//     await waitFor(() => {
+//       fireEvent.click(screen.getAllByText(/report/i)[0]);
+//     });
+//     fireEvent.click(screen.getAllByText(/reported/i)[0]);
+//     expect(reportQuestion).toHaveBeenCalledTimes(1);
+//   });
+//   it('Clicking yes marks answer as helpful', async () => {
+//     markAnswerHelpful.mockResolvedValue();
+//     renderWithProviders(<QAListEntry question={question} />);
+//     await fireEvent.click(screen.getAllByText(/yes/i)[0]);
+//     expect(markAnswerHelpful).toHaveBeenCalledTimes(1);
+//   });
+//   it('Clicking report reports the answer', async () => {
+//     reportAnswer.mockResolvedValue();
+//     renderWithProviders(<QAListEntry question={question} />);
+//     await fireEvent.click(screen.getAllByText(/report/i)[0]);
+//     expect(reportAnswer).toHaveBeenCalledTimes(1);
+//   });
+// });
