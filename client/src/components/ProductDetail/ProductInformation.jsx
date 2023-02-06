@@ -19,7 +19,7 @@ export default function ProductInformation() {
     <div id="gallery-and-styles-container">
       <ImageGallery style={currentStyle} />
       <div id="product-info-container">
-        <StarRatings rating={totals?.average} /><span>Read all reviews</span>
+        <div className="star-ratings-reviews"><StarRatings rating={totals?.average} /><span className="read-all-reviews">Read all reviews</span></div>
         <div className="product-category"><p>Category: {product.category}</p></div>
         <div className="product-name"><p>{product.name}</p></div>
         <div className="product-price">

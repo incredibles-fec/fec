@@ -21,7 +21,7 @@ export default function Styles({ currentStyle, setCurrentStyle }) {
 
     return (
       <div>
-        <div className="product-style">Style &gt; <u>{currentStyle.name}</u></div>
+        <div className="product-style">Style &gt; <u><i>{currentStyle.name}</i></u></div>
         {allStyles}
       </div>
     );

@@ -295,79 +295,130 @@ function AddToCart(_ref) {
     _useState4 = _slicedToArray(_useState3, 2),
     quantity = _useState4[0],
     setQuantity = _useState4[1];
-  // const sizeSelectorRef = useRef(null);
-
+  var handleQuantityOptionClick = function handleQuantityOptionClick(selectedQuantity) {
+    document.getElementById('quantity-dropdown-button').textContent = selectedQuantity;
+  };
   var getQuantity = function getQuantity(skuNum) {
     var stock = style.skus[skuNum].quantity;
     var max = stock > 15 ? 15 : stock;
     var temp = [];
-    for (var i = 1; i <= max; i += 1) {
-      temp.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-        value: i,
+    var _loop = function _loop(i) {
+      temp.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        onClick: function onClick() {
+          handleQuantityOptionClick(i);
+        },
         children: i
       }, i));
+    };
+    for (var i = 1; i <= max; i += 1) {
+      _loop(i);
     }
     setQuantity(temp);
+  };
+  var handleSizeOptionClick = function handleSizeOptionClick(selectedSize, sku) {
+    document.getElementById('size-dropdown-button').textContent = selectedSize;
+    document.getElementById('size-dropdown-button')['data-sku'] = sku;
+    getQuantity(document.getElementById('size-dropdown-button')['data-sku']);
+    document.getElementById('quantity-dropdown-button').textContent = '---';
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     // eslint-disable-next-line max-len
     var loadNewSizes = Object.keys(style.skus).map(function (k) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-        value: k,
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        "data-sku": k,
+        onClick: function onClick() {
+          handleSizeOptionClick(style.skus[k].size, k);
+        },
         children: style.skus[k].size
       }, k);
     });
     if (loadNewSizes.length) {
-      loadNewSizes.unshift( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-        value: "none",
-        hidden: true,
-        children: "Select Size"
-      }, "select-size"));
+      document.getElementById('size-dropdown-button').textContent = 'Select Size';
+      document.getElementById('quantity-dropdown-button').textContent = '---';
     } else {
-      loadNewSizes.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-        value: "none",
-        children: "OUT OF STOCK"
-      }, "oos"));
-      document.getElementById('style-sizes').disabled = true;
-      document.getElementById('style-quantity').disabled = true;
+      document.getElementById('size-dropdown-button').textContent = 'OUT OF STOCK';
+      document.getElementById('quantity-dropdown-button').textContent = 'OOS';
+      document.querySelectorAll('.dropdownButton').forEach(function (b) {
+        return b.disabled = true;
+      });
       document.getElementById('add-to-cart-button').hidden = true;
     }
     setSizes(loadNewSizes);
-    setQuantity([/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-      value: "none",
-      children: "---"
-    }, "select-quantity")]);
   }, [style]);
-  var handleSizeSelection = function handleSizeSelection(e) {
-    getQuantity(e.target.value);
+  var handleSizeSelection = function handleSizeSelection() {
+    document.getElementById('size-dropdown').classList.toggle('show');
   };
   var handleAddToCart = function handleAddToCart(e) {
     e.preventDefault();
-    var sizeSelector = document.getElementById('style-sizes');
-    var quantitySelector = document.getElementById('style-quantity');
-    if (sizeSelector.value === 'none') {
-      // sizeSelector.size = sizes.length-1;
-      // sizeSelector[1].focus();
-      // $('#style-sizes').select2();
-      // $('#style-sizes').select2('open');
+    var sizeDropdown = document.getElementById('size-dropdown-button');
+    var quantityDropdown = document.getElementById('quantity-dropdown-button');
+    if (sizeDropdown.textContent === 'Select Size') {
+      sizeDropdown.textContent = 'Please Select a Size';
+      handleSizeSelection();
+    } else if (quantityDropdown.textContent === '---') {
+      quantityDropdown.textContent = 'Select Quantity';
+      document.getElementById('quantity-dropdown').classList.toggle('show');
     } else {
-      sizeSelector.size = 0;
-      quantitySelector.size = 0;
+      alert('Added to cart!');
+    }
+  };
+  window.onclick = function (event) {
+    if (!event.target.matches('.dropdownButton') && !event.target.matches('#add-to-cart-button')) {
+      var dropdowns = document.getElementsByClassName('dropdown-content');
+      for (var i = 0; i < dropdowns.length; i += 1) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
     }
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "add-to-cart-or-favorites",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
       id: "add-to-cart",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("select", {
-        id: "style-sizes",
-        form: "sizes-form",
-        onChange: handleSizeSelection,
-        children: sizes
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("select", {
-        id: "style-quantity",
-        form: "sizes-quantity-form",
-        children: quantity
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "dropdown",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          id: "dropdown-buttons",
+          onClick: handleSizeSelection,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "dropdownButton",
+            id: "size-dropdown-button",
+            type: "button",
+            children: "Select Size"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "dropdownButton",
+            type: "button",
+            children: "\u2228"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          id: "size-dropdown",
+          className: "dropdown-content",
+          children: sizes
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "dropdown",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          id: "dropdown-buttons",
+          onClick: function onClick() {
+            document.getElementById('quantity-dropdown').classList.toggle('show');
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "dropdownButton",
+            id: "quantity-dropdown-button",
+            type: "button",
+            children: "---"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            className: "dropdownButton",
+            type: "button",
+            children: "\u2228"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          id: "quantity-dropdown",
+          className: "dropdown-content",
+          children: quantity
+        })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       id: "cart-and-favorites-buttons",
@@ -405,6 +456,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -416,25 +471,32 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function ImageGallery(_ref) {
   var style = _ref.style;
-  // const {style_id, name, original_price, sale_price, photos, skus} = style;
   var name = style.name,
     photos = style.photos;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState2 = _slicedToArray(_useState, 2),
     index = _useState2[0],
     setIndex = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(photos[0].url),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState4 = _slicedToArray(_useState3, 2),
-    currentThumbnail = _useState4[0],
-    setCurrentThumbnail = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    thumbnailIndex = _useState4[0],
+    setThumbnailIndex = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(photos[0].url),
     _useState6 = _slicedToArray(_useState5, 2),
-    normalView = _useState6[0],
-    setNormalView = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    currentThumbnail = _useState6[0],
+    setCurrentThumbnail = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState8 = _slicedToArray(_useState7, 2),
-    expandedView = _useState8[0],
-    setExpandedView = _useState8[1];
+    displayedThumbnails = _useState8[0],
+    setDisplayedThumbnails = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState10 = _slicedToArray(_useState9, 2),
+    normalView = _useState10[0],
+    setNormalView = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    expandedView = _useState12[0],
+    setExpandedView = _useState12[1];
   var thumbnails = photos.map(function (p, i) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "carousel-item-container",
@@ -444,7 +506,11 @@ function ImageGallery(_ref) {
       },
       children: [currentThumbnail === photos[i].url ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "carousel-item-underlay"
-      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "carousel-item-underlay",
+        id: "underlay-".concat(i),
+        hidden: true
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
         className: "carousel-item-thumbnail",
         src: p.thumbnail_url,
         alt: name
@@ -452,10 +518,13 @@ function ImageGallery(_ref) {
     }, p.url);
   });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setDisplayedThumbnails(thumbnails.slice(0, 4)); // testing max of 4 elements
     setCurrentThumbnail(photos[0].url);
     setIndex(0);
+    setThumbnailIndex(0);
   }, [style]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setCurrentThumbnail(photos[index].url);
     var prevArrows = document.querySelectorAll('.prev');
     var nextArrows = document.querySelectorAll('.next');
     if (index === 0) {
@@ -482,13 +551,33 @@ function ImageGallery(_ref) {
         e.style.visibility = 'visible';
       });
     }
-    setCurrentThumbnail(photos[index].url);
   }, [index]);
   var getNext = function getNext() {
+    if (thumbnailIndex + 1 === displayedThumbnails.length && index + 1 < thumbnails.length) {
+      setDisplayedThumbnails([].concat(_toConsumableArray(displayedThumbnails.slice(1)), [thumbnails[index + 1]]));
+    }
+    // eslint-disable-next-line max-len
+    setThumbnailIndex(thumbnailIndex + 1 === displayedThumbnails.length ? thumbnailIndex : thumbnailIndex + 1);
     setIndex(index + 1 === photos.length ? index : index + 1);
   };
   var getPrev = function getPrev() {
-    setIndex(index - 1 < 0 ? 0 : index - 1);
+    if (thumbnailIndex === 0) {
+      if (index - 1 >= 0) {
+        setDisplayedThumbnails(thumbnails.slice(index - 1, index + 3));
+        setIndex(index - 1);
+      }
+    } else {
+      setThumbnailIndex(thumbnailIndex - 1);
+      setIndex(index - 1);
+    }
+  };
+  var panImage = function panImage(e) {
+    var img = document.getElementById('displayed-image');
+    if (!normalView && !expandedView) {
+      var xPos = (e.pageX - img.offsetLeft - img.width / 3) / img.width * 100;
+      var yPos = (e.pageY - img.offsetTop - img.height / 3) / img.height * 100;
+      img.style['transform-origin'] = "".concat(xPos, "% ").concat(yPos, "%");
+    }
   };
   var enlargeImage = function enlargeImage() {
     var img = document.getElementById('displayed-image');
@@ -532,7 +621,7 @@ function ImageGallery(_ref) {
         type: "button",
         onClick: getPrev,
         children: "\u2227"
-      }), thumbnails, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+      }), displayedThumbnails, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
         className: "next navigate",
         id: "carousel-thumbnail-next",
         "aria-label": "next",
@@ -547,7 +636,11 @@ function ImageGallery(_ref) {
         role: "presentation",
         src: photos[index].url,
         alt: name,
-        onClick: enlargeImage
+        onClick: enlargeImage,
+        onMouseMove: function onMouseMove(e) {
+          return panImage(e);
+        },
+        onFocus: function onFocus() {}
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         className: "carousel-actions",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
@@ -681,10 +774,14 @@ function ProductInformation() {
       style: currentStyle
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       id: "product-info-container",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_common_StarRatings_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        rating: totals === null || totals === void 0 ? void 0 : totals.average
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-        children: "Read all reviews"
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "star-ratings-reviews",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_common_StarRatings_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          rating: totals === null || totals === void 0 ? void 0 : totals.average
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          className: "read-all-reviews",
+          children: "Read all reviews"
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "product-category",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("p", {
@@ -766,9 +863,15 @@ function ProductDetail() {
   if (!loading) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "pd-flex-container",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "nav-bar",
-        children: "Navigation Bar with Logo"
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+          className: "logo",
+          children: "Navigation Bar with Logo"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+          className: "search",
+          children: "Search _____"
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h4", {
         className: "site-wide-announcement",
         children: ["SITE-WIDE ANNOUNCEMENT MESSAGE! - ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("b", {
@@ -778,7 +881,8 @@ function ProductDetail() {
     });
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
+    id: "loading",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
       children: "LOADING... "
     })
   });
@@ -805,17 +909,23 @@ __webpack_require__.r(__webpack_exports__);
 function ShareSocialMedia() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
-      href: "#",
+      href: "/#",
       className: "fa fa-facebook",
-      "data-testid": "fb"
+      "data-testid": "fb",
+      "aria-hidden": "true",
+      children: " "
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
-      href: "#",
+      href: "/#",
       className: "fa fa-twitter",
-      "data-testid": "twt"
+      "data-testid": "twt",
+      "aria-hidden": "true",
+      children: " "
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
-      href: "#",
+      href: "/#",
       className: "fa fa-pinterest",
-      "data-testid": "pnt"
+      "data-testid": "pnt",
+      "aria-hidden": "true",
+      children: " "
     })]
   });
 }
@@ -884,7 +994,9 @@ function Styles(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "product-style",
         children: ["Style > ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("u", {
-          children: currentStyle.name
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+            children: currentStyle.name
+          })
         })]
       }), allStyles]
     });
@@ -27786,8 +27898,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 2em;\n}\n\n.nav-bar {\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  display: inline-block;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n#product-info-container, .product-features {\n  /* flex: 1; */\n}\n\n#gallery-and-styles-container, .product-overview-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n#gallery-and-styles-container {\n  /* background: yellow; */\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 1rem;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n.carousel-item-thumbnail {\n  width: 50px;\n  height: 50px;\n  object-fit: cover;\n  padding: 0.5rem;\n  border-radius: 1rem;\n}\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n}\n\n.navigate {\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n}\n.navigate:hover {\n  opacity: 75%;\n}\n\n#carousel-prev, #carousel-next {\n  font-weight: bold;\n  font-size: 30px;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-weight: bold;\n  font-size: 20px;\n}\n\n#displayed-image {\n  height: 500px;\n  width: 500px;\n  object-fit: cover;\n  transition: all 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n}\n\n.style-item {\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  object-fit: cover;\n  padding: 5px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  /* justify-content: space-between; */\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n#style-sizes, #style-quantity {\n\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n#add-to-cart-button {\n  float: left;\n  margin-right: 0.5rem;\n}\n\n#add-to-cart-button, #add-to-favorites {\n\n}\n\n#add-to-cart-button:hover, #add-to-favorites:hover {\n  color: white;\n  background-color: gray;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 1rem;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\nul li:before {\n  content: '✓';\n}\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/pd.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,qBAAqB;EACrB,WAAW;AACb;;AAEA;EACE,8HAA8H;EAC9H,YAAY;EACZ,qBAAqB;AACvB;;AAEA;EACE,kBAAkB;EAClB,qBAAqB;EACrB,oBAAoB;AACtB;;AAEA;;wDAEwD;;AAExD;EACE,eAAe;AACjB;;AAEA;EACE,iBAAiB;EACjB,UAAU;AACZ;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;EACb,eAAe;EACf,uBAAuB;AACzB;;AAEA;EACE,wBAAwB;AAC1B;;AAEA;EACE,sBAAsB;AACxB;;AAEA;EACE,gBAAgB;EAChB,aAAa;EACb,uBAAuB;EACvB,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,oBAAoB;AACtB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,eAAe;EACf,WAAW;EACX,2BAA2B;EAC3B,kBAAkB;AACpB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,iBAAiB;EACjB,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,YAAY;EACZ,qBAAqB;AACvB;;;AAGA;EACE,aAAa;EACb,OAAO;EACP,gBAAgB;EAChB,kBAAkB;EAClB,uBAAuB;EACvB,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,WAAW;EACX,8BAA8B;EAC9B,kBAAkB;EAClB,QAAQ;EACR,2BAA2B;AAC7B;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,YAAY;EACZ,YAAY;EACZ,cAAc;AAChB;AACA;EACE,YAAY;AACd;;AAEA;EACE,iBAAiB;EACjB,eAAe;AACjB;;AAEA;EACE,iBAAiB;EACjB,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,YAAY;EACZ,iBAAiB;EACjB,yBAAyB;AAC3B;;AAEA;EACE,eAAe;AACjB;;AAEA;;wDAEwD;;AAExD;EACE,aAAa;AACf;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,qBAAqB;EACrB,kBAAkB;AACpB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,iBAAiB;EACjB,YAAY;AACd;;AAEA;EACE,YAAY;EACZ,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,QAAQ;EACR,UAAU;AACZ;;AAEA;EACE,oBAAoB;AACtB;;AAEA;EACE,aAAa;EACb,oCAAoC;EACpC,gBAAgB;EAChB,mBAAmB;AACrB;;AAEA;;AAEA;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,WAAW;EACX,oBAAoB;AACtB;;AAEA;;AAEA;;AAEA;EACE,YAAY;EACZ,sBAAsB;AACxB;;AAEA;;wDAEwD;AACxD;EACE,aAAa;EACb,eAAe;EACf,WAAW;EACX,kBAAkB;EAClB,qBAAqB;EACrB,kBAAkB;AACpB;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;;wDAEwD;;AAExD;EACE,gBAAgB;AAClB;;AAEA;EACE,YAAY;AACd","sourcesContent":[".pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 2em;\n}\n\n.nav-bar {\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  display: inline-block;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n#product-info-container, .product-features {\n  /* flex: 1; */\n}\n\n#gallery-and-styles-container, .product-overview-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n#gallery-and-styles-container {\n  /* background: yellow; */\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 1rem;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n.carousel-item-thumbnail {\n  width: 50px;\n  height: 50px;\n  object-fit: cover;\n  padding: 0.5rem;\n  border-radius: 1rem;\n}\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n}\n\n.navigate {\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n}\n.navigate:hover {\n  opacity: 75%;\n}\n\n#carousel-prev, #carousel-next {\n  font-weight: bold;\n  font-size: 30px;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-weight: bold;\n  font-size: 20px;\n}\n\n#displayed-image {\n  height: 500px;\n  width: 500px;\n  object-fit: cover;\n  transition: all 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n}\n\n.style-item {\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  object-fit: cover;\n  padding: 5px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  /* justify-content: space-between; */\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n#style-sizes, #style-quantity {\n\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n#add-to-cart-button {\n  float: left;\n  margin-right: 0.5rem;\n}\n\n#add-to-cart-button, #add-to-favorites {\n\n}\n\n#add-to-cart-button:hover, #add-to-favorites:hover {\n  color: white;\n  background-color: gray;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 1rem;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\nul li:before {\n  content: '✓';\n}\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "html {\n  font-family: 'Roboto', Tahoma, Verdana, sans-serif;\n}\n\n#loading {\n  display: flex;\n  justify-content: center;\n  font-size: xx-large;\n  color: black;\n  text-decoration: red wavy overline underline;\n}\n\n.pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 2em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  padding: 0rem 1rem;\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  display: inline-block;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.star-ratings-reviews {\n  display: flex;\n  align-items: baseline;\n}\n\n.read-all-reviews {\n  margin-left: 0.5rem;\n  text-decoration: underline;\n  font-size: small;\n  cursor: pointer;\n\n}\n\n.product-price p {\n  margin-bottom: 0;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n#product-info-container, .product-features {\n  /* flex: 1; */\n}\n\n#gallery-and-styles-container, .product-overview-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n#gallery-and-styles-container {\n  /* background: yellow; */\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 1rem;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n.carousel-item-thumbnail {\n  width: 50px;\n  height: 50px;\n  object-fit: cover;\n  padding: 0.5rem;\n  border-radius: 1rem;\n}\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n}\n\n.navigate {\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n  font-weight: bold;\n  background-color: silver;\n  color: black;\n}\n.navigate:hover {\n  opacity: 75%;\n  background-color: lightgray;\n}\n\n#carousel-prev, #carousel-next {\n  font-size: 30px;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-size: 20px;\n}\n\n#displayed-image {\n  height: 500px;\n  width: 500px;\n  object-fit: cover;\n  transition: transform 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n}\n\n.style-item {\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  object-fit: cover;\n  padding: 5px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n  transform: scale(1.05);\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  /* justify-content: space-between; */\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n#add-to-favorites {\n  font-size: larger;\n}\n\n#style-sizes, #style-quantity {\n\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n#add-to-cart-button {\n  float: left;\n  margin-right: 0.5rem;\n  min-width: 129px;\n}\n\nselect {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  text-decoration: none;\n  transition: all 0.2s ease;\n}\n\n#add-to-cart-button, #add-to-favorites {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s ease;\n  min-height: 33px;\n}\n\n#add-to-cart-button:hover, #add-to-favorites:hover, select:hover {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdownButton {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  min-height: 33px;\n  vertical-align: top;\n}\n\n#size-dropdown-button {\n  min-width: 71px;\n}\n\n\n#dropdown-buttons:hover, #dropdown-buttons:focus {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdown {\n  position: relative;\n  display: inline-block;\n  margin-right: 1rem;\n}\n\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: silver;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\n  z-index: 15;\n  width: 100%;\n  text-align: center;\n}\n\n.dropdown-content a, .dropdown-content span {\n  color: black;\n  padding: 0.5rem 1em;\n  text-decoration: none;\n  display: block;\n}\n\n.dropdown-content a:hover, .dropdown-content span:hover {\n  background-color: lightgray;\n}\n\n.show {\n  display: block;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 1rem;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\nul li:before {\n  content: '✓';\n}\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/pd.css"],"names":[],"mappings":"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","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap');\n\nhtml {\n  font-family: 'Roboto', Tahoma, Verdana, sans-serif;\n}\n\n#loading {\n  display: flex;\n  justify-content: center;\n  font-size: xx-large;\n  color: black;\n  text-decoration: red wavy overline underline;\n}\n\n.pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 2em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  padding: 0rem 1rem;\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  display: inline-block;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.star-ratings-reviews {\n  display: flex;\n  align-items: baseline;\n}\n\n.read-all-reviews {\n  margin-left: 0.5rem;\n  text-decoration: underline;\n  font-size: small;\n  cursor: pointer;\n\n}\n\n.product-price p {\n  margin-bottom: 0;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n#product-info-container, .product-features {\n  /* flex: 1; */\n}\n\n#gallery-and-styles-container, .product-overview-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n#gallery-and-styles-container {\n  /* background: yellow; */\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 1rem;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n.carousel-item-thumbnail {\n  width: 50px;\n  height: 50px;\n  object-fit: cover;\n  padding: 0.5rem;\n  border-radius: 1rem;\n}\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n}\n\n.navigate {\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n  font-weight: bold;\n  background-color: silver;\n  color: black;\n}\n.navigate:hover {\n  opacity: 75%;\n  background-color: lightgray;\n}\n\n#carousel-prev, #carousel-next {\n  font-size: 30px;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-size: 20px;\n}\n\n#displayed-image {\n  height: 500px;\n  width: 500px;\n  object-fit: cover;\n  transition: transform 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n}\n\n.style-item {\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  object-fit: cover;\n  padding: 5px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n  transform: scale(1.05);\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  /* justify-content: space-between; */\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n#add-to-favorites {\n  font-size: larger;\n}\n\n#style-sizes, #style-quantity {\n\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n#add-to-cart-button {\n  float: left;\n  margin-right: 0.5rem;\n  min-width: 129px;\n}\n\nselect {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  text-decoration: none;\n  transition: all 0.2s ease;\n}\n\n#add-to-cart-button, #add-to-favorites {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s ease;\n  min-height: 33px;\n}\n\n#add-to-cart-button:hover, #add-to-favorites:hover, select:hover {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdownButton {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  min-height: 33px;\n  vertical-align: top;\n}\n\n#size-dropdown-button {\n  min-width: 71px;\n}\n\n\n#dropdown-buttons:hover, #dropdown-buttons:focus {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdown {\n  position: relative;\n  display: inline-block;\n  margin-right: 1rem;\n}\n\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: silver;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\n  z-index: 15;\n  width: 100%;\n  text-align: center;\n}\n\n.dropdown-content a, .dropdown-content span {\n  color: black;\n  padding: 0.5rem 1em;\n  text-decoration: none;\n  display: block;\n}\n\n.dropdown-content a:hover, .dropdown-content span:hover {\n  background-color: lightgray;\n}\n\n.show {\n  display: block;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 1rem;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\nul li:before {\n  content: '✓';\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
