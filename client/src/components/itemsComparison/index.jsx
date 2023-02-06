@@ -56,7 +56,7 @@ function RelatedOutfits() {
   }, [currentProduct]);
 
   return (
-    <div>
+    <div className="relatedProductOutfit">
       <ProductList currentProduct={currentProduct} relatedList={relatedList} />
       <OutfitList currentProduct={currentProduct} relatedList={relatedList} />
     </div>

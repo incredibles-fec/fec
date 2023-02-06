@@ -1,3 +1,13 @@
+/* ================================================================
+     Related Product and Outfits Component
+   ================================================================
+*/
+
+.relatedProductOutfit {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 /* ================================
       Related Product Cards

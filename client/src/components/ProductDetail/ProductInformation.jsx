@@ -24,7 +24,7 @@ export default function ProductInformation() {
         <div className="product-name"><p>{product.name}</p></div>
         <div className="product-price">
           {
-            currentStyle.sale_price
+            currentStyle?.sale_price
               ? <p><s>${currentStyle.original_price}</s> <span className="sale-price">${currentStyle.sale_price}</span></p>
               : <p>${currentStyle.original_price}</p>
           }
