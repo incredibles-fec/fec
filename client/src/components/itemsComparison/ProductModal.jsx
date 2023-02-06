@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 import React from 'react';
 
@@ -72,11 +73,11 @@ export default function ProductModal({
               Object.keys(finalObject).map((product) => {
                 if (product !== 'features' && product !== 'image' && product !== 'slogan' && product !== 'description' && product !== 'price' && product !== 'id' && product !== 'salePrice') {
                   return (
-                    <tr>
+                    <tr key={product}>
                       <td>{finalObject[product][0] || '--'}</td>
                       {product === 'default_price' ?
-                        <td className="productInfo">Price</td> :
-                        <td className="productInfo">{product}</td>}
+                        <td className="productInfo">price</td> :
+                        <td className="productInfo">{product.toLowerCase()}</td>}
                       <td>{finalObject[product][1] || '--'}</td>
                     </tr>
                   );
@@ -89,18 +90,3 @@ export default function ProductModal({
     </div>
   );
 }
-
-// <tr>
-// <td>{currentProduct.id}</td>
-// <td className="productInfo">Product Id</td>
-// <td>{item.id}
-//   {/* <i className="fa-solid fa-check" /> */}
-// </td>
-// </tr>
-// <tr>
-// <td>${currentProduct.default_price}</td>
-// <td className="productInfo">Default Price</td>
-// <td>{item.default_price}
-//   {/* <i className="fa-solid fa-check" /> */}
-// </td>
-// </tr>
