@@ -497,19 +497,20 @@ function ImageGallery(_ref) {
     _useState12 = _slicedToArray(_useState11, 2),
     expandedView = _useState12[0],
     setExpandedView = _useState12[1];
+  var handleThumbnailClick = function handleThumbnailClick(i) {
+    console.log(currentThumbnail, 'cur');
+    console.log(photos[i].url, 'photos[i]url', i);
+    // setCurrentThumbnail(photos[i].url);
+    setIndex(i);
+  };
   var thumbnails = photos.map(function (p, i) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "carousel-item-container",
       onClick: function onClick() {
-        setCurrentThumbnail(photos[i].url);
-        setIndex(i);
+        handleThumbnailClick(i);
       },
-      children: [currentThumbnail === photos[i].url ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      children: [currentThumbnail === photos[i].url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "carousel-item-underlay"
-      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-        className: "carousel-item-underlay",
-        id: "underlay-".concat(i),
-        hidden: true
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
         className: "carousel-item-thumbnail",
         src: p.thumbnail_url,
@@ -518,13 +519,16 @@ function ImageGallery(_ref) {
     }, p.url);
   });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    console.log('style changed');
     setDisplayedThumbnails(thumbnails.slice(0, 4)); // testing max of 4 elements
-    setCurrentThumbnail(photos[0].url);
+    //setCurrentThumbnail(photos[0].url);
     setIndex(0);
     setThumbnailIndex(0);
   }, [style]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setCurrentThumbnail(photos[index].url);
+    console.log('index changed');
+    console.log(photos[index].url, 'photos[index]url', index);
     var prevArrows = document.querySelectorAll('.prev');
     var nextArrows = document.querySelectorAll('.next');
     if (index === 0) {

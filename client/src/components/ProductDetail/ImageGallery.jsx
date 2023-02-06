@@ -9,23 +9,33 @@ export default function ImageGallery({ style }) {
   const [normalView, setNormalView] = useState(true);
   const [expandedView, setExpandedView] = useState(false);
 
+  const handleThumbnailClick = (i) => {
+    console.log(currentThumbnail, 'cur');
+    console.log(photos[i].url, 'photos[i]url', i);
+    // setCurrentThumbnail(photos[i].url);
+    setIndex(i);
+  };
+
   const thumbnails = photos.map((p, i) => (
-    <div className="carousel-item-container" key={p.url} onClick={() => { setCurrentThumbnail(photos[i].url); setIndex(i); }}>
-      {currentThumbnail === photos[i].url ? <div className="carousel-item-underlay" /> : null}
-      <div className="carousel-item-underlay" id={`underlay-${i}`} hidden />
+    <div className="carousel-item-container" key={p.url} onClick={() => { handleThumbnailClick(i); }}>
+      {currentThumbnail === photos[i].url && <div className="carousel-item-underlay" />}
+      {/* {currentThumbnail === photos[i].url ? <div className="carousel-item-underlay" /> : null} */}
       <img className="carousel-item-thumbnail" src={p.thumbnail_url} alt={name} />
     </div>
   ));
 
   useEffect(() => {
+    console.log('style changed');
     setDisplayedThumbnails(thumbnails.slice(0, 4)); // testing max of 4 elements
-    setCurrentThumbnail(photos[0].url);
+    //setCurrentThumbnail(photos[0].url);
     setIndex(0);
     setThumbnailIndex(0);
   }, [style]);
 
   useEffect(() => {
     setCurrentThumbnail(photos[index].url);
+    console.log('index changed');
+    console.log(photos[index].url, 'photos[index]url', index);
 
     const prevArrows = document.querySelectorAll('.prev');
     const nextArrows = document.querySelectorAll('.next');
