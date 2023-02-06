@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function Outfit({ item, onRemoveFromOutfit }) {
-  console.log('ITEM ', item);
   return (
     <div className="outfitCard">
       <div className="cardContent">
