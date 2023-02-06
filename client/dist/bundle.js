@@ -3247,7 +3247,6 @@ __webpack_require__.r(__webpack_exports__);
 function Outfit(_ref) {
   var item = _ref.item,
     onRemoveFromOutfit = _ref.onRemoveFromOutfit;
-  console.log('ITEM ', item);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "outfitCard",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -3346,14 +3345,7 @@ function OutfitList(_ref) {
     if (!isFound) {
       setOutfitList([].concat(_toConsumableArray(outfitList), [product]));
     }
-
-    // local storage testing
-    // add item to local storage
-    localStorage.setItem('44524', JSON.stringify({
-      category: 'shorts',
-      name: 'tulips'
-    }));
-    localStorage.setItem('44059', JSON.stringify({
+    localStorage.setItem(correctProduct[0].id, JSON.stringify({
       category: correctProduct[0].category,
       name: correctProduct[0].name,
       default_price: correctProduct[0].default_price,
@@ -3361,7 +3353,16 @@ function OutfitList(_ref) {
       image: correctProduct[0].image,
       id: correctProduct[0].id
     }));
+
+    // get all items from local storage
+    // set current list equal to these items
+    Object.values(localStorage).map(function (storage) {
+      var storageObject = JSON.parse(storage);
+      // console.log('individual ', storageObject);
+      // setOutfitList([...outfitList, storageObject]);
+    });
   };
+
   var onRemoveFromOutfit = function onRemoveFromOutfit(e) {
     var currentProductName = e.target.id;
     var newList = outfitList.filter(function (product) {
@@ -3433,9 +3434,6 @@ function Product(_ref) {
     setvisibleStatus = _React$useState2[1];
   var changeModal = function changeModal(e) {
     setvisibleStatus(!visibleStatus);
-    // const currentProductInfo = currentProduct;
-    // return currentProductInfo;
-    console.log(e);
   };
 
   // TODO - outline characteristics
@@ -3576,7 +3574,6 @@ function ProductList(_ref) {
   var onUpdate = function onUpdate(e) {
     if (e.target.className !== 'fas fa-star' && e.target.className !== 'modalExit') {
       var currentProductId = e.nativeEvent.path[1].id;
-      console.log('id ', currentProductId);
       dispatch((0,_state_pd_js__WEBPACK_IMPORTED_MODULE_4__.changeCurrentProductById)(currentProductId));
     }
   };
@@ -3639,6 +3636,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 
 
@@ -3724,19 +3722,21 @@ function ProductModal(_ref) {
               className: "checkRightHeader",
               "aria-label": "right check header"
             })]
-          }), Object.values(finalObject).length > 0 ? Object.keys(finalObject).map(function (product, index) {
-            console.log('FINAL ', finalObject);
-            if (product !== 'features' && product !== 'image' && product !== 'slogan' && product !== 'description' && product !== 'price') {
+          }), Object.values(finalObject).length > 0 ? Object.keys(finalObject).map(function (product) {
+            if (product !== 'features' && product !== 'image' && product !== 'slogan' && product !== 'description' && product !== 'price' && product !== 'id' && product !== 'salePrice') {
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  children: finalObject[product][0]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  children: finalObject[product][0] || '--'
+                }), product === 'default_price' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                   className: "productInfo",
-                  children: product
+                  children: "price"
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  className: "productInfo",
+                  children: product.toLowerCase()
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  children: finalObject[product][1]
+                  children: finalObject[product][1] || '--'
                 })]
-              });
+              }, product);
             }
           }) : null]
         })
@@ -3744,21 +3744,6 @@ function ProductModal(_ref) {
     })
   });
 }
-
-// <tr>
-// <td>{currentProduct.id}</td>
-// <td className="productInfo">Product Id</td>
-// <td>{item.id}
-//   {/* <i className="fa-solid fa-check" /> */}
-// </td>
-// </tr>
-// <tr>
-// <td>${currentProduct.default_price}</td>
-// <td className="productInfo">Default Price</td>
-// <td>{item.default_price}
-//   {/* <i className="fa-solid fa-check" /> */}
-// </td>
-// </tr>
 
 /***/ }),
 
@@ -28001,7 +27986,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* ================================================================\n     Related Product and Outfits Component\n   ================================================================\n*/\n\n.relatedProductOutfit {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer, .outfitItemContainer{\n  /* border: 1px solid rgb(152, 152, 205); */\n  width: 800px;\n  height: 325px;\n  overflow: hidden;\n  scroll-behavior: smooth;\n  display: flex;\n  position: relative;\n  margin-left: 100px;\n}\n\n.productCard, .outfitCard {\n  border: .5px solid #000000;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.relatedImage {\n  height: 200px;\n  width: 225px;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n}\n\n.previousProduct, .nextProduct{\n  height: 40px;\n  width: 60px;\n}\n\n.nextProduct{\n  position: relative;\n  bottom: 210px;\n  left: 870px;\n  font-size: 20px;\n}\n\n.previousProduct{\n  position: absolute;\n  top: 950px;\n  left: 75px;\n  font-size: 20px;\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 500px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 100%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 33%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 33%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 66%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.addToOutfit {\n  border: solid .5px black;\n  margin: 5px 7px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 225px;\n  height: 315px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 180px;\n  height: 120px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 25px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n\n}\n\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/ro.css"],"names":[],"mappings":"AAAA;;;CAGC;;AAED;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;AACzB;;AAEA;;;CAGC;;AAED;EACE,0CAA0C;EAC1C,YAAY;EACZ,aAAa;EACb,gBAAgB;EAChB,uBAAuB;EACvB,aAAa;EACb,kBAAkB;EAClB,kBAAkB;AACpB;;AAEA;EACE,0BAA0B;EAC1B,YAAY;EACZ,aAAa;EACb,WAAW;AACb;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,YAAY;AACd;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;EACnB,6BAA6B;AAC/B;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;EACnB,UAAU;AACZ;;AAEA;EACE,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;AACb;;AAEA;EACE,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;EACX,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,UAAU;EACV,UAAU;EACV,eAAe;AACjB;;AAEA;;;CAGC;;AAED;EACE,YAAY;EACZ,aAAa;EACb,eAAe;EACf,WAAW;EACX,UAAU;EACV,QAAQ;EACR,SAAS;EACT,yBAAyB;EACzB,UAAU;EACV,aAAa;EACb,sBAAsB;AACxB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,SAAS;EACT,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,eAAe;EACf,mBAAmB;EACnB,0BAA0B;AAC5B;;AAEA;EACE,iBAAiB;EACjB,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,eAAe;EACf,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,0BAA0B;EAC1B,mBAAmB;EACnB,WAAW;EACX,yBAAyB;AAC3B;;AAEA;EACE,iBAAiB;EACjB,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,UAAU;AACZ;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,yBAAyB;AAC3B;;AAEA;EACE,kBAAkB;EAClB,UAAU;EACV,iBAAiB;AACnB;;AAEA;EACE,kBAAkB;AACpB;;;AAGA;;;CAGC;;AAED;EACE,wBAAwB;EACxB,eAAe;EACf,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;;AAEb","sourcesContent":["/* ================================================================\n     Related Product and Outfits Component\n   ================================================================\n*/\n\n.relatedProductOutfit {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer, .outfitItemContainer{\n  /* border: 1px solid rgb(152, 152, 205); */\n  width: 800px;\n  height: 325px;\n  overflow: hidden;\n  scroll-behavior: smooth;\n  display: flex;\n  position: relative;\n  margin-left: 100px;\n}\n\n.productCard, .outfitCard {\n  border: .5px solid #000000;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.relatedImage {\n  height: 200px;\n  width: 225px;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n}\n\n.previousProduct, .nextProduct{\n  height: 40px;\n  width: 60px;\n}\n\n.nextProduct{\n  position: relative;\n  bottom: 210px;\n  left: 870px;\n  font-size: 20px;\n}\n\n.previousProduct{\n  position: absolute;\n  top: 950px;\n  left: 75px;\n  font-size: 20px;\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 500px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 100%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 33%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 33%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 66%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.addToOutfit {\n  border: solid .5px black;\n  margin: 5px 7px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 225px;\n  height: 315px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 180px;\n  height: 120px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 25px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n\n}\n\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* ================================================================\n     Related Product and Outfits Component\n   ================================================================\n*/\n\n.relatedProductOutfit {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  margin: 2em 8em;\n}\n\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductsContainer h3, .outfitContainer h3 {\n  text-align: center;\n}\n\n.relatedProductsContainer h3 {\n  text-align: center;\n}\n\n.relatedProductContainer, .outfitItemContainer{\n  width: 800px;\n  height: 325px;\n  overflow: hidden;\n  scroll-behavior: smooth;\n  display: flex;\n  position: relative;\n  margin-left: 100px;\n}\n\n.productCard, .outfitCard {\n  border: .5px solid #000000;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.relatedImage {\n  height: 200px;\n  width: 225px;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n}\n\n.previousProduct, .nextProduct{\n  height: 40px;\n  width: 60px;\n}\n\n.nextProduct{\n  position: relative;\n  bottom: 210px;\n  left: 870px;\n  font-size: 20px;\n}\n\n.previousProduct{\n  position: absolute;\n  top: 950px;\n  left: 75px;\n  font-size: 20px;\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 440px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 90%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 35%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 35%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 30%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.addToOutfit {\n  border: solid .5px black;\n  margin: 5px 7px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 225px;\n  height: 315px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 180px;\n  height: 120px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 25px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n\n}\n\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/ro.css"],"names":[],"mappings":"AAAA;;;CAGC;;AAED;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,eAAe;AACjB;;AAEA;;;CAGC;;AAED;EACE,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,gBAAgB;EAChB,uBAAuB;EACvB,aAAa;EACb,kBAAkB;EAClB,kBAAkB;AACpB;;AAEA;EACE,0BAA0B;EAC1B,YAAY;EACZ,aAAa;EACb,WAAW;AACb;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,YAAY;AACd;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;EACnB,6BAA6B;AAC/B;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;EACnB,UAAU;AACZ;;AAEA;EACE,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;AACb;;AAEA;EACE,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;EACX,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,UAAU;EACV,UAAU;EACV,eAAe;AACjB;;AAEA;;;CAGC;;AAED;EACE,YAAY;EACZ,aAAa;EACb,eAAe;EACf,WAAW;EACX,UAAU;EACV,QAAQ;EACR,SAAS;EACT,yBAAyB;EACzB,UAAU;EACV,aAAa;EACb,sBAAsB;AACxB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,SAAS;EACT,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,eAAe;EACf,mBAAmB;EACnB,0BAA0B;AAC5B;;AAEA;EACE,iBAAiB;EACjB,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,eAAe;EACf,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,0BAA0B;EAC1B,mBAAmB;EACnB,UAAU;EACV,yBAAyB;AAC3B;;AAEA;EACE,iBAAiB;EACjB,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,UAAU;AACZ;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,yBAAyB;AAC3B;;AAEA;EACE,kBAAkB;EAClB,UAAU;EACV,iBAAiB;AACnB;;AAEA;EACE,kBAAkB;AACpB;;;AAGA;;;CAGC;;AAED;EACE,wBAAwB;EACxB,eAAe;EACf,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;;AAEb","sourcesContent":["/* ================================================================\n     Related Product and Outfits Component\n   ================================================================\n*/\n\n.relatedProductOutfit {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  margin: 2em 8em;\n}\n\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductsContainer h3, .outfitContainer h3 {\n  text-align: center;\n}\n\n.relatedProductsContainer h3 {\n  text-align: center;\n}\n\n.relatedProductContainer, .outfitItemContainer{\n  width: 800px;\n  height: 325px;\n  overflow: hidden;\n  scroll-behavior: smooth;\n  display: flex;\n  position: relative;\n  margin-left: 100px;\n}\n\n.productCard, .outfitCard {\n  border: .5px solid #000000;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.relatedImage {\n  height: 200px;\n  width: 225px;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n}\n\n.previousProduct, .nextProduct{\n  height: 40px;\n  width: 60px;\n}\n\n.nextProduct{\n  position: relative;\n  bottom: 210px;\n  left: 870px;\n  font-size: 20px;\n}\n\n.previousProduct{\n  position: absolute;\n  top: 950px;\n  left: 75px;\n  font-size: 20px;\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 440px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 90%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 35%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 35%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 30%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.addToOutfit {\n  border: solid .5px black;\n  margin: 5px 7px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 225px;\n  height: 315px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 180px;\n  height: 120px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 25px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n\n}\n\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
