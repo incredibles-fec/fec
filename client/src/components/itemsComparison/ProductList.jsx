@@ -43,7 +43,6 @@ export default function ProductList({ currentProduct, relatedList }) {
       e.target.className !== 'modalExit'
     ) {
       const currentProductId = e.nativeEvent.path[1].id;
-      console.log('id ', currentProductId);
       dispatch(changeCurrentProductById(currentProductId));
     }
   };

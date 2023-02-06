@@ -20,7 +20,7 @@ export default function ProductModal({
       if (Array.isArray(currentProduct[property])) {
         currentProduct[property].forEach((detail) => {
           sample[detail.feature] = [detail.value];
-        })
+        });
       }
     }
 
@@ -69,18 +69,19 @@ export default function ProductModal({
               <th className="checkRightHeader" aria-label="right check header" />
             </tr>
             { Object.values(finalObject).length > 0 ?
-               Object.keys(finalObject).map((product, index) => {
-                console.log('FINAL ', finalObject);
-                if (product !== 'features' && product !== 'image' && product !== 'slogan' && product !== 'description' && product !== 'price') {
+              Object.keys(finalObject).map((product) => {
+                if (product !== 'features' && product !== 'image' && product !== 'slogan' && product !== 'description' && product !== 'price' && product !== 'id' && product !== 'salePrice') {
                   return (
                     <tr>
-                      <td>{finalObject[product][0]}</td>
-                      <td className="productInfo">{product}</td>
-                      <td>{finalObject[product][1]}</td>
+                      <td>{finalObject[product][0] || '--'}</td>
+                      {product === 'default_price' ?
+                        <td className="productInfo">Price</td> :
+                        <td className="productInfo">{product}</td>}
+                      <td>{finalObject[product][1] || '--'}</td>
                     </tr>
                   );
-                  }
-               })
+                }
+              })
               : null}
           </thead>
         </table>
