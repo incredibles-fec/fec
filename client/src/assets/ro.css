@@ -107,10 +107,14 @@
   flex-direction: column;
 }
 
+.modalHeader {
+  position: sticky;
+}
+
 .modalExit {
-  position: relative;
+  position: absolute;
   left: 465px;
-  bottom: 140px;
+  top: 10px;
   height: 20px;
   width: 20px;
 }

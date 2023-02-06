@@ -50,9 +50,12 @@ export default function ProductModal({
     <div>
       <div className="productModal">
         <h1>COMPARING</h1>
+        <button className="modalExit" onClick={onClick} type="button">
+          x
+        </button>
         <table>
           <thead>
-            <tr>
+            <tr className="modalHeader">
               <th className="leftHeader">Current Viewed Product</th>
               <th className="rightHeader">Compared Product Card</th>
             </tr>
@@ -78,32 +81,9 @@ export default function ProductModal({
                   );
                   }
                })
-            // Object.values(finalObject).map((characteristic) => {
-            //   console.log('FINAL ', finalObject);
-            //   if (Array.isArray(characteristic) && characteristic !== null) {
-            //     characteristic.map((inner, k) => {
-            //       return (
-            //         <tr>
-            //           <td>{inner}</td>
-            //           <td className="productInfo">{k}</td>
-            //         </tr>
-            //       );
-            //     });
-            //   }
-              // if (typeof characteristic !== 'object' && characteristic.length < 20) {
-              //   return (
-              //     <tr>
-              //       <td>{characteristic}</td>
-              //       <td className="productInfo">Product Id</td>
-              //     </tr>
-              //   );
-              // }
               : null}
           </thead>
         </table>
-        <button className="modalExit" onClick={onClick} type="button">
-          x
-        </button>
       </div>
     </div>
   );
