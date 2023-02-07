@@ -1,7 +1,6 @@
 import React from 'react';
 
-export default function Outfit({ item, onRemoveFromOutfit, list }) {
-  console.log('LIST ', list.length);
+export default function Outfit({ item, onRemoveFromOutfit }) {
   return (
     <div className="outfitCard">
       <div className="cardContent">
