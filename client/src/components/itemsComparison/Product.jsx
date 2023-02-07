@@ -8,9 +8,6 @@ export default function Product({
 
   const changeModal = (e) => {
     setvisibleStatus(!visibleStatus);
-    // const currentProductInfo = currentProduct;
-    // return currentProductInfo;
-    console.log(e);
   };
 
   // TODO - outline characteristics
@@ -31,7 +28,7 @@ export default function Product({
   /// / add value of second object as characteristic to third column
 
   return (
-    <div className="productCard" id={count} onClick={onUpdate}>
+    <div className="productCard" id={count} onClick={(e) => onUpdate(e, item.id)}>
       <div className="cardContent" id={item.id}>
         <img className="relatedImage" src={item.image} alt="current product" />
         <i onClick={changeModal} className="fas fa-star" />
