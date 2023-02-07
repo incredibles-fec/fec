@@ -42,11 +42,7 @@ export default function ProductList({ currentProduct, relatedList }) {
       e.target.className !== 'fas fa-star' &&
       e.target.className !== 'modalExit'
     ) {
-      // const currentProductId = e.nativeEvent.path[1].id;
       dispatch(changeCurrentProductById(item));
-
-      // console.log('NATIVE', e.nativeEvent);
-      // console.log('PATH', e.nativeEvent.path);
     }
   };
 

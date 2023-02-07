@@ -30,7 +30,9 @@ export default function Product({
   return (
     <div className="productCard" id={count} onClick={(e) => onUpdate(e, item.id)}>
       <div className="cardContent" id={item.id}>
-        <img className="relatedImage" src={item.image} alt="current product" />
+        <div>
+          <img className="relatedImage" src={item.image} alt="current product" />
+        </div>
         <i onClick={changeModal} className="fas fa-star" />
         <div className="productCardCategory">{item.category}</div>
         <div className="productCardName">{item.name}</div>

@@ -1,6 +1,6 @@
 import React from 'react';
-import Outfit from './Outfit.jsx';
 import { useSelector } from 'react-redux';
+import Outfit from './Outfit.jsx';
 
 export default function OutfitList({ relatedList }) {
   const { currentProduct } = useSelector((state) => state.pd);
@@ -18,6 +18,9 @@ export default function OutfitList({ relatedList }) {
       id: correctProduct[0].id,
     };
 
+    console.log('current ', product);
+    console.log('TYPE ', typeof product);
+
     const isFound = outfitList.some((value) => {
       if (value.id === product.id) {
         return true;
@@ -29,7 +32,6 @@ export default function OutfitList({ relatedList }) {
       setOutfitList([...outfitList, product]);
     }
 
-
     localStorage.setItem(correctProduct[0].id, JSON.stringify({
       category: correctProduct[0].category,
       name: correctProduct[0].name,
@@ -38,23 +40,19 @@ export default function OutfitList({ relatedList }) {
       image: correctProduct[0].image,
       id: correctProduct[0].id,
     }));
-
-    // get all items from local storage
-    // set current list equal to these items
-    Object.values(localStorage).map((storage) => {
-      let storageObject = JSON.parse(storage);
-      // console.log('individual ', storageObject);
-      // setOutfitList([...outfitList, storageObject]);
-    });
   };
 
-
-
   const onRemoveFromOutfit = (e) => {
+    // TODO: Update LOCAL STORAGE REMOVE
     const currentProductName = e.target.id;
     const newList = outfitList.filter((product) => product.name !== currentProductName);
     setOutfitList(newList);
   };
+
+  React.useEffect(() => {
+    const newArray = Object.values(localStorage).map((storage) => JSON.parse(storage));
+    setOutfitList(newArray);
+  }, []);
 
   return (
     <div className="outfitContainer">
@@ -65,12 +63,13 @@ export default function OutfitList({ relatedList }) {
             <h1>Add to Outfit</h1>
             <i className="fa-regular fa-plus" />
           </div>
-        </div> { outfitList.length > 0 ?
-          outfitList.map((item) => {
-           return (
-            <Outfit key={item.id} item={item} onRemoveFromOutfit={onRemoveFromOutfit} />
-          )}) : null }
+        </div> {outfitList.length > 0 ?
+          outfitList.map((item) => (
+            <Outfit key={item.id} item={item} onRemoveFromOutfit={onRemoveFromOutfit} list={outfitList} />
+          )) : null }
       </div>
     </div>
   );
 }
+
+// outfitList.length === Object.values(localStorage).length
