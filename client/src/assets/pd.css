@@ -238,7 +238,7 @@ button, select {
 #displayed-image {
   height: 500px;
   width: 500px;
-  object-fit: cover;
+  object-fit: contain;
   transition: transform 0.5s ease;
 }
 

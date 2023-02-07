@@ -99,6 +99,8 @@ export default function ImageGallery({ style }) {
       img.style.cursor = 'cell';
       img.style.transform = 'scale(1.0)';
 
+      img.style.width = '600px';
+
       setExpandedView(true);
     } else if (expandedView) {
       img.style.cursor = 'zoom-out';
@@ -122,9 +124,11 @@ export default function ImageGallery({ style }) {
 
       if (thumbnailIndexStart === 0) {
         document.getElementById('carousel-thumbnail-prev').style.visibility = 'hidden';
+        document.getElementById('carousel-prev').style.visibility = 'hidden';
       }
       if (thumbnailIndexEnd === thumbnails.length) {
         document.getElementById('carousel-thumbnail-next').style.visibility = 'hidden';
+        document.getElementById('carousel-next').style.visibility = 'hidden';
       }
 
       setNormalView(true);
