@@ -97,9 +97,20 @@ button, select {
 }
 
 .product-overview-container {
+  align-self: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
+  margin-left: 17vw;
+  margin-right: 3rem;
+}
+
+.product-slogan-description {
+  flex-basis: 60%;
+}
+
+.product-features {
+  flex-grow: 2;
 }
 
 #gallery-and-styles-container {

@@ -8,6 +8,20 @@ const initialState = {
   loading: true,
 };
 
+export const postToCart = createAsyncThunk(
+  'pd/postToCart',
+  async (id, thunkAPI) => {
+    try {
+      const obj = { sku_id: id };
+      const data = await axios.post('/cart', obj);
+      data.reduxRequestId = thunkAPI.requestId;
+      return data;
+    } catch (err) {
+      return 'Error adding to cart teehee';
+    }
+  }
+);
+
 export const getProducts = createAsyncThunk(
   'pd/getProducts',
   async (thunkAPI) => {

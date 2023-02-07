@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { postToCart } from '../../state/pd';
 
 export default function AddToCart({ style }) {
   const [sizes, setSizes] = useState([]);
   const [quantity, setQuantity] = useState([]);
+  const dispatch = useDispatch();
 
   const handleQuantityOptionClick = (selectedQuantity) => {
     document.getElementById('quantity-dropdown-button').textContent = selectedQuantity;
@@ -55,6 +58,7 @@ export default function AddToCart({ style }) {
       quantityDropdown.textContent = 'Select Quantity';
       document.getElementById('quantity-dropdown').classList.toggle('show');
     } else {
+      dispatch(postToCart(document.getElementById('size-dropdown-button')['data-sku']));
       alert('Added to cart!');
     }
   };

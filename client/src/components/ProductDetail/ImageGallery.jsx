@@ -1,10 +1,11 @@
+/* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 
 export default function ImageGallery({ style }) {
   const { name, photos } = style;
   const [index, setIndex] = useState(0);
   const [thumbnailIndexStart, setThumbnailIndexStart] = useState(0);
-  const [thumbnailIndexEnd, setThumbnailIndexEnd] = useState(0);
+  const [thumbnailIndexEnd, setThumbnailIndexEnd] = useState(maxThumbnailDisplay > photos.length ? photos.length : maxThumbnailDisplay);
   const [currentThumbnail, setCurrentThumbnail] = useState(photos[0].url);
   const [normalView, setNormalView] = useState(true);
   const [expandedView, setExpandedView] = useState(false);
@@ -24,10 +25,8 @@ export default function ImageGallery({ style }) {
         <img className="carousel-item-thumbnail" src={p.thumbnail_url} alt={name} />
       </div>
     ));
-    setIndex(0);
-    setThumbnailIndexStart(0);
+
     setCurrentThumbnail(photos[index].url);
-    // eslint-disable-next-line max-len
     setThumbnailIndexEnd(maxThumbnailDisplay > thumbnails.length ? thumbnails.length : maxThumbnailDisplay);
   }, [style]);
 
