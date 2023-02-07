@@ -18,9 +18,6 @@ export default function OutfitList({ relatedList }) {
       id: correctProduct[0].id,
     };
 
-    console.log('current ', product);
-    console.log('TYPE ', typeof product);
-
     const isFound = outfitList.some((value) => {
       if (value.id === product.id) {
         return true;
@@ -42,11 +39,11 @@ export default function OutfitList({ relatedList }) {
     }));
   };
 
-  const onRemoveFromOutfit = (e) => {
-    // TODO: Update LOCAL STORAGE REMOVE
+  const onRemoveFromOutfit = (e, id) => {
     const currentProductName = e.target.id;
     const newList = outfitList.filter((product) => product.name !== currentProductName);
     setOutfitList(newList);
+    localStorage.removeItem(id);
   };
 
   React.useEffect(() => {
