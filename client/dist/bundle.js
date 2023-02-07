@@ -275,13 +275,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ AddToCart)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _state_pd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../state/pd */ "./client/src/state/pd.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 
@@ -295,89 +299,142 @@ function AddToCart(_ref) {
     _useState4 = _slicedToArray(_useState3, 2),
     quantity = _useState4[0],
     setQuantity = _useState4[1];
-  // const sizeSelectorRef = useRef(null);
-
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var handleQuantityOptionClick = function handleQuantityOptionClick(selectedQuantity) {
+    document.getElementById('quantity-dropdown-button').textContent = selectedQuantity;
+  };
   var getQuantity = function getQuantity(skuNum) {
     var stock = style.skus[skuNum].quantity;
     var max = stock > 15 ? 15 : stock;
     var temp = [];
-    for (var i = 1; i <= max; i += 1) {
-      temp.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-        value: i,
+    var _loop = function _loop(i) {
+      temp.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+        onClick: function onClick() {
+          handleQuantityOptionClick(i);
+        },
         children: i
       }, i));
+    };
+    for (var i = 1; i <= max; i += 1) {
+      _loop(i);
     }
     setQuantity(temp);
+  };
+  var handleSizeOptionClick = function handleSizeOptionClick(selectedSize, sku) {
+    document.getElementById('size-dropdown-button').textContent = selectedSize;
+    document.getElementById('size-dropdown-button')['data-sku'] = sku;
+    getQuantity(document.getElementById('size-dropdown-button')['data-sku']);
+    document.getElementById('quantity-dropdown-button').textContent = '---';
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     // eslint-disable-next-line max-len
     var loadNewSizes = Object.keys(style.skus).map(function (k) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-        value: k,
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+        "data-sku": k,
+        onClick: function onClick() {
+          handleSizeOptionClick(style.skus[k].size, k);
+        },
         children: style.skus[k].size
       }, k);
     });
     if (loadNewSizes.length) {
-      loadNewSizes.unshift( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-        value: "none",
-        hidden: true,
-        children: "Select Size"
-      }, "select-size"));
+      document.getElementById('size-dropdown-button').textContent = 'Select Size';
+      document.getElementById('quantity-dropdown-button').textContent = '---';
     } else {
-      loadNewSizes.push( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-        value: "none",
-        children: "OUT OF STOCK"
-      }, "oos"));
-      document.getElementById('style-sizes').disabled = true;
-      document.getElementById('style-quantity').disabled = true;
+      document.getElementById('size-dropdown-button').textContent = 'OUT OF STOCK';
+      document.getElementById('quantity-dropdown-button').textContent = 'OOS';
+      document.querySelectorAll('.dropdownButton').forEach(function (b) {
+        return b.disabled = true;
+      });
       document.getElementById('add-to-cart-button').hidden = true;
     }
     setSizes(loadNewSizes);
-    setQuantity([/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-      value: "none",
-      children: "---"
-    }, "select-quantity")]);
   }, [style]);
-  var handleSizeSelection = function handleSizeSelection(e) {
-    getQuantity(e.target.value);
+  var handleSizeSelection = function handleSizeSelection() {
+    document.getElementById('size-dropdown').classList.toggle('show');
   };
   var handleAddToCart = function handleAddToCart(e) {
     e.preventDefault();
-    var sizeSelector = document.getElementById('style-sizes');
-    var quantitySelector = document.getElementById('style-quantity');
-    if (sizeSelector.value === 'none') {
-      // sizeSelector.size = sizes.length-1;
-      // sizeSelector[1].focus();
-      // $('#style-sizes').select2();
-      // $('#style-sizes').select2('open');
+    var sizeDropdown = document.getElementById('size-dropdown-button');
+    var quantityDropdown = document.getElementById('quantity-dropdown-button');
+    if (sizeDropdown.textContent === 'Select Size') {
+      sizeDropdown.textContent = 'Please Select a Size';
+      handleSizeSelection();
+    } else if (quantityDropdown.textContent === '---') {
+      quantityDropdown.textContent = 'Select Quantity';
+      document.getElementById('quantity-dropdown').classList.toggle('show');
     } else {
-      sizeSelector.size = 0;
-      quantitySelector.size = 0;
+      dispatch((0,_state_pd__WEBPACK_IMPORTED_MODULE_2__.postToCart)(document.getElementById('size-dropdown-button')['data-sku']));
+      alert('Added to cart!');
     }
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+  window.onclick = function (event) {
+    if (!event.target.matches('.dropdownButton') && !event.target.matches('#add-to-cart-button')) {
+      var dropdowns = document.getElementsByClassName('dropdown-content');
+      for (var i = 0; i < dropdowns.length; i += 1) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: "add-to-cart-or-favorites",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
       id: "add-to-cart",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("select", {
-        id: "style-sizes",
-        form: "sizes-form",
-        onChange: handleSizeSelection,
-        children: sizes
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("select", {
-        id: "style-quantity",
-        form: "sizes-quantity-form",
-        children: quantity
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "dropdown",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          id: "dropdown-buttons",
+          onClick: handleSizeSelection,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            className: "dropdownButton",
+            id: "size-dropdown-button",
+            type: "button",
+            children: "Select Size"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            className: "dropdownButton",
+            type: "button",
+            children: "\u2228"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          id: "size-dropdown",
+          className: "dropdown-content",
+          children: sizes
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "dropdown",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+          id: "dropdown-buttons",
+          onClick: function onClick() {
+            document.getElementById('quantity-dropdown').classList.toggle('show');
+          },
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            className: "dropdownButton",
+            id: "quantity-dropdown-button",
+            type: "button",
+            children: "---"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+            className: "dropdownButton",
+            type: "button",
+            children: "\u2228"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          id: "quantity-dropdown",
+          className: "dropdown-content",
+          children: quantity
+        })]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       id: "cart-and-favorites-buttons",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
         id: "add-to-cart-button",
         type: "submit",
         value: "Add to Cart",
         onClick: handleAddToCart,
         children: "Add to Cart"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
         id: "add-to-favorites",
         type: "submit",
         value: "Add to Favorites",
@@ -411,40 +468,48 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/* eslint-disable max-len */
 
 
 
 function ImageGallery(_ref) {
   var style = _ref.style;
-  // const {style_id, name, original_price, sale_price, photos, skus} = style;
   var name = style.name,
     photos = style.photos;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState2 = _slicedToArray(_useState, 2),
     index = _useState2[0],
     setIndex = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(photos[0].url),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(0),
     _useState4 = _slicedToArray(_useState3, 2),
-    currentThumbnail = _useState4[0],
-    setCurrentThumbnail = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    thumbnailIndexStart = _useState4[0],
+    setThumbnailIndexStart = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(maxThumbnailDisplay > photos.length ? photos.length : maxThumbnailDisplay),
     _useState6 = _slicedToArray(_useState5, 2),
-    normalView = _useState6[0],
-    setNormalView = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    thumbnailIndexEnd = _useState6[0],
+    setThumbnailIndexEnd = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(photos[0].url),
     _useState8 = _slicedToArray(_useState7, 2),
-    expandedView = _useState8[0],
-    setExpandedView = _useState8[1];
+    currentThumbnail = _useState8[0],
+    setCurrentThumbnail = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
+    _useState10 = _slicedToArray(_useState9, 2),
+    normalView = _useState10[0],
+    setNormalView = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    expandedView = _useState12[0],
+    setExpandedView = _useState12[1];
+  var maxThumbnailDisplay = 5;
   var thumbnails = photos.map(function (p, i) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "carousel-item-container",
       onClick: function onClick() {
-        setCurrentThumbnail(photos[i].url);
         setIndex(i);
       },
-      children: [currentThumbnail === photos[i].url ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      children: [currentThumbnail === photos[i].url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "carousel-item-underlay"
-      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
         className: "carousel-item-thumbnail",
         src: p.thumbnail_url,
         alt: name
@@ -452,10 +517,26 @@ function ImageGallery(_ref) {
     }, p.url);
   });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    setCurrentThumbnail(photos[0].url);
-    setIndex(0);
+    thumbnails = photos.map(function (p, i) {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "carousel-item-container",
+        onClick: function onClick() {
+          setIndex(i);
+        },
+        children: [currentThumbnail === photos[i].url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "carousel-item-underlay"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+          className: "carousel-item-thumbnail",
+          src: p.thumbnail_url,
+          alt: name
+        })]
+      }, p.url);
+    });
+    setCurrentThumbnail(photos[index].url);
+    setThumbnailIndexEnd(maxThumbnailDisplay > thumbnails.length ? thumbnails.length : maxThumbnailDisplay);
   }, [style]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setCurrentThumbnail(photos[index].url);
     var prevArrows = document.querySelectorAll('.prev');
     var nextArrows = document.querySelectorAll('.next');
     if (index === 0) {
@@ -482,19 +563,36 @@ function ImageGallery(_ref) {
         e.style.visibility = 'visible';
       });
     }
-    setCurrentThumbnail(photos[index].url);
   }, [index]);
   var getNext = function getNext() {
+    if (thumbnailIndexEnd < thumbnails.length) {
+      setThumbnailIndexStart(thumbnailIndexStart + 1);
+      setThumbnailIndexEnd(thumbnailIndexEnd + 1);
+    }
     setIndex(index + 1 === photos.length ? index : index + 1);
   };
   var getPrev = function getPrev() {
-    setIndex(index - 1 < 0 ? 0 : index - 1);
+    if (thumbnailIndexStart > 0) {
+      setThumbnailIndexStart(thumbnailIndexStart - 1);
+      setThumbnailIndexEnd(thumbnailIndexEnd - 1);
+    }
+    setIndex(index - 1 > 0 ? index - 1 : 0);
+  };
+  var panImage = function panImage(e) {
+    var img = document.getElementById('displayed-image');
+    if (!normalView && !expandedView) {
+      var xPos = (e.pageX - img.offsetLeft - img.width / 3) / img.width * 100;
+      var yPos = (e.pageY - img.offsetTop - img.height / 3) / img.height * 100;
+      img.style['transform-origin'] = "".concat(xPos, "% ").concat(yPos, "%");
+    }
   };
   var enlargeImage = function enlargeImage() {
     var img = document.getElementById('displayed-image');
     var displayImageContainer = document.getElementById('display-image-container');
     var imageGalleryContainer = document.getElementById('image-gallery-container');
     var productInfoContainer = document.getElementById('product-info-container');
+    var navButtons = document.querySelectorAll('.navigate');
+    var thumbnailContainer = document.getElementById('carousel-thumbnail-container');
     if (normalView) {
       setNormalView(false);
       imageGalleryContainer.style.height = '60vh';
@@ -507,6 +605,10 @@ function ImageGallery(_ref) {
     } else if (expandedView) {
       img.style.cursor = 'zoom-out';
       img.style.transform = 'scale(2.5)';
+      thumbnailContainer.style.visibility = 'hidden';
+      navButtons.forEach(function (b) {
+        return b.style.visibility = 'hidden';
+      });
       setExpandedView(false);
     } else {
       // zoomed view
@@ -518,6 +620,10 @@ function ImageGallery(_ref) {
       img.style.height = '500px';
       img.style.width = '500px';
       imageGalleryContainer.style['z-index'] = 0;
+      thumbnailContainer.style.visibility = 'visible';
+      navButtons.forEach(function (b) {
+        return b.style.visibility = 'visible';
+      });
       setNormalView(true);
     }
   };
@@ -532,7 +638,7 @@ function ImageGallery(_ref) {
         type: "button",
         onClick: getPrev,
         children: "\u2227"
-      }), thumbnails, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+      }), thumbnails.slice(thumbnailIndexStart, thumbnailIndexEnd), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
         className: "next navigate",
         id: "carousel-thumbnail-next",
         "aria-label": "next",
@@ -547,7 +653,11 @@ function ImageGallery(_ref) {
         role: "presentation",
         src: photos[index].url,
         alt: name,
-        onClick: enlargeImage
+        onClick: enlargeImage,
+        onMouseMove: function onMouseMove(e) {
+          return panImage(e);
+        },
+        onFocus: function onFocus() {}
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         className: "carousel-actions",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
@@ -666,29 +776,42 @@ function ProductInformation() {
   var _useSelector2 = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (store) {
       return store.rr;
     }),
-    totals = _useSelector2.totals;
+    totals = _useSelector2.totals,
+    reviewCount = _useSelector2.reviewCount;
   var product = currentProduct;
   var styles = currentProductStyles;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(styles.filter(function (s) {
       return s['default?'];
-    })[0]),
+    })[0] || styles[0]),
     _useState2 = _slicedToArray(_useState, 2),
     currentStyle = _useState2[0],
     setCurrentStyle = _useState2[1];
+  var goToReviews = function goToReviews() {
+    document.querySelectorAll('.rr-container')[0].scrollIntoView({
+      behavior: 'smooth'
+    });
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
     id: "gallery-and-styles-container",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_ImageGallery_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
       style: currentStyle
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
       id: "product-info-container",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_common_StarRatings_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-        rating: totals === null || totals === void 0 ? void 0 : totals.average
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
-        children: "Read all reviews"
+      children: [reviewCount !== 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+        className: "star-ratings-reviews",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_common_StarRatings_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          rating: totals === null || totals === void 0 ? void 0 : totals.average
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+          className: "read-all-reviews",
+          onClick: function onClick() {
+            return goToReviews();
+          },
+          children: "Read all reviews"
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "product-category",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("p", {
-          children: ["Category: ", product.category]
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+          children: product.category
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "product-name",
@@ -697,7 +820,7 @@ function ProductInformation() {
         })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "product-price",
-        children: currentStyle.sale_price ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("p", {
+        children: currentStyle !== null && currentStyle !== void 0 && currentStyle.sale_price ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("p", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("s", {
             children: ["$", currentStyle.original_price]
           }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("span", {
@@ -761,14 +884,36 @@ function ProductDetail() {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     dispatch((0,_state_pd__WEBPACK_IMPORTED_MODULE_2__.getProducts)());
     // dispatch(changeCurrentProductById(40355));
-    // dispatch(changeCurrentProductById(40346));
+    // dispatch(changeCurrentProductById(40347));
   }, []);
+  var handleSearch = function handleSearch(e) {
+    e.preventDefault();
+    var pID = e.target.elements.searchProducts.value;
+    dispatch((0,_state_pd__WEBPACK_IMPORTED_MODULE_2__.changeCurrentProductById)(pID));
+  };
   if (!loading) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "pd-flex-container",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "nav-bar",
-        children: "Navigation Bar with Logo"
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
+          className: "logo",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+            children: "Incredible Apparel"
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          className: "search",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {
+            onSubmit: function onSubmit(e) {
+              return handleSearch(e);
+            },
+            children: ["\uD83D\uDD0E: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+              name: "searchProducts",
+              type: "search",
+              placeholder: "VALID PROD IDS ONLY"
+            })]
+          })
+        })]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h4", {
         className: "site-wide-announcement",
         children: ["SITE-WIDE ANNOUNCEMENT MESSAGE! - ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("b", {
@@ -778,7 +923,8 @@ function ProductDetail() {
     });
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h1", {
+    id: "loading",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
       children: "LOADING... "
     })
   });
@@ -805,17 +951,23 @@ __webpack_require__.r(__webpack_exports__);
 function ShareSocialMedia() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
-      href: "#",
+      href: "/#",
       className: "fa fa-facebook",
-      "data-testid": "fb"
+      "data-testid": "fb",
+      "aria-hidden": "true",
+      children: " "
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
-      href: "#",
+      href: "/#",
       className: "fa fa-twitter",
-      "data-testid": "twt"
+      "data-testid": "twt",
+      "aria-hidden": "true",
+      children: " "
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
-      href: "#",
+      href: "/#",
       className: "fa fa-pinterest",
-      "data-testid": "pnt"
+      "data-testid": "pnt",
+      "aria-hidden": "true",
+      children: " "
     })]
   });
 }
@@ -860,31 +1012,37 @@ function Styles(_ref) {
       return styles.slice(index * 4, index * 4 + 4);
     });
     var allStyles = styleRows.map(function (row, index) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
-        className: "styles-row",
-        children: row.map(function (style) {
-          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-            className: "style-item-overlay",
-            onClick: function onClick() {
-              return setCurrentStyle(style);
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
-              className: "style-item",
-              src: style.photos[0].thumbnail_url,
-              alt: style.name
-            }), currentStyle.style_id === style.style_id ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("em", {
-              className: "checkmark",
-              children: "\u2713"
-            }) : null]
-          }, style.style_id);
-        })
-      }, index);
+      return (
+        /*#__PURE__*/
+        // eslint-disable-next-line react/no-array-index-key
+        (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+          className: "styles-row",
+          children: row.map(function (style) {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+              className: "style-item-overlay",
+              onClick: function onClick() {
+                return setCurrentStyle(style);
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
+                className: "style-item",
+                src: style.photos[0].thumbnail_url,
+                alt: style.name
+              }), currentStyle.style_id === style.style_id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("em", {
+                className: "checkmark",
+                children: "\u2713"
+              })]
+            }, style.style_id);
+          })
+        }, "row-".concat(index))
+      );
     });
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "product-style",
         children: ["Style > ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("u", {
-          children: currentStyle.name
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+            children: currentStyle.name
+          })
         })]
       }), allStyles]
     });
@@ -3093,7 +3251,6 @@ __webpack_require__.r(__webpack_exports__);
 function Outfit(_ref) {
   var item = _ref.item,
     onRemoveFromOutfit = _ref.onRemoveFromOutfit;
-  console.log('ITEM ', item);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "outfitCard",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
@@ -3192,14 +3349,7 @@ function OutfitList(_ref) {
     if (!isFound) {
       setOutfitList([].concat(_toConsumableArray(outfitList), [product]));
     }
-
-    // local storage testing
-    // add item to local storage
-    localStorage.setItem('44524', JSON.stringify({
-      category: 'shorts',
-      name: 'tulips'
-    }));
-    localStorage.setItem('44059', JSON.stringify({
+    localStorage.setItem(correctProduct[0].id, JSON.stringify({
       category: correctProduct[0].category,
       name: correctProduct[0].name,
       default_price: correctProduct[0].default_price,
@@ -3207,7 +3357,16 @@ function OutfitList(_ref) {
       image: correctProduct[0].image,
       id: correctProduct[0].id
     }));
+
+    // get all items from local storage
+    // set current list equal to these items
+    Object.values(localStorage).map(function (storage) {
+      var storageObject = JSON.parse(storage);
+      // console.log('individual ', storageObject);
+      // setOutfitList([...outfitList, storageObject]);
+    });
   };
+
   var onRemoveFromOutfit = function onRemoveFromOutfit(e) {
     var currentProductName = e.target.id;
     var newList = outfitList.filter(function (product) {
@@ -3216,6 +3375,7 @@ function OutfitList(_ref) {
     setOutfitList(newList);
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    className: "outfitContainer",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h3", {
       children: "Your Outfit"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
@@ -3278,9 +3438,6 @@ function Product(_ref) {
     setvisibleStatus = _React$useState2[1];
   var changeModal = function changeModal(e) {
     setvisibleStatus(!visibleStatus);
-    // const currentProductInfo = currentProduct;
-    // return currentProductInfo;
-    console.log(e);
   };
 
   // TODO - outline characteristics
@@ -3303,7 +3460,9 @@ function Product(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
     className: "productCard",
     id: count,
-    onClick: onUpdate,
+    onClick: function onClick(e) {
+      return onUpdate(e, item.id);
+    },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "cardContent",
       id: item.id,
@@ -3394,6 +3553,7 @@ function ProductList(_ref) {
     _React$useState8 = _slicedToArray(_React$useState7, 2),
     lastSlide = _React$useState8[0],
     setLastSlide = _React$useState8[1];
+  var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useDispatch)();
   var onNext = function onNext() {
     if (firstSlide >= 0) {
       setPreviousVisble(true);
@@ -3417,14 +3577,19 @@ function ProductList(_ref) {
     setFirstSlide(firstSlide - 1);
     setLastSlide(lastSlide - 1);
   };
-  var onUpdate = function onUpdate(e) {
+  var onUpdate = function onUpdate(e, item) {
     if (e.target.className !== 'fas fa-star' && e.target.className !== 'modalExit') {
-      var currentProductId = e.nativeEvent.path[1].id;
-      (0,_state_pd_js__WEBPACK_IMPORTED_MODULE_4__.changeCurrentProductById)(currentProductId);
+      // const currentProductId = e.nativeEvent.path[1].id;
+      dispatch((0,_state_pd_js__WEBPACK_IMPORTED_MODULE_4__.changeCurrentProductById)(item));
+
+      // console.log('NATIVE', e.nativeEvent);
+      // console.log('PATH', e.nativeEvent.path);
     }
   };
+
   var num = 0;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+    className: "relatedProductsContainer",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
       children: "Related Products"
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
@@ -3481,6 +3646,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 
 
@@ -3566,19 +3732,21 @@ function ProductModal(_ref) {
               className: "checkRightHeader",
               "aria-label": "right check header"
             })]
-          }), Object.values(finalObject).length > 0 ? Object.keys(finalObject).map(function (product, index) {
-            console.log('FINAL ', finalObject);
-            if (product !== 'features' && product !== 'image' && product !== 'slogan' && product !== 'description' && product !== 'price') {
+          }), Object.values(finalObject).length > 0 ? Object.keys(finalObject).map(function (product) {
+            if (product !== 'features' && product !== 'image' && product !== 'slogan' && product !== 'description' && product !== 'price' && product !== 'id' && product !== 'salePrice') {
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  children: finalObject[product][0]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  children: finalObject[product][0] || '--'
+                }), product === 'default_price' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                   className: "productInfo",
-                  children: product
+                  children: "price"
+                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  className: "productInfo",
+                  children: product.toLowerCase()
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
-                  children: finalObject[product][1]
+                  children: finalObject[product][1] || '--'
                 })]
-              });
+              }, product);
             }
           }) : null]
         })
@@ -3586,21 +3754,6 @@ function ProductModal(_ref) {
     })
   });
 }
-
-// <tr>
-// <td>{currentProduct.id}</td>
-// <td className="productInfo">Product Id</td>
-// <td>{item.id}
-//   {/* <i className="fa-solid fa-check" /> */}
-// </td>
-// </tr>
-// <tr>
-// <td>${currentProduct.default_price}</td>
-// <td className="productInfo">Default Price</td>
-// <td>{item.default_price}
-//   {/* <i className="fa-solid fa-check" /> */}
-// </td>
-// </tr>
 
 /***/ }),
 
@@ -3690,6 +3843,7 @@ function RelatedOutfits() {
     }
   }, [currentProduct]);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+    className: "relatedProductOutfit",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ProductList_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
       currentProduct: currentProduct,
       relatedList: relatedList
@@ -3716,6 +3870,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   "getProducts": () => (/* binding */ getProducts),
 /* harmony export */   "pdSlice": () => (/* binding */ pdSlice),
+/* harmony export */   "postToCart": () => (/* binding */ postToCart),
 /* harmony export */   "test": () => (/* binding */ test)
 /* harmony export */ });
 /* harmony import */ var _reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @reduxjs/toolkit */ "./node_modules/@reduxjs/toolkit/dist/redux-toolkit.esm.js");
@@ -3733,76 +3888,106 @@ var initialState = {
   currentProductStyles: [],
   loading: true
 };
-var getProducts = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)('pd/getProducts', /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(thunkAPI) {
-    var prods, id, firstProd, firstProdStyles;
+var postToCart = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)('pd/postToCart', /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(id, thunkAPI) {
+    var obj, data;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           _context.prev = 0;
-          _context.next = 3;
-          return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/products');
-        case 3:
-          prods = _context.sent;
-          id = prods.data[0].id;
-          _context.next = 7;
-          return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/products/".concat(id));
-        case 7:
-          firstProd = _context.sent;
-          _context.next = 10;
-          return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/products/".concat(id, "/styles"));
-        case 10:
-          firstProdStyles = _context.sent;
-          return _context.abrupt("return", {
-            loadProducts: prods.data,
-            loadCurrent: firstProd.data,
-            loadCurrentStyles: firstProdStyles.data.results
-          });
-        case 14:
-          _context.prev = 14;
+          obj = {
+            sku_id: id
+          };
+          _context.next = 4;
+          return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/cart', obj);
+        case 4:
+          data = _context.sent;
+          data.reduxRequestId = thunkAPI.requestId;
+          return _context.abrupt("return", data);
+        case 9:
+          _context.prev = 9;
           _context.t0 = _context["catch"](0);
-          return _context.abrupt("return", 'Error getting products');
-        case 17:
+          return _context.abrupt("return", 'Error adding to cart teehee');
+        case 12:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 14]]);
+    }, _callee, null, [[0, 9]]);
   }));
-  return function (_x) {
+  return function (_x, _x2) {
     return _ref.apply(this, arguments);
   };
 }());
-var changeCurrentProductById = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)('pd/changeCurrentProductById', /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(id, thunkAPI) {
-    var newProduct, newProductStyles;
+var getProducts = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)('pd/getProducts', /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(thunkAPI) {
+    var prods, id, firstProd, firstProdStyles;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
           _context2.next = 3;
+          return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/products');
+        case 3:
+          prods = _context2.sent;
+          id = prods.data[0].id;
+          _context2.next = 7;
+          return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/products/".concat(id));
+        case 7:
+          firstProd = _context2.sent;
+          _context2.next = 10;
+          return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/products/".concat(id, "/styles"));
+        case 10:
+          firstProdStyles = _context2.sent;
+          return _context2.abrupt("return", {
+            loadProducts: prods.data,
+            loadCurrent: firstProd.data,
+            loadCurrentStyles: firstProdStyles.data.results
+          });
+        case 14:
+          _context2.prev = 14;
+          _context2.t0 = _context2["catch"](0);
+          return _context2.abrupt("return", 'Error getting products');
+        case 17:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2, null, [[0, 14]]);
+  }));
+  return function (_x3) {
+    return _ref2.apply(this, arguments);
+  };
+}());
+var changeCurrentProductById = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createAsyncThunk)('pd/changeCurrentProductById', /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(id, thunkAPI) {
+    var newProduct, newProductStyles;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.prev = 0;
+          _context3.next = 3;
           return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/products/".concat(id));
         case 3:
-          newProduct = _context2.sent;
-          _context2.next = 6;
+          newProduct = _context3.sent;
+          _context3.next = 6;
           return axios__WEBPACK_IMPORTED_MODULE_0___default().get("/products/".concat(id, "/styles"));
         case 6:
-          newProductStyles = _context2.sent;
-          return _context2.abrupt("return", {
+          newProductStyles = _context3.sent;
+          return _context3.abrupt("return", {
             newProduct: newProduct.data,
             newProductStyles: newProductStyles.data.results
           });
         case 10:
-          _context2.prev = 10;
-          _context2.t0 = _context2["catch"](0);
-          return _context2.abrupt("return", 'Error changing product by id');
+          _context3.prev = 10;
+          _context3.t0 = _context3["catch"](0);
+          return _context3.abrupt("return", 'Error changing product by id');
         case 13:
         case "end":
-          return _context2.stop();
+          return _context3.stop();
       }
-    }, _callee2, null, [[0, 10]]);
+    }, _callee3, null, [[0, 10]]);
   }));
-  return function (_x2, _x3) {
-    return _ref2.apply(this, arguments);
+  return function (_x4, _x5) {
+    return _ref3.apply(this, arguments);
   };
 }());
 var pdSlice = (0,_reduxjs_toolkit__WEBPACK_IMPORTED_MODULE_1__.createSlice)({
@@ -27786,8 +27971,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
+___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 2em;\n}\n\n.nav-bar {\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  display: inline-block;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n#product-info-container, .product-features {\n  /* flex: 1; */\n}\n\n#gallery-and-styles-container, .product-overview-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n#gallery-and-styles-container {\n  /* background: yellow; */\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 1rem;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n.carousel-item-thumbnail {\n  width: 50px;\n  height: 50px;\n  object-fit: cover;\n  padding: 0.5rem;\n  border-radius: 1rem;\n}\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n}\n\n.navigate {\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n}\n.navigate:hover {\n  opacity: 75%;\n}\n\n#carousel-prev, #carousel-next {\n  font-weight: bold;\n  font-size: 30px;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-weight: bold;\n  font-size: 20px;\n}\n\n#displayed-image {\n  height: 500px;\n  width: 500px;\n  object-fit: cover;\n  transition: all 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n}\n\n.style-item {\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  object-fit: cover;\n  padding: 5px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  /* justify-content: space-between; */\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n#style-sizes, #style-quantity {\n\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n#add-to-cart-button {\n  float: left;\n  margin-right: 0.5rem;\n}\n\n#add-to-cart-button, #add-to-favorites {\n\n}\n\n#add-to-cart-button:hover, #add-to-favorites:hover {\n  color: white;\n  background-color: gray;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 1rem;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\nul li:before {\n  content: '✓';\n}\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/pd.css"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,qBAAqB;EACrB,WAAW;AACb;;AAEA;EACE,8HAA8H;EAC9H,YAAY;EACZ,qBAAqB;AACvB;;AAEA;EACE,kBAAkB;EAClB,qBAAqB;EACrB,oBAAoB;AACtB;;AAEA;;wDAEwD;;AAExD;EACE,eAAe;AACjB;;AAEA;EACE,iBAAiB;EACjB,UAAU;AACZ;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;EACb,eAAe;EACf,uBAAuB;AACzB;;AAEA;EACE,wBAAwB;AAC1B;;AAEA;EACE,sBAAsB;AACxB;;AAEA;EACE,gBAAgB;EAChB,aAAa;EACb,uBAAuB;EACvB,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,oBAAoB;AACtB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,eAAe;EACf,WAAW;EACX,2BAA2B;EAC3B,kBAAkB;AACpB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,iBAAiB;EACjB,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,YAAY;EACZ,qBAAqB;AACvB;;;AAGA;EACE,aAAa;EACb,OAAO;EACP,gBAAgB;EAChB,kBAAkB;EAClB,uBAAuB;EACvB,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,WAAW;EACX,8BAA8B;EAC9B,kBAAkB;EAClB,QAAQ;EACR,2BAA2B;AAC7B;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,YAAY;EACZ,YAAY;EACZ,cAAc;AAChB;AACA;EACE,YAAY;AACd;;AAEA;EACE,iBAAiB;EACjB,eAAe;AACjB;;AAEA;EACE,iBAAiB;EACjB,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,YAAY;EACZ,iBAAiB;EACjB,yBAAyB;AAC3B;;AAEA;EACE,eAAe;AACjB;;AAEA;;wDAEwD;;AAExD;EACE,aAAa;AACf;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,qBAAqB;EACrB,kBAAkB;AACpB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,iBAAiB;EACjB,YAAY;AACd;;AAEA;EACE,YAAY;EACZ,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,QAAQ;EACR,UAAU;AACZ;;AAEA;EACE,oBAAoB;AACtB;;AAEA;EACE,aAAa;EACb,oCAAoC;EACpC,gBAAgB;EAChB,mBAAmB;AACrB;;AAEA;;AAEA;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,WAAW;EACX,oBAAoB;AACtB;;AAEA;;AAEA;;AAEA;EACE,YAAY;EACZ,sBAAsB;AACxB;;AAEA;;wDAEwD;AACxD;EACE,aAAa;EACb,eAAe;EACf,WAAW;EACX,kBAAkB;EAClB,qBAAqB;EACrB,kBAAkB;AACpB;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;;wDAEwD;;AAExD;EACE,gBAAgB;AAClB;;AAEA;EACE,YAAY;AACd","sourcesContent":[".pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 2em;\n}\n\n.nav-bar {\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  display: inline-block;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n#product-info-container, .product-features {\n  /* flex: 1; */\n}\n\n#gallery-and-styles-container, .product-overview-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n#gallery-and-styles-container {\n  /* background: yellow; */\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 1rem;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n.carousel-item-thumbnail {\n  width: 50px;\n  height: 50px;\n  object-fit: cover;\n  padding: 0.5rem;\n  border-radius: 1rem;\n}\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n}\n\n.navigate {\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n}\n.navigate:hover {\n  opacity: 75%;\n}\n\n#carousel-prev, #carousel-next {\n  font-weight: bold;\n  font-size: 30px;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-weight: bold;\n  font-size: 20px;\n}\n\n#displayed-image {\n  height: 500px;\n  width: 500px;\n  object-fit: cover;\n  transition: all 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n}\n\n.style-item {\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  object-fit: cover;\n  padding: 5px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  /* justify-content: space-between; */\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n#style-sizes, #style-quantity {\n\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n#add-to-cart-button {\n  float: left;\n  margin-right: 0.5rem;\n}\n\n#add-to-cart-button, #add-to-favorites {\n\n}\n\n#add-to-cart-button:hover, #add-to-favorites:hover {\n  color: white;\n  background-color: gray;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 1rem;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\nul li:before {\n  content: '✓';\n}\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "html {\n  font-family: 'Roboto', Tahoma, Verdana, sans-serif;\n}\n\n#loading {\n  display: flex;\n  justify-content: center;\n  font-size: xx-large;\n  color: black;\n  text-decoration: red wavy overline underline;\n}\n\n.pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 2em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  padding: 0rem 1rem;\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n.search {\n  display: inline-block;\n  align-self: center;\n}\n\ninput {\n  background: none;\n  color: white;\n  border: none;\n  border-bottom: 0.1rem solid white;\n}\n\n::placeholder {\n  color: white;\n  opacity: 1;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  display: inline-block;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.star-ratings-reviews {\n  display: flex;\n  align-items: baseline;\n}\n\n.read-all-reviews {\n  margin-left: 0.5rem;\n  text-decoration: underline;\n  font-size: small;\n  cursor: pointer;\n\n}\n\n.product-category p{\n  text-transform: uppercase;\n  margin-bottom: 0em;\n}\n\n.product-name p{\n  font-size: xx-large;\n  font-weight: bold;\n  margin-top: 0em;\n  margin-bottom: 0em;\n  text-decoration: underline dotted;\n}\n\n.product-price p {\n  margin-bottom: 0;\n  font-size: large;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n.product-overview-container {\n  align-self: center;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-evenly;\n  margin-left: 17vw;\n  margin-right: 3rem;\n}\n\n.product-slogan-description {\n  flex-basis: 60%;\n}\n\n.product-features {\n  flex-grow: 2;\n}\n\n#gallery-and-styles-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 1rem;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n  align-items: center;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n.carousel-item-thumbnail {\n  width: 50px;\n  height: 50px;\n  object-fit: cover;\n  padding: 0.5rem;\n  border-radius: 1rem;\n}\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n}\n\n.navigate {\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n  font-weight: bold;\n  background-color: silver;\n  color: black;\n}\n.navigate:hover {\n  opacity: 75%;\n  background-color: lightgray;\n}\n\n#carousel-prev, #carousel-next {\n  font-size: 30px;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-size: 20px;\n}\n\n#displayed-image {\n  height: 500px;\n  width: 500px;\n  object-fit: cover;\n  transition: transform 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n}\n\n.style-item {\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  object-fit: cover;\n  padding: 5px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n  transform: scale(1.05);\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n#add-to-favorites {\n  font-size: larger;\n}\n\n#style-sizes, #style-quantity {\n\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n#add-to-cart-button {\n  float: left;\n  margin-right: 0.5rem;\n  min-width: 129px;\n}\n\nselect {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  text-decoration: none;\n  transition: all 0.2s ease;\n}\n\n#add-to-cart-button, #add-to-favorites {\n  background-color: silver;\n  color: black;\n  border: none;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s ease;\n  min-height: 33px;\n}\n\n#add-to-cart-button:hover, #add-to-favorites:hover, select:hover {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdownButton {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  min-height: 33px;\n  vertical-align: top;\n}\n\n#size-dropdown-button {\n  min-width: 71px;\n}\n\n\n#dropdown-buttons:hover, #dropdown-buttons:focus {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdown {\n  position: relative;\n  display: inline-block;\n  margin-right: 1rem;\n}\n\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: silver;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\n  z-index: 15;\n  width: 100%;\n  text-align: center;\n}\n\n.dropdown-content a, .dropdown-content span {\n  color: black;\n  padding: 0.5rem 1em;\n  text-decoration: none;\n  display: block;\n}\n\n.dropdown-content a:hover, .dropdown-content span:hover {\n  background-color: lightgray;\n}\n\n.show {\n  display: block;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 1rem;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\nul li:before {\n  content: '✓';\n}\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/pd.css"],"names":[],"mappings":"AAEA;EACE,kDAAkD;AACpD;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;EACnB,YAAY;EACZ,4CAA4C;AAC9C;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,qBAAqB;EACrB,WAAW;AACb;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B,kBAAkB;EAClB,8HAA8H;EAC9H,YAAY;EACZ,qBAAqB;AACvB;;AAEA;EACE,qBAAqB;EACrB,kBAAkB;AACpB;;AAEA;EACE,gBAAgB;EAChB,YAAY;EACZ,YAAY;EACZ,iCAAiC;AACnC;;AAEA;EACE,YAAY;EACZ,UAAU;AACZ;;AAEA;EACE,kBAAkB;EAClB,qBAAqB;EACrB,oBAAoB;AACtB;;AAEA;;wDAEwD;;AAExD;EACE,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,qBAAqB;AACvB;;AAEA;EACE,mBAAmB;EACnB,0BAA0B;EAC1B,gBAAgB;EAChB,eAAe;;AAEjB;;AAEA;EACE,yBAAyB;EACzB,kBAAkB;AACpB;;AAEA;EACE,mBAAmB;EACnB,iBAAiB;EACjB,eAAe;EACf,kBAAkB;EAClB,iCAAiC;AACnC;;AAEA;EACE,gBAAgB;EAChB,gBAAgB;AAClB;;AAEA;EACE,iBAAiB;EACjB,UAAU;AACZ;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,eAAe;EACf,6BAA6B;EAC7B,iBAAiB;EACjB,kBAAkB;AACpB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,aAAa;EACb,eAAe;EACf,uBAAuB;AACzB;;AAEA;EACE,sBAAsB;AACxB;;AAEA;EACE,gBAAgB;EAChB,aAAa;EACb,uBAAuB;EACvB,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,oBAAoB;AACtB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,eAAe;EACf,WAAW;EACX,2BAA2B;EAC3B,kBAAkB;AACpB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,iBAAiB;EACjB,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,YAAY;EACZ,qBAAqB;AACvB;;;AAGA;EACE,aAAa;EACb,OAAO;EACP,gBAAgB;EAChB,kBAAkB;EAClB,uBAAuB;EACvB,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,WAAW;EACX,8BAA8B;EAC9B,kBAAkB;EAClB,QAAQ;EACR,2BAA2B;AAC7B;;AAEA;EACE,WAAW;AACb;;AAEA;EACE,YAAY;EACZ,YAAY;EACZ,cAAc;EACd,iBAAiB;EACjB,wBAAwB;EACxB,YAAY;AACd;AACA;EACE,YAAY;EACZ,2BAA2B;AAC7B;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,YAAY;EACZ,iBAAiB;EACjB,+BAA+B;AACjC;;AAEA;EACE,eAAe;AACjB;;AAEA;;wDAEwD;;AAExD;EACE,aAAa;AACf;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,qBAAqB;EACrB,kBAAkB;AACpB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,iBAAiB;EACjB,YAAY;AACd;;AAEA;EACE,YAAY;EACZ,eAAe;EACf,sBAAsB;AACxB;;AAEA;EACE,kBAAkB;EAClB,QAAQ;EACR,UAAU;AACZ;;AAEA;EACE,oBAAoB;AACtB;;AAEA;EACE,aAAa;EACb,gBAAgB;EAChB,mBAAmB;AACrB;;AAEA;EACE,iBAAiB;AACnB;;AAEA;;AAEA;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,WAAW;EACX,oBAAoB;EACpB,gBAAgB;AAClB;;AAEA;EACE,wBAAwB;EACxB,YAAY;EACZ,kBAAkB;EAClB,YAAY;EACZ,qBAAqB;EACrB,yBAAyB;AAC3B;;AAEA;EACE,wBAAwB;EACxB,YAAY;EACZ,YAAY;EACZ,kBAAkB;EAClB,qBAAqB;EACrB,yBAAyB;EACzB,gBAAgB;AAClB;;AAEA;EACE,2BAA2B;EAC3B,YAAY;AACd;;AAEA;EACE,wBAAwB;EACxB,YAAY;EACZ,kBAAkB;EAClB,YAAY;EACZ,gBAAgB;EAChB,mBAAmB;AACrB;;AAEA;EACE,eAAe;AACjB;;;AAGA;EACE,2BAA2B;EAC3B,YAAY;AACd;;AAEA;EACE,kBAAkB;EAClB,qBAAqB;EACrB,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,kBAAkB;EAClB,wBAAwB;EACxB,4CAA4C;EAC5C,WAAW;EACX,WAAW;EACX,kBAAkB;AACpB;;AAEA;EACE,YAAY;EACZ,mBAAmB;EACnB,qBAAqB;EACrB,cAAc;AAChB;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;EACE,cAAc;AAChB;;AAEA;;wDAEwD;AACxD;EACE,aAAa;EACb,eAAe;EACf,WAAW;EACX,kBAAkB;EAClB,qBAAqB;EACrB,kBAAkB;AACpB;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;EACE,mBAAmB;EACnB,YAAY;AACd;;AAEA;;wDAEwD;;AAExD;EACE,gBAAgB;AAClB;;AAEA;EACE,YAAY;AACd","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap');\n\nhtml {\n  font-family: 'Roboto', Tahoma, Verdana, sans-serif;\n}\n\n#loading {\n  display: flex;\n  justify-content: center;\n  font-size: xx-large;\n  color: black;\n  text-decoration: red wavy overline underline;\n}\n\n.pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 2em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  padding: 0rem 1rem;\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n.search {\n  display: inline-block;\n  align-self: center;\n}\n\ninput {\n  background: none;\n  color: white;\n  border: none;\n  border-bottom: 0.1rem solid white;\n}\n\n::placeholder {\n  color: white;\n  opacity: 1;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  display: inline-block;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.star-ratings-reviews {\n  display: flex;\n  align-items: baseline;\n}\n\n.read-all-reviews {\n  margin-left: 0.5rem;\n  text-decoration: underline;\n  font-size: small;\n  cursor: pointer;\n\n}\n\n.product-category p{\n  text-transform: uppercase;\n  margin-bottom: 0em;\n}\n\n.product-name p{\n  font-size: xx-large;\n  font-weight: bold;\n  margin-top: 0em;\n  margin-bottom: 0em;\n  text-decoration: underline dotted;\n}\n\n.product-price p {\n  margin-bottom: 0;\n  font-size: large;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n.product-overview-container {\n  align-self: center;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-evenly;\n  margin-left: 17vw;\n  margin-right: 3rem;\n}\n\n.product-slogan-description {\n  flex-basis: 60%;\n}\n\n.product-features {\n  flex-grow: 2;\n}\n\n#gallery-and-styles-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 1rem;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n  align-items: center;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n.carousel-item-thumbnail {\n  width: 50px;\n  height: 50px;\n  object-fit: cover;\n  padding: 0.5rem;\n  border-radius: 1rem;\n}\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n}\n\n.navigate {\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n  font-weight: bold;\n  background-color: silver;\n  color: black;\n}\n.navigate:hover {\n  opacity: 75%;\n  background-color: lightgray;\n}\n\n#carousel-prev, #carousel-next {\n  font-size: 30px;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-size: 20px;\n}\n\n#displayed-image {\n  height: 500px;\n  width: 500px;\n  object-fit: cover;\n  transition: transform 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n}\n\n.style-item {\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  object-fit: cover;\n  padding: 5px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n  transform: scale(1.05);\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n#add-to-favorites {\n  font-size: larger;\n}\n\n#style-sizes, #style-quantity {\n\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n#add-to-cart-button {\n  float: left;\n  margin-right: 0.5rem;\n  min-width: 129px;\n}\n\nselect {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  text-decoration: none;\n  transition: all 0.2s ease;\n}\n\n#add-to-cart-button, #add-to-favorites {\n  background-color: silver;\n  color: black;\n  border: none;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s ease;\n  min-height: 33px;\n}\n\n#add-to-cart-button:hover, #add-to-favorites:hover, select:hover {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdownButton {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  min-height: 33px;\n  vertical-align: top;\n}\n\n#size-dropdown-button {\n  min-width: 71px;\n}\n\n\n#dropdown-buttons:hover, #dropdown-buttons:focus {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdown {\n  position: relative;\n  display: inline-block;\n  margin-right: 1rem;\n}\n\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: silver;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\n  z-index: 15;\n  width: 100%;\n  text-align: center;\n}\n\n.dropdown-content a, .dropdown-content span {\n  color: black;\n  padding: 0.5rem 1em;\n  text-decoration: none;\n  display: block;\n}\n\n.dropdown-content a:hover, .dropdown-content span:hover {\n  background-color: lightgray;\n}\n\n.show {\n  display: block;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 1rem;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\nul li:before {\n  content: '✓';\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -27841,7 +28027,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer, .outfitItemContainer{\n  /* border: 1px solid rgb(152, 152, 205); */\n  width: 800px;\n  height: 325px;\n  overflow: hidden;\n  scroll-behavior: smooth;\n  display: flex;\n  position: relative;\n  margin-left: 100px;\n}\n\n.productCard, .outfitCard {\n  border: .5px solid #000000;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.relatedImage {\n  height: 200px;\n  width: 225px;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n}\n\n.previousProduct, .nextProduct{\n  height: 40px;\n  width: 60px;\n}\n\n.nextProduct{\n  position: relative;\n  bottom: 210px;\n  left: 870px;\n  font-size: 20px;\n}\n\n.previousProduct{\n  position: absolute;\n  top: 950px;\n  left: 75px;\n  font-size: 20px;\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 500px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 100%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 33%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 33%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 66%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.addToOutfit {\n  border: solid .5px black;\n  margin: 5px 7px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 225px;\n  height: 315px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 180px;\n  height: 120px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 25px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n\n}\n\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/ro.css"],"names":[],"mappings":";AACA;;;CAGC;;AAED;EACE,0CAA0C;EAC1C,YAAY;EACZ,aAAa;EACb,gBAAgB;EAChB,uBAAuB;EACvB,aAAa;EACb,kBAAkB;EAClB,kBAAkB;AACpB;;AAEA;EACE,0BAA0B;EAC1B,YAAY;EACZ,aAAa;EACb,WAAW;AACb;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,YAAY;AACd;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;EACnB,6BAA6B;AAC/B;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;EACnB,UAAU;AACZ;;AAEA;EACE,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;AACb;;AAEA;EACE,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;EACX,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,UAAU;EACV,UAAU;EACV,eAAe;AACjB;;AAEA;;;CAGC;;AAED;EACE,YAAY;EACZ,aAAa;EACb,eAAe;EACf,WAAW;EACX,UAAU;EACV,QAAQ;EACR,SAAS;EACT,yBAAyB;EACzB,UAAU;EACV,aAAa;EACb,sBAAsB;AACxB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,SAAS;EACT,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,eAAe;EACf,mBAAmB;EACnB,0BAA0B;AAC5B;;AAEA;EACE,iBAAiB;EACjB,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,eAAe;EACf,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,0BAA0B;EAC1B,mBAAmB;EACnB,WAAW;EACX,yBAAyB;AAC3B;;AAEA;EACE,iBAAiB;EACjB,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,UAAU;AACZ;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,yBAAyB;AAC3B;;AAEA;EACE,kBAAkB;EAClB,UAAU;EACV,iBAAiB;AACnB;;AAEA;EACE,kBAAkB;AACpB;;;AAGA;;;CAGC;;AAED;EACE,wBAAwB;EACxB,eAAe;EACf,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;;AAEb","sourcesContent":["\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductContainer, .outfitItemContainer{\n  /* border: 1px solid rgb(152, 152, 205); */\n  width: 800px;\n  height: 325px;\n  overflow: hidden;\n  scroll-behavior: smooth;\n  display: flex;\n  position: relative;\n  margin-left: 100px;\n}\n\n.productCard, .outfitCard {\n  border: .5px solid #000000;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.relatedImage {\n  height: 200px;\n  width: 225px;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n}\n\n.previousProduct, .nextProduct{\n  height: 40px;\n  width: 60px;\n}\n\n.nextProduct{\n  position: relative;\n  bottom: 210px;\n  left: 870px;\n  font-size: 20px;\n}\n\n.previousProduct{\n  position: absolute;\n  top: 950px;\n  left: 75px;\n  font-size: 20px;\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 500px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 100%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 33%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 33%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 66%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.addToOutfit {\n  border: solid .5px black;\n  margin: 5px 7px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 225px;\n  height: 315px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 180px;\n  height: 120px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 25px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n\n}\n\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* ================================================================\n     Related Product and Outfits Component\n   ================================================================\n*/\n\n.relatedProductOutfit {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  margin: 2em 8em;\n}\n\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductsContainer h3, .outfitContainer h3 {\n  text-align: center;\n}\n\n.relatedProductsContainer h3 {\n  text-align: center;\n}\n\n.relatedProductContainer, .outfitItemContainer{\n  width: 800px;\n  height: 325px;\n  overflow: hidden;\n  scroll-behavior: smooth;\n  display: flex;\n  position: relative;\n  margin-left: 100px;\n}\n\n.productCard, .outfitCard {\n  border: .5px solid #000000;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.relatedImage {\n  height: 200px;\n  width: 225px;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n}\n\n.previousProduct, .nextProduct{\n  height: 40px;\n  width: 60px;\n}\n\n.nextProduct{\n  position: relative;\n  bottom: 210px;\n  left: 870px;\n  font-size: 20px;\n}\n\n.previousProduct{\n  position: absolute;\n  top: 950px;\n  left: 75px;\n  font-size: 20px;\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 440px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 90%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 35%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 35%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 30%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.addToOutfit {\n  border: solid .5px black;\n  margin: 5px 7px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 225px;\n  height: 315px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 180px;\n  height: 120px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 25px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n\n}\n\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/ro.css"],"names":[],"mappings":"AAAA;;;CAGC;;AAED;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,eAAe;AACjB;;AAEA;;;CAGC;;AAED;EACE,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,gBAAgB;EAChB,uBAAuB;EACvB,aAAa;EACb,kBAAkB;EAClB,kBAAkB;AACpB;;AAEA;EACE,0BAA0B;EAC1B,YAAY;EACZ,aAAa;EACb,WAAW;AACb;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,YAAY;AACd;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;EACnB,6BAA6B;AAC/B;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;EACnB,UAAU;AACZ;;AAEA;EACE,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;AACb;;AAEA;EACE,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;EACX,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,UAAU;EACV,UAAU;EACV,eAAe;AACjB;;AAEA;;;CAGC;;AAED;EACE,YAAY;EACZ,aAAa;EACb,eAAe;EACf,WAAW;EACX,UAAU;EACV,QAAQ;EACR,SAAS;EACT,yBAAyB;EACzB,UAAU;EACV,aAAa;EACb,sBAAsB;AACxB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,SAAS;EACT,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,eAAe;EACf,mBAAmB;EACnB,0BAA0B;AAC5B;;AAEA;EACE,iBAAiB;EACjB,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,eAAe;EACf,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,0BAA0B;EAC1B,mBAAmB;EACnB,UAAU;EACV,yBAAyB;AAC3B;;AAEA;EACE,iBAAiB;EACjB,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,UAAU;AACZ;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,yBAAyB;AAC3B;;AAEA;EACE,kBAAkB;EAClB,UAAU;EACV,iBAAiB;AACnB;;AAEA;EACE,kBAAkB;AACpB;;;AAGA;;;CAGC;;AAED;EACE,wBAAwB;EACxB,eAAe;EACf,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;;AAEb","sourcesContent":["/* ================================================================\n     Related Product and Outfits Component\n   ================================================================\n*/\n\n.relatedProductOutfit {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  margin: 2em 8em;\n}\n\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductsContainer h3, .outfitContainer h3 {\n  text-align: center;\n}\n\n.relatedProductsContainer h3 {\n  text-align: center;\n}\n\n.relatedProductContainer, .outfitItemContainer{\n  width: 800px;\n  height: 325px;\n  overflow: hidden;\n  scroll-behavior: smooth;\n  display: flex;\n  position: relative;\n  margin-left: 100px;\n}\n\n.productCard, .outfitCard {\n  border: .5px solid #000000;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.relatedImage {\n  height: 200px;\n  width: 225px;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n}\n\n.previousProduct, .nextProduct{\n  height: 40px;\n  width: 60px;\n}\n\n.nextProduct{\n  position: relative;\n  bottom: 210px;\n  left: 870px;\n  font-size: 20px;\n}\n\n.previousProduct{\n  position: absolute;\n  top: 950px;\n  left: 75px;\n  font-size: 20px;\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 440px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 90%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 35%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 35%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 30%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.addToOutfit {\n  border: solid .5px black;\n  margin: 5px 7px;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 225px;\n  height: 315px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 180px;\n  height: 120px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 25px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n\n}\n\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
