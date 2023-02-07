@@ -20,17 +20,16 @@
 }
 
 .relatedProductContainer, .outfitItemContainer{
-  width: 800px;
+  width: 1000px;
   height: 325px;
   overflow: hidden;
   scroll-behavior: smooth;
   align-self: auto;
   display: flex;
-  position: relative;
   margin-left: 100px;
 }
 
-.productCard, .outfitCard, .addToOutfit {
+.productCard, .outfitCard {
   border: .5px solid #000000;
   width: 225px;
   height: 315px;
@@ -85,23 +84,22 @@
   color: #f7f7f7;
 }
 
-.previousProduct, .nextProduct{
+.previousProduct, .nextProduct, .previousOutfit, .nextOutfit {
   height: 40px;
   width: 60px;
+  font-size: 20px;
 }
 
 .nextProduct{
   position: relative;
   bottom: 210px;
   left: 870px;
-  font-size: 20px;
 }
 
 .previousProduct{
   position: absolute;
   top: 950px;
   left: 75px;
-  font-size: 20px;
 }
 
 /* ================================
@@ -195,6 +193,21 @@ td {
    ================================
 */
 
+.outfitContainer {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.outfitList {
+  width: 800px;
+  height: 325px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+
 .addToOutfit {
   border: solid .5px black;
   margin: 5px 7px;
@@ -202,7 +215,7 @@ td {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 225px;
+  width: 255px;
   height: 315px;
 }
 
@@ -211,13 +224,14 @@ td {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 180px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
+  margin: 20px;
   border: solid 1px black;
 }
 
 .addToOutfit h1{
-  font-size: 25px;
+  font-size: 20px;
 }
 
 .addToOutfit i{
@@ -231,4 +245,15 @@ td {
   color: #f7f7f7;
 }
 
+.outfitBack {
+  display: flex;
+  align-items: center;
+  transform: translate(20px);
+}
+
+.outfitForward {
+  display: flex;
+  align-items: center;
+  transform: translate(-20px);
+}
 

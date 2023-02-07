@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import Product from './Product.jsx';
 import { changeCurrentProductById } from '../../state/pd.js';
@@ -20,7 +19,7 @@ export default function ProductList({ currentProduct, relatedList }) {
       setnextVisible(false);
     }
     const cardToView = document.getElementById(lastSlide);
-    cardToView.scrollIntoView();
+    cardToView.scrollIntoView({ block: 'nearest' });
     setFirstSlide(firstSlide + 1);
     setLastSlide(lastSlide + 1);
   };
@@ -32,7 +31,7 @@ export default function ProductList({ currentProduct, relatedList }) {
       setnextVisible(true);
     }
     const cardToView = document.getElementById(firstSlide);
-    cardToView.scrollIntoView();
+    cardToView.scrollIntoView({ block: 'nearest' });
     setFirstSlide(firstSlide - 1);
     setLastSlide(lastSlide - 1);
   };
