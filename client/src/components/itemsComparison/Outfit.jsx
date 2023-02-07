@@ -1,11 +1,14 @@
 import React from 'react';
+import Image from '../../assets/edna.png';
 
-export default function Outfit({ item, onRemoveFromOutfit }) {
+export default function Outfit({ item, onRemoveFromOutfit, count }) {
   return (
-    <div className="outfitCard">
-      <div className="cardContent">
-        <img className="relatedImage" src={item.image} alt="current item - need to update" />
-        <i className="fa-regular fa-circle-xmark fa-lg" onClick={onRemoveFromOutfit} id={item.name} />
+    <div className="outfitCardContainer" id={item.id}>
+      <div className="cardContent" id={count}>
+        <div className="imageContainer">
+          <img className="cardImage" src={item.image || Image} alt="apparel item" />
+        </div>
+        <i className="fa-regular fa-circle-xmark fa-lg" onClick={(e) => onRemoveFromOutfit(e, item.id)} id={item.name} />
         <div className="productCardCategory">{item.category}</div>
         <div className="productCardName">{item.name}</div>
         {item.sale_price !== null ? (
