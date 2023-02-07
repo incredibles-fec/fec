@@ -19,7 +19,7 @@ export default function ProductList({ currentProduct, relatedList }) {
       setnextVisible(false);
     }
     const cardToView = document.getElementById(lastSlide);
-    cardToView.scrollIntoView({ block: 'nearest' });
+    cardToView.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     setFirstSlide(firstSlide + 1);
     setLastSlide(lastSlide + 1);
   };
@@ -31,7 +31,7 @@ export default function ProductList({ currentProduct, relatedList }) {
       setnextVisible(true);
     }
     const cardToView = document.getElementById(firstSlide);
-    cardToView.scrollIntoView({ block: 'nearest' });
+    cardToView.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     setFirstSlide(firstSlide - 1);
     setLastSlide(lastSlide - 1);
   };
@@ -50,8 +50,15 @@ export default function ProductList({ currentProduct, relatedList }) {
   return (
     <div className="relatedProductsContainer">
       <h3>Related Products</h3>
-      <div className="relatedProductsCarousel">
-        <div className="relatedProductContainer">
+      <div className="relatedItemContainer">
+        <div className="outfitBack">
+          {previousVisble ? (
+            <button type="button" className="previousOutfit" onClick={onBack}>
+              &lt;
+            </button>
+          ) : null}
+        </div>
+        <div className="relatedList">
           {relatedList.map((item, index) => {
             if (item.id !== currentProduct.id) {
               return (
@@ -66,14 +73,9 @@ export default function ProductList({ currentProduct, relatedList }) {
             }
           })}
         </div>
-        <div className="carouselActions">
-          {previousVisble ? (
-            <button type="button" className="previousProduct" onClick={onBack}>
-              &lt;
-            </button>
-          ) : null}
+        <div className="outfitForward" onClick={onNext}>
           {nextVisible ? (
-            <button type="button" className="nextProduct" onClick={onNext}>
+            <button type="button" className="nextOutfit">
               &gt;
             </button>
           ) : null}

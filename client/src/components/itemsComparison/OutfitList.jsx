@@ -59,21 +59,21 @@ export default function OutfitList({ relatedList }) {
     }
     setFirstCard(firstCard - 1);
     setLastCard(lastCard - 1);
-    document.getElementById(firstCard).scrollIntoView({ block: 'nearest', inline: 'center' });
+    document.getElementById(firstCard).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   }
 
   const nextOutfitItem = () => {
-    if (lastCard === outfitList.length + 20) {
-      setNextVisible(!nextOutfitVisible);
+    if (lastCard === outfitList.length + 19) {
+      setNextVisible(false);
     }
 
-    if (firstCard === 21) {
-      setPreviousVisble(!previousOutfitVisble);
+    if (firstCard === 20) {
+      setPreviousVisble(true);
     }
     setFirstCard(firstCard + 1);
     setLastCard(lastCard + 1);
 
-    document.getElementById(lastCard).scrollIntoView({ block: 'nearest', inline: 'center' });
+    document.getElementById(lastCard).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   }
 
   React.useEffect(() => {
