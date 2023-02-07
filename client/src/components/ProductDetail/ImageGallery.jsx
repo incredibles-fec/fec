@@ -1,26 +1,38 @@
+/* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 
 export default function ImageGallery({ style }) {
-  // const {style_id, name, original_price, sale_price, photos, skus} = style;
   const { name, photos } = style;
   const [index, setIndex] = useState(0);
+  const [thumbnailIndexStart, setThumbnailIndexStart] = useState(0);
+  const [thumbnailIndexEnd, setThumbnailIndexEnd] = useState(maxThumbnailDisplay > photos.length ? photos.length : maxThumbnailDisplay);
   const [currentThumbnail, setCurrentThumbnail] = useState(photos[0].url);
   const [normalView, setNormalView] = useState(true);
   const [expandedView, setExpandedView] = useState(false);
+  const maxThumbnailDisplay = 5;
 
-  const thumbnails = photos.map((p, i) => (
-    <div className="carousel-item-container" key={p.url} onClick={() => { setCurrentThumbnail(photos[i].url); setIndex(i); }}>
-      {currentThumbnail === photos[i].url ? <div className="carousel-item-underlay" /> : null}
+  let thumbnails = photos.map((p, i) => (
+    <div className="carousel-item-container" key={p.url} onClick={() => { setIndex(i); }}>
+      {currentThumbnail === photos[i].url && <div className="carousel-item-underlay" />}
       <img className="carousel-item-thumbnail" src={p.thumbnail_url} alt={name} />
     </div>
   ));
 
   useEffect(() => {
-    setCurrentThumbnail(photos[0].url);
-    setIndex(0);
+    thumbnails = photos.map((p, i) => (
+      <div className="carousel-item-container" key={p.url} onClick={() => { setIndex(i); }}>
+        {currentThumbnail === photos[i].url && <div className="carousel-item-underlay" />}
+        <img className="carousel-item-thumbnail" src={p.thumbnail_url} alt={name} />
+      </div>
+    ));
+
+    setCurrentThumbnail(photos[index].url);
+    setThumbnailIndexEnd(maxThumbnailDisplay > thumbnails.length ? thumbnails.length : maxThumbnailDisplay);
   }, [style]);
 
   useEffect(() => {
+    setCurrentThumbnail(photos[index].url);
+
     const prevArrows = document.querySelectorAll('.prev');
     const nextArrows = document.querySelectorAll('.next');
     if (index === 0) {
@@ -35,15 +47,33 @@ export default function ImageGallery({ style }) {
       nextArrows.forEach((e) => { e.style.visibility = 'visible'; });
       prevArrows.forEach((e) => { e.style.visibility = 'visible'; });
     }
-    setCurrentThumbnail(photos[index].url);
   }, [index]);
 
   const getNext = () => {
+    if (thumbnailIndexEnd < thumbnails.length) {
+      setThumbnailIndexStart(thumbnailIndexStart + 1);
+      setThumbnailIndexEnd(thumbnailIndexEnd + 1);
+    }
+
     setIndex(index + 1 === photos.length ? index : index + 1);
   };
 
   const getPrev = () => {
-    setIndex(index - 1 < 0 ? 0 : index - 1);
+    if (thumbnailIndexStart > 0) {
+      setThumbnailIndexStart(thumbnailIndexStart - 1);
+      setThumbnailIndexEnd(thumbnailIndexEnd - 1);
+    }
+
+    setIndex(index - 1 > 0 ? index - 1 : 0);
+  };
+
+  const panImage = (e) => {
+    const img = document.getElementById('displayed-image');
+    if (!normalView && !expandedView) {
+      const xPos = ((e.pageX - img.offsetLeft - img.width / 3) / img.width) * 100;
+      const yPos = ((e.pageY - img.offsetTop - img.height / 3) / img.height) * 100;
+      img.style['transform-origin'] = `${xPos}% ${yPos}%`;
+    }
   };
 
   const enlargeImage = () => {
@@ -51,6 +81,8 @@ export default function ImageGallery({ style }) {
     const displayImageContainer = document.getElementById('display-image-container');
     const imageGalleryContainer = document.getElementById('image-gallery-container');
     const productInfoContainer = document.getElementById('product-info-container');
+    const navButtons = document.querySelectorAll('.navigate');
+    const thumbnailContainer = document.getElementById('carousel-thumbnail-container');
 
     if (normalView) {
       setNormalView(false);
@@ -60,10 +92,14 @@ export default function ImageGallery({ style }) {
       imageGalleryContainer.style['z-index'] = 5;
       img.style.cursor = 'cell';
       img.style.transform = 'scale(1.0)';
+
       setExpandedView(true);
     } else if (expandedView) {
       img.style.cursor = 'zoom-out';
       img.style.transform = 'scale(2.5)';
+      thumbnailContainer.style.visibility = 'hidden';
+      navButtons.forEach((b) => b.style.visibility = 'hidden');
+
       setExpandedView(false);
     } else { // zoomed view
       productInfoContainer.style.display = 'block';
@@ -74,6 +110,10 @@ export default function ImageGallery({ style }) {
       img.style.height = '500px';
       img.style.width = '500px';
       imageGalleryContainer.style['z-index'] = 0;
+
+      thumbnailContainer.style.visibility = 'visible';
+      navButtons.forEach((b) => b.style.visibility = 'visible');
+
       setNormalView(true);
     }
   };
@@ -82,11 +122,11 @@ export default function ImageGallery({ style }) {
     <div id="image-gallery-container">
       <div id="carousel-thumbnail-container">
         <button className="prev navigate" id="carousel-thumbnail-prev" aria-label="previous" type="button" onClick={getPrev}>&and;</button>
-        {thumbnails}
+        {thumbnails.slice(thumbnailIndexStart, thumbnailIndexEnd)}
         <button className="next navigate" id="carousel-thumbnail-next" aria-label="next" type="button" onClick={getNext}>&or;</button>
       </div>
       <div id="display-image-container">
-        <img id="displayed-image" role="presentation" src={photos[index].url} alt={name} onClick={enlargeImage} />
+        <img id="displayed-image" role="presentation" src={photos[index].url} alt={name} onClick={enlargeImage} onMouseMove={(e) => panImage(e)} onFocus={() => {}} />
         <div className="carousel-actions">
           <button className="prev navigate" id="carousel-prev" aria-label="previous" type="button" onClick={getPrev}>&lt;</button>
           <button className="next navigate" id="carousel-next" aria-label="next" type="button" onClick={getNext}>&gt;</button>

@@ -5,6 +5,8 @@ const controller = require('./controllers');
 router.get('/products', controller.pd.getProducts);
 router.get('/products/:product_id', controller.pd.getProduct);
 router.get('/products/:product_id/styles', controller.pd.getStyles);
+router.get('/cart', controller.pd.getCart);
+router.post('/cart', controller.pd.postToCart);
 
 // QA
 router.get('/qa/questions', controller.qa.getQuestions);
