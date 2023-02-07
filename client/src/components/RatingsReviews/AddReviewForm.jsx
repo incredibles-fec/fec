@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getReviews, getMetaData } from '../../state/rr';
 import RadioGroup from '../common/RadioGroup.jsx';
 import UploadFile from '../common/UploadFile.jsx';
@@ -10,6 +10,10 @@ import { submitForm } from '../../api/rr';
 
 export default function AddReviewForm({ close }) {
   const dispatch = useDispatch();
+  const {
+    currentProduct: { id: productId },
+  } = useSelector((store) => store.pd);
+
   const [form, setForm] = useState({
     rating: 0,
     summary: '',
@@ -54,8 +58,7 @@ export default function AddReviewForm({ close }) {
   const handleSubmit = async () => {
     const res = formValidator(errors, form);
     if (res.length || fileError) return setErrorKeys(res);
-    // TODO: change to dynamic productId
-    await submitForm(form, 40355, files);
+    await submitForm(form, productId, files);
     await Promise.all([dispatch(getReviews()), dispatch(getMetaData())]);
     close();
   };

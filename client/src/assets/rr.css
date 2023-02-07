@@ -116,6 +116,10 @@
   cursor: pointer
 }
 
+.r-star-buttons {
+  display: flex;
+}
+
 .deselected {
   color: #D0D0D0
 }
@@ -196,6 +200,13 @@
 
 .char-bar-desc {
   display: flex;
+  width: 33%;
+  font-size: 0.8rem;
+}
+
+.char-bar-mid {
+  display: flex;
+  justify-content: center;
   width: 33%;
   font-size: 0.8rem;
 }

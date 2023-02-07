@@ -1,15 +1,13 @@
 import axios from 'axios';
 import { uploadCloudinary } from './apiHelpers';
 
-// TODO: Toast and Loading component
-const submitForm = async ({ form, type, questionId, files }) => {
+const submitForm = async ({ form, type, questionId, files, productId }) => {
   const routes = {
     question: '/qa/questions',
     answer: `/qa/questions/${questionId}/answers`,
   };
 
-  // TODO: CHANGE THIS TO DYNAMIC PRODUCT_ID
-  const questionParams = { ...form, product_id: 40355 };
+  const questionParams = { ...form, product_id: productId };
   let photos = [];
   if (type === 'answer' && files.length) {
     const res = await uploadCloudinary(files);

@@ -18,12 +18,11 @@ export const getReviews = createAsyncThunk(
   'rr/getReviews',
   async (_, thunkAPI) => {
     let fetchRequired = true;
-    let count = 30;
+    let count = 100;
 
     const rrState = thunkAPI.getState().rr;
     const product = thunkAPI.getState().pd;
 
-    // TODO: Not sure how to handle multiple fetches asynchronously if dependent on first fetch
     while (fetchRequired) {
       /* eslint-disable no-await-in-loop */
       const res = await axios({
@@ -36,7 +35,7 @@ export const getReviews = createAsyncThunk(
       });
 
       if (res.data.results.length === count) {
-        count += 30;
+        count += 100;
       } else fetchRequired = false;
 
       if (!fetchRequired) return res.data.results;
@@ -52,7 +51,7 @@ export const getMetaData = createAsyncThunk(
       url: '/reviews/meta',
       params: { product_id: product?.currentProduct?.id ?? 40355 },
     });
-    // TODO: switch product_id
+
     const metaData = res.data;
     return metaData;
   }

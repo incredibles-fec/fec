@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
+import { getReviews, getMetaData } from '../../state/rr.js';
+import { getQA } from '../../state/qa.js';
 import Product from './Product.jsx';
 import { changeCurrentProductById } from '../../state/pd.js';
 
@@ -45,6 +47,11 @@ export default function ProductList({ currentProduct, relatedList }) {
       // const currentProductId = e.nativeEvent.path[1].id;
       dispatch(changeCurrentProductById(item));
 
+      Promise.all([
+        dispatch(getQA()),
+        dispatch(getReviews()),
+        dispatch(getMetaData()),
+      ]);
       // console.log('NATIVE', e.nativeEvent);
       // console.log('PATH', e.nativeEvent.path);
     }

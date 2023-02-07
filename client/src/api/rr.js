@@ -19,18 +19,20 @@ const submitForm = async (form, productId, files) => {
     photos = res.map((upload) => upload.data.url);
   }
 
+  // characteristics doesn't work
   const params = {
     ...otherParams,
     product_id: productId,
     recommend: recommend === 'yes',
-    characteristics: {
-      14: Number(size),
-      15: Number(width),
-      16: Number(comfort),
-      17: Number(quality),
-      18: Number(length),
-      19: Number(fit),
-    },
+    characteristics: {},
+    // characteristics: {
+    //   14: Number(size),
+    //   15: Number(width),
+    //   16: Number(comfort),
+    //   17: Number(quality),
+    //   18: Number(length),
+    //   19: Number(fit),
+    // },
     photos,
   };
 

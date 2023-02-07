@@ -9,15 +9,15 @@ export default function RatingsSelector({ handleInput }) {
   };
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div className="r-star-buttons">
       {[1, 2, 3, 4, 5].map((value) => (
-        <div key={value} className="star-button" onClick={() => select(value)}>
+        <span key={value} className="star-button" onClick={() => select(value)}>
           <i
             className={`fa-solid fa-star ${
               rating < value ? 'deselected' : 'selected'
             }`}
           />
-        </div>
+        </span>
       ))}
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { getQA } from '../../state/qa';
 import UploadFile from '../common/UploadFile.jsx';
 import { handleErrors, formValidator, debounce } from '../../utils/helpers';
@@ -13,6 +13,9 @@ export default function AddQAForm({
   close,
 }) {
   const dispatch = useDispatch();
+  const {
+    currentProduct: { id: productId },
+  } = useSelector((store) => store.pd);
   const [form, setForm] = useState({
     body: '',
     name: '',
@@ -49,6 +52,7 @@ export default function AddQAForm({
       type,
       questionId,
       files,
+      productId,
     });
     await dispatch(getQA());
     close();
