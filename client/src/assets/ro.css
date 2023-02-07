@@ -19,15 +19,12 @@
   text-align: center;
 }
 
-.relatedProductsContainer h3 {
-  text-align: center;
-}
-
 .relatedProductContainer, .outfitItemContainer{
   width: 800px;
   height: 325px;
   overflow: hidden;
   scroll-behavior: smooth;
+  align-self: auto;
   display: flex;
   position: relative;
   margin-left: 100px;
@@ -85,6 +82,7 @@
   position: relative;
   bottom: 195px;
   left: 200px;
+  color: #f7f7f7;
 }
 
 .previousProduct, .nextProduct{
