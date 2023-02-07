@@ -6,6 +6,16 @@
 
 }
 
+@media only screen and (max-width: 600px) {
+  .rr-container {
+    display: block;
+  }
+
+  .overview-container {
+    width: 100%
+  }
+}
+
 /* Overview */
 .overview-container {
   width: 30%;

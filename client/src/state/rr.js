@@ -23,37 +23,34 @@ export const getReviews = createAsyncThunk(
     const rrState = thunkAPI.getState().rr;
     const product = thunkAPI.getState().pd;
 
-    try {
-      // TODO: Not sure how to handle multiple fetches asynchronously if dependent on first fetch
-      while (fetchRequired) {
-        /* eslint-disable no-await-in-loop */
-        const res = await axios({
-          url: '/reviews',
-          params: {
-            count,
-            sort: rrState.sort,
-            product_id: product?.currentProduct?.id ?? 40355,
-          },
-        });
+    // TODO: Not sure how to handle multiple fetches asynchronously if dependent on first fetch
+    while (fetchRequired) {
+      /* eslint-disable no-await-in-loop */
+      const res = await axios({
+        url: '/reviews',
+        params: {
+          count,
+          sort: rrState.sort,
+          product_id: product?.currentProduct?.id ?? 40355,
+        },
+      });
 
-        if (res.data.results.length === count) {
-          count += 30;
-        } else fetchRequired = false;
+      if (res.data.results.length === count) {
+        count += 30;
+      } else fetchRequired = false;
 
-        if (!fetchRequired) return res.data.results;
-      }
-    } catch (err) {
-      console.log(err);
+      if (!fetchRequired) return res.data.results;
     }
   }
 );
 
 export const getMetaData = createAsyncThunk(
   'rr/getMetaData',
-  async (productId, thunkAPI) => {
+  async (_, thunkAPI) => {
+    const product = thunkAPI.getState().pd;
     const res = await axios({
       url: '/reviews/meta',
-      params: { product_id: 40355 },
+      params: { product_id: product?.currentProduct?.id ?? 40355 },
     });
     // TODO: switch product_id
     const metaData = res.data;
