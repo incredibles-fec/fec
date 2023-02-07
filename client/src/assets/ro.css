@@ -19,11 +19,21 @@
   text-align: center;
 }
 
-.relatedProductContainer, .outfitItemContainer{
+.relatedProductContainer {
   width: 1000px;
   height: 325px;
   overflow: hidden;
   scroll-behavior: smooth;
+  align-self: auto;
+  display: flex;
+  margin-left: 100px;
+}
+
+.outfitItemContainer{
+  width: 1000px;
+  height: 325px;
+  /* overflow: hidden;
+  scroll-behavior: smooth; */
   align-self: auto;
   display: flex;
   margin-left: 100px;
