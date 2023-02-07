@@ -8,6 +8,10 @@ export default function ProductDetail() {
   const { loading } = useSelector((state) => state.pd);
   const dispatch = useDispatch();
 
+  window.onclick = (event) => {
+    console.log('clicked: ', event.target);
+  };
+
   useEffect(() => {
     dispatch(getProducts());
     // dispatch(changeCurrentProductById(40355));
@@ -16,17 +20,17 @@ export default function ProductDetail() {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    let pID = e.target.elements.searchProducts.value;
+    const pID = e.target.elements.searchProducts.value;
     dispatch(changeCurrentProductById(pID));
   };
 
   if (!loading) {
     return (
-      <div className="pd-flex-container">
+      <div className="pd-flex-container parent" id="Product Detail">
         <div className="nav-bar">
           <h2 className="logo"><i>Incredible Apparel</i></h2>
-          <div className="search">
-            <form onSubmit={(e) => handleSearch(e)}>&#x1F50E;: <input name="searchProducts" type="search" placeholder="VALID PROD IDS ONLY" />
+          <div id="search-products">
+            <form onSubmit={(e) => handleSearch(e)}><i className="fa-solid fa-magnifying-glass" />: <input id="search-input-form" name="searchProducts" type="search" placeholder="VALID PROD IDS ONLY" />
             </form>
           </div>
         </div>
@@ -38,7 +42,7 @@ export default function ProductDetail() {
   }
   return (
     <div id="loading">
-      <p>LOADING... </p>
+      {/* <p>Loading... </p> */}
     </div>
   );
 }

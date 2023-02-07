@@ -1,4 +1,5 @@
-import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
+/* eslint-disable no-unused-vars */
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const initialState = {
@@ -8,11 +9,24 @@ const initialState = {
   loading: true,
 };
 
+export const logInteractions = createAsyncThunk(
+  'pd/logInteractions',
+  async (info, thunkAPI) => {
+    try {
+      const data = await axios.post('/interactions', info);
+      data.reduxRequestId = thunkAPI.requestId;
+      return data;
+    } catch (err) {
+      return 'Error posting interaction';
+    }
+  }
+);
+
 export const postToCart = createAsyncThunk(
   'pd/postToCart',
-  async (id, thunkAPI) => {
+  async (num, thunkAPI) => {
     try {
-      const obj = { sku_id: id };
+      const obj = { sku_id: num };
       const data = await axios.post('/cart', obj);
       data.reduxRequestId = thunkAPI.requestId;
       return data;

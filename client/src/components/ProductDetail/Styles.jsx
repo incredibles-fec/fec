@@ -14,7 +14,7 @@ export default function Styles({ currentStyle, setCurrentStyle }) {
       <div className="styles-row" key={`row-${index}`}>{row.map((style) => (
         <div className="style-item-overlay" key={style.style_id} onClick={() => setCurrentStyle(style)}>
           <img className="style-item" src={style.photos[0].thumbnail_url} alt={style.name} />
-          {currentStyle.style_id === style.style_id && <em className="checkmark">✓</em>}
+          {currentStyle.style_id === style.style_id && <em className="checkmark"><i className="fa-regular fa-circle-check" /></em>}
         </div>
       ))}
       </div>

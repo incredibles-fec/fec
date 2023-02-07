@@ -5,11 +5,19 @@ html {
 }
 
 #loading {
-  display: flex;
+  margin: auto;
   justify-content: center;
-  font-size: xx-large;
-  color: black;
-  text-decoration: red wavy overline underline;
+  border: 20px solid yellow;
+  border-top: 20px solid red;
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 .pd-flex-container {
@@ -29,12 +37,12 @@ html {
   margin-bottom: 0.3rem;
 }
 
-.search {
+#search-products{
   display: inline-block;
   align-self: center;
 }
 
-input {
+#search-input-form {
   background: none;
   color: white;
   border: none;
@@ -103,6 +111,7 @@ button, select {
   justify-content: space-evenly;
   margin-left: 17vw;
   margin-right: 3rem;
+  margin-top: 1rem;
 }
 
 .product-slogan-description {
@@ -111,6 +120,8 @@ button, select {
 
 .product-features {
   flex-grow: 2;
+  border-left: inset;
+  align-self: center;
 }
 
 #gallery-and-styles-container {
@@ -161,7 +172,6 @@ button, select {
   transform: scale(1.1);
 }
 
-
 #display-image-container {
   display: flex;
   flex: 5;
@@ -169,6 +179,22 @@ button, select {
   position: relative;
   justify-content: center;
   transition: all 1s ease;
+}
+
+#expand-icon {
+  z-index: 10;
+  position: absolute;
+  font-size: x-large;
+  top: 0.5em;
+  right: 0.5em;
+  opacity: 50%;
+  background-color: silver;
+  padding: 0.1rem;
+  border-radius: 25%;
+}
+
+#expand-icon:hover {
+  cursor: zoom-in;
 }
 
 .carousel-actions {
@@ -182,27 +208,31 @@ button, select {
 
 #carousel-prev, #carousel-next {
   z-index: 10;
+  font-size: 30px;
 }
 
 .navigate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: none;
   opacity: 50%;
   margin: 0.5rem;
   font-weight: bold;
   background-color: silver;
   color: black;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  border: 5em;
 }
-.navigate:hover {
+.navigate:hover, #expand-icon:hover {
   opacity: 75%;
   background-color: lightgray;
 }
 
-#carousel-prev, #carousel-next {
-  font-size: 30px;
-}
-
 #carousel-thumbnail-prev, #carousel-thumbnail-next {
-  font-size: 20px;
+  font-size: 30px;
 }
 
 #displayed-image {
@@ -257,18 +287,9 @@ Product Information Styling
   margin-right: 0.5rem;
 }
 
-#cart-and-favorites-buttons {
-  display: flex;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-}
-
 #add-to-favorites {
   font-size: larger;
-}
-
-#style-sizes, #style-quantity {
-
+  margin-left: 1rem;
 }
 
 #add-to-cart {
@@ -277,8 +298,7 @@ Product Information Styling
 
 #add-to-cart-button {
   float: left;
-  margin-right: 0.5rem;
-  min-width: 129px;
+  min-width: 95px;
 }
 
 select {
@@ -300,7 +320,11 @@ select {
   min-height: 33px;
 }
 
-#add-to-cart-button:hover, #add-to-favorites:hover, select:hover {
+#cartIcon {
+  /* margin-right: 0.5rem; */
+}
+
+#add-to-cart-buttons:hover, #add-to-cart-buttons:focus, #add-to-favorites:hover, #add-to-favorites:focus, select:hover {
   background-color: lightgray;
   opacity: 75%;
 }
@@ -328,6 +352,12 @@ select {
   position: relative;
   display: inline-block;
   margin-right: 1rem;
+}
+
+#cart-and-favorites-buttons {
+  display: flex;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .dropdown-content {
@@ -394,7 +424,7 @@ ul {
   list-style: none;
 }
 
-ul li:before {
+/* ul li:before {
   content: '✓';
-}
+} */
 
