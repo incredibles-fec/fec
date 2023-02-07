@@ -20,11 +20,36 @@
   text-align: center;
 }
 
-.productCard, .outfitCard {
-  border: .5px solid #000000;
+.productCardContainer, .outfitCardContainer {
+  border: 1px solid #3a3939;
   width: 225px;
   height: 315px;
   margin: 5px;
+  border-radius: .5em;
+  box-shadow: 10px 10px .1px -5px #cfcdcd;
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  width: 225px;
+  height: 275px;
+}
+
+.cardImage {
+  height: 200px;
+  width: 225px;
+  object-fit: contain;
+  /*
+  cover: fits box but image sections are clipped (aspect preserved)
+  contain: fits box and contains empty space (aspect preserved)
+  fill: no empty space (aspect not preserved)
+  */
+}
+
+.imageContainer {
+  background-color: #E6E6E6;
+  border-radius: .5em;
 }
 
 /* ================================
@@ -52,23 +77,12 @@
   flex-direction: row;
   width: 1055px;
   height: 325px;
+  padding: 20px;
   overflow: hidden;
 }
 
 .removed {
   visibility: hidden;
-}
-
-.cardContent {
-  display: flex;
-  flex-direction: column;
-  width: 225px;
-  height: 275px;
-}
-
-.relatedImage {
-  height: 200px;
-  width: 225px;
 }
 
 .productCardName, .productCardCategory, .productCardPrice, .productCardSale {
@@ -119,7 +133,8 @@
 .outfitItemContainer{
   width: 1000px;
   height: 325px;
-  align-self: auto;
+  flex-direction: row;
+  align-items: center;
   display: flex;
   margin-left: 100px;
 }
@@ -127,20 +142,19 @@
 .outfitList {
   width: 800px;
   height: 325px;
+  margin: 20px 0 0 0;
+  padding: 20px;
   overflow: hidden;
   display: flex;
   flex-direction: row;
 }
 
-.addToOutfit {
+.addtoOutfitMargin {
   border: solid .5px black;
-  margin: 5px 7px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 255px;
-  height: 315px;
+}
+
+.addToOutfit {
+  margin: 5px 10px;
 }
 
 .addToOutfitContainer {
@@ -150,7 +164,6 @@
   justify-content: center;
   width: 150px;
   height: 150px;
-  margin: 20px;
   border: solid 1px black;
 }
 

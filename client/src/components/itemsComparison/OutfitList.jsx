@@ -60,7 +60,7 @@ export default function OutfitList({ relatedList }) {
     setFirstCard(firstCard - 1);
     setLastCard(lastCard - 1);
     document.getElementById(firstCard).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-  }
+  };
 
   const nextOutfitItem = () => {
     if (lastCard === outfitList.length + 19) {
@@ -74,7 +74,7 @@ export default function OutfitList({ relatedList }) {
     setLastCard(lastCard + 1);
 
     document.getElementById(lastCard).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-  }
+  };
 
   React.useEffect(() => {
     const newArray = Object.values(localStorage).map((storage) => JSON.parse(storage));
@@ -103,9 +103,13 @@ export default function OutfitList({ relatedList }) {
         <div className="outfitList">
           {outfitList.length > 0 ?
             outfitList.map((item) => (
-              <Outfit key={item.id} item={item} onRemoveFromOutfit={onRemoveFromOutfit}
-              list={outfitList}
-              count={num++}/>
+              <Outfit
+                key={item.id}
+                item={item}
+                onRemoveFromOutfit={onRemoveFromOutfit}
+                list={outfitList}
+                count={num++}
+              />
             )) : null }
         </div>
         <div className="outfitForward" onClick={nextOutfitItem}>
