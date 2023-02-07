@@ -1,3 +1,182 @@
+/* ======================================================
+QUESTIONS AND ANSWERS STYLING
+====================================================== */
+
+/* QUESTION LIST */
+.qa-container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 2rem 5rem;
+}
+
+.add-question {
+  margin-top: 1rem;
+}
+
+.accordion {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* SEARCH BAR */
+
+.search-container {
+  display: flex;
+  position: relative;
+  width: 100%;
+
+}
+
+.search-input {
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.search-container i {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  padding-right: 15px;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+/* QUESTION LIST ENTRY */
+.q-container {
+  display: flex;
+  font-size: 14px;
+  width: 100%;
+}
+
+.q-user {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.q-header {
+  display: flex;
+  width: 98%;
+  padding-left: 5px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.q-body {
+  width: 75%;
+}
+
+.q-info {
+  display: flex;
+  justify-content: end;
+  width: 25%;
+}
+
+.a-container {
+  margin: 1rem 0;
+  font-size: 14px;
+}
+
+.a-footer {
+  display: flex;
+  align-items: center;
+}
+
+.a-photos {
+  display: flex
+}
+
+.a-photos img {
+  max-width: 7rem;
+  max-height: 4rem;
+  margin-right: 1rem;
+}
+
+.photo-style {
+  width: 100%;
+  height: 50%;
+}
+
+/* MODAL */
+.modal-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  z-index: 2;
+  width: 600px;
+  border: solid black 1px;
+}
+
+.modal-overlay {
+  position: fixed;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+}
+
+.modal-header-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* FORM */
+.question-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-trans {
+  text-decoration: underline;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  background-color: transparent;
+}
+
+.errorMessage {
+  color: red;
+}
+
+.hidden-input-file {
+  display: none
+}
+
+.choose-file-button {
+  cursor: pointer;
+  border: 1px solid black
+}
+
+textarea {
+  resize: none;
+}
+
+/* ACCORDION */
+.expanded {
+  max-height: 700px;
+  margin-top: 1rem;
+  transition: all 0.5s ease-out;
+  overflow: scroll
+}
+
+.collapsed {
+  max-height: 0px;
+  margin-top: 1rem;
+}
+
+.expanded::-webkit-scrollbar {
+  display: none;
+}
+
+/* ======================================================
+RATINGS AND REVIEWS STYLING
+====================================================== */
+
+
+
 .rr-container {
   display: flex;
   max-width: 1024px;
