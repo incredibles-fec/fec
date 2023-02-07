@@ -147,6 +147,10 @@
   border: 1px solid black
 }
 
+textarea {
+  resize: none;
+}
+
 /* ACCORDION */
 .expanded {
   max-height: 700px;

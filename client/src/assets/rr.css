@@ -107,10 +107,6 @@
 }
 
 /* form */
-.r-form-inputs {
-  display: flex;
-  flex-direction: column;
-}
 
 .star-button {
   cursor: pointer

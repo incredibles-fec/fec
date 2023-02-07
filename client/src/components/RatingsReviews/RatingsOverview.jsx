@@ -54,8 +54,6 @@ export default function RatingsOverview() {
         this product
       </div>
       {renderProgressBars()}
-      {/* Once filter is clicked, message appears here with filters list */}
-      {/* filters stack -> button to clear filter */}
       <div className="tags-container">
         {filters.map((tag) => (
           <div

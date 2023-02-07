@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getReviews, getMetaData } from '../../state/rr';
+import InputField from '../common/InputField.jsx';
 import RadioGroup from '../common/RadioGroup.jsx';
 import UploadFile from '../common/UploadFile.jsx';
 import RatingsSelector from './RatingsSelector.jsx';
@@ -11,7 +12,7 @@ import { submitForm } from '../../api/rr';
 export default function AddReviewForm({ close }) {
   const dispatch = useDispatch();
   const {
-    currentProduct: { id: productId },
+    currentProduct: { name: productName, id: productId },
   } = useSelector((store) => store.pd);
 
   const [form, setForm] = useState({
@@ -65,7 +66,7 @@ export default function AddReviewForm({ close }) {
 
   return (
     <div className="review-form">
-      <div>About the [Product Name Here]</div>
+      <div>About the {productName}</div>
       <RatingsSelector handleInput={handleInput} />
       <RadioGroup
         name="recommend"
@@ -77,90 +78,66 @@ export default function AddReviewForm({ close }) {
           <RadioGroup name={key} options={options} handleInput={handleInput} />
         </div>
       ))}
-      <div className="r-form-inputs">
-        <label>
-          Summary:
-          <input
-            name="summary"
-            type="text"
-            placeholder="Example: Best purchase ever!"
-            maxLength="60"
-            onChange={handleInput}
-          />
-        </label>
-        {errors.summary && (
-          <span className="errorMessage">{errors.summary}</span>
-        )}
-        <label>
-          Body:
-          <textarea
-            name="body"
-            type="text"
-            placeholder="Why did you like the product or not?"
-            maxLength="1000"
-            onChange={handleInput}
-          />
-        </label>
-        <span>
-          {form.body.length > 49
+
+      <InputField
+        name="summary"
+        label="Summary:"
+        error={errors.summary}
+        placeholder="Example: Best purchase ever!"
+        onChange={handleInput}
+      />
+
+      <InputField
+        type="long"
+        name="body"
+        label="Body:"
+        error={errors.body}
+        hint={
+          form.body.length > 49
             ? 'Minimum reached'
-            : `Minimum required characters left: ${50 - form.body.length}`}
+            : `Minimum required characters left: ${50 - form.body.length}`
+        }
+        onChange={handleInput}
+      />
+
+      <InputField
+        name="name"
+        label="Nickname:"
+        error={errors.name}
+        placeholder="Example: jackson11!"
+        hint="For privacy reasons, do not use your full name or email address"
+        onChange={handleInput}
+      />
+
+      <InputField
+        name="email"
+        label="Email:"
+        placeholder="Example: jackson11@email.com"
+        error={errors.email}
+        hint="For authentication reasons, you will not be emailed"
+        onChange={handleInput}
+      />
+
+      <UploadFile
+        files={files}
+        fileError={fileError}
+        setError={(v) => setFileError(v)}
+        setFiles={(uploads) => setFiles(uploads)}
+      />
+
+      {errorKeys.length ? (
+        <span className="errorMessage">
+          You must enter the following:
+          {errorKeys.map((err, idx) => {
+            const field = err[0].toUpperCase() + err.substring(1);
+            return idx !== errorKeys.length - 1 ? `${field}, ` : field;
+          })}
         </span>
+      ) : null}
 
-        <label>
-          Nickname:
-          <input
-            name="name"
-            type="text"
-            placeholder="Example: jackson11!"
-            maxLength="60"
-            onChange={handleInput}
-          />
-        </label>
-        {errors.name ? (
-          <span className="errorMessage">{errors.name}</span>
-        ) : (
-          <span>
-            For privacy reasons, do not use your full name or email address
-          </span>
-        )}
-
-        <label>
-          Email:
-          <input
-            name="email"
-            type="text"
-            placeholder="Example: jackson11@email.com"
-            onChange={handleInput}
-          />
-        </label>
-        {errors.email ? (
-          <span className="errorMessage">{errors.email}</span>
-        ) : (
-          <span>For authentication reasons, you will not be emailed</span>
-        )}
-
-        <UploadFile
-          files={files}
-          fileError={fileError}
-          setError={(v) => setFileError(v)}
-          setFiles={(uploads) => setFiles(uploads)}
-        />
-
-        {errorKeys.length ? (
-          <span className="errorMessage">
-            You must enter the following:
-            {errorKeys.map((err, idx) => {
-              const field = err[0].toUpperCase() + err.substring(1);
-              return idx !== errorKeys.length - 1 ? `${field}, ` : field;
-            })}
-          </span>
-        ) : null}
-
-        <button type="button" onClick={handleSubmit}>
-          Submit
-        </button>
-      </div>
+      <button type="button" onClick={handleSubmit}>
+        Submit
+      </button>
     </div>
   );
 }

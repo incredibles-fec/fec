@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getQA } from '../../state/qa';
+import InputField from '../common/InputField.jsx';
 import UploadFile from '../common/UploadFile.jsx';
 import { handleErrors, formValidator, debounce } from '../../utils/helpers';
 import { formMappings } from '../../utils/mappings';
@@ -14,7 +15,7 @@ export default function AddQAForm({
 }) {
   const dispatch = useDispatch();
   const {
-    currentProduct: { id: productId },
+    currentProduct: { name: productName, id: productId },
   } = useSelector((store) => store.pd);
   const [form, setForm] = useState({
     body: '',
@@ -61,45 +62,37 @@ export default function AddQAForm({
   return (
     <div className="question-form">
       <div>{formMappings[type].header}</div>
-      {/* subheader -> About the [product name] for adding question */}
-      {/* subheader -> [product name]: [question] for adding answer */}
-      <div>{type === 'answer' ? question : ''}</div>
-      <label>
-        Your {type}:
-        <textarea name="body" maxLength="1000" onChange={handleInput} />
-      </label>
-      <span className="errorMessage">{errors.body}</span>
-      <label>
-        Nickname:
-        <input
-          name="name"
-          type="text"
-          placeholder={formMappings[type].nicknamePH}
-          maxLength="60"
-          onChange={handleInput}
-        />
-      </label>
-      {errors.name ? (
-        <span className="errorMessage">{errors.name}</span>
-      ) : (
-        <span>
-          For privacy reasons, do not use your full name or email address
-        </span>
-      )}
-      <label>
-        Email:
-        <input
-          name="email"
-          type="text"
-          placeholder={formMappings[type].emailPH}
-          onChange={handleInput}
-        />
-      </label>
-      {errors.email ? (
-        <span className="errorMessage">{errors.email}</span>
-      ) : (
-        <span>For authentication reasons, you will not be emailed</span>
-      )}
+      <div>
+        {type === 'question'
+          ? `About the ${productName}`
+          : `${productName}: ${question}`}
+      </div>
+
+      <InputField
+        type="long"
+        name="body"
+        label={`Your ${type}:`}
+        error={errors.body}
+        onChange={handleInput}
+      />
+
+      <InputField
+        name="name"
+        label="Nickname:"
+        placeholder={formMappings[type].nicknamePH}
+        error={errors.name}
+        hint="For privacy reasons, do not use your full name or email address"
+        onChange={handleInput}
+      />
+
+      <InputField
+        name="email"
+        label="Email:"
+        placeholder={formMappings[type].emailPH}
+        error={errors.email}
+        hint="For authentication reasons, you will not be emailed"
+        onChange={handleInput}
+      />
 
       {type === 'answer' && (
         <UploadFile
