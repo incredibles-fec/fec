@@ -26,12 +26,14 @@ export default function RatingsOverview() {
             (Number(n) / totals.totalReviews) * 100
           );
           return (
-            <ProgressBar
-              key={star}
-              action={star}
-              progress={percentage}
-              filters={filters}
-            />
+            <div style={{ margin: '0.3rem 0' }}>
+              <ProgressBar
+                key={star}
+                action={star}
+                progress={percentage}
+                filters={filters}
+              />
+            </div>
           );
         })}
     </div>
@@ -46,7 +48,9 @@ export default function RatingsOverview() {
     <div>
       <div className="total-rating-container">
         <div className="total-rating">{totals?.average?.toFixed(2) ?? '-'}</div>
-        <StarRatings rating={totals?.average} />
+        <div style={{ paddingTop: '0.5rem' }}>
+          <StarRatings rating={totals?.average} />
+        </div>
       </div>
 
       <div>
@@ -54,8 +58,6 @@ export default function RatingsOverview() {
         this product
       </div>
       {renderProgressBars()}
-      {/* Once filter is clicked, message appears here with filters list */}
-      {/* filters stack -> button to clear filter */}
       <div className="tags-container">
         {filters.map((tag) => (
           <div

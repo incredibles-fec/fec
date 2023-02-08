@@ -6,9 +6,11 @@ export default function Modal({ children, close }) {
     <div className="modal-overlay" onClick={close}>
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header-actions">
-          <button type="button" onClick={close}>
-            X
-          </button>
+          <i
+            className="fa-solid fa-arrow-right"
+            style={{ cursor: 'pointer' }}
+            onClick={close}
+          />
         </div>
         {children}
       </div>

@@ -13,11 +13,13 @@ export const getQA = createAsyncThunk('qa/getQA', async (_, thunkAPI) => {
   let fetchRequired = true;
   let count = 30;
 
+  const product = thunkAPI.getState().pd;
+
   while (fetchRequired) {
     /* eslint-disable no-await-in-loop */
     const res = await axios({
       url: '/qa/questions',
-      params: { product_id: 40355, count },
+      params: { product_id: product?.currentProduct?.id ?? 40355, count },
     });
 
     if (res.data.results.length === count) {

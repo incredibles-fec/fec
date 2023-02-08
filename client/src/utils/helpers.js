@@ -16,10 +16,12 @@ const clearErrors = (form, callback) => {
   });
 };
 
-const formValidator = (errorObj, formObj) => {
+const formValidator = (errorObj, formObj, review = false) => {
   const errorKeys = {};
   Object.entries(formObj).forEach(([key, val]) => {
-    if (!val) errorKeys[key] = key;
+    if (review && key === 'body' && formObj[key].length < 50) {
+      errorKeys[key] = key;
+    } else if (!val) errorKeys[key] = key;
   });
   Object.values(errorObj).forEach((field) => {
     if (field && field.length) errorKeys[field] = field;
