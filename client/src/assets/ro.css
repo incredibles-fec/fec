@@ -116,6 +116,7 @@
   bottom: 195px;
   left: 200px;
   color: #f7f7f7;
+  cursor: pointer;
 }
 
 
@@ -166,6 +167,7 @@
   width: 150px;
   height: 150px;
   border: solid 1px black;
+  cursor: pointer;
 }
 
 .addToOutfit h1{
@@ -181,6 +183,7 @@
   bottom: 185px;
   left: 200px;
   color: #f7f7f7;
+  cursor: pointer;
 }
 
 .outfitBack {
