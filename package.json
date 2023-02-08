@@ -8,7 +8,7 @@
     "build": "npx webpack",
     "start": "node server/index.js",
     "(UNSUPPORTED BY DEFAULT; see webpack.config.js for more info) client-dev:hot": "npx webpack serve --hot --open",
-    "test": "jest"
+    "test": "jest --coverage"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.1",
