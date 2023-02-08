@@ -1,5 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { getReviews, getMetaData } from '../../state/rr.js';
+import { getQA } from '../../state/qa.js';
 import Product from './Product.jsx';
 import { changeCurrentProductById } from '../../state/pd.js';
 
@@ -19,7 +21,11 @@ export default function ProductList({ currentProduct, relatedList }) {
       setnextVisible(false);
     }
     const cardToView = document.getElementById(lastSlide);
-    cardToView.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    cardToView.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center',
+    });
     setFirstSlide(firstSlide + 1);
     setLastSlide(lastSlide + 1);
   };
@@ -31,7 +37,11 @@ export default function ProductList({ currentProduct, relatedList }) {
       setnextVisible(true);
     }
     const cardToView = document.getElementById(firstSlide);
-    cardToView.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    cardToView.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center',
+    });
     setFirstSlide(firstSlide - 1);
     setLastSlide(lastSlide - 1);
   };
@@ -42,6 +52,12 @@ export default function ProductList({ currentProduct, relatedList }) {
       e.target.className !== 'modalExit'
     ) {
       dispatch(changeCurrentProductById(item));
+
+      Promise.all([
+        dispatch(getQA()),
+        dispatch(getReviews()),
+        dispatch(getMetaData()),
+      ]);
     }
   };
 

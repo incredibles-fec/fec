@@ -13,7 +13,7 @@ export default function RR() {
   }, []);
 
   return (
-    <div className="rr-container">
+    <div className="rr-container parent" id="Ratings & Reviews">
       <section className="overview-container">
         <RatingsOverview />
       </section>

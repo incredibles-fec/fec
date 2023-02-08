@@ -3,9 +3,8 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import App from './App.jsx';
 import { setupStore } from './state/store';
-import './assets/qa.css';
 import './assets/pd.css';
-import './assets/rr.css';
+import './assets/david.css';
 import './assets/ro.css';
 
 render(
