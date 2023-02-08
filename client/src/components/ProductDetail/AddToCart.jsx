@@ -64,7 +64,7 @@ export default function AddToCart({ style }) {
   };
 
   window.onclick = (event) => {
-    const interactionObj = { element: event.target.outerHTML, widget: String(event.target.closest('.parent').id), time: String(Date.now()) };
+    const interactionObj = { element: event.target.outerHTML, widget: String(event.target.closest('.parent')?.id), time: String(Date.now()) };
     dispatch(logInteractions(interactionObj));
 
     if (!event.target.matches('.dropdownButton') && !event.target.matches('#add-to-cart-button')) {
@@ -82,7 +82,7 @@ export default function AddToCart({ style }) {
     <div className="add-to-cart-or-favorites">
       <form id="add-to-cart">
         <div className="dropdown">
-          <div id="dropdown-buttons" onClick={handleSizeSelection}>
+          <div id="dropdown-size-buttons" onClick={handleSizeSelection}>
             <button className="dropdownButton" id="size-dropdown-button" type="button">Select Size</button>
             <button className="dropdownButton" type="button"> <i className="fa-solid fa-angle-down"/> </button>
           </div>
@@ -91,7 +91,7 @@ export default function AddToCart({ style }) {
           </div>
         </div>
         <div className="dropdown">
-          <div id="dropdown-buttons" onClick={() => { document.getElementById('quantity-dropdown').classList.toggle('show'); }}>
+          <div id="dropdown-quantity-buttons" onClick={() => { document.getElementById('quantity-dropdown').classList.toggle('show'); }}>
             <button className="dropdownButton" id="quantity-dropdown-button" type="button">---</button>
             <button className="dropdownButton" type="button"> <i className="fa-solid fa-angle-down" /> </button>
           </div>

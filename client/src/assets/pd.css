@@ -343,7 +343,8 @@ select {
 }
 
 
-#dropdown-buttons:hover, #dropdown-buttons:focus {
+#dropdown-size-buttons:hover, #dropdown-size-buttons:focus,
+#dropdown-quantity-buttons:hover, #dropdown-quantity-buttons:focus {
   background-color: lightgray;
   opacity: 75%;
 }
