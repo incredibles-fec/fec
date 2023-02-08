@@ -1,10 +1,14 @@
 import React from 'react';
-import Outfit from './Outfit.jsx';
 import { useSelector } from 'react-redux';
+import Outfit from './Outfit.jsx';
 
 export default function OutfitList({ relatedList }) {
   const { currentProduct } = useSelector((state) => state.pd);
   const [outfitList, setOutfitList] = React.useState([]);
+  const [previousOutfitVisble, setPreviousVisble] = React.useState(false);
+  const [nextOutfitVisible, setNextVisible] = React.useState(true);
+  const [firstCard, setFirstCard] = React.useState(20);
+  const [lastCard, setLastCard] = React.useState(22);
 
   const onAddToOutfit = () => {
     const correctProduct = relatedList.filter((item) => item.id === currentProduct.id);
@@ -29,7 +33,6 @@ export default function OutfitList({ relatedList }) {
       setOutfitList([...outfitList, product]);
     }
 
-
     localStorage.setItem(correctProduct[0].id, JSON.stringify({
       category: correctProduct[0].category,
       name: correctProduct[0].name,
@@ -38,38 +41,83 @@ export default function OutfitList({ relatedList }) {
       image: correctProduct[0].image,
       id: correctProduct[0].id,
     }));
-
-    // get all items from local storage
-    // set current list equal to these items
-    Object.values(localStorage).map((storage) => {
-      let storageObject = JSON.parse(storage);
-      // console.log('individual ', storageObject);
-      // setOutfitList([...outfitList, storageObject]);
-    });
   };
 
-
-
-  const onRemoveFromOutfit = (e) => {
+  const onRemoveFromOutfit = (e, id) => {
     const currentProductName = e.target.id;
     const newList = outfitList.filter((product) => product.name !== currentProductName);
     setOutfitList(newList);
+    localStorage.removeItem(id);
   };
+
+  const previousOutfitItem = () => {
+    if (firstCard === 20) {
+      setPreviousVisble(!previousOutfitVisble);
+    }
+    if (lastCard < outfitList.length + 20) {
+      setNextVisible(true);
+    }
+    setFirstCard(firstCard - 1);
+    setLastCard(lastCard - 1);
+    document.getElementById(firstCard).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  };
+
+  const nextOutfitItem = () => {
+    if (lastCard === outfitList.length + 19) {
+      setNextVisible(false);
+    }
+
+    if (firstCard === 20) {
+      setPreviousVisble(true);
+    }
+    setFirstCard(firstCard + 1);
+    setLastCard(lastCard + 1);
+    document.getElementById(lastCard).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  };
+
+  React.useEffect(() => {
+    const newArray = Object.values(localStorage).map((storage) => JSON.parse(storage));
+    setOutfitList(newArray);
+  }, []);
+
+  let num = 20;
 
   return (
     <div className="outfitContainer">
-      <h3>Your Outfit</h3>
+      <h3 data-testid="outfitCard">Your Outfit</h3>
       <div className="outfitItemContainer">
+        <div className="outfitBack">
+          {previousOutfitVisble ? (
+            <button type="button" className="previousOutfit" onClick={previousOutfitItem}>
+              &lt;
+            </button>
+          ) : null}
+        </div>
         <div className="addToOutfit">
-          <div className="addToOutfitContainer" onClick={onAddToOutfit}>
+          <div className="addToOutfitContainer" onClick={onAddToOutfit} data-testid="addToOutfit">
             <h1>Add to Outfit</h1>
             <i className="fa-regular fa-plus" />
           </div>
-        </div> { outfitList.length > 0 ?
-          outfitList.map((item) => {
-           return (
-            <Outfit key={item.id} item={item} onRemoveFromOutfit={onRemoveFromOutfit} />
-          )}) : null }
+        </div>
+        <div className="outfitList">
+          {outfitList.length > 0 ?
+            outfitList.map((item) => (
+              <Outfit
+                key={item.id}
+                item={item}
+                onRemoveFromOutfit={onRemoveFromOutfit}
+                list={outfitList}
+                count={num++}
+              />
+            )) : null }
+        </div>
+        <div className="outfitForward" onClick={nextOutfitItem} data-testid="nextItem">
+          {nextOutfitVisible ? (
+            <button type="button" className="nextOutfit">
+              &gt;
+            </button>
+          ) : null}
+        </div>
       </div>
     </div>
   );
