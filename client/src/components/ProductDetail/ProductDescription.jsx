@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 export default function ProductDescription() {
   const { currentProduct } = useSelector((state) => state.pd);
   // eslint-disable-next-line max-len
-  const feats = currentProduct.features.map((feat) => <li key={feat.feature + feat.value}><i className="fa-solid fa-check" />{feat.feature}: {feat.value}</li>);
+  const feats = currentProduct.features.map((feat) => <li key={feat.feature + feat.value}><i className="fa-solid fa-check" />{feat.feature}{feat.value ? (`: ${feat.value}`) : ''}</li>);
   return (
     <div className="product-overview-container">
       <div className="product-slogan-description">
