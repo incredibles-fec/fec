@@ -72,7 +72,6 @@ export default function OutfitList({ relatedList }) {
     }
     setFirstCard(firstCard + 1);
     setLastCard(lastCard + 1);
-
     document.getElementById(lastCard).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   };
 
@@ -85,7 +84,7 @@ export default function OutfitList({ relatedList }) {
 
   return (
     <div className="outfitContainer">
-      <h3>Your Outfit</h3>
+      <h3 data-testid="outfitCard">Your Outfit</h3>
       <div className="outfitItemContainer">
         <div className="outfitBack">
           {previousOutfitVisble ? (
@@ -95,7 +94,7 @@ export default function OutfitList({ relatedList }) {
           ) : null}
         </div>
         <div className="addToOutfit">
-          <div className="addToOutfitContainer" onClick={onAddToOutfit}>
+          <div className="addToOutfitContainer" onClick={onAddToOutfit} data-testid="addToOutfit">
             <h1>Add to Outfit</h1>
             <i className="fa-regular fa-plus" />
           </div>
@@ -112,7 +111,7 @@ export default function OutfitList({ relatedList }) {
               />
             )) : null }
         </div>
-        <div className="outfitForward" onClick={nextOutfitItem}>
+        <div className="outfitForward" onClick={nextOutfitItem} data-testid="nextItem">
           {nextOutfitVisible ? (
             <button type="button" className="nextOutfit">
               &gt;
