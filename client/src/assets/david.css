@@ -310,7 +310,6 @@ RATINGS AND REVIEWS STYLING
 /* Overview */
 .total-rating-container {
   display: flex;
-  align-items: flex-start;
   gap: 1rem;
 }
 

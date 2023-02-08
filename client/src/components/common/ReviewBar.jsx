@@ -10,7 +10,7 @@ export default function ReviewBar({ title, characteristic }) {
   const high = descriptions[4].label;
 
   return (
-    <div style={{ marginBottom: '1rem' }}>
+    <div style={{ marginBottom: '1.5rem' }}>
       <div style={{ fontSize: '0.8rem' }}>{title}</div>
       <div className="char-bar-container">
         <div className="char-bar" />

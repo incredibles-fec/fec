@@ -1,17 +1,9 @@
 import axios from 'axios';
 import { uploadCloudinary } from './apiHelpers';
 
-const submitForm = async (form, productId, files) => {
-  const {
-    size,
-    width,
-    comfort,
-    quality,
-    length,
-    fit,
-    recommend,
-    ...otherParams
-  } = form;
+const submitForm = async (form, productId, files, metaChars) => {
+  const { rating, summary, body, recommend, name, email, ...characteristics } =
+    form;
 
   let photos = [];
   if (files.length) {
@@ -19,20 +11,24 @@ const submitForm = async (form, productId, files) => {
     photos = res.map((upload) => upload.data.url);
   }
 
-  // characteristics doesn't work
+  const charsWithIds = {};
+  Object.entries(characteristics).forEach(([char, val1]) => {
+    const found = Object.entries(metaChars).find(
+      ([key]) => key.toLowerCase() === char
+    );
+    const charId = found?.[1]?.id;
+    charsWithIds[charId] = Number(val1);
+  });
+
   const params = {
-    ...otherParams,
     product_id: productId,
+    rating,
+    summary,
+    body,
+    name,
+    email,
     recommend: recommend === 'yes',
-    characteristics: {},
-    // characteristics: {
-    //   14: Number(size),
-    //   15: Number(width),
-    //   16: Number(comfort),
-    //   17: Number(quality),
-    //   18: Number(length),
-    //   19: Number(fit),
-    // },
+    characteristics: charsWithIds,
     photos,
   };
 

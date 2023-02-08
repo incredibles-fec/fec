@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getReviews, getMetaData } from '../../state/rr';
 import InputField from '../common/InputField.jsx';
@@ -14,6 +14,9 @@ export default function AddReviewForm({ close }) {
   const {
     currentProduct: { name: productName, id: productId },
   } = useSelector((store) => store.pd);
+  const {
+    metaData: { characteristics },
+  } = useSelector((store) => store.rr);
 
   const [form, setForm] = useState({
     rating: 0,
@@ -22,12 +25,6 @@ export default function AddReviewForm({ close }) {
     recommend: '',
     name: '',
     email: '',
-    size: 0,
-    width: 0,
-    comfort: 0,
-    quality: 0,
-    length: 0,
-    fit: 0,
   });
   const [errors, setErrors] = useState({
     summary: '',
@@ -40,6 +37,9 @@ export default function AddReviewForm({ close }) {
   const [errorKeys, setErrorKeys] = useState([]);
 
   const charRadioGroup = Object.entries(radioGroupOptions.characteristics);
+  const metaDataCharKeys = Object.keys(characteristics).map((char) =>
+    char.toLowerCase()
+  );
 
   const handleInput = (e) => {
     const { name, value } = e.target;
@@ -57,12 +57,18 @@ export default function AddReviewForm({ close }) {
   };
 
   const handleSubmit = async () => {
-    const res = formValidator(errors, form);
+    const res = formValidator(errors, form, true);
     if (res.length || fileError) return setErrorKeys(res);
-    await submitForm(form, productId, files);
+    await submitForm(form, productId, files, characteristics);
     await Promise.all([dispatch(getReviews()), dispatch(getMetaData())]);
     close();
   };
+
+  useEffect(() => {
+    Object.keys(characteristics).forEach((char) =>
+      setForm((prev) => ({ ...prev, [char.toLowerCase()]: '' }))
+    );
+  }, [productId]);
 
   return (
     <div className="review-form">
@@ -73,11 +79,17 @@ export default function AddReviewForm({ close }) {
         options={radioGroupOptions.recommend}
         handleInput={handleInput}
       />
-      {charRadioGroup.map(([key, options]) => (
-        <div key={key}>
-          <RadioGroup name={key} options={options} handleInput={handleInput} />
-        </div>
-      ))}
+      {charRadioGroup
+        .filter((char) => metaDataCharKeys.includes(char[0]))
+        .map(([key, options]) => (
+          <div key={key}>
+            <RadioGroup
+              name={key}
+              options={options}
+              handleInput={handleInput}
+            />
+          </div>
+        ))}
 
       <InputField
         name="summary"
@@ -91,7 +103,6 @@ export default function AddReviewForm({ close }) {
         type="long"
         name="body"
         label="Body:"
-        error={errors.body}
         hint={
           form.body.length > 49
             ? 'Minimum reached'
