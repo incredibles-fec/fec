@@ -7,6 +7,7 @@ router.get('/products/:product_id', controller.pd.getProduct);
 router.get('/products/:product_id/styles', controller.pd.getStyles);
 router.get('/cart', controller.pd.getCart);
 router.post('/cart', controller.pd.postToCart);
+router.post('/interactions', controller.pd.logInteractions);
 
 // QA
 router.get('/qa/questions', controller.qa.getQuestions);

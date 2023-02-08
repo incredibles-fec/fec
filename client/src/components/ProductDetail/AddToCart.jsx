@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { postToCart } from '../../state/pd';
+import { postToCart, logInteractions } from '../../state/pd';
 
 export default function AddToCart({ style }) {
   const [sizes, setSizes] = useState([]);
@@ -64,6 +64,11 @@ export default function AddToCart({ style }) {
   };
 
   window.onclick = (event) => {
+    // console.log('event.target', event.target);
+    // console.log('parent', event.target.closest('.parent'));
+    const interactionObj = { element: event.target.outerHTML, widget: String(event.target.closest('.parent').id), time: String(Date.now()) };
+    dispatch(logInteractions(interactionObj));
+
     if (!event.target.matches('.dropdownButton') && !event.target.matches('#add-to-cart-button')) {
       const dropdowns = document.getElementsByClassName('dropdown-content');
       for (let i = 0; i < dropdowns.length; i += 1) {
@@ -79,18 +84,18 @@ export default function AddToCart({ style }) {
     <div className="add-to-cart-or-favorites">
       <form id="add-to-cart">
         <div className="dropdown">
-          <div id="dropdown-buttons" onClick={handleSizeSelection}>
+          <div id="dropdown-size-buttons" onClick={handleSizeSelection}>
             <button className="dropdownButton" id="size-dropdown-button" type="button">Select Size</button>
-            <button className="dropdownButton" type="button">&or;</button>
+            <button className="dropdownButton" type="button"> <i className="fa-solid fa-angle-down"/> </button>
           </div>
           <div id="size-dropdown" className="dropdown-content">
             {sizes}
           </div>
         </div>
         <div className="dropdown">
-          <div id="dropdown-buttons" onClick={() => { document.getElementById('quantity-dropdown').classList.toggle('show'); }}>
+          <div id="dropdown-quantity-buttons" onClick={() => { document.getElementById('quantity-dropdown').classList.toggle('show'); }}>
             <button className="dropdownButton" id="quantity-dropdown-button" type="button">---</button>
-            <button className="dropdownButton" type="button">&or;</button>
+            <button className="dropdownButton" type="button"> <i className="fa-solid fa-angle-down" /> </button>
           </div>
           <div id="quantity-dropdown" className="dropdown-content">
             {quantity}
@@ -98,7 +103,10 @@ export default function AddToCart({ style }) {
         </div>
       </form>
       <div id="cart-and-favorites-buttons">
-        <button id="add-to-cart-button" type="submit" value="Add to Cart" onClick={handleAddToCart}>Add to Cart</button>
+        <div id="add-to-cart-buttons" onClick={handleAddToCart}>
+          <button id="add-to-cart-button" type="submit" value="Add to Cart">Add to Cart</button>
+          <button className="dropdownButton" id="cartIcon" type="button"> <i className="fa-brands fa-opencart" /> </button>
+        </div>
         <button id="add-to-favorites" type="submit" value="Add to Favorites" onClick={(e) => e.preventDefault()}>&#9734;</button>
       </div>
     </div>

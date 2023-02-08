@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 
 export default function ImageGallery({ style }) {
+  const maxThumbnailDisplay = 5;
   const { name, photos } = style;
   const [index, setIndex] = useState(0);
   const [thumbnailIndexStart, setThumbnailIndexStart] = useState(0);
@@ -9,7 +10,6 @@ export default function ImageGallery({ style }) {
   const [currentThumbnail, setCurrentThumbnail] = useState(photos[0].url);
   const [normalView, setNormalView] = useState(true);
   const [expandedView, setExpandedView] = useState(false);
-  const maxThumbnailDisplay = 5;
 
   let thumbnails = photos.map((p, i) => (
     <div className="carousel-item-container" key={p.url} onClick={() => { setIndex(i); }}>
@@ -46,6 +46,12 @@ export default function ImageGallery({ style }) {
     if (index !== 0 && index !== photos.length - 1) {
       nextArrows.forEach((e) => { e.style.visibility = 'visible'; });
       prevArrows.forEach((e) => { e.style.visibility = 'visible'; });
+    }
+    if (thumbnailIndexEnd === thumbnails.length) {
+      document.getElementById('carousel-thumbnail-next').style.visibility = 'hidden';
+    }
+    if (thumbnailIndexStart === 0) {
+      document.getElementById('carousel-thumbnail-prev').style.visibility = 'hidden';
     }
   }, [index]);
 
@@ -93,6 +99,8 @@ export default function ImageGallery({ style }) {
       img.style.cursor = 'cell';
       img.style.transform = 'scale(1.0)';
 
+      img.style.width = '600px';
+
       setExpandedView(true);
     } else if (expandedView) {
       img.style.cursor = 'zoom-out';
@@ -114,6 +122,15 @@ export default function ImageGallery({ style }) {
       thumbnailContainer.style.visibility = 'visible';
       navButtons.forEach((b) => b.style.visibility = 'visible');
 
+      if (thumbnailIndexStart === 0) {
+        document.getElementById('carousel-thumbnail-prev').style.visibility = 'hidden';
+        document.getElementById('carousel-prev').style.visibility = 'hidden';
+      }
+      if (thumbnailIndexEnd === thumbnails.length) {
+        document.getElementById('carousel-thumbnail-next').style.visibility = 'hidden';
+        document.getElementById('carousel-next').style.visibility = 'hidden';
+      }
+
       setNormalView(true);
     }
   };
@@ -121,15 +138,16 @@ export default function ImageGallery({ style }) {
   return (
     <div id="image-gallery-container">
       <div id="carousel-thumbnail-container">
-        <button className="prev navigate" id="carousel-thumbnail-prev" aria-label="previous" type="button" onClick={getPrev}>&and;</button>
+        <button className="prev navigate" id="carousel-thumbnail-prev" aria-label="previous" type="button" onClick={getPrev}><i className="fa-regular fa-circle-up" /></button>
         {thumbnails.slice(thumbnailIndexStart, thumbnailIndexEnd)}
-        <button className="next navigate" id="carousel-thumbnail-next" aria-label="next" type="button" onClick={getNext}>&or;</button>
+        <button className="next navigate" id="carousel-thumbnail-next" aria-label="next" type="button" onClick={getNext}><i className="fa-regular fa-circle-down" /></button>
       </div>
       <div id="display-image-container">
         <img id="displayed-image" role="presentation" src={photos[index].url} alt={name} onClick={enlargeImage} onMouseMove={(e) => panImage(e)} onFocus={() => {}} />
+        {normalView && <i id="expand-icon" className="fa-sharp fa-solid fa-expand" onClick={enlargeImage} />}
         <div className="carousel-actions">
-          <button className="prev navigate" id="carousel-prev" aria-label="previous" type="button" onClick={getPrev}>&lt;</button>
-          <button className="next navigate" id="carousel-next" aria-label="next" type="button" onClick={getNext}>&gt;</button>
+          <button className="prev navigate" id="carousel-prev" aria-label="previous" type="button" onClick={getPrev}><i className="fa-regular fa-circle-left" /></button>
+          <button className="next navigate" id="carousel-next" aria-label="next" type="button" onClick={getNext}><i className="fa-regular fa-circle-right" /></button>
         </div>
       </div>
 
