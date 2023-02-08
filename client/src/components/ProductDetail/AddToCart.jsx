@@ -64,7 +64,7 @@ export default function AddToCart({ style }) {
   };
 
   window.onclick = (event) => {
-    const interactionObj = { element: event.target.outerHTML, widget: String(event.target.closest('.parent')?.id), time: String(Date.now()) };
+    const interactionObj = { element: event.target.outerHTML, widget: String(event.target.closest('.parent').id), time: String(Date.now()) };
     dispatch(logInteractions(interactionObj));
 
     if (!event.target.matches('.dropdownButton') && !event.target.matches('#add-to-cart-button')) {
