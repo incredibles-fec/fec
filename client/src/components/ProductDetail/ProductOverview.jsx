@@ -8,10 +8,6 @@ export default function ProductDetail() {
   const { loading } = useSelector((state) => state.pd);
   const dispatch = useDispatch();
 
-  window.onclick = (event) => {
-    console.log('clicked: ', event.target);
-  };
-
   useEffect(() => {
     dispatch(getProducts());
     // dispatch(changeCurrentProductById(40355));

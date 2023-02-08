@@ -64,6 +64,8 @@ export default function AddToCart({ style }) {
   };
 
   window.onclick = (event) => {
+    // console.log('event.target', event.target);
+    // console.log('parent', event.target.closest('.parent'));
     const interactionObj = { element: event.target.outerHTML, widget: String(event.target.closest('.parent').id), time: String(Date.now()) };
     dispatch(logInteractions(interactionObj));
 
