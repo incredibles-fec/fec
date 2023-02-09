@@ -69,7 +69,7 @@ export default function ProductList({ currentProduct, relatedList }) {
       <div className="relatedItemContainer">
         <div className="outfitBack">
           {previousVisble ? (
-            <button type="button" className="previousOutfit" onClick={onBack}>
+            <button type="button" className="fa-regular fa-circle-left previousOutfit" onClick={onBack}>
               &lt;
             </button>
           ) : null}
@@ -91,7 +91,7 @@ export default function ProductList({ currentProduct, relatedList }) {
         </div>
         <div className="outfitForward" onClick={onNext}>
           {nextVisible ? (
-            <button type="button" className="nextOutfit">
+            <button type="button" className="fa-regular fa-circle-right nextOutfit">
               &gt;
             </button>
           ) : null}

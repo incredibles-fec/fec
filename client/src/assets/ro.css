@@ -15,19 +15,23 @@
   height: 40px;
   width: 60px;
   font-size: 20px;
+  background-color: #1a1306;
+  color: #f7f7f7;
 }
 
 .relatedProductsContainer h3, .outfitContainer h3 {
   text-align: center;
+  text-transform: uppercase;
+  font-size: 20px;
 }
 
 .productCardContainer, .outfitCardContainer {
-  border: 1px solid #3a3939;
+  border: 2px solid #300402;
   width: 225px;
   height: 315px;
   margin: 5px;
   border-radius: .5em;
-  box-shadow: 10px 10px .1px -5px #c4c2c2;
+  box-shadow: 10px 10px .1px -5px #5e0904;
 }
 
 .cardContent {
@@ -35,6 +39,7 @@
   flex-direction: column;
   width: 225px;
   height: 275px;
+  color: #F7F7F7;
 }
 
 .cardImage {
@@ -49,7 +54,6 @@
 }
 
 .imageContainer {
-  background-color: #E6E6E6;
   border-radius: .5em;
 }
 
@@ -172,6 +176,7 @@
 
 .addToOutfit h1{
   font-size: 20px;
+  color: #F7F7F7;
 }
 
 .addToOutfit i{

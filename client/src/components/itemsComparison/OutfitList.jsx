@@ -88,7 +88,7 @@ export default function OutfitList({ relatedList }) {
       <div className="outfitItemContainer">
         <div className="outfitBack">
           {previousOutfitVisble ? (
-            <button type="button" className="previousOutfit" onClick={previousOutfitItem}>
+            <button className="fa-regular fa-circle-left previousOutfit" type="button" onClick={previousOutfitItem}>
               &lt;
             </button>
           ) : null}
@@ -113,7 +113,7 @@ export default function OutfitList({ relatedList }) {
         </div>
         <div className="outfitForward" onClick={nextOutfitItem} data-testid="nextItem">
           {nextOutfitVisible ? (
-            <button type="button" className="nextOutfit">
+            <button className="fa-regular fa-circle-left Outfit" type="button">
               &gt;
             </button>
           ) : null}

@@ -6,6 +6,7 @@ import { setupStore } from './state/store';
 import './assets/pd.css';
 import './assets/david.css';
 import './assets/ro.css';
+import './assets/dark.css';
 
 render(
   <Provider store={setupStore()}>
