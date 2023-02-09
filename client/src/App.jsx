@@ -8,16 +8,10 @@ import RatingsReviews from './components/RatingsReviews/RR.jsx';
 export default function App() {
   return (
     <React.StrictMode>
-      <div className="main-container">
-        <label className="switch">
-          <input type="checkbox" />
-          <span className="slider round" />
-        </label>
-        <ProductDetail />
-        <ItemsComparison />
-        <QuestionsAnswers />
-        <RatingsReviews />
-      </div>
+      <ProductDetail />
+      <ItemsComparison />
+      <QuestionsAnswers />
+      <RatingsReviews />
     </React.StrictMode>
   );
 }

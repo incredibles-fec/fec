@@ -29,11 +29,16 @@ html {
 Light/Dark Mode Switch Toggle Styling
 ====================================================== */
 
+.toggle-wrapper {
+  align-self: flex-end;
+  margin-bottom: 0.5em;
+}
+
 .switch {
   position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+  float: right;
+  width: 55px;
+  height: 25px;
 }
 
 /* Hide default HTML checkbox */
@@ -59,21 +64,21 @@ Light/Dark Mode Switch Toggle Styling
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
+  height: 19px;
+  width: 19px;
+  left: 3.5px;
+  bottom: 3.5px;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: maroon;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+  box-shadow: 0 0 1px maroon;
 }
 
 input:checked + .slider:before {
@@ -84,7 +89,7 @@ input:checked + .slider:before {
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 34px;
+  border-radius: 25px;
 }
 
 .slider.round:before {
@@ -100,7 +105,7 @@ Product Detail Styling
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  margin: 2em;
+  margin: 0em 2em 2em 2em;
 }
 
 .nav-bar {
@@ -131,7 +136,8 @@ Product Detail Styling
 
 .site-wide-announcement {
   text-align: center;
-  display: inline-block;
+  /* display: inline-block; */
+  align-self: center;
   margin: 0.75rem 0rem;
 }
 
