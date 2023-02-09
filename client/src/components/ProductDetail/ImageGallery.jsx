@@ -101,7 +101,7 @@ export default function ImageGallery({ style }) {
       img.style.cursor = 'cell';
       img.style.transform = 'scale(1.0)';
 
-      img.style.width = '600px';
+      img.style.width = '700px';
 
       setExpandedView(true);
     } else if (expandedView) {
@@ -117,8 +117,8 @@ export default function ImageGallery({ style }) {
       displayImageContainer.style.width = '';
       img.style.cursor = 'zoom-in';
       img.style.transform = 'scale(1)';
-      img.style.height = '500px';
-      img.style.width = '500px';
+      img.style.height = '550px';
+      img.style.width = '650px';
       imageGalleryContainer.style['z-index'] = 0;
 
       thumbnailContainer.style.visibility = 'visible';

@@ -9,9 +9,9 @@ export default function ProductDetail() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getProducts());
+    // dispatch(getProducts());
     // dispatch(changeCurrentProductById(40355));
-    // dispatch(changeCurrentProductById(40347));
+    dispatch(changeCurrentProductById(40347));
   }, []);
 
   const handleSearch = (e) => {
