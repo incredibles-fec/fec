@@ -61,8 +61,10 @@ export default function AddQAForm({
 
   return (
     <div className="question-form">
-      <div>{formMappings[type].header}</div>
-      <div>
+      <div style={{ textAlign: 'center', fontSize: '1.2rem' }}>
+        {formMappings[type].header}
+      </div>
+      <div style={{ textAlign: 'center' }}>
         {type === 'question'
           ? `About the ${productName}`
           : `${productName}: ${question}`}
@@ -112,9 +114,15 @@ export default function AddQAForm({
           })}
         </span>
       ) : null}
-      <button type="button" onClick={handleSubmit}>
-        Submit {type}
-      </button>
+      <div style={{ textAlign: 'center' }}>
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className="form-submit-button"
+        >
+          Submit {type}
+        </button>
+      </div>
     </div>
   );
 }

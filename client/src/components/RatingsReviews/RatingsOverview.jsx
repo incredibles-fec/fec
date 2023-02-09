@@ -26,9 +26,8 @@ export default function RatingsOverview() {
             (Number(n) / totals.totalReviews) * 100
           );
           return (
-            <div style={{ margin: '0.3rem 0' }}>
+            <div key={star} style={{ margin: '0.3rem 0' }}>
               <ProgressBar
-                key={star}
                 action={star}
                 progress={percentage}
                 filters={filters}

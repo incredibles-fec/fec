@@ -9,10 +9,6 @@ QUESTIONS AND ANSWERS STYLING
   padding: 2rem 5rem;
 }
 
-.add-question {
-  margin-top: 1rem;
-}
-
 .accordion {
   display: flex;
   justify-content: space-between;
@@ -99,6 +95,34 @@ QUESTIONS AND ANSWERS STYLING
   height: 50%;
 }
 
+.load-more-button {
+  display: flex;
+  align-items: center;
+  border: none;
+  padding: 0;
+  gap: 0.5rem;
+  background-color: transparent;
+}
+
+.load-more-button:hover {
+  color: red;
+}
+
+.list-action-buttons {
+  border: none;
+  padding: 0.4rem;
+  background-color: lightcoral;
+  border-radius: 5px;
+  border: 1px solid lightcoral;
+  color: white;
+}
+
+.list-action-buttons:hover {
+  border: 1px solid lightcoral;
+  background-color: white;
+  color: lightcoral;
+}
+
 /* MODAL */
 .modal-container {
   position: fixed;
@@ -106,14 +130,16 @@ QUESTIONS AND ANSWERS STYLING
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
-  z-index: 2;
+  z-index: 20;
   width: 600px;
+  padding: 1rem;
+  border-radius: 10px;
   border: solid black 1px;
 }
 
 .modal-overlay {
   position: fixed;
-  z-index: 2;
+  z-index: 20;
   width: 100vw;
   height: 100vh;
 }
@@ -123,10 +149,20 @@ QUESTIONS AND ANSWERS STYLING
   justify-content: flex-end;
 }
 
+.modal-close-icon {
+  margin-bottom: 0.4rem;
+}
+
+.modal-close-icon:hover {
+  color: red
+}
+
 /* FORM */
 .question-form {
   display: flex;
   flex-direction: column;
+  padding: 1rem 2rem 2rem;
+  gap: 0.5rem;
 }
 
 .button-trans {
@@ -137,8 +173,13 @@ QUESTIONS AND ANSWERS STYLING
   background-color: transparent;
 }
 
+.button-trans:hover {
+  color: red;
+}
+
 .errorMessage {
   color: red;
+  font-size: 0.9rem;
 }
 
 .hidden-input-file {
@@ -147,11 +188,59 @@ QUESTIONS AND ANSWERS STYLING
 
 .choose-file-button {
   cursor: pointer;
-  border: 1px solid black
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 0.2rem;
+  margin-right: 0.2rem;
+}
+
+.choose-file-button:hover {
+  border: 1px solid red;
+  background-color: red;
+  color: white;
 }
 
 textarea {
   resize: none;
+}
+
+.form-textarea-field {
+  height: 4rem;
+  border: 1px solid black;
+}
+
+.form-textarea-field:focus {
+  outline: none !important;
+  border: 1px solid red
+}
+
+.form-input-field {
+  border: 0;
+  border-bottom: 1px solid black;
+}
+
+.form-input-field:focus {
+  outline: none !important;
+  border: 0;
+  border-bottom: 1px solid red;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 2rem 2rem;
+  gap: 0.5rem;
+}
+
+.form-submit-button {
+  border: 0;
+  padding: 0.4rem;
+  width: 10rem;
+  background-color: #C0C0C0
+}
+
+.form-submit-button:hover {
+  background-color: #EFEFEF
 }
 
 /* ACCORDION */

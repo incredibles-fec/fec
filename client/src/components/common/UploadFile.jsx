@@ -9,8 +9,8 @@ export default function UploadFile({ files, fileError, setError, setFiles }) {
     setError('');
   };
   return (
-    <div>
-      <div style={{ display: 'flex' }}>
+    <div style={{ fontSize: '0.9rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center' }}>
         <input
           type="file"
           id="files"

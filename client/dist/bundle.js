@@ -29,7 +29,7 @@ __webpack_require__.r(__webpack_exports__);
 function App() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ProductDetail_ProductOverview_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_itemsComparison_index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_QA_QA_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_RatingsReviews_RR_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_QA_QA_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_RatingsReviews_RR_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ProductDetail_ProductOverview_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_itemsComparison_index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {})]
     })
   });
 }
@@ -1259,8 +1259,15 @@ function AddQAForm(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
     className: "question-form",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      style: {
+        textAlign: 'center',
+        fontSize: '1.2rem'
+      },
       children: _utils_mappings__WEBPACK_IMPORTED_MODULE_6__.formMappings[type].header
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      style: {
+        textAlign: 'center'
+      },
       children: type === 'question' ? "About the ".concat(productName) : "".concat(productName, ": ").concat(question)
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_common_InputField_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
       type: "long",
@@ -1297,10 +1304,16 @@ function AddQAForm(_ref) {
         var field = err[0].toUpperCase() + err.substring(1);
         return idx !== errorKeys.length - 1 ? "".concat(field, ", ") : field;
       })]
-    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("button", {
-      type: "button",
-      onClick: handleSubmit,
-      children: ["Submit ", type]
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
+      style: {
+        textAlign: 'center'
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("button", {
+        type: "button",
+        onClick: handleSubmit,
+        className: "form-submit-button",
+        children: ["Submit ", type]
+      })
     })]
   });
 }
@@ -1643,22 +1656,28 @@ function QAList() {
           }, q.question_id);
         })
       })
-    }), !scrollToLoad && fullQuestions.length > 2 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
       style: {
-        marginRight: '5px'
+        marginTop: '1rem'
       },
-      type: "button",
-      onClick: function onClick() {
-        return loadMore();
-      },
-      children: "More Answered Questions"
-    }), fullQuestions.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
-      className: "add-question",
-      type: "button",
-      onClick: function onClick() {
-        return setIsOpen(true);
-      },
-      children: "Add a question"
+      children: [!scrollToLoad && fullQuestions.length > 2 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+        style: {
+          marginRight: '5px'
+        },
+        type: "button",
+        className: "list-action-buttons",
+        onClick: function onClick() {
+          return loadMore();
+        },
+        children: "More Answered Questions"
+      }), fullQuestions.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("button", {
+        className: "list-action-buttons",
+        type: "button",
+        onClick: function onClick() {
+          return setIsOpen(true);
+        },
+        children: "Add a question"
+      })]
     }), isOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_common_Modal_jsx__WEBPACK_IMPORTED_MODULE_5__["default"], {
       close: function close() {
         return setIsOpen(false);
@@ -1810,6 +1829,7 @@ function QAListEntry(_ref) {
         children: ["Username: ", question.asker_name]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
         type: "button",
+        className: "list-action-buttons",
         onClick: function onClick() {
           return setIsOpen(true);
         },
@@ -1867,20 +1887,26 @@ function QAListEntry(_ref) {
         display: 'flex',
         gap: '0.3rem'
       },
-      children: [Object.values(question.answers).length > answerCount && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+      children: [Object.values(question.answers).length > answerCount && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
         type: "button",
+        className: "load-more-button",
         onClick: function onClick() {
           return setAnswerCount(function (prev) {
             return prev + 2;
           });
         },
-        children: "LOAD MORE ANSWERS"
-      }), answerCount > 2 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
+          className: "fa-sharp fa-solid fa-caret-down fa-lg"
+        }), "Show ", Object.values(question.answers).length - answerCount, Object.values(question.answers).length - answerCount === 1 ? ' Answer' : ' Answers']
+      }), Object.values(question.answers).length > 2 && answerCount >= Object.values(question.answers).length && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
         type: "button",
+        className: "load-more-button",
         onClick: function onClick() {
           return setAnswerCount(2);
         },
-        children: "HIDE ANSWERS"
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
+          className: "fa-solid fa-caret-up fa-lg"
+        }), "Hide"]
       })]
     }), isOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_common_Modal_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
       close: function close() {
@@ -2114,6 +2140,10 @@ function AddReviewForm(_ref) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
     className: "review-form",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)("div", {
+      style: {
+        textAlign: 'center',
+        fontSize: '1.2rem'
+      },
       children: ["About the ", productName]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_RatingsSelector_jsx__WEBPACK_IMPORTED_MODULE_6__["default"], {
       handleInput: handleInput
@@ -2175,10 +2205,16 @@ function AddReviewForm(_ref) {
         var field = err[0].toUpperCase() + err.substring(1);
         return idx !== errorKeys.length - 1 ? "".concat(field, ", ") : field;
       })]
-    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
-      type: "button",
-      onClick: handleSubmit,
-      children: "Submit"
+    }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("div", {
+      style: {
+        textAlign: 'center'
+      },
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("button", {
+        type: "button",
+        onClick: handleSubmit,
+        className: "form-submit-button",
+        children: "Submit"
+      })
     })]
   });
 }
@@ -2321,12 +2357,14 @@ function RatingsList() {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("section", {
       className: "rating-list-footer",
       children: [!scrollToLoad && fullReviews.length > 2 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+        className: "list-action-buttons",
         type: "button",
         onClick: function onClick() {
           return loadMore();
         },
         children: "MORE REVIEWS"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
+        className: "list-action-buttons",
         type: "button",
         onClick: function onClick() {
           return setIsOpen(true);
@@ -2410,8 +2448,8 @@ function RatingsOverview() {
             action: star,
             progress: percentage,
             filters: filters
-          }, star)
-        });
+          })
+        }, star);
       })
     });
   };
@@ -2942,11 +2980,11 @@ function InputField(_ref) {
     hint = _ref.hint,
     onChange = _ref.onChange;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-    style: {
-      display: 'flex',
-      flexDirection: 'column'
-    },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("label", {
+      style: {
+        display: 'flex',
+        flexDirection: 'column'
+      },
       children: [label !== null && label !== void 0 ? label : name.charAt(0).toUpperCase() + name.slice(1), type === 'long' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("textarea", {
         className: "form-textarea-field",
         type: "text",
@@ -2962,11 +3000,17 @@ function InputField(_ref) {
         maxLength: 60,
         onChange: onChange
       })]
-    }), error ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-      className: "errorMessage",
-      children: error
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-      children: hint !== null && hint !== void 0 ? hint : ''
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      style: {
+        fontSize: '0.9rem',
+        height: '1.2rem'
+      },
+      children: error ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        className: "errorMessage",
+        children: error
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+        children: hint !== null && hint !== void 0 ? hint : ''
+      })
     })]
   });
 }
@@ -3005,7 +3049,7 @@ function Modal(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "modal-header-actions",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
-          className: "fa-solid fa-arrow-right",
+          className: "fa-solid fa-arrow-right modal-close-icon",
           style: {
             cursor: 'pointer'
           },
@@ -3315,9 +3359,13 @@ function UploadFile(_ref) {
     setError('');
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    style: {
+      fontSize: '0.9rem'
+    },
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       style: {
-        display: 'flex'
+        display: 'flex',
+        alignItems: 'center'
       },
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
         type: "file",
@@ -4697,10 +4745,14 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var handleErrors = function handleErrors(name, value) {
   var error;
-  if (name === 'body') error = value.length < 2 ? 'Body error' : '';
-  if (name === 'name') error = value.length < 5 ? 'Nickname error' : '';
-  if (name === 'email') error = !validator__WEBPACK_IMPORTED_MODULE_0___default().isEmail(value) ? 'Email error' : '';
-  if (name === 'summary') error = value.length < 10 ? 'Summary error' : '';
+  if (name === 'body') {
+    error = value.length < 2 ? 'You need to type more dude' : '';
+  }
+  if (name === 'name') error = value.length < 5 ? 'Nickname is too short' : '';
+  if (name === 'email') {
+    error = !validator__WEBPACK_IMPORTED_MODULE_0___default().isEmail(value) ? 'That is not an email' : '';
+  }
+  if (name === 'summary') error = value.length < 10 ? 'Can you type more?' : '';
   return {
     error: error
   };
@@ -28210,7 +28262,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* ======================================================\nQUESTIONS AND ANSWERS STYLING\n====================================================== */\n\n/* QUESTION LIST */\n.qa-container {\n  max-width: 1024px;\n  margin: 0 auto;\n  padding: 2rem 5rem;\n}\n\n.add-question {\n  margin-top: 1rem;\n}\n\n.accordion {\n  display: flex;\n  justify-content: space-between;\n}\n\n/* SEARCH BAR */\n\n.search-container {\n  display: flex;\n  position: relative;\n  width: 100%;\n\n}\n\n.search-input {\n  width: 100%;\n  padding: 1rem;\n  box-sizing: border-box;\n}\n\n.search-container i {\n  cursor: pointer;\n  position: absolute;\n  top: 50%;\n  padding-right: 15px;\n  right: 0;\n  transform: translateY(-50%);\n}\n\n/* QUESTION LIST ENTRY */\n.q-container {\n  display: flex;\n  font-size: 14px;\n  width: 100%;\n}\n\n.q-user {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 5px;\n}\n\n.q-header {\n  display: flex;\n  width: 98%;\n  padding-left: 5px;\n  align-items: center;\n  justify-content: space-between;\n}\n\n.q-body {\n  width: 75%;\n}\n\n.q-info {\n  display: flex;\n  justify-content: end;\n  width: 25%;\n}\n\n.a-container {\n  margin: 1rem 0;\n  font-size: 14px;\n}\n\n.a-footer {\n  display: flex;\n  align-items: center;\n}\n\n.a-photos {\n  display: flex\n}\n\n.a-photos img {\n  max-width: 7rem;\n  max-height: 4rem;\n  margin-right: 1rem;\n}\n\n.photo-style {\n  width: 100%;\n  height: 50%;\n}\n\n/* MODAL */\n.modal-container {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  background-color: white;\n  z-index: 2;\n  width: 600px;\n  border: solid black 1px;\n}\n\n.modal-overlay {\n  position: fixed;\n  z-index: 2;\n  width: 100vw;\n  height: 100vh;\n}\n\n.modal-header-actions {\n  display: flex;\n  justify-content: flex-end;\n}\n\n/* FORM */\n.question-form {\n  display: flex;\n  flex-direction: column;\n}\n\n.button-trans {\n  text-decoration: underline;\n  cursor: pointer;\n  border: none;\n  padding: 0;\n  background-color: transparent;\n}\n\n.errorMessage {\n  color: red;\n}\n\n.hidden-input-file {\n  display: none\n}\n\n.choose-file-button {\n  cursor: pointer;\n  border: 1px solid black\n}\n\ntextarea {\n  resize: none;\n}\n\n/* ACCORDION */\n.expanded {\n  max-height: 700px;\n  margin-top: 1rem;\n  transition: all 0.5s ease-out;\n  overflow: scroll\n}\n\n.collapsed {\n  max-height: 0px;\n  margin-top: 1rem;\n}\n\n.expanded::-webkit-scrollbar {\n  display: none;\n}\n\n/* ======================================================\nRATINGS AND REVIEWS STYLING\n====================================================== */\n\n\n\n.rr-container {\n  display: flex;\n  max-width: 1024px;\n  margin: 0 auto;\n  padding: 2rem 5rem 10rem 5rem;\n\n}\n\n@media only screen and (max-width: 600px) {\n  .rr-container {\n    display: block;\n  }\n\n  .overview-container {\n    width: 100%\n  }\n}\n\n/* Overview */\n.overview-container {\n  width: 30%;\n  padding-right: 2rem;\n}\n\n/* Search filter */\n.filter-search-container {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  gap: 1rem\n}\n\n.filter-sort {\n  width: 60%;\n}\n\n.r-filter-container {\n  display: flex;\n  position: relative;\n  width: 40%;\n\n}\n\n.r-search-input {\n  width: 100%;\n  padding: 0.5rem;\n  box-sizing: border-box;\n}\n\n.r-filter-container i {\n  cursor: pointer;\n  position: absolute;\n  top: 50%;\n  padding-right: 15px;\n  right: 0;\n  transform: translateY(-50%);\n}\n\n.select-input {\n  border: none;\n  text-decoration: underline;\n}\n\n/* List */\n.rating-list-container {\n  width: 100%;\n}\n\n.reviews-map {\n  max-height: 700px;\n  overflow: auto;\n}\n\n.reviews-map::-webkit-scrollbar {\n  display: none;\n}\n\n.rating-list-footer {\n  display: flex;\n  margin-top: 1rem;\n  gap: 0.5rem;\n}\n\n/* Tile */\n.tile-container {\n  margin-bottom: 1rem;\n  font-size: 14px;\n}\n\n.tile-header {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 1rem\n}\n\n.tile-body {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  margin-bottom: 1rem;\n}\n\n.tile-footer {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n\n/* form */\n\n.star-button {\n  cursor: pointer\n}\n\n.r-star-buttons {\n  display: flex;\n}\n\n.deselected {\n  color: #D0D0D0\n}\n\n.deselected:hover {\n  color: #505050\n}\n\n.selected {\n  color: #505050\n}\n\n/* Overview */\n.total-rating-container {\n  display: flex;\n  gap: 1rem;\n}\n\n.total-rating {\n  font-size: 3em;\n  padding: 0;\n}\n\n\n.progress-bar-container {\n  display: flex;\n  width: 100%;\n  white-space: nowrap;\n  align-items: center;\n}\n\n.progress-bar {\n  height: 0.5rem;\n  width: 100%;\n  background-color: #D0D0D0;\n  margin-left: 0.5rem;\n}\n\n.progress-bar-fill {\n  height: 100%;\n  background-color: #505050;\n  text-align: right;\n}\n\n.star-rating {\n  display: flex;\n  align-items: center;\n  font-size: 14px;\n}\n\n.back-stars {\n  display: flex;\n  position: relative;\n}\n\n.front-stars {\n  display: flex;\n  overflow: hidden;\n  position: absolute;\n  top: 0;\n  transition: all .5s\n}\n\n.char-bar-container {\n  display: flex;\n  width: 100%;\n  height: 0.3rem;\n  gap: 0.4rem;\n  margin-top: 0.5rem;\n  position: relative;\n}\n\n.char-bar {\n  background-color: #D3D3D3;\n  width: 33%\n}\n\n.char-bar-desc {\n  display: flex;\n  width: 33%;\n  font-size: 0.8rem;\n}\n\n.char-bar-mid {\n  display: flex;\n  justify-content: center;\n  width: 33%;\n  font-size: 0.8rem;\n}\n\n.triangle-marker {\n  position: absolute;\n  font-size: 1.5rem;\n  transform: translateY(-35%);\n}\n\n.button-selected {\n  text-decoration: underline;\n  cursor: pointer;\n  border: none;\n  padding: 0;\n  background-color: transparent;\n  color: lightcoral\n}\n\n.tags-container {\n  display: flex;\n  gap: 0.2rem\n}\n\n.selected-filter-tag {\n  cursor: pointer;\n  background-color: lightcoral;\n  color: white;\n  border-radius: 5px;\n  font-size: 0.8rem;\n  padding: 1px 4px\n}", "",{"version":3,"sources":["webpack://./client/src/assets/david.css"],"names":[],"mappings":"AAAA;;wDAEwD;;AAExD,kBAAkB;AAClB;EACE,iBAAiB;EACjB,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA,eAAe;;AAEf;EACE,aAAa;EACb,kBAAkB;EAClB,WAAW;;AAEb;;AAEA;EACE,WAAW;EACX,aAAa;EACb,sBAAsB;AACxB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,QAAQ;EACR,mBAAmB;EACnB,QAAQ;EACR,2BAA2B;AAC7B;;AAEA,wBAAwB;AACxB;EACE,aAAa;EACb,eAAe;EACf,WAAW;AACb;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B,mBAAmB;EACnB,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,UAAU;EACV,iBAAiB;EACjB,mBAAmB;EACnB,8BAA8B;AAChC;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE,aAAa;EACb,oBAAoB;EACpB,UAAU;AACZ;;AAEA;EACE,cAAc;EACd,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE;AACF;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,kBAAkB;AACpB;;AAEA;EACE,WAAW;EACX,WAAW;AACb;;AAEA,UAAU;AACV;EACE,eAAe;EACf,QAAQ;EACR,SAAS;EACT,gCAAgC;EAChC,uBAAuB;EACvB,UAAU;EACV,YAAY;EACZ,uBAAuB;AACzB;;AAEA;EACE,eAAe;EACf,UAAU;EACV,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,yBAAyB;AAC3B;;AAEA,SAAS;AACT;EACE,aAAa;EACb,sBAAsB;AACxB;;AAEA;EACE,0BAA0B;EAC1B,eAAe;EACf,YAAY;EACZ,UAAU;EACV,6BAA6B;AAC/B;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE;AACF;;AAEA;EACE,eAAe;EACf;AACF;;AAEA;EACE,YAAY;AACd;;AAEA,cAAc;AACd;EACE,iBAAiB;EACjB,gBAAgB;EAChB,6BAA6B;EAC7B;AACF;;AAEA;EACE,eAAe;EACf,gBAAgB;AAClB;;AAEA;EACE,aAAa;AACf;;AAEA;;wDAEwD;;;;AAIxD;EACE,aAAa;EACb,iBAAiB;EACjB,cAAc;EACd,6BAA6B;;AAE/B;;AAEA;EACE;IACE,cAAc;EAChB;;EAEA;IACE;EACF;AACF;;AAEA,aAAa;AACb;EACE,UAAU;EACV,mBAAmB;AACrB;;AAEA,kBAAkB;AAClB;EACE,aAAa;EACb,8BAA8B;EAC9B,mBAAmB;EACnB;AACF;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE,aAAa;EACb,kBAAkB;EAClB,UAAU;;AAEZ;;AAEA;EACE,WAAW;EACX,eAAe;EACf,sBAAsB;AACxB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,QAAQ;EACR,mBAAmB;EACnB,QAAQ;EACR,2BAA2B;AAC7B;;AAEA;EACE,YAAY;EACZ,0BAA0B;AAC5B;;AAEA,SAAS;AACT;EACE,WAAW;AACb;;AAEA;EACE,iBAAiB;EACjB,cAAc;AAChB;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;EACb,gBAAgB;EAChB,WAAW;AACb;;AAEA,SAAS;AACT;EACE,mBAAmB;EACnB,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B;AACF;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,SAAS;EACT,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,WAAW;AACb;;AAEA,SAAS;;AAET;EACE;AACF;;AAEA;EACE,aAAa;AACf;;AAEA;EACE;AACF;;AAEA;EACE;AACF;;AAEA;EACE;AACF;;AAEA,aAAa;AACb;EACE,aAAa;EACb,SAAS;AACX;;AAEA;EACE,cAAc;EACd,UAAU;AACZ;;;AAGA;EACE,aAAa;EACb,WAAW;EACX,mBAAmB;EACnB,mBAAmB;AACrB;;AAEA;EACE,cAAc;EACd,WAAW;EACX,yBAAyB;EACzB,mBAAmB;AACrB;;AAEA;EACE,YAAY;EACZ,yBAAyB;EACzB,iBAAiB;AACnB;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,gBAAgB;EAChB,kBAAkB;EAClB,MAAM;EACN;AACF;;AAEA;EACE,aAAa;EACb,WAAW;EACX,cAAc;EACd,WAAW;EACX,kBAAkB;EAClB,kBAAkB;AACpB;;AAEA;EACE,yBAAyB;EACzB;AACF;;AAEA;EACE,aAAa;EACb,UAAU;EACV,iBAAiB;AACnB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,UAAU;EACV,iBAAiB;AACnB;;AAEA;EACE,kBAAkB;EAClB,iBAAiB;EACjB,2BAA2B;AAC7B;;AAEA;EACE,0BAA0B;EAC1B,eAAe;EACf,YAAY;EACZ,UAAU;EACV,6BAA6B;EAC7B;AACF;;AAEA;EACE,aAAa;EACb;AACF;;AAEA;EACE,eAAe;EACf,4BAA4B;EAC5B,YAAY;EACZ,kBAAkB;EAClB,iBAAiB;EACjB;AACF","sourcesContent":["/* ======================================================\nQUESTIONS AND ANSWERS STYLING\n====================================================== */\n\n/* QUESTION LIST */\n.qa-container {\n  max-width: 1024px;\n  margin: 0 auto;\n  padding: 2rem 5rem;\n}\n\n.add-question {\n  margin-top: 1rem;\n}\n\n.accordion {\n  display: flex;\n  justify-content: space-between;\n}\n\n/* SEARCH BAR */\n\n.search-container {\n  display: flex;\n  position: relative;\n  width: 100%;\n\n}\n\n.search-input {\n  width: 100%;\n  padding: 1rem;\n  box-sizing: border-box;\n}\n\n.search-container i {\n  cursor: pointer;\n  position: absolute;\n  top: 50%;\n  padding-right: 15px;\n  right: 0;\n  transform: translateY(-50%);\n}\n\n/* QUESTION LIST ENTRY */\n.q-container {\n  display: flex;\n  font-size: 14px;\n  width: 100%;\n}\n\n.q-user {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 5px;\n}\n\n.q-header {\n  display: flex;\n  width: 98%;\n  padding-left: 5px;\n  align-items: center;\n  justify-content: space-between;\n}\n\n.q-body {\n  width: 75%;\n}\n\n.q-info {\n  display: flex;\n  justify-content: end;\n  width: 25%;\n}\n\n.a-container {\n  margin: 1rem 0;\n  font-size: 14px;\n}\n\n.a-footer {\n  display: flex;\n  align-items: center;\n}\n\n.a-photos {\n  display: flex\n}\n\n.a-photos img {\n  max-width: 7rem;\n  max-height: 4rem;\n  margin-right: 1rem;\n}\n\n.photo-style {\n  width: 100%;\n  height: 50%;\n}\n\n/* MODAL */\n.modal-container {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  background-color: white;\n  z-index: 2;\n  width: 600px;\n  border: solid black 1px;\n}\n\n.modal-overlay {\n  position: fixed;\n  z-index: 2;\n  width: 100vw;\n  height: 100vh;\n}\n\n.modal-header-actions {\n  display: flex;\n  justify-content: flex-end;\n}\n\n/* FORM */\n.question-form {\n  display: flex;\n  flex-direction: column;\n}\n\n.button-trans {\n  text-decoration: underline;\n  cursor: pointer;\n  border: none;\n  padding: 0;\n  background-color: transparent;\n}\n\n.errorMessage {\n  color: red;\n}\n\n.hidden-input-file {\n  display: none\n}\n\n.choose-file-button {\n  cursor: pointer;\n  border: 1px solid black\n}\n\ntextarea {\n  resize: none;\n}\n\n/* ACCORDION */\n.expanded {\n  max-height: 700px;\n  margin-top: 1rem;\n  transition: all 0.5s ease-out;\n  overflow: scroll\n}\n\n.collapsed {\n  max-height: 0px;\n  margin-top: 1rem;\n}\n\n.expanded::-webkit-scrollbar {\n  display: none;\n}\n\n/* ======================================================\nRATINGS AND REVIEWS STYLING\n====================================================== */\n\n\n\n.rr-container {\n  display: flex;\n  max-width: 1024px;\n  margin: 0 auto;\n  padding: 2rem 5rem 10rem 5rem;\n\n}\n\n@media only screen and (max-width: 600px) {\n  .rr-container {\n    display: block;\n  }\n\n  .overview-container {\n    width: 100%\n  }\n}\n\n/* Overview */\n.overview-container {\n  width: 30%;\n  padding-right: 2rem;\n}\n\n/* Search filter */\n.filter-search-container {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  gap: 1rem\n}\n\n.filter-sort {\n  width: 60%;\n}\n\n.r-filter-container {\n  display: flex;\n  position: relative;\n  width: 40%;\n\n}\n\n.r-search-input {\n  width: 100%;\n  padding: 0.5rem;\n  box-sizing: border-box;\n}\n\n.r-filter-container i {\n  cursor: pointer;\n  position: absolute;\n  top: 50%;\n  padding-right: 15px;\n  right: 0;\n  transform: translateY(-50%);\n}\n\n.select-input {\n  border: none;\n  text-decoration: underline;\n}\n\n/* List */\n.rating-list-container {\n  width: 100%;\n}\n\n.reviews-map {\n  max-height: 700px;\n  overflow: auto;\n}\n\n.reviews-map::-webkit-scrollbar {\n  display: none;\n}\n\n.rating-list-footer {\n  display: flex;\n  margin-top: 1rem;\n  gap: 0.5rem;\n}\n\n/* Tile */\n.tile-container {\n  margin-bottom: 1rem;\n  font-size: 14px;\n}\n\n.tile-header {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 1rem\n}\n\n.tile-body {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  margin-bottom: 1rem;\n}\n\n.tile-footer {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n\n/* form */\n\n.star-button {\n  cursor: pointer\n}\n\n.r-star-buttons {\n  display: flex;\n}\n\n.deselected {\n  color: #D0D0D0\n}\n\n.deselected:hover {\n  color: #505050\n}\n\n.selected {\n  color: #505050\n}\n\n/* Overview */\n.total-rating-container {\n  display: flex;\n  gap: 1rem;\n}\n\n.total-rating {\n  font-size: 3em;\n  padding: 0;\n}\n\n\n.progress-bar-container {\n  display: flex;\n  width: 100%;\n  white-space: nowrap;\n  align-items: center;\n}\n\n.progress-bar {\n  height: 0.5rem;\n  width: 100%;\n  background-color: #D0D0D0;\n  margin-left: 0.5rem;\n}\n\n.progress-bar-fill {\n  height: 100%;\n  background-color: #505050;\n  text-align: right;\n}\n\n.star-rating {\n  display: flex;\n  align-items: center;\n  font-size: 14px;\n}\n\n.back-stars {\n  display: flex;\n  position: relative;\n}\n\n.front-stars {\n  display: flex;\n  overflow: hidden;\n  position: absolute;\n  top: 0;\n  transition: all .5s\n}\n\n.char-bar-container {\n  display: flex;\n  width: 100%;\n  height: 0.3rem;\n  gap: 0.4rem;\n  margin-top: 0.5rem;\n  position: relative;\n}\n\n.char-bar {\n  background-color: #D3D3D3;\n  width: 33%\n}\n\n.char-bar-desc {\n  display: flex;\n  width: 33%;\n  font-size: 0.8rem;\n}\n\n.char-bar-mid {\n  display: flex;\n  justify-content: center;\n  width: 33%;\n  font-size: 0.8rem;\n}\n\n.triangle-marker {\n  position: absolute;\n  font-size: 1.5rem;\n  transform: translateY(-35%);\n}\n\n.button-selected {\n  text-decoration: underline;\n  cursor: pointer;\n  border: none;\n  padding: 0;\n  background-color: transparent;\n  color: lightcoral\n}\n\n.tags-container {\n  display: flex;\n  gap: 0.2rem\n}\n\n.selected-filter-tag {\n  cursor: pointer;\n  background-color: lightcoral;\n  color: white;\n  border-radius: 5px;\n  font-size: 0.8rem;\n  padding: 1px 4px\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* ======================================================\nQUESTIONS AND ANSWERS STYLING\n====================================================== */\n\n/* QUESTION LIST */\n.qa-container {\n  max-width: 1024px;\n  margin: 0 auto;\n  padding: 2rem 5rem;\n}\n\n.accordion {\n  display: flex;\n  justify-content: space-between;\n}\n\n/* SEARCH BAR */\n\n.search-container {\n  display: flex;\n  position: relative;\n  width: 100%;\n\n}\n\n.search-input {\n  width: 100%;\n  padding: 1rem;\n  box-sizing: border-box;\n}\n\n.search-container i {\n  cursor: pointer;\n  position: absolute;\n  top: 50%;\n  padding-right: 15px;\n  right: 0;\n  transform: translateY(-50%);\n}\n\n/* QUESTION LIST ENTRY */\n.q-container {\n  display: flex;\n  font-size: 14px;\n  width: 100%;\n}\n\n.q-user {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 5px;\n}\n\n.q-header {\n  display: flex;\n  width: 98%;\n  padding-left: 5px;\n  align-items: center;\n  justify-content: space-between;\n}\n\n.q-body {\n  width: 75%;\n}\n\n.q-info {\n  display: flex;\n  justify-content: end;\n  width: 25%;\n}\n\n.a-container {\n  margin: 1rem 0;\n  font-size: 14px;\n}\n\n.a-footer {\n  display: flex;\n  align-items: center;\n}\n\n.a-photos {\n  display: flex\n}\n\n.a-photos img {\n  max-width: 7rem;\n  max-height: 4rem;\n  margin-right: 1rem;\n}\n\n.photo-style {\n  width: 100%;\n  height: 50%;\n}\n\n.load-more-button {\n  display: flex;\n  align-items: center;\n  border: none;\n  padding: 0;\n  gap: 0.5rem;\n  background-color: transparent;\n}\n\n.load-more-button:hover {\n  color: red;\n}\n\n.list-action-buttons {\n  border: none;\n  padding: 0.4rem;\n  background-color: lightcoral;\n  border-radius: 5px;\n  border: 1px solid lightcoral;\n  color: white;\n}\n\n.list-action-buttons:hover {\n  border: 1px solid lightcoral;\n  background-color: white;\n  color: lightcoral;\n}\n\n/* MODAL */\n.modal-container {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  background-color: white;\n  z-index: 20;\n  width: 600px;\n  padding: 1rem;\n  border-radius: 10px;\n  border: solid black 1px;\n}\n\n.modal-overlay {\n  position: fixed;\n  z-index: 20;\n  width: 100vw;\n  height: 100vh;\n}\n\n.modal-header-actions {\n  display: flex;\n  justify-content: flex-end;\n}\n\n.modal-close-icon {\n  margin-bottom: 0.4rem;\n}\n\n.modal-close-icon:hover {\n  color: red\n}\n\n/* FORM */\n.question-form {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem 2rem 2rem;\n  gap: 0.5rem;\n}\n\n.button-trans {\n  text-decoration: underline;\n  cursor: pointer;\n  border: none;\n  padding: 0;\n  background-color: transparent;\n}\n\n.button-trans:hover {\n  color: red;\n}\n\n.errorMessage {\n  color: red;\n  font-size: 0.9rem;\n}\n\n.hidden-input-file {\n  display: none\n}\n\n.choose-file-button {\n  cursor: pointer;\n  border: 1px solid black;\n  border-radius: 5px;\n  padding: 0.2rem;\n  margin-right: 0.2rem;\n}\n\n.choose-file-button:hover {\n  border: 1px solid red;\n  background-color: red;\n  color: white;\n}\n\ntextarea {\n  resize: none;\n}\n\n.form-textarea-field {\n  height: 4rem;\n  border: 1px solid black;\n}\n\n.form-textarea-field:focus {\n  outline: none !important;\n  border: 1px solid red\n}\n\n.form-input-field {\n  border: 0;\n  border-bottom: 1px solid black;\n}\n\n.form-input-field:focus {\n  outline: none !important;\n  border: 0;\n  border-bottom: 1px solid red;\n}\n\n.review-form {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem 2rem 2rem;\n  gap: 0.5rem;\n}\n\n.form-submit-button {\n  border: 0;\n  padding: 0.4rem;\n  width: 10rem;\n  background-color: #C0C0C0\n}\n\n.form-submit-button:hover {\n  background-color: #EFEFEF\n}\n\n/* ACCORDION */\n.expanded {\n  max-height: 700px;\n  margin-top: 1rem;\n  transition: all 0.5s ease-out;\n  overflow: scroll\n}\n\n.collapsed {\n  max-height: 0px;\n  margin-top: 1rem;\n}\n\n.expanded::-webkit-scrollbar {\n  display: none;\n}\n\n/* ======================================================\nRATINGS AND REVIEWS STYLING\n====================================================== */\n\n\n\n.rr-container {\n  display: flex;\n  max-width: 1024px;\n  margin: 0 auto;\n  padding: 2rem 5rem 10rem 5rem;\n\n}\n\n@media only screen and (max-width: 600px) {\n  .rr-container {\n    display: block;\n  }\n\n  .overview-container {\n    width: 100%\n  }\n}\n\n/* Overview */\n.overview-container {\n  width: 30%;\n  padding-right: 2rem;\n}\n\n/* Search filter */\n.filter-search-container {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  gap: 1rem\n}\n\n.filter-sort {\n  width: 60%;\n}\n\n.r-filter-container {\n  display: flex;\n  position: relative;\n  width: 40%;\n\n}\n\n.r-search-input {\n  width: 100%;\n  padding: 0.5rem;\n  box-sizing: border-box;\n}\n\n.r-filter-container i {\n  cursor: pointer;\n  position: absolute;\n  top: 50%;\n  padding-right: 15px;\n  right: 0;\n  transform: translateY(-50%);\n}\n\n.select-input {\n  border: none;\n  text-decoration: underline;\n}\n\n/* List */\n.rating-list-container {\n  width: 100%;\n}\n\n.reviews-map {\n  max-height: 700px;\n  overflow: auto;\n}\n\n.reviews-map::-webkit-scrollbar {\n  display: none;\n}\n\n.rating-list-footer {\n  display: flex;\n  margin-top: 1rem;\n  gap: 0.5rem;\n}\n\n/* Tile */\n.tile-container {\n  margin-bottom: 1rem;\n  font-size: 14px;\n}\n\n.tile-header {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 1rem\n}\n\n.tile-body {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  margin-bottom: 1rem;\n}\n\n.tile-footer {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n\n/* form */\n\n.star-button {\n  cursor: pointer\n}\n\n.r-star-buttons {\n  display: flex;\n}\n\n.deselected {\n  color: #D0D0D0\n}\n\n.deselected:hover {\n  color: #505050\n}\n\n.selected {\n  color: #505050\n}\n\n/* Overview */\n.total-rating-container {\n  display: flex;\n  gap: 1rem;\n}\n\n.total-rating {\n  font-size: 3em;\n  padding: 0;\n}\n\n\n.progress-bar-container {\n  display: flex;\n  width: 100%;\n  white-space: nowrap;\n  align-items: center;\n}\n\n.progress-bar {\n  height: 0.5rem;\n  width: 100%;\n  background-color: #D0D0D0;\n  margin-left: 0.5rem;\n}\n\n.progress-bar-fill {\n  height: 100%;\n  background-color: #505050;\n  text-align: right;\n}\n\n.star-rating {\n  display: flex;\n  align-items: center;\n  font-size: 14px;\n}\n\n.back-stars {\n  display: flex;\n  position: relative;\n}\n\n.front-stars {\n  display: flex;\n  overflow: hidden;\n  position: absolute;\n  top: 0;\n  transition: all .5s\n}\n\n.char-bar-container {\n  display: flex;\n  width: 100%;\n  height: 0.3rem;\n  gap: 0.4rem;\n  margin-top: 0.5rem;\n  position: relative;\n}\n\n.char-bar {\n  background-color: #D3D3D3;\n  width: 33%\n}\n\n.char-bar-desc {\n  display: flex;\n  width: 33%;\n  font-size: 0.8rem;\n}\n\n.char-bar-mid {\n  display: flex;\n  justify-content: center;\n  width: 33%;\n  font-size: 0.8rem;\n}\n\n.triangle-marker {\n  position: absolute;\n  font-size: 1.5rem;\n  transform: translateY(-35%);\n}\n\n.button-selected {\n  text-decoration: underline;\n  cursor: pointer;\n  border: none;\n  padding: 0;\n  background-color: transparent;\n  color: lightcoral\n}\n\n.tags-container {\n  display: flex;\n  gap: 0.2rem\n}\n\n.selected-filter-tag {\n  cursor: pointer;\n  background-color: lightcoral;\n  color: white;\n  border-radius: 5px;\n  font-size: 0.8rem;\n  padding: 1px 4px\n}", "",{"version":3,"sources":["webpack://./client/src/assets/david.css"],"names":[],"mappings":"AAAA;;wDAEwD;;AAExD,kBAAkB;AAClB;EACE,iBAAiB;EACjB,cAAc;EACd,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,8BAA8B;AAChC;;AAEA,eAAe;;AAEf;EACE,aAAa;EACb,kBAAkB;EAClB,WAAW;;AAEb;;AAEA;EACE,WAAW;EACX,aAAa;EACb,sBAAsB;AACxB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,QAAQ;EACR,mBAAmB;EACnB,QAAQ;EACR,2BAA2B;AAC7B;;AAEA,wBAAwB;AACxB;EACE,aAAa;EACb,eAAe;EACf,WAAW;AACb;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B,mBAAmB;EACnB,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,UAAU;EACV,iBAAiB;EACjB,mBAAmB;EACnB,8BAA8B;AAChC;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE,aAAa;EACb,oBAAoB;EACpB,UAAU;AACZ;;AAEA;EACE,cAAc;EACd,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE;AACF;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,kBAAkB;AACpB;;AAEA;EACE,WAAW;EACX,WAAW;AACb;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,YAAY;EACZ,UAAU;EACV,WAAW;EACX,6BAA6B;AAC/B;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE,YAAY;EACZ,eAAe;EACf,4BAA4B;EAC5B,kBAAkB;EAClB,4BAA4B;EAC5B,YAAY;AACd;;AAEA;EACE,4BAA4B;EAC5B,uBAAuB;EACvB,iBAAiB;AACnB;;AAEA,UAAU;AACV;EACE,eAAe;EACf,QAAQ;EACR,SAAS;EACT,gCAAgC;EAChC,uBAAuB;EACvB,WAAW;EACX,YAAY;EACZ,aAAa;EACb,mBAAmB;EACnB,uBAAuB;AACzB;;AAEA;EACE,eAAe;EACf,WAAW;EACX,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,yBAAyB;AAC3B;;AAEA;EACE,qBAAqB;AACvB;;AAEA;EACE;AACF;;AAEA,SAAS;AACT;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,WAAW;AACb;;AAEA;EACE,0BAA0B;EAC1B,eAAe;EACf,YAAY;EACZ,UAAU;EACV,6BAA6B;AAC/B;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE,UAAU;EACV,iBAAiB;AACnB;;AAEA;EACE;AACF;;AAEA;EACE,eAAe;EACf,uBAAuB;EACvB,kBAAkB;EAClB,eAAe;EACf,oBAAoB;AACtB;;AAEA;EACE,qBAAqB;EACrB,qBAAqB;EACrB,YAAY;AACd;;AAEA;EACE,YAAY;AACd;;AAEA;EACE,YAAY;EACZ,uBAAuB;AACzB;;AAEA;EACE,wBAAwB;EACxB;AACF;;AAEA;EACE,SAAS;EACT,8BAA8B;AAChC;;AAEA;EACE,wBAAwB;EACxB,SAAS;EACT,4BAA4B;AAC9B;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,WAAW;AACb;;AAEA;EACE,SAAS;EACT,eAAe;EACf,YAAY;EACZ;AACF;;AAEA;EACE;AACF;;AAEA,cAAc;AACd;EACE,iBAAiB;EACjB,gBAAgB;EAChB,6BAA6B;EAC7B;AACF;;AAEA;EACE,eAAe;EACf,gBAAgB;AAClB;;AAEA;EACE,aAAa;AACf;;AAEA;;wDAEwD;;;;AAIxD;EACE,aAAa;EACb,iBAAiB;EACjB,cAAc;EACd,6BAA6B;;AAE/B;;AAEA;EACE;IACE,cAAc;EAChB;;EAEA;IACE;EACF;AACF;;AAEA,aAAa;AACb;EACE,UAAU;EACV,mBAAmB;AACrB;;AAEA,kBAAkB;AAClB;EACE,aAAa;EACb,8BAA8B;EAC9B,mBAAmB;EACnB;AACF;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE,aAAa;EACb,kBAAkB;EAClB,UAAU;;AAEZ;;AAEA;EACE,WAAW;EACX,eAAe;EACf,sBAAsB;AACxB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,QAAQ;EACR,mBAAmB;EACnB,QAAQ;EACR,2BAA2B;AAC7B;;AAEA;EACE,YAAY;EACZ,0BAA0B;AAC5B;;AAEA,SAAS;AACT;EACE,WAAW;AACb;;AAEA;EACE,iBAAiB;EACjB,cAAc;AAChB;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,aAAa;EACb,gBAAgB;EAChB,WAAW;AACb;;AAEA,SAAS;AACT;EACE,mBAAmB;EACnB,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,8BAA8B;EAC9B;AACF;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,SAAS;EACT,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,WAAW;AACb;;AAEA,SAAS;;AAET;EACE;AACF;;AAEA;EACE,aAAa;AACf;;AAEA;EACE;AACF;;AAEA;EACE;AACF;;AAEA;EACE;AACF;;AAEA,aAAa;AACb;EACE,aAAa;EACb,SAAS;AACX;;AAEA;EACE,cAAc;EACd,UAAU;AACZ;;;AAGA;EACE,aAAa;EACb,WAAW;EACX,mBAAmB;EACnB,mBAAmB;AACrB;;AAEA;EACE,cAAc;EACd,WAAW;EACX,yBAAyB;EACzB,mBAAmB;AACrB;;AAEA;EACE,YAAY;EACZ,yBAAyB;EACzB,iBAAiB;AACnB;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,gBAAgB;EAChB,kBAAkB;EAClB,MAAM;EACN;AACF;;AAEA;EACE,aAAa;EACb,WAAW;EACX,cAAc;EACd,WAAW;EACX,kBAAkB;EAClB,kBAAkB;AACpB;;AAEA;EACE,yBAAyB;EACzB;AACF;;AAEA;EACE,aAAa;EACb,UAAU;EACV,iBAAiB;AACnB;;AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,UAAU;EACV,iBAAiB;AACnB;;AAEA;EACE,kBAAkB;EAClB,iBAAiB;EACjB,2BAA2B;AAC7B;;AAEA;EACE,0BAA0B;EAC1B,eAAe;EACf,YAAY;EACZ,UAAU;EACV,6BAA6B;EAC7B;AACF;;AAEA;EACE,aAAa;EACb;AACF;;AAEA;EACE,eAAe;EACf,4BAA4B;EAC5B,YAAY;EACZ,kBAAkB;EAClB,iBAAiB;EACjB;AACF","sourcesContent":["/* ======================================================\nQUESTIONS AND ANSWERS STYLING\n====================================================== */\n\n/* QUESTION LIST */\n.qa-container {\n  max-width: 1024px;\n  margin: 0 auto;\n  padding: 2rem 5rem;\n}\n\n.accordion {\n  display: flex;\n  justify-content: space-between;\n}\n\n/* SEARCH BAR */\n\n.search-container {\n  display: flex;\n  position: relative;\n  width: 100%;\n\n}\n\n.search-input {\n  width: 100%;\n  padding: 1rem;\n  box-sizing: border-box;\n}\n\n.search-container i {\n  cursor: pointer;\n  position: absolute;\n  top: 50%;\n  padding-right: 15px;\n  right: 0;\n  transform: translateY(-50%);\n}\n\n/* QUESTION LIST ENTRY */\n.q-container {\n  display: flex;\n  font-size: 14px;\n  width: 100%;\n}\n\n.q-user {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  margin-bottom: 5px;\n}\n\n.q-header {\n  display: flex;\n  width: 98%;\n  padding-left: 5px;\n  align-items: center;\n  justify-content: space-between;\n}\n\n.q-body {\n  width: 75%;\n}\n\n.q-info {\n  display: flex;\n  justify-content: end;\n  width: 25%;\n}\n\n.a-container {\n  margin: 1rem 0;\n  font-size: 14px;\n}\n\n.a-footer {\n  display: flex;\n  align-items: center;\n}\n\n.a-photos {\n  display: flex\n}\n\n.a-photos img {\n  max-width: 7rem;\n  max-height: 4rem;\n  margin-right: 1rem;\n}\n\n.photo-style {\n  width: 100%;\n  height: 50%;\n}\n\n.load-more-button {\n  display: flex;\n  align-items: center;\n  border: none;\n  padding: 0;\n  gap: 0.5rem;\n  background-color: transparent;\n}\n\n.load-more-button:hover {\n  color: red;\n}\n\n.list-action-buttons {\n  border: none;\n  padding: 0.4rem;\n  background-color: lightcoral;\n  border-radius: 5px;\n  border: 1px solid lightcoral;\n  color: white;\n}\n\n.list-action-buttons:hover {\n  border: 1px solid lightcoral;\n  background-color: white;\n  color: lightcoral;\n}\n\n/* MODAL */\n.modal-container {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  background-color: white;\n  z-index: 20;\n  width: 600px;\n  padding: 1rem;\n  border-radius: 10px;\n  border: solid black 1px;\n}\n\n.modal-overlay {\n  position: fixed;\n  z-index: 20;\n  width: 100vw;\n  height: 100vh;\n}\n\n.modal-header-actions {\n  display: flex;\n  justify-content: flex-end;\n}\n\n.modal-close-icon {\n  margin-bottom: 0.4rem;\n}\n\n.modal-close-icon:hover {\n  color: red\n}\n\n/* FORM */\n.question-form {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem 2rem 2rem;\n  gap: 0.5rem;\n}\n\n.button-trans {\n  text-decoration: underline;\n  cursor: pointer;\n  border: none;\n  padding: 0;\n  background-color: transparent;\n}\n\n.button-trans:hover {\n  color: red;\n}\n\n.errorMessage {\n  color: red;\n  font-size: 0.9rem;\n}\n\n.hidden-input-file {\n  display: none\n}\n\n.choose-file-button {\n  cursor: pointer;\n  border: 1px solid black;\n  border-radius: 5px;\n  padding: 0.2rem;\n  margin-right: 0.2rem;\n}\n\n.choose-file-button:hover {\n  border: 1px solid red;\n  background-color: red;\n  color: white;\n}\n\ntextarea {\n  resize: none;\n}\n\n.form-textarea-field {\n  height: 4rem;\n  border: 1px solid black;\n}\n\n.form-textarea-field:focus {\n  outline: none !important;\n  border: 1px solid red\n}\n\n.form-input-field {\n  border: 0;\n  border-bottom: 1px solid black;\n}\n\n.form-input-field:focus {\n  outline: none !important;\n  border: 0;\n  border-bottom: 1px solid red;\n}\n\n.review-form {\n  display: flex;\n  flex-direction: column;\n  padding: 1rem 2rem 2rem;\n  gap: 0.5rem;\n}\n\n.form-submit-button {\n  border: 0;\n  padding: 0.4rem;\n  width: 10rem;\n  background-color: #C0C0C0\n}\n\n.form-submit-button:hover {\n  background-color: #EFEFEF\n}\n\n/* ACCORDION */\n.expanded {\n  max-height: 700px;\n  margin-top: 1rem;\n  transition: all 0.5s ease-out;\n  overflow: scroll\n}\n\n.collapsed {\n  max-height: 0px;\n  margin-top: 1rem;\n}\n\n.expanded::-webkit-scrollbar {\n  display: none;\n}\n\n/* ======================================================\nRATINGS AND REVIEWS STYLING\n====================================================== */\n\n\n\n.rr-container {\n  display: flex;\n  max-width: 1024px;\n  margin: 0 auto;\n  padding: 2rem 5rem 10rem 5rem;\n\n}\n\n@media only screen and (max-width: 600px) {\n  .rr-container {\n    display: block;\n  }\n\n  .overview-container {\n    width: 100%\n  }\n}\n\n/* Overview */\n.overview-container {\n  width: 30%;\n  padding-right: 2rem;\n}\n\n/* Search filter */\n.filter-search-container {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  gap: 1rem\n}\n\n.filter-sort {\n  width: 60%;\n}\n\n.r-filter-container {\n  display: flex;\n  position: relative;\n  width: 40%;\n\n}\n\n.r-search-input {\n  width: 100%;\n  padding: 0.5rem;\n  box-sizing: border-box;\n}\n\n.r-filter-container i {\n  cursor: pointer;\n  position: absolute;\n  top: 50%;\n  padding-right: 15px;\n  right: 0;\n  transform: translateY(-50%);\n}\n\n.select-input {\n  border: none;\n  text-decoration: underline;\n}\n\n/* List */\n.rating-list-container {\n  width: 100%;\n}\n\n.reviews-map {\n  max-height: 700px;\n  overflow: auto;\n}\n\n.reviews-map::-webkit-scrollbar {\n  display: none;\n}\n\n.rating-list-footer {\n  display: flex;\n  margin-top: 1rem;\n  gap: 0.5rem;\n}\n\n/* Tile */\n.tile-container {\n  margin-bottom: 1rem;\n  font-size: 14px;\n}\n\n.tile-header {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 1rem\n}\n\n.tile-body {\n  display: flex;\n  flex-direction: column;\n  gap: 1rem;\n  margin-bottom: 1rem;\n}\n\n.tile-footer {\n  display: flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n\n/* form */\n\n.star-button {\n  cursor: pointer\n}\n\n.r-star-buttons {\n  display: flex;\n}\n\n.deselected {\n  color: #D0D0D0\n}\n\n.deselected:hover {\n  color: #505050\n}\n\n.selected {\n  color: #505050\n}\n\n/* Overview */\n.total-rating-container {\n  display: flex;\n  gap: 1rem;\n}\n\n.total-rating {\n  font-size: 3em;\n  padding: 0;\n}\n\n\n.progress-bar-container {\n  display: flex;\n  width: 100%;\n  white-space: nowrap;\n  align-items: center;\n}\n\n.progress-bar {\n  height: 0.5rem;\n  width: 100%;\n  background-color: #D0D0D0;\n  margin-left: 0.5rem;\n}\n\n.progress-bar-fill {\n  height: 100%;\n  background-color: #505050;\n  text-align: right;\n}\n\n.star-rating {\n  display: flex;\n  align-items: center;\n  font-size: 14px;\n}\n\n.back-stars {\n  display: flex;\n  position: relative;\n}\n\n.front-stars {\n  display: flex;\n  overflow: hidden;\n  position: absolute;\n  top: 0;\n  transition: all .5s\n}\n\n.char-bar-container {\n  display: flex;\n  width: 100%;\n  height: 0.3rem;\n  gap: 0.4rem;\n  margin-top: 0.5rem;\n  position: relative;\n}\n\n.char-bar {\n  background-color: #D3D3D3;\n  width: 33%\n}\n\n.char-bar-desc {\n  display: flex;\n  width: 33%;\n  font-size: 0.8rem;\n}\n\n.char-bar-mid {\n  display: flex;\n  justify-content: center;\n  width: 33%;\n  font-size: 0.8rem;\n}\n\n.triangle-marker {\n  position: absolute;\n  font-size: 1.5rem;\n  transform: translateY(-35%);\n}\n\n.button-selected {\n  text-decoration: underline;\n  cursor: pointer;\n  border: none;\n  padding: 0;\n  background-color: transparent;\n  color: lightcoral\n}\n\n.tags-container {\n  display: flex;\n  gap: 0.2rem\n}\n\n.selected-filter-tag {\n  cursor: pointer;\n  background-color: lightcoral;\n  color: white;\n  border-radius: 5px;\n  font-size: 0.8rem;\n  padding: 1px 4px\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

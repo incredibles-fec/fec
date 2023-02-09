@@ -70,25 +70,27 @@ export default function QAList() {
           ))}
         </Accordion>
       </div>
-
-      {!scrollToLoad && fullQuestions.length > 2 && (
-        <button
-          style={{ marginRight: '5px' }}
-          type="button"
-          onClick={() => loadMore()}
-        >
-          More Answered Questions
-        </button>
-      )}
-      {fullQuestions.length > 0 && (
-        <button
-          className="add-question"
-          type="button"
-          onClick={() => setIsOpen(true)}
-        >
-          Add a question
-        </button>
-      )}
+      <div style={{ marginTop: '1rem' }}>
+        {!scrollToLoad && fullQuestions.length > 2 && (
+          <button
+            style={{ marginRight: '5px' }}
+            type="button"
+            className="list-action-buttons"
+            onClick={() => loadMore()}
+          >
+            More Answered Questions
+          </button>
+        )}
+        {fullQuestions.length > 0 && (
+          <button
+            className="list-action-buttons"
+            type="button"
+            onClick={() => setIsOpen(true)}
+          >
+            Add a question
+          </button>
+        )}
+      </div>
 
       {isOpen && (
         <Modal close={() => setIsOpen(false)}>

@@ -72,7 +72,9 @@ export default function AddReviewForm({ close }) {
 
   return (
     <div className="review-form">
-      <div>About the {productName}</div>
+      <div style={{ textAlign: 'center', fontSize: '1.2rem' }}>
+        About the {productName}
+      </div>
       <RatingsSelector handleInput={handleInput} />
       <RadioGroup
         name="recommend"
@@ -145,10 +147,15 @@ export default function AddReviewForm({ close }) {
           })}
         </span>
       ) : null}
-
-      <button type="button" onClick={handleSubmit}>
-        Submit
-      </button>
+      <div style={{ textAlign: 'center' }}>
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className="form-submit-button"
+        >
+          Submit
+        </button>
+      </div>
     </div>
   );
 }

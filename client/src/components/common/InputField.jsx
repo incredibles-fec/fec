@@ -10,8 +10,8 @@ export default function InputField({
   onChange,
 }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <label>
+    <div>
+      <label style={{ display: 'flex', flexDirection: 'column' }}>
         {label ?? name.charAt(0).toUpperCase() + name.slice(1)}
         {type === 'long' && (
           <textarea
@@ -34,11 +34,13 @@ export default function InputField({
           />
         )}
       </label>
-      {error ? (
-        <span className="errorMessage">{error}</span>
-      ) : (
-        <span>{hint ?? ''}</span>
-      )}
+      <div style={{ fontSize: '0.9rem', height: '1.2rem' }}>
+        {error ? (
+          <span className="errorMessage">{error}</span>
+        ) : (
+          <span>{hint ?? ''}</span>
+        )}
+      </div>
     </div>
   );
 }
