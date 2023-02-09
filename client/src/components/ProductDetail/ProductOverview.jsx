@@ -18,7 +18,7 @@ export default function ProductDetail() {
   };
 
   useEffect(() => {
-    document.body.className = theme;
+    document.getElementById('theme').href = `${theme}Mode.css`;
   }, [theme]);
 
   useEffect(() => {
