@@ -186,13 +186,10 @@ button, select {
 }
 
 .product-overview-container {
-  /* align-self: center; */
+  align-self: center;
   display: flex;
   justify-content: space-evenly;
-<<<<<<< HEAD
-=======
-  margin-top: 1rem;
->>>>>>> 08389baa2452c368cd2ac1a947e09e83deb99ac5
+  margin: 1rem;
 }
 
 .product-slogan-description {
@@ -209,7 +206,7 @@ button, select {
   display: flex;
   /* flex-wrap: wrap; */
   justify-content: center;
-  margin: 2px 150px 40px 100px;
+  margin: 2px 150px 10px 100px;
   padding: 10px 20px;
 }
 
@@ -301,9 +298,6 @@ button, select {
   border: none;
   opacity: 50%;
   margin: 0.5rem;
-  font-weight: bold;
-  background-color: silver;
-  color: black;
   border-radius: 50%;
   height: 40px;
   width: 40px;

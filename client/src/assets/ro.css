@@ -11,14 +11,6 @@
   margin: 2em 8em;
 }
 
-.previousProduct, .nextProduct, .previousOutfit, .nextOutfit {
-  height: 40px;
-  width: 60px;
-  font-size: 20px;
-  background-color: #1a1306;
-  color: #f7f7f7;
-}
-
 .relatedProductsContainer h3, .outfitContainer h3 {
   text-align: center;
   text-transform: uppercase;
@@ -168,9 +160,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 150px;
-  height: 150px;
-  border: solid 1px black;
   cursor: pointer;
 }
 

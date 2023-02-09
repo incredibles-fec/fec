@@ -52,6 +52,7 @@ export default function ProductDetail() {
         <h4 className="site-wide-announcement">SITE-WIDE ANNOUNCEMENT MESSAGE! - <b>NO REFUNDS!!!</b></h4>
         <ProductInformation />
         <ProductDescription />
+        <div className="colorSeparator" />
       </div>
     );
   }

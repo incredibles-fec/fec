@@ -1,8 +1,131 @@
-.dark {
-  background-color: #333;
+/* ====================================
+    Product Overview
+   ====================================
+*/
+
+
+/* Pallete
+
+a30f07 maroon
+fedb00 yellow
+f1781a orange
+1a1306 dark
+868e96 grey
+ced4da light grey
+f7f7f7 white
+
+*/
+
+body {
+  background-color: #1A1306;
   color: #fff;
 }
-.light {
-  background-color: #fff;
-  color: #333;
+
+#gallery-and-styles-container {
+  background-color: #1A1306;
+  border-radius: .4em;
 }
+
+.product-overview-container {
+  /* background-color: #f7f7f7; */
+  color: #f7f7f7;
+  border: solid 2px #1A1306;
+}
+
+.colorSeparator {
+  background-color: #fedb00;
+  height: 10px;
+}
+
+.nav-bar {
+  background-color: #a30f07;
+}
+
+#product-info-container {
+  color:#f7f7f7;
+}
+
+.navigate {
+  font-weight: bold;
+  background-color: #ced4da;
+  color:#1a1306;
+}
+
+.dropdownButton:hover, #add-to-cart-button:hover, #add-to-favorites:hover, .navigate:hover {
+  background-color: #a30f07;
+  border: 2px solid #fedb00;
+  color: #f7f7f7;
+  border-radius: .4em;
+}
+
+#add-to-cart-button, #add-to-favorites, .dropdownButton {
+  font-weight: bold;
+  background-color: #ced4da;
+  color: #1a1306;
+  border: .5px solid #1A1306;
+  border-radius: .2em;
+}
+
+.previousProduct, .nextProduct, .previousOutfit, .nextOutfit {
+  font-weight: bold;
+  background-color: #ced4da;
+  opacity: 50%;
+  margin: 0.5rem;
+  border: none;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  border: 5em;
+  font-size: 30px;
+  font-weight: 400;
+  font-weight: bold;
+}
+
+.previousProduct:hover, .nextProduct:hover, .previousOutfit:hover, .nextOutfit:hover {
+  background-color: #f7f7f7;
+  color: #a30f07;
+  border: 2px solid #fedb00;
+  opacity: 75%;
+  font-weight: bold;
+  padding: 2px;
+  border-radius: .4em;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  z-index: 10;
+}
+/* ====================================
+    Product and Outfit Cards
+   ====================================
+*/
+
+.addToOutfitContainer {
+  background-color: #868e96;
+  width: 150px;
+  height: 150px;
+  border: solid 1px black;
+  border-radius: .5em;
+}
+
+.addToOutfitContainer:hover {
+  background-color: #ced4da;
+}
+
+.productCardContainer, .outfitCardContainer{
+  background-color: #a30f07;
+}
+
+.cardContent {
+  background-color: #a30f07;
+  font-size: 20px;
+}
+
+.imageContainer {
+  background-color: #a30f07;
+}
+
+
+/* ====================================
+    Buttons
+   ====================================
+*/

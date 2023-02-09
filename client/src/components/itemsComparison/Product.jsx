@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductModal from './ProductModal.jsx';
-import Image from '../../assets/edna.png';
+import Image from '../../assets/edna-image-unavailable.jpg';
 
 export default function Product({
   item, count, onUpdate, currentProduct

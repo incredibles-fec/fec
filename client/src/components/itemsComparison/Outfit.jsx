@@ -1,5 +1,5 @@
 import React from 'react';
-import Image from '../../assets/edna.png';
+import Image from '../../assets/edna-image-unavailable.jpg';
 
 export default function Outfit({ item, onRemoveFromOutfit, count }) {
   return (
