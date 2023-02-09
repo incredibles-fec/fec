@@ -1059,19 +1059,19 @@ function ShareSocialMedia() {
       href: "/#",
       className: "fa fa-facebook",
       "data-testid": "fb",
-      "aria-hidden": "true",
+      "aria-label": "Share to Facebook",
       children: " "
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
       href: "/#",
       className: "fa fa-twitter",
       "data-testid": "twt",
-      "aria-hidden": "true",
+      "aria-label": "Share to Twitter",
       children: " "
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
       href: "/#",
       className: "fa fa-pinterest",
       "data-testid": "pnt",
-      "aria-hidden": "true",
+      "aria-label": "Share to Pinterest",
       children: " "
     })]
   });
