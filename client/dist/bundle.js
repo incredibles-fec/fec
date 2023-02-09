@@ -27,10 +27,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function App() {
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, {
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ProductDetail_ProductOverview_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_itemsComparison_index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_QA_QA_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_RatingsReviews_RR_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
-    })
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react__WEBPACK_IMPORTED_MODULE_0__.StrictMode, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_ProductDetail_ProductOverview_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_itemsComparison_index_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_QA_QA_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_components_RatingsReviews_RR_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
   });
 }
 
@@ -295,6 +293,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/* eslint-disable max-len */
 
 
 
@@ -348,7 +347,8 @@ function AddToCart(_ref) {
         children: style.skus[k].size
       }, k);
     });
-    if (loadNewSizes.length) {
+    // eslint-disable-next-line dot-notation
+    if (!style.skus['null']) {
       document.getElementById('size-dropdown-button').textContent = 'Select Size';
       document.getElementById('quantity-dropdown-button').textContent = '---';
     } else {
@@ -358,6 +358,7 @@ function AddToCart(_ref) {
         return b.disabled = true;
       });
       document.getElementById('add-to-cart-button').hidden = true;
+      document.getElementById('cartIcon').hidden = true;
     }
     setSizes(loadNewSizes);
   }, [style]);
@@ -369,9 +370,9 @@ function AddToCart(_ref) {
     var sizeDropdown = document.getElementById('size-dropdown-button');
     var quantityDropdown = document.getElementById('quantity-dropdown-button');
     if (sizeDropdown.textContent === 'Select Size') {
-      sizeDropdown.textContent = 'Please Select a Size';
+      sizeDropdown.textContent = 'Select Size';
       handleSizeSelection();
-    } else if (quantityDropdown.textContent === '---') {
+    } else if (quantityDropdown.textContent === '---' || quantityDropdown.textContent === 'Select Quantity') {
       quantityDropdown.textContent = 'Select Quantity';
       document.getElementById('quantity-dropdown').classList.toggle('show');
     } else {
@@ -380,11 +381,15 @@ function AddToCart(_ref) {
     }
   };
   window.onclick = function (event) {
-    // console.log('event.target', event.target);
-    // console.log('parent', event.target.closest('.parent'));
+    var parentModule = event.target.closest('.parent');
+    if (!parentModule) {
+      parentModule = 'Related Items & Outfit Creation';
+    } else {
+      parentModule = parentModule.id;
+    }
     var interactionObj = {
       element: event.target.outerHTML,
-      widget: String(event.target.closest('.parent').id),
+      widget: String(parentModule),
       time: String(Date.now())
     };
     dispatch((0,_state_pd__WEBPACK_IMPORTED_MODULE_2__.logInteractions)(interactionObj));
@@ -494,7 +499,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ ImageGallery)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _assets_edna_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/edna-image-unavailable.jpg */ "./client/src/assets/edna-image-unavailable.jpg");
+/* harmony import */ var _assets_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/image-unavailable.jpg */ "./client/src/assets/image-unavailable.jpg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -502,6 +509,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 /* eslint-disable max-len */
+
+
 
 
 
@@ -522,7 +531,7 @@ function ImageGallery(_ref) {
     _useState6 = _slicedToArray(_useState5, 2),
     thumbnailIndexEnd = _useState6[0],
     setThumbnailIndexEnd = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(photos[0].url),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(photos[0].url ? photos[0].url : _assets_edna_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_1__),
     _useState8 = _slicedToArray(_useState7, 2),
     currentThumbnail = _useState8[0],
     setCurrentThumbnail = _useState8[1];
@@ -535,32 +544,32 @@ function ImageGallery(_ref) {
     expandedView = _useState12[0],
     setExpandedView = _useState12[1];
   var thumbnails = photos.map(function (p, i) {
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       className: "carousel-item-container",
       onClick: function onClick() {
         setIndex(i);
       },
-      children: [currentThumbnail === photos[i].url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      children: [currentThumbnail === (photos[i].url || _assets_edna_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_1__) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "carousel-item-underlay"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
         className: "carousel-item-thumbnail",
-        src: p.thumbnail_url,
+        src: p.thumbnail_url ? p.thumbnail_url : _assets_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_2__,
         alt: name
       })]
     }, p.url);
   });
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     thumbnails = photos.map(function (p, i) {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "carousel-item-container",
         onClick: function onClick() {
           setIndex(i);
         },
-        children: [currentThumbnail === photos[i].url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        children: [currentThumbnail === photos[i].url && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "carousel-item-underlay"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
           className: "carousel-item-thumbnail",
-          src: p.thumbnail_url,
+          src: p.thumbnail_url ? p.thumbnail_url : _assets_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_2__,
           alt: name
         })]
       }, p.url);
@@ -569,7 +578,7 @@ function ImageGallery(_ref) {
     setThumbnailIndexEnd(maxThumbnailDisplay > thumbnails.length ? thumbnails.length : maxThumbnailDisplay);
   }, [style]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    setCurrentThumbnail(photos[index].url);
+    setCurrentThumbnail(photos[index].url ? photos[index].url : _assets_edna_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_1__);
     var prevArrows = document.querySelectorAll('.prev');
     var nextArrows = document.querySelectorAll('.next');
     if (index === 0) {
@@ -640,7 +649,7 @@ function ImageGallery(_ref) {
       imageGalleryContainer.style['z-index'] = 5;
       img.style.cursor = 'cell';
       img.style.transform = 'scale(1.0)';
-      img.style.width = '600px';
+      img.style.width = '700px';
       setExpandedView(true);
     } else if (expandedView) {
       img.style.cursor = 'zoom-out';
@@ -657,8 +666,8 @@ function ImageGallery(_ref) {
       displayImageContainer.style.width = '';
       img.style.cursor = 'zoom-in';
       img.style.transform = 'scale(1)';
-      img.style.height = '500px';
-      img.style.width = '500px';
+      img.style.height = '550px';
+      img.style.width = '650px';
       imageGalleryContainer.style['z-index'] = 0;
       thumbnailContainer.style.visibility = 'visible';
       navButtons.forEach(function (b) {
@@ -675,63 +684,63 @@ function ImageGallery(_ref) {
       setNormalView(true);
     }
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     id: "image-gallery-container",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       id: "carousel-thumbnail-container",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
         className: "prev navigate",
         id: "carousel-thumbnail-prev",
         "aria-label": "previous",
         type: "button",
         onClick: getPrev,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
           className: "fa-regular fa-circle-up"
         })
-      }), thumbnails.slice(thumbnailIndexStart, thumbnailIndexEnd), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+      }), thumbnails.slice(thumbnailIndexStart, thumbnailIndexEnd), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
         className: "next navigate",
         id: "carousel-thumbnail-next",
         "aria-label": "next",
         type: "button",
         onClick: getNext,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
           className: "fa-regular fa-circle-down"
         })
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
       id: "display-image-container",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
         id: "displayed-image",
         role: "presentation",
-        src: photos[index].url,
+        src: photos[index].url ? photos[index].url : _assets_edna_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_1__,
         alt: name,
         onClick: enlargeImage,
         onMouseMove: function onMouseMove(e) {
           return panImage(e);
         },
         onFocus: function onFocus() {}
-      }), normalView && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+      }), normalView && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
         id: "expand-icon",
         className: "fa-sharp fa-solid fa-expand",
         onClick: enlargeImage
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "carousel-actions",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
           className: "prev navigate",
           id: "carousel-prev",
           "aria-label": "previous",
           type: "button",
           onClick: getPrev,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
             className: "fa-regular fa-circle-left"
           })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
           className: "next navigate",
           id: "carousel-next",
           "aria-label": "next",
           type: "button",
           onClick: getNext,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
             className: "fa-regular fa-circle-right"
           })
         })]
@@ -770,7 +779,7 @@ function ProductDescription() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("li", {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
         className: "fa-solid fa-check"
-      }), feat.feature, ": ", feat.value]
+      }), feat.feature, feat.value ? ": ".concat(feat.value) : '']
     }, feat.feature + feat.value);
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
@@ -930,6 +939,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ProductInformation_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProductInformation.jsx */ "./client/src/components/ProductDetail/ProductInformation.jsx");
 /* harmony import */ var _ProductDescription_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ProductDescription.jsx */ "./client/src/components/ProductDetail/ProductDescription.jsx");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -938,15 +953,29 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function ProductDetail() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('light'),
+    _useState2 = _slicedToArray(_useState, 2),
+    theme = _useState2[0],
+    setTheme = _useState2[1];
   var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useSelector)(function (state) {
       return state.pd;
     }),
     loading = _useSelector.loading;
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
+  var toggleTheme = function toggleTheme() {
+    if (theme === 'light') {
+      setTheme('dark');
+    } else {
+      setTheme('light');
+    }
+  };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    dispatch((0,_state_pd__WEBPACK_IMPORTED_MODULE_2__.getProducts)());
+    document.body.className = theme;
+  }, [theme]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // dispatch(getProducts());
     // dispatch(changeCurrentProductById(40355));
-    // dispatch(changeCurrentProductById(40347));
+    dispatch((0,_state_pd__WEBPACK_IMPORTED_MODULE_2__.changeCurrentProductById)(40347));
   }, []);
   var handleSearch = function handleSearch(e) {
     e.preventDefault();
@@ -957,7 +986,20 @@ function ProductDetail() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "pd-flex-container parent",
       id: "Product Detail",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "toggle-wrapper",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("label", {
+          className: "switch",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+            type: "checkbox",
+            onClick: function onClick() {
+              return toggleTheme();
+            }
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+            className: "slider round"
+          })]
+        })
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "nav-bar",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
           className: "logo",
@@ -1017,19 +1059,19 @@ function ShareSocialMedia() {
       href: "/#",
       className: "fa fa-facebook",
       "data-testid": "fb",
-      "aria-hidden": "true",
+      "aria-label": "Share to Facebook",
       children: " "
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
       href: "/#",
       className: "fa fa-twitter",
       "data-testid": "twt",
-      "aria-hidden": "true",
+      "aria-label": "Share to Twitter",
       children: " "
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
       href: "/#",
       className: "fa fa-pinterest",
       "data-testid": "pnt",
-      "aria-hidden": "true",
+      "aria-label": "Share to Pinterest",
       children: " "
     })]
   });
@@ -1050,13 +1092,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _assets_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/image-unavailable.jpg */ "./client/src/assets/image-unavailable.jpg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
+
 
 
 
@@ -1078,21 +1122,21 @@ function Styles(_ref) {
       return (
         /*#__PURE__*/
         // eslint-disable-next-line react/no-array-index-key
-        (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+        (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           className: "styles-row",
           children: row.map(function (style) {
-            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
               className: "style-item-overlay",
               onClick: function onClick() {
                 return setCurrentStyle(style);
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
                 className: "style-item",
-                src: style.photos[0].thumbnail_url,
+                src: style.photos[0].thumbnail_url ? style.photos[0].thumbnail_url : _assets_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_2__,
                 alt: style.name
-              }), currentStyle.style_id === style.style_id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("em", {
+              }), currentStyle.style_id === style.style_id && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("em", {
                 className: "checkmark",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
                   className: "fa-regular fa-circle-check"
                 })
               })]
@@ -1101,18 +1145,18 @@ function Styles(_ref) {
         }, "row-".concat(index))
       );
     });
-    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "product-style",
-        children: ["Style > ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("u", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+        children: ["Style > ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("u", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
             children: currentStyle.name
           })
         })]
       }), allStyles]
     });
   }
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
     children: "Loading Styles..."
   });
 }
@@ -28190,6 +28234,33 @@ module.exports["default"] = exports.default;
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js!./client/src/assets/darkMode.css":
+/*!******************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./client/src/assets/darkMode.css ***!
+  \******************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".dark {\n  background-color: #333;\n  color: #fff;\n}\n.light {\n  background-color: #fff;\n  color: #333;\n}", "",{"version":3,"sources":["webpack://./client/src/assets/darkMode.css"],"names":[],"mappings":"AAAA;EACE,sBAAsB;EACtB,WAAW;AACb;AACA;EACE,sBAAsB;EACtB,WAAW;AACb","sourcesContent":[".dark {\n  background-color: #333;\n  color: #fff;\n}\n.light {\n  background-color: #fff;\n  color: #333;\n}"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./client/src/assets/david.css":
 /*!***************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./client/src/assets/david.css ***!
@@ -28238,7 +28309,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "html {\n  font-family: 'Roboto', Tahoma, Verdana, sans-serif;\n}\n\n#loading {\n  margin: auto;\n  justify-content: center;\n  border: 20px solid yellow;\n  border-top: 20px solid red;\n  border-radius: 50%;\n  width: 150px;\n  height: 150px;\n  animation: spin 2s linear infinite;\n}\n\n@keyframes spin {\n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n\n.pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 2em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  padding: 0rem 1rem;\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n#search-products{\n  display: inline-block;\n  align-self: center;\n}\n\n#search-input-form {\n  background: none;\n  color: white;\n  border: none;\n  border-bottom: 0.1rem solid white;\n}\n\n::placeholder {\n  color: white;\n  opacity: 1;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  display: inline-block;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.star-ratings-reviews {\n  display: flex;\n  align-items: baseline;\n}\n\n.read-all-reviews {\n  margin-left: 0.5rem;\n  text-decoration: underline;\n  font-size: small;\n  cursor: pointer;\n\n}\n\n.product-category p{\n  text-transform: uppercase;\n  margin-bottom: 0em;\n}\n\n.product-name p{\n  font-size: xx-large;\n  font-weight: bold;\n  margin-top: 0em;\n  margin-bottom: 0em;\n  text-decoration: underline dotted;\n}\n\n.product-price p {\n  margin-bottom: 0;\n  font-size: large;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n.product-overview-container {\n  align-self: center;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-evenly;\n  margin-left: 17vw;\n  margin-right: 3rem;\n  margin-top: 1rem;\n}\n\n.product-slogan-description {\n  flex-basis: 60%;\n}\n\n.product-features {\n  flex-grow: 2;\n  border-left: inset;\n  align-self: center;\n}\n\n#gallery-and-styles-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 1rem;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n  align-items: center;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n.carousel-item-thumbnail {\n  width: 50px;\n  height: 50px;\n  object-fit: cover;\n  padding: 0.5rem;\n  border-radius: 1rem;\n}\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n#expand-icon {\n  z-index: 10;\n  position: absolute;\n  font-size: x-large;\n  top: 0.5em;\n  right: 0.5em;\n  opacity: 50%;\n  background-color: silver;\n  padding: 0.1rem;\n  border-radius: 25%;\n}\n\n#expand-icon:hover {\n  cursor: zoom-in;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n  font-size: 30px;\n}\n\n.navigate {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n  font-weight: bold;\n  background-color: silver;\n  color: black;\n  border-radius: 50%;\n  height: 40px;\n  width: 40px;\n  border: 5em;\n}\n.navigate:hover, #expand-icon:hover {\n  opacity: 75%;\n  background-color: lightgray;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-size: 30px;\n}\n\n#displayed-image {\n  height: 500px;\n  width: 500px;\n  object-fit: contain;\n  transition: transform 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n}\n\n.style-item {\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  object-fit: cover;\n  padding: 5px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n  transform: scale(1.05);\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#add-to-favorites {\n  font-size: larger;\n  margin-left: 1rem;\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n#add-to-cart-button {\n  float: left;\n  min-width: 95px;\n}\n\nselect {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  text-decoration: none;\n  transition: all 0.2s ease;\n}\n\n#add-to-cart-button, #add-to-favorites {\n  background-color: silver;\n  color: black;\n  border: none;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s ease;\n  min-height: 33px;\n}\n\n#cartIcon {\n  /* margin-right: 0.5rem; */\n}\n\n#add-to-cart-buttons:hover, #add-to-cart-buttons:focus, #add-to-favorites:hover, #add-to-favorites:focus, select:hover {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdownButton {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  min-height: 33px;\n  vertical-align: top;\n}\n\n#size-dropdown-button {\n  min-width: 71px;\n}\n\n\n#dropdown-size-buttons:hover, #dropdown-size-buttons:focus,\n#dropdown-quantity-buttons:hover, #dropdown-quantity-buttons:focus {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdown {\n  position: relative;\n  display: inline-block;\n  margin-right: 1rem;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: silver;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\n  z-index: 15;\n  width: 100%;\n  text-align: center;\n}\n\n.dropdown-content a, .dropdown-content span {\n  color: black;\n  padding: 0.5rem 1em;\n  text-decoration: none;\n  display: block;\n}\n\n.dropdown-content a:hover, .dropdown-content span:hover {\n  background-color: lightgray;\n}\n\n.show {\n  display: block;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 1rem;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\n/* ul li:before {\n  content: '✓';\n} */\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/pd.css"],"names":[],"mappings":"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","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap');\n\nhtml {\n  font-family: 'Roboto', Tahoma, Verdana, sans-serif;\n}\n\n#loading {\n  margin: auto;\n  justify-content: center;\n  border: 20px solid yellow;\n  border-top: 20px solid red;\n  border-radius: 50%;\n  width: 150px;\n  height: 150px;\n  animation: spin 2s linear infinite;\n}\n\n@keyframes spin {\n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n\n.pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 2em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  padding: 0rem 1rem;\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n#search-products{\n  display: inline-block;\n  align-self: center;\n}\n\n#search-input-form {\n  background: none;\n  color: white;\n  border: none;\n  border-bottom: 0.1rem solid white;\n}\n\n::placeholder {\n  color: white;\n  opacity: 1;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  display: inline-block;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.star-ratings-reviews {\n  display: flex;\n  align-items: baseline;\n}\n\n.read-all-reviews {\n  margin-left: 0.5rem;\n  text-decoration: underline;\n  font-size: small;\n  cursor: pointer;\n\n}\n\n.product-category p{\n  text-transform: uppercase;\n  margin-bottom: 0em;\n}\n\n.product-name p{\n  font-size: xx-large;\n  font-weight: bold;\n  margin-top: 0em;\n  margin-bottom: 0em;\n  text-decoration: underline dotted;\n}\n\n.product-price p {\n  margin-bottom: 0;\n  font-size: large;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n.product-overview-container {\n  align-self: center;\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: space-evenly;\n  margin-left: 17vw;\n  margin-right: 3rem;\n  margin-top: 1rem;\n}\n\n.product-slogan-description {\n  flex-basis: 60%;\n}\n\n.product-features {\n  flex-grow: 2;\n  border-left: inset;\n  align-self: center;\n}\n\n#gallery-and-styles-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 1rem;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n  align-items: center;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n.carousel-item-thumbnail {\n  width: 50px;\n  height: 50px;\n  object-fit: cover;\n  padding: 0.5rem;\n  border-radius: 1rem;\n}\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n#expand-icon {\n  z-index: 10;\n  position: absolute;\n  font-size: x-large;\n  top: 0.5em;\n  right: 0.5em;\n  opacity: 50%;\n  background-color: silver;\n  padding: 0.1rem;\n  border-radius: 25%;\n}\n\n#expand-icon:hover {\n  cursor: zoom-in;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n  font-size: 30px;\n}\n\n.navigate {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n  font-weight: bold;\n  background-color: silver;\n  color: black;\n  border-radius: 50%;\n  height: 40px;\n  width: 40px;\n  border: 5em;\n}\n.navigate:hover, #expand-icon:hover {\n  opacity: 75%;\n  background-color: lightgray;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-size: 30px;\n}\n\n#displayed-image {\n  height: 500px;\n  width: 500px;\n  object-fit: contain;\n  transition: transform 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n}\n\n.style-item {\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  object-fit: cover;\n  padding: 5px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n  transform: scale(1.05);\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#add-to-favorites {\n  font-size: larger;\n  margin-left: 1rem;\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n#add-to-cart-button {\n  float: left;\n  min-width: 95px;\n}\n\nselect {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  text-decoration: none;\n  transition: all 0.2s ease;\n}\n\n#add-to-cart-button, #add-to-favorites {\n  background-color: silver;\n  color: black;\n  border: none;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s ease;\n  min-height: 33px;\n}\n\n#cartIcon {\n  /* margin-right: 0.5rem; */\n}\n\n#add-to-cart-buttons:hover, #add-to-cart-buttons:focus, #add-to-favorites:hover, #add-to-favorites:focus, select:hover {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdownButton {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  min-height: 33px;\n  vertical-align: top;\n}\n\n#size-dropdown-button {\n  min-width: 71px;\n}\n\n\n#dropdown-size-buttons:hover, #dropdown-size-buttons:focus,\n#dropdown-quantity-buttons:hover, #dropdown-quantity-buttons:focus {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdown {\n  position: relative;\n  display: inline-block;\n  margin-right: 1rem;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: silver;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\n  z-index: 15;\n  width: 100%;\n  text-align: center;\n}\n\n.dropdown-content a, .dropdown-content span {\n  color: black;\n  padding: 0.5rem 1em;\n  text-decoration: none;\n  display: block;\n}\n\n.dropdown-content a:hover, .dropdown-content span:hover {\n  background-color: lightgray;\n}\n\n.show {\n  display: block;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 1rem;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\n/* ul li:before {\n  content: '✓';\n} */\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "html {\n  font-family: 'Roboto', Tahoma, Verdana, sans-serif;\n}\n\n.main-container {\n  max-width: 1536px;\n  margin: auto;\n}\n\n#loading {\n  margin: auto;\n  justify-content: center;\n  border: 20px solid yellow;\n  border-top: 20px solid red;\n  border-radius: 50%;\n  width: 150px;\n  height: 150px;\n  animation: spin 2s linear infinite;\n}\n\n@keyframes spin {\n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n\n/* ======================================================\nLight/Dark Mode Switch Toggle Styling\n====================================================== */\n\n.toggle-wrapper {\n  align-self: flex-end;\n  margin-bottom: 0.5em;\n}\n\n.switch {\n  position: relative;\n  float: right;\n  width: 55px;\n  height: 25px;\n}\n\n/* Hide default HTML checkbox */\n.switch input {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n/* The slider */\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: \"\";\n  height: 19px;\n  width: 19px;\n  left: 3.5px;\n  bottom: 3.5px;\n  background-color: white;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n\ninput:checked + .slider {\n  background-color: maroon;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px maroon;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(26px);\n}\n\n/* Rounded sliders */\n.slider.round {\n  border-radius: 25px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n\n/* ======================================================\nProduct Detail Styling\n====================================================== */\n\n.pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 0em 2em 2em 2em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  padding: 0rem 1rem;\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n#search-products{\n  display: inline-block;\n  align-self: center;\n}\n\n#search-input-form {\n  background: none;\n  color: white;\n  border: none;\n  border-bottom: 0.1rem solid white;\n}\n\n::placeholder {\n  color: white;\n  opacity: 1;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  /* display: inline-block; */\n  align-self: center;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.star-ratings-reviews {\n  display: flex;\n  align-items: baseline;\n}\n\n.read-all-reviews {\n  margin-left: 0.5rem;\n  text-decoration: underline;\n  font-size: small;\n  cursor: pointer;\n\n}\n\n.product-category p{\n  text-transform: uppercase;\n  margin-bottom: 0em;\n}\n\n.product-name p{\n  font-size: xx-large;\n  font-weight: bold;\n  margin-top: 0em;\n  margin-bottom: 0em;\n  text-decoration: underline dotted;\n}\n\n.product-price p {\n  margin-bottom: 0;\n  font-size: large;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n.product-overview-container {\n  align-self: center;\n  display: flex;\n  justify-content: space-evenly;\n  margin-top: 1rem;\n}\n\n.product-slogan-description {\n  padding-right: 2em;\n}\n\n.product-features {\n  flex-grow: 2;\n  border-left: inset;\n  align-self: center;\n}\n\n#gallery-and-styles-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 1.5em;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n  align-items: center;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n.carousel-item-thumbnail {\n  width: 50px;\n  height: 50px;\n  object-fit: cover;\n  padding: 0.5rem;\n  border-radius: 1rem;\n}\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n#expand-icon {\n  z-index: 10;\n  position: absolute;\n  font-size: x-large;\n  top: 0.5em;\n  right: 0em;\n  opacity: 50%;\n  background-color: silver;\n  padding: 0.1rem;\n  border-radius: 25%;\n}\n\n#expand-icon:hover {\n  cursor: zoom-in;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n  font-size: 30px;\n}\n\n.navigate {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n  font-weight: bold;\n  background-color: silver;\n  color: black;\n  border-radius: 50%;\n  height: 40px;\n  width: 40px;\n  border: 5em;\n}\n.navigate:hover, #expand-icon:hover {\n  opacity: 75%;\n  background-color: lightgray;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-size: 30px;\n}\n\n#displayed-image {\n  height: 550px;\n  width: 650px;\n  object-fit: contain;\n  transition: transform 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n}\n\n.style-item {\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  object-fit: cover;\n  padding: 5px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n  transform: scale(1.05);\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#add-to-favorites {\n  font-size: larger;\n  margin-left: 1rem;\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n#add-to-cart-button {\n  float: left;\n  min-width: 95px;\n}\n\nselect {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  text-decoration: none;\n  transition: all 0.2s ease;\n}\n\n#add-to-cart-button, #add-to-favorites {\n  background-color: silver;\n  color: black;\n  border: none;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s ease;\n  min-height: 33px;\n}\n\n#cartIcon {\n  /* margin-right: 0.5rem; */\n}\n\n#add-to-cart-buttons:hover, #add-to-cart-buttons:focus, #add-to-favorites:hover, #add-to-favorites:focus, select:hover {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdownButton {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  min-height: 33px;\n  vertical-align: top;\n}\n\n#size-dropdown-button {\n  min-width: 71px;\n}\n\n\n#dropdown-size-buttons:hover, #dropdown-size-buttons:focus,\n#dropdown-quantity-buttons:hover, #dropdown-quantity-buttons:focus {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdown {\n  position: relative;\n  display: inline-block;\n  margin-right: 1rem;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: silver;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\n  z-index: 15;\n  width: 100%;\n  text-align: center;\n}\n\n.dropdown-content a, .dropdown-content span {\n  color: black;\n  padding: 0.5rem 1em;\n  text-decoration: none;\n  display: block;\n}\n\n.dropdown-content a:hover, .dropdown-content span:hover {\n  background-color: lightgray;\n}\n\n.show {\n  display: block;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 1rem;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\n/* ul li:before {\n  content: '✓';\n} */\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/pd.css"],"names":[],"mappings":"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","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap');\n\nhtml {\n  font-family: 'Roboto', Tahoma, Verdana, sans-serif;\n}\n\n.main-container {\n  max-width: 1536px;\n  margin: auto;\n}\n\n#loading {\n  margin: auto;\n  justify-content: center;\n  border: 20px solid yellow;\n  border-top: 20px solid red;\n  border-radius: 50%;\n  width: 150px;\n  height: 150px;\n  animation: spin 2s linear infinite;\n}\n\n@keyframes spin {\n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n\n/* ======================================================\nLight/Dark Mode Switch Toggle Styling\n====================================================== */\n\n.toggle-wrapper {\n  align-self: flex-end;\n  margin-bottom: 0.5em;\n}\n\n.switch {\n  position: relative;\n  float: right;\n  width: 55px;\n  height: 25px;\n}\n\n/* Hide default HTML checkbox */\n.switch input {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n/* The slider */\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: \"\";\n  height: 19px;\n  width: 19px;\n  left: 3.5px;\n  bottom: 3.5px;\n  background-color: white;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n\ninput:checked + .slider {\n  background-color: maroon;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px maroon;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(26px);\n}\n\n/* Rounded sliders */\n.slider.round {\n  border-radius: 25px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n\n/* ======================================================\nProduct Detail Styling\n====================================================== */\n\n.pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 0em 2em 2em 2em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  padding: 0rem 1rem;\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n#search-products{\n  display: inline-block;\n  align-self: center;\n}\n\n#search-input-form {\n  background: none;\n  color: white;\n  border: none;\n  border-bottom: 0.1rem solid white;\n}\n\n::placeholder {\n  color: white;\n  opacity: 1;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  /* display: inline-block; */\n  align-self: center;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.star-ratings-reviews {\n  display: flex;\n  align-items: baseline;\n}\n\n.read-all-reviews {\n  margin-left: 0.5rem;\n  text-decoration: underline;\n  font-size: small;\n  cursor: pointer;\n\n}\n\n.product-category p{\n  text-transform: uppercase;\n  margin-bottom: 0em;\n}\n\n.product-name p{\n  font-size: xx-large;\n  font-weight: bold;\n  margin-top: 0em;\n  margin-bottom: 0em;\n  text-decoration: underline dotted;\n}\n\n.product-price p {\n  margin-bottom: 0;\n  font-size: large;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n.product-overview-container {\n  align-self: center;\n  display: flex;\n  justify-content: space-evenly;\n  margin-top: 1rem;\n}\n\n.product-slogan-description {\n  padding-right: 2em;\n}\n\n.product-features {\n  flex-grow: 2;\n  border-left: inset;\n  align-self: center;\n}\n\n#gallery-and-styles-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 1.5em;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n  align-items: center;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n.carousel-item-thumbnail {\n  width: 50px;\n  height: 50px;\n  object-fit: cover;\n  padding: 0.5rem;\n  border-radius: 1rem;\n}\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n#expand-icon {\n  z-index: 10;\n  position: absolute;\n  font-size: x-large;\n  top: 0.5em;\n  right: 0em;\n  opacity: 50%;\n  background-color: silver;\n  padding: 0.1rem;\n  border-radius: 25%;\n}\n\n#expand-icon:hover {\n  cursor: zoom-in;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n  font-size: 30px;\n}\n\n.navigate {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n  font-weight: bold;\n  background-color: silver;\n  color: black;\n  border-radius: 50%;\n  height: 40px;\n  width: 40px;\n  border: 5em;\n}\n.navigate:hover, #expand-icon:hover {\n  opacity: 75%;\n  background-color: lightgray;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-size: 30px;\n}\n\n#displayed-image {\n  height: 550px;\n  width: 650px;\n  object-fit: contain;\n  transition: transform 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n}\n\n.style-item {\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  object-fit: cover;\n  padding: 5px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n  transform: scale(1.05);\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#add-to-favorites {\n  font-size: larger;\n  margin-left: 1rem;\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n#add-to-cart-button {\n  float: left;\n  min-width: 95px;\n}\n\nselect {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  text-decoration: none;\n  transition: all 0.2s ease;\n}\n\n#add-to-cart-button, #add-to-favorites {\n  background-color: silver;\n  color: black;\n  border: none;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s ease;\n  min-height: 33px;\n}\n\n#cartIcon {\n  /* margin-right: 0.5rem; */\n}\n\n#add-to-cart-buttons:hover, #add-to-cart-buttons:focus, #add-to-favorites:hover, #add-to-favorites:focus, select:hover {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdownButton {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  min-height: 33px;\n  vertical-align: top;\n}\n\n#size-dropdown-button {\n  min-width: 71px;\n}\n\n\n#dropdown-size-buttons:hover, #dropdown-size-buttons:focus,\n#dropdown-quantity-buttons:hover, #dropdown-quantity-buttons:focus {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdown {\n  position: relative;\n  display: inline-block;\n  margin-right: 1rem;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: silver;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\n  z-index: 15;\n  width: 100%;\n  text-align: center;\n}\n\n.dropdown-content a, .dropdown-content span {\n  color: black;\n  padding: 0.5rem 1em;\n  text-decoration: none;\n  display: block;\n}\n\n.dropdown-content a:hover, .dropdown-content span:hover {\n  background-color: lightgray;\n}\n\n.show {\n  display: block;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 1rem;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\n/* ul li:before {\n  content: '✓';\n} */\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -28268,6 +28339,61 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, "/* ================================================================\n     Related Product and Outfits Component\n   ================================================================\n*/\n\n.relatedProductOutfit {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  margin: 2em 8em;\n}\n\n.previousProduct, .nextProduct, .previousOutfit, .nextOutfit {\n  height: 40px;\n  width: 60px;\n  font-size: 20px;\n}\n\n.relatedProductsContainer h3, .outfitContainer h3 {\n  text-align: center;\n}\n\n.productCardContainer, .outfitCardContainer {\n  border: 1px solid #3a3939;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n  border-radius: .5em;\n  box-shadow: 10px 10px .1px -5px #c4c2c2;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.cardImage {\n  height: 200px;\n  width: 225px;\n  object-fit: contain;\n  /*\n  cover: fits box but image sections are clipped (aspect preserved)\n  contain: fits box and contains empty space (aspect preserved)\n  fill: no empty space (aspect not preserved)\n  */\n}\n\n.imageContainer {\n  background-color: #E6E6E6;\n  border-radius: .5em;\n}\n\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductsContainer {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 40px;\n}\n\n.relatedItemContainer {\n  display: flex;\n  width: 1000px;\n  height: 325px;\n  align-self: auto;\n  margin-left: 100px;\n}\n\n.relatedList {\n  display: flex;\n  flex-direction: row;\n  width: 1055px;\n  height: 325px;\n  padding: 20px;\n  overflow: hidden;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n  color: #f7f7f7;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.outfitContainer {\n  padding: 40px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n\n.outfitItemContainer{\n  width: 1000px;\n  height: 325px;\n  flex-direction: row;\n  align-items: center;\n  display: flex;\n  margin-left: 100px;\n}\n\n.outfitList {\n  width: 800px;\n  height: 325px;\n  margin: 20px 0 0 0;\n  padding: 20px;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n}\n\n.addtoOutfitMargin {\n  border: solid .5px black;\n}\n\n.addToOutfit {\n  margin: 5px 10px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 150px;\n  height: 150px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 20px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n  color: #f7f7f7;\n}\n\n.outfitBack {\n  display: flex;\n  align-items: center;\n  transform: translate(20px);\n}\n\n.outfitForward {\n  display: flex;\n  align-items: center;\n  transform: translate(-20px);\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 440px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 90%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 35%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 35%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 30%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/ro.css"],"names":[],"mappings":"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","sourcesContent":["/* ================================================================\n     Related Product and Outfits Component\n   ================================================================\n*/\n\n.relatedProductOutfit {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  margin: 2em 8em;\n}\n\n.previousProduct, .nextProduct, .previousOutfit, .nextOutfit {\n  height: 40px;\n  width: 60px;\n  font-size: 20px;\n}\n\n.relatedProductsContainer h3, .outfitContainer h3 {\n  text-align: center;\n}\n\n.productCardContainer, .outfitCardContainer {\n  border: 1px solid #3a3939;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n  border-radius: .5em;\n  box-shadow: 10px 10px .1px -5px #c4c2c2;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.cardImage {\n  height: 200px;\n  width: 225px;\n  object-fit: contain;\n  /*\n  cover: fits box but image sections are clipped (aspect preserved)\n  contain: fits box and contains empty space (aspect preserved)\n  fill: no empty space (aspect not preserved)\n  */\n}\n\n.imageContainer {\n  background-color: #E6E6E6;\n  border-radius: .5em;\n}\n\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductsContainer {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 40px;\n}\n\n.relatedItemContainer {\n  display: flex;\n  width: 1000px;\n  height: 325px;\n  align-self: auto;\n  margin-left: 100px;\n}\n\n.relatedList {\n  display: flex;\n  flex-direction: row;\n  width: 1055px;\n  height: 325px;\n  padding: 20px;\n  overflow: hidden;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n  color: #f7f7f7;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.outfitContainer {\n  padding: 40px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n\n.outfitItemContainer{\n  width: 1000px;\n  height: 325px;\n  flex-direction: row;\n  align-items: center;\n  display: flex;\n  margin-left: 100px;\n}\n\n.outfitList {\n  width: 800px;\n  height: 325px;\n  margin: 20px 0 0 0;\n  padding: 20px;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n}\n\n.addtoOutfitMargin {\n  border: solid .5px black;\n}\n\n.addToOutfit {\n  margin: 5px 10px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 150px;\n  height: 150px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 20px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n  color: #f7f7f7;\n}\n\n.outfitBack {\n  display: flex;\n  align-items: center;\n  transform: translate(20px);\n}\n\n.outfitForward {\n  display: flex;\n  align-items: center;\n  transform: translate(-20px);\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 440px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 90%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 35%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 35%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 30%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./client/src/assets/darkMode.css":
+/*!****************************************!*\
+  !*** ./client/src/assets/darkMode.css ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_darkMode_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js!./darkMode.css */ "./node_modules/css-loader/dist/cjs.js!./client/src/assets/darkMode.css");
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+var options = {};
+
+options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
+options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
+
+      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
+    
+options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
+options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_darkMode_css__WEBPACK_IMPORTED_MODULE_6__["default"], options);
+
+
+
+
+       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_darkMode_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_darkMode_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_darkMode_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
 /***/ }),
@@ -28749,6 +28875,28 @@ module.exports = styleTagTransform;
 
 /***/ }),
 
+/***/ "./client/src/assets/edna-image-unavailable.jpg":
+/*!******************************************************!*\
+  !*** ./client/src/assets/edna-image-unavailable.jpg ***!
+  \******************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "7a714821ec80db729fba.jpg";
+
+/***/ }),
+
+/***/ "./client/src/assets/image-unavailable.jpg":
+/*!*************************************************!*\
+  !*** ./client/src/assets/image-unavailable.jpg ***!
+  \*************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+"use strict";
+module.exports = __webpack_require__.p + "38a0da40c1556c56fb61.jpg";
+
+/***/ }),
+
 /***/ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js":
 /*!*******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/esm/defineProperty.js ***!
@@ -29069,6 +29217,26 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/publicPath */
+/******/ 	(() => {
+/******/ 		var scriptUrl;
+/******/ 		if (__webpack_require__.g.importScripts) scriptUrl = __webpack_require__.g.location + "";
+/******/ 		var document = __webpack_require__.g.document;
+/******/ 		if (!scriptUrl && document) {
+/******/ 			if (document.currentScript)
+/******/ 				scriptUrl = document.currentScript.src
+/******/ 			if (!scriptUrl) {
+/******/ 				var scripts = document.getElementsByTagName("script");
+/******/ 				if(scripts.length) scriptUrl = scripts[scripts.length - 1].src
+/******/ 			}
+/******/ 		}
+/******/ 		// When supporting browsers where an automatic publicPath is not supported you must specify an output.publicPath manually via configuration
+/******/ 		// or pass an empty string ("") and set the __webpack_public_path__ variable from your code to use your own logic.
+/******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
+/******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
+/******/ 		__webpack_require__.p = scriptUrl;
+/******/ 	})();
+/******/ 	
 /******/ 	/* webpack/runtime/nonce */
 /******/ 	(() => {
 /******/ 		__webpack_require__.nc = undefined;
@@ -29091,7 +29259,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_pd_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./assets/pd.css */ "./client/src/assets/pd.css");
 /* harmony import */ var _assets_david_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./assets/david.css */ "./client/src/assets/david.css");
 /* harmony import */ var _assets_ro_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./assets/ro.css */ "./client/src/assets/ro.css");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _assets_darkMode_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./assets/darkMode.css */ "./client/src/assets/darkMode.css");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -29101,9 +29270,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-(0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, {
+
+(0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, {
   store: (0,_state_store__WEBPACK_IMPORTED_MODULE_4__.setupStore)(),
-  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_App_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})
+  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_App_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})
 }), document.getElementById('root'));
 })();
 

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { postToCart, logInteractions } from '../../state/pd';
@@ -31,7 +32,8 @@ export default function AddToCart({ style }) {
   useEffect(() => {
     // eslint-disable-next-line max-len
     const loadNewSizes = Object.keys(style.skus).map((k) => <span key={k} data-sku={k} onClick={() => { handleSizeOptionClick(style.skus[k].size, k); }}>{style.skus[k].size}</span>);
-    if (loadNewSizes.length) {
+    // eslint-disable-next-line dot-notation
+    if (!style.skus['null']) {
       document.getElementById('size-dropdown-button').textContent = 'Select Size';
       document.getElementById('quantity-dropdown-button').textContent = '---';
     } else {
@@ -39,6 +41,7 @@ export default function AddToCart({ style }) {
       document.getElementById('quantity-dropdown-button').textContent = 'OOS';
       document.querySelectorAll('.dropdownButton').forEach((b) => b.disabled = true);
       document.getElementById('add-to-cart-button').hidden = true;
+      document.getElementById('cartIcon').hidden = true;
     }
     setSizes(loadNewSizes);
   }, [style]);
@@ -52,9 +55,9 @@ export default function AddToCart({ style }) {
     const sizeDropdown = document.getElementById('size-dropdown-button');
     const quantityDropdown = document.getElementById('quantity-dropdown-button');
     if (sizeDropdown.textContent === 'Select Size') {
-      sizeDropdown.textContent = 'Please Select a Size';
+      sizeDropdown.textContent = 'Select Size';
       handleSizeSelection();
-    } else if (quantityDropdown.textContent === '---') {
+    } else if (quantityDropdown.textContent === '---' || quantityDropdown.textContent === 'Select Quantity') {
       quantityDropdown.textContent = 'Select Quantity';
       document.getElementById('quantity-dropdown').classList.toggle('show');
     } else {
@@ -64,9 +67,13 @@ export default function AddToCart({ style }) {
   };
 
   window.onclick = (event) => {
-    // console.log('event.target', event.target);
-    // console.log('parent', event.target.closest('.parent'));
-    const interactionObj = { element: event.target.outerHTML, widget: String(event.target.closest('.parent').id), time: String(Date.now()) };
+    let parentModule = event.target.closest('.parent');
+    if (!parentModule) {
+      parentModule = 'Related Items & Outfit Creation';
+    } else {
+      parentModule = parentModule.id;
+    }
+    const interactionObj = { element: event.target.outerHTML, widget: String(parentModule), time: String(Date.now()) };
     dispatch(logInteractions(interactionObj));
 
     if (!event.target.matches('.dropdownButton') && !event.target.matches('#add-to-cart-button')) {

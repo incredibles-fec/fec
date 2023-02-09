@@ -1,5 +1,7 @@
 /* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
+import backupImage from '../../assets/edna-image-unavailable.jpg';
+import backupThumbnail from '../../assets/image-unavailable.jpg';
 
 export default function ImageGallery({ style }) {
   const maxThumbnailDisplay = 5;
@@ -7,14 +9,14 @@ export default function ImageGallery({ style }) {
   const [index, setIndex] = useState(0);
   const [thumbnailIndexStart, setThumbnailIndexStart] = useState(0);
   const [thumbnailIndexEnd, setThumbnailIndexEnd] = useState(maxThumbnailDisplay > photos.length ? photos.length : maxThumbnailDisplay);
-  const [currentThumbnail, setCurrentThumbnail] = useState(photos[0].url);
+  const [currentThumbnail, setCurrentThumbnail] = useState(photos[0].url ? photos[0].url : backupImage);
   const [normalView, setNormalView] = useState(true);
   const [expandedView, setExpandedView] = useState(false);
 
   let thumbnails = photos.map((p, i) => (
     <div className="carousel-item-container" key={p.url} onClick={() => { setIndex(i); }}>
-      {currentThumbnail === photos[i].url && <div className="carousel-item-underlay" />}
-      <img className="carousel-item-thumbnail" src={p.thumbnail_url} alt={name} />
+      {currentThumbnail === (photos[i].url || backupImage) && <div className="carousel-item-underlay" />}
+      <img className="carousel-item-thumbnail" src={p.thumbnail_url ? p.thumbnail_url : backupThumbnail} alt={name} />
     </div>
   ));
 
@@ -22,7 +24,7 @@ export default function ImageGallery({ style }) {
     thumbnails = photos.map((p, i) => (
       <div className="carousel-item-container" key={p.url} onClick={() => { setIndex(i); }}>
         {currentThumbnail === photos[i].url && <div className="carousel-item-underlay" />}
-        <img className="carousel-item-thumbnail" src={p.thumbnail_url} alt={name} />
+        <img className="carousel-item-thumbnail" src={p.thumbnail_url ? p.thumbnail_url : backupThumbnail} alt={name} />
       </div>
     ));
 
@@ -31,7 +33,7 @@ export default function ImageGallery({ style }) {
   }, [style]);
 
   useEffect(() => {
-    setCurrentThumbnail(photos[index].url);
+    setCurrentThumbnail(photos[index].url ? photos[index].url : backupImage);
 
     const prevArrows = document.querySelectorAll('.prev');
     const nextArrows = document.querySelectorAll('.next');
@@ -99,7 +101,7 @@ export default function ImageGallery({ style }) {
       img.style.cursor = 'cell';
       img.style.transform = 'scale(1.0)';
 
-      img.style.width = '600px';
+      img.style.width = '700px';
 
       setExpandedView(true);
     } else if (expandedView) {
@@ -115,8 +117,8 @@ export default function ImageGallery({ style }) {
       displayImageContainer.style.width = '';
       img.style.cursor = 'zoom-in';
       img.style.transform = 'scale(1)';
-      img.style.height = '500px';
-      img.style.width = '500px';
+      img.style.height = '550px';
+      img.style.width = '650px';
       imageGalleryContainer.style['z-index'] = 0;
 
       thumbnailContainer.style.visibility = 'visible';
@@ -143,7 +145,7 @@ export default function ImageGallery({ style }) {
         <button className="next navigate" id="carousel-thumbnail-next" aria-label="next" type="button" onClick={getNext}><i className="fa-regular fa-circle-down" /></button>
       </div>
       <div id="display-image-container">
-        <img id="displayed-image" role="presentation" src={photos[index].url} alt={name} onClick={enlargeImage} onMouseMove={(e) => panImage(e)} onFocus={() => {}} />
+        <img id="displayed-image" role="presentation" src={photos[index].url ? photos[index].url : backupImage} alt={name} onClick={enlargeImage} onMouseMove={(e) => panImage(e)} onFocus={() => {}} />
         {normalView && <i id="expand-icon" className="fa-sharp fa-solid fa-expand" onClick={enlargeImage} />}
         <div className="carousel-actions">
           <button className="prev navigate" id="carousel-prev" aria-label="previous" type="button" onClick={getPrev}><i className="fa-regular fa-circle-left" /></button>
