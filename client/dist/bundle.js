@@ -970,7 +970,7 @@ function ProductDetail() {
     }
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    document.body.className = theme;
+    document.getElementById('theme').href = "".concat(theme, "Mode.css");
   }, [theme]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     // dispatch(getProducts());
@@ -1059,19 +1059,19 @@ function ShareSocialMedia() {
       href: "/#",
       className: "fa fa-facebook",
       "data-testid": "fb",
-      "aria-label": "Share to Facebook",
+      "aria-hidden": "true",
       children: " "
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
       href: "/#",
       className: "fa fa-twitter",
       "data-testid": "twt",
-      "aria-label": "Share to Twitter",
+      "aria-hidden": "true",
       children: " "
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
       href: "/#",
       className: "fa fa-pinterest",
       "data-testid": "pnt",
-      "aria-label": "Share to Pinterest",
+      "aria-hidden": "true",
       children: " "
     })]
   });
@@ -28234,33 +28234,6 @@ module.exports["default"] = exports.default;
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js!./client/src/assets/darkMode.css":
-/*!******************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./client/src/assets/darkMode.css ***!
-  \******************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/cssWithMappingToString.js */ "./node_modules/css-loader/dist/runtime/cssWithMappingToString.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".dark {\n  background-color: #333;\n  color: #fff;\n}\n.light {\n  background-color: #fff;\n  color: #333;\n}", "",{"version":3,"sources":["webpack://./client/src/assets/darkMode.css"],"names":[],"mappings":"AAAA;EACE,sBAAsB;EACtB,WAAW;AACb;AACA;EACE,sBAAsB;EACtB,WAAW;AACb","sourcesContent":[".dark {\n  background-color: #333;\n  color: #fff;\n}\n.light {\n  background-color: #fff;\n  color: #333;\n}"],"sourceRoot":""}]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/dist/cjs.js!./client/src/assets/david.css":
 /*!***************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./client/src/assets/david.css ***!
@@ -28339,61 +28312,6 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBP
 ___CSS_LOADER_EXPORT___.push([module.id, "/* ================================================================\n     Related Product and Outfits Component\n   ================================================================\n*/\n\n.relatedProductOutfit {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  margin: 2em 8em;\n}\n\n.previousProduct, .nextProduct, .previousOutfit, .nextOutfit {\n  height: 40px;\n  width: 60px;\n  font-size: 20px;\n}\n\n.relatedProductsContainer h3, .outfitContainer h3 {\n  text-align: center;\n}\n\n.productCardContainer, .outfitCardContainer {\n  border: 1px solid #3a3939;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n  border-radius: .5em;\n  box-shadow: 10px 10px .1px -5px #c4c2c2;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.cardImage {\n  height: 200px;\n  width: 225px;\n  object-fit: contain;\n  /*\n  cover: fits box but image sections are clipped (aspect preserved)\n  contain: fits box and contains empty space (aspect preserved)\n  fill: no empty space (aspect not preserved)\n  */\n}\n\n.imageContainer {\n  background-color: #E6E6E6;\n  border-radius: .5em;\n}\n\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductsContainer {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 40px;\n}\n\n.relatedItemContainer {\n  display: flex;\n  width: 1000px;\n  height: 325px;\n  align-self: auto;\n  margin-left: 100px;\n}\n\n.relatedList {\n  display: flex;\n  flex-direction: row;\n  width: 1055px;\n  height: 325px;\n  padding: 20px;\n  overflow: hidden;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n  color: #f7f7f7;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.outfitContainer {\n  padding: 40px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n\n.outfitItemContainer{\n  width: 1000px;\n  height: 325px;\n  flex-direction: row;\n  align-items: center;\n  display: flex;\n  margin-left: 100px;\n}\n\n.outfitList {\n  width: 800px;\n  height: 325px;\n  margin: 20px 0 0 0;\n  padding: 20px;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n}\n\n.addtoOutfitMargin {\n  border: solid .5px black;\n}\n\n.addToOutfit {\n  margin: 5px 10px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 150px;\n  height: 150px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 20px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n  color: #f7f7f7;\n}\n\n.outfitBack {\n  display: flex;\n  align-items: center;\n  transform: translate(20px);\n}\n\n.outfitForward {\n  display: flex;\n  align-items: center;\n  transform: translate(-20px);\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 440px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 90%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 35%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 35%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 30%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/ro.css"],"names":[],"mappings":"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","sourcesContent":["/* ================================================================\n     Related Product and Outfits Component\n   ================================================================\n*/\n\n.relatedProductOutfit {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  margin: 2em 8em;\n}\n\n.previousProduct, .nextProduct, .previousOutfit, .nextOutfit {\n  height: 40px;\n  width: 60px;\n  font-size: 20px;\n}\n\n.relatedProductsContainer h3, .outfitContainer h3 {\n  text-align: center;\n}\n\n.productCardContainer, .outfitCardContainer {\n  border: 1px solid #3a3939;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n  border-radius: .5em;\n  box-shadow: 10px 10px .1px -5px #c4c2c2;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.cardImage {\n  height: 200px;\n  width: 225px;\n  object-fit: contain;\n  /*\n  cover: fits box but image sections are clipped (aspect preserved)\n  contain: fits box and contains empty space (aspect preserved)\n  fill: no empty space (aspect not preserved)\n  */\n}\n\n.imageContainer {\n  background-color: #E6E6E6;\n  border-radius: .5em;\n}\n\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductsContainer {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 40px;\n}\n\n.relatedItemContainer {\n  display: flex;\n  width: 1000px;\n  height: 325px;\n  align-self: auto;\n  margin-left: 100px;\n}\n\n.relatedList {\n  display: flex;\n  flex-direction: row;\n  width: 1055px;\n  height: 325px;\n  padding: 20px;\n  overflow: hidden;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n  color: #f7f7f7;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.outfitContainer {\n  padding: 40px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n\n.outfitItemContainer{\n  width: 1000px;\n  height: 325px;\n  flex-direction: row;\n  align-items: center;\n  display: flex;\n  margin-left: 100px;\n}\n\n.outfitList {\n  width: 800px;\n  height: 325px;\n  margin: 20px 0 0 0;\n  padding: 20px;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n}\n\n.addtoOutfitMargin {\n  border: solid .5px black;\n}\n\n.addToOutfit {\n  margin: 5px 10px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 150px;\n  height: 150px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 20px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n  color: #f7f7f7;\n}\n\n.outfitBack {\n  display: flex;\n  align-items: center;\n  transform: translate(20px);\n}\n\n.outfitForward {\n  display: flex;\n  align-items: center;\n  transform: translate(-20px);\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 440px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 90%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 35%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 35%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 30%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
-
-
-/***/ }),
-
-/***/ "./client/src/assets/darkMode.css":
-/*!****************************************!*\
-  !*** ./client/src/assets/darkMode.css ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/styleDomAPI.js */ "./node_modules/style-loader/dist/runtime/styleDomAPI.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/insertBySelector.js */ "./node_modules/style-loader/dist/runtime/insertBySelector.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js */ "./node_modules/style-loader/dist/runtime/setAttributesWithoutAttributes.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/insertStyleElement.js */ "./node_modules/style-loader/dist/runtime/insertStyleElement.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/styleTagTransform.js */ "./node_modules/style-loader/dist/runtime/styleTagTransform.js");
-/* harmony import */ var _node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_darkMode_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js!./darkMode.css */ "./node_modules/css-loader/dist/cjs.js!./client/src/assets/darkMode.css");
-
-      
-      
-      
-      
-      
-      
-      
-      
-      
-
-var options = {};
-
-options.styleTagTransform = (_node_modules_style_loader_dist_runtime_styleTagTransform_js__WEBPACK_IMPORTED_MODULE_5___default());
-options.setAttributes = (_node_modules_style_loader_dist_runtime_setAttributesWithoutAttributes_js__WEBPACK_IMPORTED_MODULE_3___default());
-
-      options.insert = _node_modules_style_loader_dist_runtime_insertBySelector_js__WEBPACK_IMPORTED_MODULE_2___default().bind(null, "head");
-    
-options.domAPI = (_node_modules_style_loader_dist_runtime_styleDomAPI_js__WEBPACK_IMPORTED_MODULE_1___default());
-options.insertStyleElement = (_node_modules_style_loader_dist_runtime_insertStyleElement_js__WEBPACK_IMPORTED_MODULE_4___default());
-
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_darkMode_css__WEBPACK_IMPORTED_MODULE_6__["default"], options);
-
-
-
-
-       /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_darkMode_css__WEBPACK_IMPORTED_MODULE_6__["default"] && _node_modules_css_loader_dist_cjs_js_darkMode_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals ? _node_modules_css_loader_dist_cjs_js_darkMode_css__WEBPACK_IMPORTED_MODULE_6__["default"].locals : undefined);
 
 
 /***/ }),
@@ -29259,8 +29177,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_pd_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./assets/pd.css */ "./client/src/assets/pd.css");
 /* harmony import */ var _assets_david_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./assets/david.css */ "./client/src/assets/david.css");
 /* harmony import */ var _assets_ro_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./assets/ro.css */ "./client/src/assets/ro.css");
-/* harmony import */ var _assets_darkMode_css__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./assets/darkMode.css */ "./client/src/assets/darkMode.css");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
 
@@ -29270,10 +29187,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-(0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, {
+(0,react_dom__WEBPACK_IMPORTED_MODULE_1__.render)( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(react_redux__WEBPACK_IMPORTED_MODULE_2__.Provider, {
   store: (0,_state_store__WEBPACK_IMPORTED_MODULE_4__.setupStore)(),
-  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_9__.jsx)(_App_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})
+  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_App_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {})
 }), document.getElementById('root'));
 })();
 
