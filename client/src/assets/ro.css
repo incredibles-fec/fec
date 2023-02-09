@@ -12,7 +12,7 @@
 }
 
 .previousProduct, .nextProduct, .previousOutfit, .nextOutfit {
-  height: 40px;
+  height: 90px;
   width: 60px;
   font-size: 20px;
   background-color: #1a1306;
