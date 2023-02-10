@@ -71,11 +71,18 @@ button, select {
   background-color: white;
 }
 
+/* .colorSeparatorEndHeader {
+  height: .2em;
+  background-color: #fedb00;
+  box-shadow: 0 0 3em #fedb00;
+  margin: .2em 8em;
+} */
+
 .colorSeparator {
-  height: .5em;
+  height: .2em;
   background-color: #fedb00;
   box-shadow: 0 0 3em #b0531e;
-  margin: 2em 10em;
+  margin: 2em 4em;
 }
 
 .colorSeparatorEnd {
@@ -87,6 +94,7 @@ button, select {
 
 .nav-bar {
   background-color: #a30f07;
+  border-bottom: solid 4px #fedb00;;
 }
 
 

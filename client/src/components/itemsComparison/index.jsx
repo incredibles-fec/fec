@@ -66,6 +66,10 @@ export default function RelatedOutfits() {
     );
   }
   return (
-    <div id="loading" />
+    <div className="loading-container">
+      <div className="loading" aria-label="Loading"><p>LOADING</p>
+        <span className="loading-span" />
+      </div>
+    </div>
   );
 }

@@ -43,6 +43,7 @@ export default function ProductDetail() {
             </form>
           </div>
         </div>
+        <div className="colorSeparatorEndHeader" />
         <div className="toggle-wrapper">
           <h4 className="site-wide-announcement">SITE-WIDE ANNOUNCEMENT MESSAGE! - <b>NO REFUNDS!!!</b></h4>
           <label className="switch">

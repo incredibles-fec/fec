@@ -58,6 +58,14 @@ body {
   background-color: #1A1306;
 }
 
+/* .colorSeparatorEndHeader {
+  height: .2em;
+  background-color: #fedb00;
+  box-shadow: 0 0 3em #fedb00;
+  margin: .2em 4em;
+} */
+
+
 .colorSeparator {
   background-color: #fedb00;
   height: .2em;
@@ -75,6 +83,7 @@ body {
 
 .nav-bar {
   background-color: #a30f07;
+  border-bottom: solid .6px #fedb00;;
 }
 
 #product-info-container {
@@ -418,10 +427,19 @@ td {
 
 
 /* ================================
-      Comparison Modal
+      Questions and Answers
    ================================
 */
 
+.a-container {
+  background-color: #404040;
+  padding: 4px;
+}
+
+
+.modal-container {
+  color: black;
+}
 
 /* Pallete
 
