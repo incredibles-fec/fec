@@ -259,6 +259,7 @@ body {
   overflow: hidden;
   display: flex;
   flex-direction: row;
+  padding: 40px;
 }
 
 .addtoOutfitMargin {
