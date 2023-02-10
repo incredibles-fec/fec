@@ -15,7 +15,6 @@ export default function UploadFile({ files, fileError, setError, setFiles }) {
           type="file"
           id="files"
           multiple
-          accept="image/png, image/jpeg, image/jpg"
           className="hidden-input-file"
           onChange={selectFiles}
         />

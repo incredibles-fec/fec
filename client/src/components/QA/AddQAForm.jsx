@@ -115,13 +115,10 @@ export default function AddQAForm({
         </span>
       ) : null}
       <div style={{ textAlign: 'center' }}>
-        <button
-          type="button"
-          onClick={handleSubmit}
-          className="form-submit-button"
-        >
-          Submit {type}
-        </button>
+        <div className="form-submit-button" onClick={handleSubmit}>
+          <div id="submit-translate" />
+          Submit
+        </div>
       </div>
     </div>
   );

@@ -61,7 +61,10 @@ export default function QAListEntry({ question }) {
         </button>
       </div>
       <div className="q-container">
-        <div className="qa-title" style={{ width: '2%' }}>
+        <div
+          className="qa-title"
+          style={{ width: '2%', marginRight: '0.2rem' }}
+        >
           Q:
         </div>
         <div className="q-header" style={{ paddingTop: '0.1rem' }}>

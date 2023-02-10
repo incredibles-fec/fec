@@ -127,7 +127,7 @@ export default function RatingsTile({ review }) {
           {isReported ? 'Reported' : 'Report'}
         </button>
       </div>
-      <hr />
+      <hr style={{ borderColor: '#a30f07' }} />
       {isOpen && (
         <Modal close={() => setIsOpen(false)}>
           <div>

@@ -121,12 +121,12 @@ QUESTIONS AND ANSWERS STYLING
   border: none;
   padding: 0.4rem;
   background-color: white;
-  border: 1px solid #a30f07;
+  border: 2px solid #a30f07;
   color: #a30f07;
 }
 
 .list-action-buttons:hover {
-  border: 1px solid #a30f07;
+  border: 2px solid #a30f07;
   background-color: #a30f07;
   color: white;
 }
@@ -244,14 +244,37 @@ textarea {
 }
 
 .form-submit-button {
-  border: 0;
-  padding: 0.4rem;
-  width: 10rem;
-  background-color: #C0C0C0
+  display: inline-flex;
+  height: 1.5rem;
+  width: 5rem;
+  border: 2px solid #a30f07;
+  color: #a30f07;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-size: .8em;
+  letter-spacing: 1.5px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
 }
 
-.form-submit-button:hover {
-  background-color: #EFEFEF
+#submit-translate {
+  width: 100%;
+  height: 0.2rem;
+  margin-top: 15px;
+  align-self: flex-end;
+  left: -200px;
+  background: #a30f07;
+  position: absolute;
+  transition: all .3s ease-Out;
+  bottom: 0;
+}
+
+.form-submit-button:hover #submit-translate {
+  left: 0
 }
 
 /* ACCORDION */
