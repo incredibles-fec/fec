@@ -67,7 +67,7 @@ const qaSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getQA.fulfilled, (state, action) => {
-      state.isLoading = false;
+      state.questionCount = 2;
       const filtered = action.payload.filter((q) => {
         const date = new Date(q.question_date);
         const today = new Date();
@@ -77,8 +77,9 @@ const qaSlice = createSlice({
           date.getDate() === today.getDate();
         return Object.values(q.answers).length || checkIfSameDate;
       });
-      state.questions = filtered.slice(0, state.questionCount);
+      state.questions = filtered.slice(0, 2);
       state.fullQuestions = filtered;
+      state.isLoading = false;
     });
     builder.addCase(getQA.rejected, (state) => {
       state.isLoading = false;

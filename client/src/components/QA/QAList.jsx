@@ -39,6 +39,10 @@ export default function QAList() {
     dispatch(getQA());
   }, []);
 
+  useEffect(() => {
+    setScrollToLoad(false);
+  }, [fullQuestions]);
+
   return (
     <div>
       <div style={{ textAlign: 'center' }}>

@@ -20,7 +20,7 @@ QUESTIONS AND ANSWERS STYLING
 
 .search-input {
   width: 100%;
-  padding: 1rem;
+  padding: 0.7rem;
   box-sizing: border-box;
 }
 
@@ -260,12 +260,13 @@ textarea {
   justify-content: space-between;
   border-radius: 10px;
   padding: 0.8rem;
-  background-color: #ececec;
+  background-color: #fafafa;
+  border: 1px solid #ececec;
   box-shadow: 5px 5px;
 }
 
 .expanded {
-  max-height: 700px;
+  max-height: 500px;
   margin-top: 1rem;
   transition: max-height 0.5s ease-out;
   overflow: scroll
@@ -273,7 +274,7 @@ textarea {
 
 .collapsed {
   max-height: 0px;
-  transition: max-height 0.5s ease-out;
+  transition: max-height 0.5s ease-in;
 }
 
 .expanded::-webkit-scrollbar {
