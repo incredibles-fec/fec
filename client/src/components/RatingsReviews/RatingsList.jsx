@@ -57,7 +57,7 @@ export default function RatingsList() {
             type="button"
             onClick={() => loadMore()}
           >
-            MORE REVIEWS
+            More Reviews
           </button>
         )}
         <button
@@ -65,7 +65,7 @@ export default function RatingsList() {
           type="button"
           onClick={() => setIsOpen(true)}
         >
-          ADD A REVIEW
+          Write a Review
         </button>
       </section>
       {isOpen && (

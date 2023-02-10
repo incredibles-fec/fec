@@ -30,7 +30,7 @@ export const getReviews = createAsyncThunk(
         params: {
           count,
           sort: rrState.sort,
-          product_id: product?.currentProduct?.id ?? 40355,
+          product_id: product?.currentProduct?.id ?? 40347,
         },
       });
 
@@ -49,7 +49,7 @@ export const getMetaData = createAsyncThunk(
     const product = thunkAPI.getState().pd;
     const res = await axios({
       url: '/reviews/meta',
-      params: { product_id: product?.currentProduct?.id ?? 40355 },
+      params: { product_id: product?.currentProduct?.id ?? 40347 },
     });
 
     const metaData = res.data;

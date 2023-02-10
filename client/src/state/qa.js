@@ -19,7 +19,7 @@ export const getQA = createAsyncThunk('qa/getQA', async (_, thunkAPI) => {
     /* eslint-disable no-await-in-loop */
     const res = await axios({
       url: '/qa/questions',
-      params: { product_id: product?.currentProduct?.id ?? 40355, count },
+      params: { product_id: product?.currentProduct?.id ?? 40347, count },
     });
 
     if (res.data.results.length === count) {

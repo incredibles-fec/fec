@@ -1,24 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-export default function Accordion({ title, children, isCollapsed }) {
+export default function Accordion({ title, children, onToggle, canToggle }) {
   const [isActive, setIsActive] = useState(false);
-
-  useEffect(() => {
-    setIsActive(isCollapsed);
-  }, [isCollapsed]);
 
   return (
     <div>
-      <div className="accordion">
-        <div>{title}</div>
+      <div
+        className="accordion"
+        style={{ boxShadow: isActive && '5px 5px #a30f07' }}
+      >
+        <div
+          style={{
+            color: isActive ? '#a30f07' : '#6c6c75',
+            fontWeight: 'bold',
+          }}
+        >
+          {title}
+        </div>
         <div
           style={{ cursor: 'pointer' }}
-          onClick={() => setIsActive(!isActive)}
+          onClick={() => {
+            if (!canToggle) return;
+            onToggle();
+            setIsActive(!isActive);
+          }}
         >
           <i
             className={
               isActive ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'
             }
+            style={{ color: isActive ? '#a30f07' : '#6c6c75' }}
           />
         </div>
       </div>

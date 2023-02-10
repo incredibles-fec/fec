@@ -75,6 +75,7 @@ export default function AddReviewForm({ close }) {
       <div style={{ textAlign: 'center', fontSize: '1.2rem' }}>
         About the {productName}
       </div>
+      <div style={{ fontWeight: 'bold' }}>Your Rating</div>
       <RatingsSelector handleInput={handleInput} />
       <RadioGroup
         name="recommend"

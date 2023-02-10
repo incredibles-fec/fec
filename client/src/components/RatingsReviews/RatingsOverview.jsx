@@ -47,7 +47,7 @@ export default function RatingsOverview() {
     <div>
       <div className="total-rating-container">
         <div className="total-rating">{totals?.average?.toFixed(2) ?? '-'}</div>
-        <div style={{ paddingTop: '0.5rem' }}>
+        <div style={{ paddingTop: '0.6rem' }}>
           <StarRatings rating={totals?.average} />
         </div>
       </div>

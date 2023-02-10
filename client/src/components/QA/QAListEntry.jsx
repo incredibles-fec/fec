@@ -61,7 +61,9 @@ export default function QAListEntry({ question }) {
         </button>
       </div>
       <div className="q-container">
-        <div style={{ width: '2%' }}>Q: </div>
+        <div className="qa-title" style={{ width: '2%' }}>
+          Q:
+        </div>
         <div className="q-header">
           <div className="q-body">
             {searchHighlight(question.question_body, query)}
@@ -137,7 +139,7 @@ export default function QAListEntry({ question }) {
           />
         </Modal>
       )}
-      <hr />
+      <hr style={{ borderColor: '#a30f07' }} />
     </div>
   );
 }

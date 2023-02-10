@@ -14,6 +14,7 @@ export default function QAList() {
   );
   const [isOpen, setIsOpen] = useState(false);
   const [scrollToLoad, setScrollToLoad] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const loadMore = () => {
     dispatch(loadMoreQuestions());
@@ -43,18 +44,20 @@ export default function QAList() {
       <div style={{ textAlign: 'center' }}>
         {!isLoading && !fullQuestions.length && (
           <button
-            className="add-question"
+            className="list-action-buttons"
+            style={{ marginTop: '1rem' }}
             type="button"
             onClick={() => setIsOpen(true)}
           >
-            Add a question
+            Add a Question
           </button>
         )}
       </div>
       <div style={{ marginTop: '2rem' }}>
         <Accordion
           title="Question & Answers"
-          isCollapsed={fullQuestions.length > 0}
+          onToggle={() => setExpanded(!expanded)}
+          canToggle={questions.length}
         >
           {questions.map((q, idx) => (
             <div
@@ -70,24 +73,25 @@ export default function QAList() {
           ))}
         </Accordion>
       </div>
-      <div style={{ marginTop: '1rem' }}>
-        {!scrollToLoad && fullQuestions.length > 2 && (
+      <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+        {expanded && !scrollToLoad && fullQuestions.length > 2 && (
           <button
-            style={{ marginRight: '5px' }}
             type="button"
-            className="list-action-buttons"
+            className="button-trans"
             onClick={() => loadMore()}
           >
             More Answered Questions
           </button>
         )}
+      </div>
+      <div style={{ marginTop: '2rem' }}>
         {fullQuestions.length > 0 && (
           <button
             className="list-action-buttons"
             type="button"
             onClick={() => setIsOpen(true)}
           >
-            Add a question
+            Add a Question
           </button>
         )}
       </div>

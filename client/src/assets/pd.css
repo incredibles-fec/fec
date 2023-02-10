@@ -16,8 +16,13 @@ html {
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .pd-flex-container {
@@ -32,12 +37,12 @@ html {
   display: flex;
   justify-content: space-between;
   padding: 0rem 1rem;
-  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);
+  background: linear-gradient(90deg, rgba(219, 19, 19, 1) 0%, rgba(245, 203, 9, 1) 33%, rgba(245, 203, 9, 1) 66%, rgba(219, 19, 19, 1) 100%);
   color: white;
   margin-bottom: 0.3rem;
 }
 
-#search-products{
+#search-products {
   display: inline-block;
   align-self: center;
 }
@@ -49,7 +54,7 @@ html {
   border-bottom: 0.1rem solid white;
 }
 
-::placeholder {
+#search-input-form::placeholder {
   color: white;
   opacity: 1;
 }
@@ -64,7 +69,8 @@ html {
 Product Information (Primarily Image Gallery) Styling
 ====================================================== */
 
-button, select {
+button,
+select {
   cursor: pointer;
 }
 
@@ -81,12 +87,12 @@ button, select {
 
 }
 
-.product-category p{
+.product-category p {
   text-transform: uppercase;
   margin-bottom: 0em;
 }
 
-.product-name p{
+.product-name p {
   font-size: xx-large;
   font-weight: bold;
   margin-top: 0em;
@@ -206,7 +212,8 @@ button, select {
   transform: translateY(-50%);
 }
 
-#carousel-prev, #carousel-next {
+#carousel-prev,
+#carousel-next {
   z-index: 10;
   font-size: 30px;
 }
@@ -226,12 +233,15 @@ button, select {
   width: 40px;
   border: 5em;
 }
-.navigate:hover, #expand-icon:hover {
+
+.navigate:hover,
+#expand-icon:hover {
   opacity: 75%;
   background-color: lightgray;
 }
 
-#carousel-thumbnail-prev, #carousel-thumbnail-next {
+#carousel-thumbnail-prev,
+#carousel-thumbnail-next {
   font-size: 30px;
 }
 
@@ -310,7 +320,8 @@ select {
   transition: all 0.2s ease;
 }
 
-#add-to-cart-button, #add-to-favorites {
+#add-to-cart-button,
+#add-to-favorites {
   background-color: silver;
   color: black;
   border: none;
@@ -324,7 +335,11 @@ select {
   /* margin-right: 0.5rem; */
 }
 
-#add-to-cart-buttons:hover, #add-to-cart-buttons:focus, #add-to-favorites:hover, #add-to-favorites:focus, select:hover {
+#add-to-cart-buttons:hover,
+#add-to-cart-buttons:focus,
+#add-to-favorites:hover,
+#add-to-favorites:focus,
+select:hover {
   background-color: lightgray;
   opacity: 75%;
 }
@@ -343,8 +358,10 @@ select {
 }
 
 
-#dropdown-size-buttons:hover, #dropdown-size-buttons:focus,
-#dropdown-quantity-buttons:hover, #dropdown-quantity-buttons:focus {
+#dropdown-size-buttons:hover,
+#dropdown-size-buttons:focus,
+#dropdown-quantity-buttons:hover,
+#dropdown-quantity-buttons:focus {
   background-color: lightgray;
   opacity: 75%;
 }
@@ -365,20 +382,22 @@ select {
   display: none;
   position: absolute;
   background-color: silver;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 15;
   width: 100%;
   text-align: center;
 }
 
-.dropdown-content a, .dropdown-content span {
+.dropdown-content a,
+.dropdown-content span {
   color: black;
   padding: 0.5rem 1em;
   text-decoration: none;
   display: block;
 }
 
-.dropdown-content a:hover, .dropdown-content span:hover {
+.dropdown-content a:hover,
+.dropdown-content span:hover {
   background-color: lightgray;
 }
 
@@ -428,4 +447,3 @@ ul {
 /* ul li:before {
   content: '✓';
 } */
-
