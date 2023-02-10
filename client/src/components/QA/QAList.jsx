@@ -14,6 +14,7 @@ export default function QAList() {
   );
   const [isOpen, setIsOpen] = useState(false);
   const [scrollToLoad, setScrollToLoad] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   const loadMore = () => {
     dispatch(loadMoreQuestions());
@@ -38,23 +39,29 @@ export default function QAList() {
     dispatch(getQA());
   }, []);
 
+  useEffect(() => {
+    setScrollToLoad(false);
+  }, [fullQuestions]);
+
   return (
     <div>
       <div style={{ textAlign: 'center' }}>
         {!isLoading && !fullQuestions.length && (
           <button
-            className="add-question"
+            className="list-action-buttons"
+            style={{ marginTop: '1rem' }}
             type="button"
             onClick={() => setIsOpen(true)}
           >
-            Add a question
+            Add a Question
           </button>
         )}
       </div>
-      <div style={{ marginTop: '2rem' }}>
+      <div>
         <Accordion
           title="Question & Answers"
-          isCollapsed={fullQuestions.length > 0}
+          onToggle={() => setExpanded(!expanded)}
+          canToggle={questions.length}
         >
           {questions.map((q, idx) => (
             <div
@@ -70,25 +77,28 @@ export default function QAList() {
           ))}
         </Accordion>
       </div>
-
-      {!scrollToLoad && fullQuestions.length > 2 && (
-        <button
-          style={{ marginRight: '5px' }}
-          type="button"
-          onClick={() => loadMore()}
-        >
-          More Answered Questions
-        </button>
-      )}
-      {fullQuestions.length > 0 && (
-        <button
-          className="add-question"
-          type="button"
-          onClick={() => setIsOpen(true)}
-        >
-          Add a question
-        </button>
-      )}
+      <div style={{ marginTop: '1rem', textAlign: 'center' }}>
+        {expanded && !scrollToLoad && fullQuestions.length > 2 && (
+          <button
+            type="button"
+            className="button-trans"
+            onClick={() => loadMore()}
+          >
+            More Answered Questions
+          </button>
+        )}
+      </div>
+      <div style={{ marginTop: '2rem' }}>
+        {fullQuestions.length > 0 && (
+          <button
+            className="list-action-buttons"
+            type="button"
+            onClick={() => setIsOpen(true)}
+          >
+            Add a Question
+          </button>
+        )}
+      </div>
 
       {isOpen && (
         <Modal close={() => setIsOpen(false)}>

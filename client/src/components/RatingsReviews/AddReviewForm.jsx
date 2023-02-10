@@ -72,24 +72,32 @@ export default function AddReviewForm({ close }) {
 
   return (
     <div className="review-form">
-      <div>About the {productName}</div>
+      <div
+        style={{ textAlign: 'center', fontSize: '1.2rem', color: '#a30f07' }}
+      >
+        About the {productName}
+      </div>
+      <hr style={{ borderColor: '#a30f07', width: '100%' }} />
+      <div style={{ fontWeight: 'bold' }}>Your Rating</div>
       <RatingsSelector handleInput={handleInput} />
       <RadioGroup
         name="recommend"
         options={radioGroupOptions.recommend}
         handleInput={handleInput}
       />
-      {charRadioGroup
-        .filter((char) => metaDataCharKeys.includes(char[0]))
-        .map(([key, options]) => (
-          <div key={key}>
-            <RadioGroup
-              name={key}
-              options={options}
-              handleInput={handleInput}
-            />
-          </div>
-        ))}
+      <div style={{ display: 'flex' }}>
+        {charRadioGroup
+          .filter((char) => metaDataCharKeys.includes(char[0]))
+          .map(([key, options]) => (
+            <div key={key} style={{ width: '25%' }}>
+              <RadioGroup
+                name={key}
+                options={options}
+                handleInput={handleInput}
+              />
+            </div>
+          ))}
+      </div>
 
       <InputField
         name="summary"
@@ -145,10 +153,12 @@ export default function AddReviewForm({ close }) {
           })}
         </span>
       ) : null}
-
-      <button type="button" onClick={handleSubmit}>
-        Submit
-      </button>
+      <div style={{ textAlign: 'center' }}>
+        <div className="form-submit-button" onClick={handleSubmit}>
+          <div id="submit-translate" />
+          Submit
+        </div>
+      </div>
     </div>
   );
 }

@@ -26,7 +26,12 @@ export default function ProgressBar({ action, progress, filters }) {
         {`${action} stars`}
       </button>
       <div className="progress-bar">
-        <div style={{ width: percentage }} className="progress-bar-fill" />
+        <div
+          style={{ width: percentage }}
+          className={
+            selected ? 'progress-bar-fill-selected' : 'progress-bar-fill'
+          }
+        />
       </div>
     </div>
   );

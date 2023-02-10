@@ -7,7 +7,7 @@ export default function Modal({ children, close }) {
       <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header-actions">
           <i
-            className="fa-solid fa-arrow-right"
+            className="fa-solid fa-arrow-right modal-close-icon"
             style={{ cursor: 'pointer' }}
             onClick={close}
           />

@@ -52,14 +52,22 @@ export default function QAListEntry({ question }) {
       {/* Header */}
       <div className="q-user">
         <div>Username: {question.asker_name}</div>
-        <button type="button" onClick={() => setIsOpen(true)}>
+        <button
+          type="button"
+          className="list-action-buttons"
+          onClick={() => setIsOpen(true)}
+        >
           Add Answer
         </button>
       </div>
-
       <div className="q-container">
-        <div style={{ width: '2%' }}>Q: </div>
-        <div className="q-header">
+        <div
+          className="qa-title"
+          style={{ width: '2%', marginRight: '0.2rem' }}
+        >
+          Q:
+        </div>
+        <div className="q-header" style={{ paddingTop: '0.1rem' }}>
           <div className="q-body">
             {searchHighlight(question.question_body, query)}
           </div>
@@ -93,29 +101,37 @@ export default function QAListEntry({ question }) {
           </div>
         </div>
       </div>
-
       {/* Answer Section */}
       {/* TODO: Infinite scroll with answers */}
       {answers.slice(0, answerCount).map((answer) => (
         <AnswerEntry key={answer.questionId} answer={answer} />
       ))}
-
       <div style={{ display: 'flex', gap: '0.3rem' }}>
         {Object.values(question.answers).length > answerCount && (
           <button
             type="button"
+            className="load-more-button"
             onClick={() => setAnswerCount((prev) => prev + 2)}
           >
-            LOAD MORE ANSWERS
+            <i className="fa-sharp fa-solid fa-caret-down fa-lg" />
+            Show {Object.values(question.answers).length - answerCount}
+            {Object.values(question.answers).length - answerCount === 1
+              ? ' Answer'
+              : ' Answers'}
           </button>
         )}
-        {answerCount > 2 && (
-          <button type="button" onClick={() => setAnswerCount(2)}>
-            HIDE ANSWERS
-          </button>
-        )}
+        {Object.values(question.answers).length > 2 &&
+          answerCount >= Object.values(question.answers).length && (
+            <button
+              type="button"
+              className="load-more-button"
+              onClick={() => setAnswerCount(2)}
+            >
+              <i className="fa-solid fa-caret-up fa-lg" />
+              Hide
+            </button>
+          )}
       </div>
-
       {isOpen && (
         <Modal close={() => setIsOpen(false)}>
           <AddQAForm
@@ -126,7 +142,7 @@ export default function QAListEntry({ question }) {
           />
         </Modal>
       )}
-      <hr />
+      <hr style={{ borderColor: '#a30f07' }} />
     </div>
   );
 }
