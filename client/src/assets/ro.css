@@ -42,3 +42,64 @@
 */
 
 
+
+/* ================================
+      Comparison Modal
+   ================================
+*/
+
+
+.modalHeader {
+  position: sticky;
+}
+
+.modalExit {
+  position: absolute;
+  left: 465px;
+  top: 10px;
+  height: 20px;
+  width: 20px;
+}
+
+.leftHeader {
+  text-align: start;
+  font-size: 18px;
+  padding: 0px 0px 30px 12px;
+}
+
+.rightHeader {
+  text-align: end;
+  font-size: 18px;
+  padding: 0px 12px 30px 0px;
+}
+
+
+.checkLeftHeader {
+  text-align: start;
+  width: 35%;
+}
+
+.checkRightHeader {
+  text-align: end;
+  width: 35%;
+}
+
+.checkLeft {
+  text-align: start;
+}
+
+.checkRight {
+  text-align: end;
+  padding: 0px 26px 0px 0px;
+}
+
+.productInfo {
+  text-align: center;
+  width: 30%;
+  font-weight: bold;
+}
+
+td {
+  text-align: center;
+}
+

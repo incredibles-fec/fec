@@ -339,14 +339,6 @@ Product Information Styling
   padding: 4px;
 }
 
-.style-item {
-  width: 75px;
-  height: 75px;
-  border-radius: 50%;
-  object-fit: cover;
-  box-shadow: 0px 5px 10px 4px #2f2f2e;
-}
-
 .style-item:hover {
   opacity: 75%;
   cursor: pointer;

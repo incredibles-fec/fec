@@ -23,8 +23,15 @@ body {
   border-radius: .4em;
 }
 
+.style-item {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0px 5px 15px 5px #2f2f2e;
+}
+
 .product-overview-container {
-  /* background-color: #f7f7f7; */
   color: #f7f7f7;
   border: solid 2px #1A1306;
 }
