@@ -79,7 +79,7 @@ QUESTIONS AND ANSWERS STYLING
   margin: 0.5rem 0 0.5rem 1rem;
   font-size: 14px;
   padding: 0.4rem;
-  background-color: #ececec;
+  background-color: #f5f5f5;
   border-radius: 5px;
 }
 
@@ -139,8 +139,8 @@ QUESTIONS AND ANSWERS STYLING
   transform: translate(-50%, -50%);
   background-color: white;
   z-index: 20;
+  padding: 0.5rem 1rem 1rem;
   width: 600px;
-  padding: 1rem;
   border: solid black 1px;
 }
 
@@ -169,7 +169,6 @@ QUESTIONS AND ANSWERS STYLING
 .question-form {
   display: flex;
   flex-direction: column;
-  padding: 0.2rem 0.4rem 0.4rem;
   gap: 0.5rem;
 }
 
@@ -235,9 +234,13 @@ textarea {
 
 .review-form {
   display: flex;
+  width: 100%;
   flex-direction: column;
-  padding: 0.2rem 0.4rem 0.4rem;
   gap: 0.5rem;
+}
+
+.radio-input-button {
+  margin: 0.2rem 0.2rem 0 0;
 }
 
 .form-submit-button {
@@ -472,6 +475,7 @@ RATINGS AND REVIEWS STYLING
   display: flex;
   overflow: hidden;
   position: absolute;
+  color: #a30f07;
   top: 0;
   transition: all .5s
 }

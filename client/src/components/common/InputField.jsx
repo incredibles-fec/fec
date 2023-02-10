@@ -12,7 +12,9 @@ export default function InputField({
   return (
     <div>
       <label style={{ display: 'flex', flexDirection: 'column' }}>
-        {label ?? name.charAt(0).toUpperCase() + name.slice(1)}
+        <span style={{ fontSize: '0.9rem' }}>
+          {label ?? name.charAt(0).toUpperCase() + name.slice(1)}
+        </span>
         {type === 'long' && (
           <textarea
             className="form-textarea-field"

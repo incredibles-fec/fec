@@ -7,7 +7,12 @@ export default function Accordion({ title, children, onToggle, canToggle }) {
     <div>
       <div
         className="accordion"
-        style={{ boxShadow: isActive && '5px 5px #a30f07' }}
+        style={{ boxShadow: isActive && '5px 5px #a30f07', cursor: 'pointer' }}
+        onClick={() => {
+          if (!canToggle) return;
+          onToggle();
+          setIsActive(!isActive);
+        }}
       >
         <div
           style={{
@@ -17,14 +22,7 @@ export default function Accordion({ title, children, onToggle, canToggle }) {
         >
           {title}
         </div>
-        <div
-          style={{ cursor: 'pointer' }}
-          onClick={() => {
-            if (!canToggle) return;
-            onToggle();
-            setIsActive(!isActive);
-          }}
-        >
+        <div>
           <i
             className={
               isActive ? 'fa-solid fa-chevron-up' : 'fa-solid fa-chevron-down'

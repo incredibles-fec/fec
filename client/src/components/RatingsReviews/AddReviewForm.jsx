@@ -82,17 +82,19 @@ export default function AddReviewForm({ close }) {
         options={radioGroupOptions.recommend}
         handleInput={handleInput}
       />
-      {charRadioGroup
-        .filter((char) => metaDataCharKeys.includes(char[0]))
-        .map(([key, options]) => (
-          <div key={key}>
-            <RadioGroup
-              name={key}
-              options={options}
-              handleInput={handleInput}
-            />
-          </div>
-        ))}
+      <div style={{ display: 'flex' }}>
+        {charRadioGroup
+          .filter((char) => metaDataCharKeys.includes(char[0]))
+          .map(([key, options]) => (
+            <div key={key} style={{ width: '25%' }}>
+              <RadioGroup
+                name={key}
+                options={options}
+                handleInput={handleInput}
+              />
+            </div>
+          ))}
+      </div>
 
       <InputField
         name="summary"
