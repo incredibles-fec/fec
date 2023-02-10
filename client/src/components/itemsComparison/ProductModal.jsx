@@ -1,3 +1,4 @@
+/* eslint-disable no-else-return */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 import React from 'react';
@@ -50,17 +51,15 @@ export default function ProductModal({
   return (
     <div>
       <div className="productModal">
-        <h1>COMPARING</h1>
-        <button className="modalExit" onClick={onClick} type="button">
-          x
-        </button>
+        <h1>PRODUCT COMPARISON</h1>
+        <i className="fa-solid fa-square-xmark" onClick={onClick} />
         <table>
-          <thead>
+          {/* <thead>
             <tr className="modalHeader">
               <th className="leftHeader">Current Viewed Product</th>
               <th className="rightHeader">Compared Product Card</th>
             </tr>
-          </thead>
+          </thead> */}
         </table>
         <table className="compareTable">
           <thead>
@@ -71,7 +70,15 @@ export default function ProductModal({
             </tr>
             { Object.values(finalObject).length > 0 ?
               Object.keys(finalObject).map((product) => {
-                if (product !== 'features' && product !== 'image' && product !== 'slogan' && product !== 'description' && product !== 'price' && product !== 'id' && product !== 'salePrice') {
+                if (product === 'name') {
+                  return (
+                    <tr key={product}>
+                      <td className="productNameLeft">{finalObject[product][0] || '--'}</td>
+                      <td />
+                      <td className="productNameRight">{finalObject[product][1] || '--'}</td>
+                    </tr>
+                  );
+                } else if (product !== 'features' && product !== 'image' && product !== 'slogan' && product !== 'description' && product !== 'price' && product !== 'id' && product !== 'salePrice' && product !=='name') {
                   return (
                     <tr key={product}>
                       <td>{finalObject[product][0] || '--'}</td>

@@ -1,11 +1,15 @@
 import React from 'react';
 import ProductModal from './ProductModal.jsx';
-// import Image from '../../assets/edna.png';
+import { useSelector } from 'react-redux';
+import Image from '../../assets/edna-image-unavailable.jpg';
+import StarRatings from '../common/StarRatings.jsx';
+
 
 export default function Product({
   item, count, onUpdate, currentProduct
 }) {
   const [visibleStatus, setvisibleStatus] = React.useState(false);
+  const { totals, reviewCount } = useSelector((store) => store.rr);
 
   const changeModal = (e) => {
     setvisibleStatus(!visibleStatus);
@@ -15,7 +19,7 @@ export default function Product({
     <div className="productCardContainer" id={count} onClick={(e) => onUpdate(e, item.id)}>
       <div className="cardContent" id={item.id}>
         <div className="imageContainer">
-          <img className="cardImage" src={item.image} alt="apparel item" />
+          <img className="cardImage" src={item.image || Image} alt="apparel item" />
         </div>
         <i onClick={changeModal} className="fas fa-star" data-testid="modal" />
         <div className="productCardCategory">{item.category}</div>

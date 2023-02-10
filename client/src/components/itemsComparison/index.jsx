@@ -1,12 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-import App from '../../App.jsx';
+import { useSelector } from 'react-redux';
 import ProductList from './ProductList.jsx';
 import OutfitList from './OutfitList.jsx';
-import { useSelector } from 'react-redux';
 
-function RelatedOutfits() {
-  const { currentProduct, setCurrentProduct } = useSelector((state) => state.pd);
+export default function RelatedOutfits() {
+  const { currentProduct, loading } = useSelector((state) => state.pd);
   const [relatedList, setRelatedList] = React.useState([]);
 
   const obtainProducts = () => {
@@ -55,12 +54,18 @@ function RelatedOutfits() {
     }
   }, [currentProduct]);
 
+  if (!loading) {
+    return (
+      <div>
+        <div className="relatedProductOutfit parent" id="Related Items & Outfit Creation">
+          <ProductList currentProduct={currentProduct} relatedList={relatedList} />
+          <OutfitList currentProduct={currentProduct} relatedList={relatedList} />
+        </div>
+        <div className="colorSeparatorEnd" />
+      </div>
+    );
+  }
   return (
-    <div className="relatedProductOutfit parent" id="Related Items & Outfit Creation">
-      <ProductList currentProduct={currentProduct} relatedList={relatedList} />
-      <OutfitList currentProduct={currentProduct} relatedList={relatedList} />
-    </div>
+    <div id="loading" />
   );
 }
-
-export default RelatedOutfits;

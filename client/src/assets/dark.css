@@ -1,0 +1,66 @@
+/* ====================================================================================
+       Dark Mode
+   ====================================================================================
+*/
+
+
+/* ====================================
+    Product Overview
+   ====================================
+*/
+
+.product-overview-container {
+  background-color: #1A1306;
+  color: #f7f7f7;
+  border: solid 2px #1A1306;
+}
+
+.nav-bar {
+  background-color: #a30f07;
+}
+
+#gallery-and-styles-container {
+  background-color: #a30f07;
+  border-radius: .4em;
+}
+
+#product-info-container {
+  color:#f7f7f7;
+}
+
+.dropdownButton {
+  background-color: #e51f15;
+  border: 2px solid #fedb00;
+  color: #fedb00;
+  border-radius: .2em;
+}
+
+#add-to-cart-button, #add-to-favorites {
+  background-color: #e51f15;
+  border: .5px solid #fedb00;
+  color: #f7f7f7;
+  border-radius: .2em;
+}
+/* ====================================
+    Product and Outfit Cards
+   ====================================
+*/
+
+.productCardContainer, .outfitCardContainer{
+  background-color: #a30f07;
+}
+
+.cardContent {
+  background-color: #a30f07;
+  font-size: 20px;
+}
+
+.imageContainer {
+  background-color: #a30f07;
+}
+
+
+/* ====================================
+    Buttons
+   ====================================
+*/
