@@ -4,7 +4,7 @@ QUESTIONS AND ANSWERS STYLING
 
 /* QUESTION LIST */
 .qa-container {
-  max-width: 1024px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem 5rem;
 }
@@ -312,7 +312,7 @@ RATINGS AND REVIEWS STYLING
 
 .rr-container {
   display: flex;
-  max-width: 1024px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem 5rem 10rem 5rem;
 
@@ -330,7 +330,7 @@ RATINGS AND REVIEWS STYLING
 
 /* Overview */
 .overview-container {
-  width: 32%;
+  width: 30%;
   margin-right: 2rem;
 }
 
@@ -406,7 +406,7 @@ RATINGS AND REVIEWS STYLING
 
 /* List */
 .rating-list-container {
-  width: 68%;
+  width: 70%;
 }
 
 .reviews-map {
