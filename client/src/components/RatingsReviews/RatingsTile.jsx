@@ -73,7 +73,11 @@ export default function RatingsTile({ review }) {
           <div>
             <div>{searchHighlight(setPreview(review.body), query)}</div>
             {showButton && (
-              <button type="button" onClick={() => setReadMore(true)}>
+              <button
+                className="button-trans"
+                type="button"
+                onClick={() => setReadMore(true)}
+              >
                 Read more
               </button>
             )}
@@ -123,7 +127,7 @@ export default function RatingsTile({ review }) {
           {isReported ? 'Reported' : 'Report'}
         </button>
       </div>
-      <hr />
+      <hr style={{ borderColor: '#a30f07' }} />
       {isOpen && (
         <Modal close={() => setIsOpen(false)}>
           <div>

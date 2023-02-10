@@ -32,7 +32,7 @@ export default function SearchFilter() {
   return (
     <div className="filter-search-container">
       <section className="filter-sort">
-        <div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
           {totals?.totalReviews} reviews, sorted by
           <select
             className="select-input"

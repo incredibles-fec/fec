@@ -52,12 +52,20 @@ export default function RatingsList() {
       </section>
       <section className="rating-list-footer">
         {!scrollToLoad && fullReviews.length > 2 && (
-          <button type="button" onClick={() => loadMore()}>
-            MORE REVIEWS
+          <button
+            className="list-action-buttons"
+            type="button"
+            onClick={() => loadMore()}
+          >
+            More Reviews
           </button>
         )}
-        <button type="button" onClick={() => setIsOpen(true)}>
-          ADD A REVIEW
+        <button
+          className="list-action-buttons"
+          type="button"
+          onClick={() => setIsOpen(true)}
+        >
+          Write a Review
         </button>
       </section>
       {isOpen && (

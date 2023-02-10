@@ -20,7 +20,10 @@ export default function ReviewBar({ title, characteristic }) {
           className="triangle-marker"
           style={{ left: `${adjustedPercentage}%` }}
         >
-          <i className="fa-sharp fa-solid fa-caret-down" />
+          <i
+            className="fa-sharp fa-solid fa-caret-down"
+            style={{ color: '#a30f07' }}
+          />
         </div>
       </div>
       <div className="char-bar-container">
