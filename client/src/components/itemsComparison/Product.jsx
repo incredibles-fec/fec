@@ -12,6 +12,7 @@ export default function Product({
   // const { totals, reviewCount } = useSelector((store) => store.rr);
 
   const changeModal = (e) => {
+    e.preventDefault();
     setvisibleStatus(!visibleStatus);
   };
 

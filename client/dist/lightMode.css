@@ -184,6 +184,10 @@ button, select {
   border-width: 2px 4px;
 }
 
+.productCardContainer:hover, .outfitCardContainer:hover {
+  cursor: pointer;
+}
+
 .cardContent {
   background-color: #a30f07;
   font-size: 20px;
