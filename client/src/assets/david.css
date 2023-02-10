@@ -112,9 +112,10 @@ QUESTIONS AND ANSWERS STYLING
 .list-action-buttons {
   border: none;
   padding: 0.4rem;
-  background-color: white;
+  background-color: transparent;
   border: 2px solid #a30f07;
   color: #a30f07;
+  border-radius: 0.5rem;
 }
 
 .list-action-buttons:hover {
@@ -336,6 +337,8 @@ RATINGS AND REVIEWS STYLING
   padding: 0.2rem 0.4rem;
   color: #a30f07;
   font-size: 1rem;
+  background-color: transparent;
+  border-radius: 0.5rem;
 }
 
 /* dropdown */
@@ -365,14 +368,12 @@ RATINGS AND REVIEWS STYLING
 }
 
 
-.select-input:hover {
+.select-input:hover, .select-input:focus {
   border: 0;
-  background-color: transparent;
+  color: white;
+  background-color: #a30f07;
 }
 
-.select-input:focus {
-  border: 0
-}
 
 /* List */
 .rating-list-container {
