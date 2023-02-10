@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import backupThumbnail from '../../assets/image-unavailable.jpg';
 
 export default function Styles({ currentStyle, setCurrentStyle }) {
   const { currentProductStyles } = useSelector((state) => state.pd);
@@ -13,7 +14,7 @@ export default function Styles({ currentStyle, setCurrentStyle }) {
       // eslint-disable-next-line react/no-array-index-key
       <div className="styles-row" key={`row-${index}`}>{row.map((style) => (
         <div className="style-item-overlay" key={style.style_id} onClick={() => setCurrentStyle(style)}>
-          <img className="style-item" src={style.photos[0].thumbnail_url} alt={style.name} />
+          <img className="style-item" src={style.photos[0].thumbnail_url ? style.photos[0].thumbnail_url : backupThumbnail} alt={style.name} />
           {currentStyle.style_id === style.style_id && <em className="checkmark"><i className="fa-regular fa-circle-check" /></em>}
         </div>
       ))}

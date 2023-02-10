@@ -4,6 +4,11 @@ html {
   font-family: 'Roboto', Tahoma, Verdana, sans-serif;
 }
 
+.main-container {
+  max-width: 1536px;
+  margin: auto;
+}
+
 #loading {
   margin: auto;
   justify-content: center;
@@ -25,12 +30,87 @@ html {
   }
 }
 
+/* ======================================================
+Light/Dark Mode Switch Toggle Styling
+====================================================== */
+
+.toggle-wrapper {
+  align-self: flex-end;
+  margin-bottom: 0.5em;
+}
+
+.switch {
+  position: relative;
+  float: right;
+  width: 55px;
+  height: 25px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 19px;
+  width: 19px;
+  left: 3.5px;
+  bottom: 3.5px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: maroon;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px maroon;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 25px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/* ======================================================
+Product Detail Styling
+====================================================== */
+
 .pd-flex-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  margin: 2em;
+  margin: 0em 2em 2em 2em;
 }
 
 .nav-bar {
@@ -61,7 +141,8 @@ html {
 
 .site-wide-announcement {
   text-align: center;
-  display: inline-block;
+  /* display: inline-block; */
+  align-self: center;
   margin: 0.75rem 0rem;
 }
 
@@ -113,15 +194,12 @@ select {
 .product-overview-container {
   align-self: center;
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-evenly;
-  margin-left: 17vw;
-  margin-right: 3rem;
   margin-top: 1rem;
 }
 
 .product-slogan-description {
-  flex-basis: 60%;
+  padding-right: 2em;
 }
 
 .product-features {
@@ -141,7 +219,7 @@ select {
 }
 
 #image-gallery-container {
-  margin: 0px 1rem;
+  margin: 0px 1.5em;
   display: flex;
   justify-content: center;
   transition: all 1s ease;
@@ -192,7 +270,7 @@ select {
   position: absolute;
   font-size: x-large;
   top: 0.5em;
-  right: 0.5em;
+  right: 0em;
   opacity: 50%;
   background-color: silver;
   padding: 0.1rem;
@@ -246,8 +324,8 @@ select {
 }
 
 #displayed-image {
-  height: 500px;
-  width: 500px;
+  height: 550px;
+  width: 650px;
   object-fit: contain;
   transition: transform 0.5s ease;
 }

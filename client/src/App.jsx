@@ -8,12 +8,10 @@ import RatingsReviews from './components/RatingsReviews/RR.jsx';
 export default function App() {
   return (
     <React.StrictMode>
-      <div>
-        <ProductDetail />
-        <ItemsComparison />
-        <QuestionsAnswers />
-        <RatingsReviews />
-      </div>
+      <ProductDetail />
+      <ItemsComparison />
+      <QuestionsAnswers />
+      <RatingsReviews />
     </React.StrictMode>
   );
 }
