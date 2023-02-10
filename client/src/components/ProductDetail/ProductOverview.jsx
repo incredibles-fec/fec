@@ -39,7 +39,7 @@ export default function ProductDetail() {
         <div className="nav-bar">
           <h2 className="logo"><i>Incredible Apparel</i></h2>
           <div id="search-products">
-            <form onSubmit={(e) => handleSearch(e)}><i className="fa-solid fa-magnifying-glass" />: <input id="search-input-form" name="searchProducts" type="search" placeholder="VALID PROD IDS ONLY" />
+            <form onSubmit={(e) => handleSearch(e)}><i className="fa-solid fa-magnifying-glass" aria-hidden="true" />: <input id="search-input-form" name="searchProducts" type="search" placeholder="VALID PROD IDS ONLY" />
             </form>
           </div>
         </div>
@@ -59,7 +59,7 @@ export default function ProductDetail() {
   }
   return (
     <div className="loading-container">
-      <div className="loading"><p>LOADING</p>
+      <div className="loading" aria-label="Loading"><p>LOADING</p>
         <span className="loading-span" />
       </div>
     </div>

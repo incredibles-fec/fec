@@ -540,6 +540,7 @@ function ImageGallery(_ref) {
         className: "carousel-item-underlay"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
         className: "carousel-item-thumbnail",
+        "aria-label": name,
         src: p.thumbnail_url ? p.thumbnail_url : _assets_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_2__,
         alt: name
       })]
@@ -556,6 +557,7 @@ function ImageGallery(_ref) {
           className: "carousel-item-underlay"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
           className: "carousel-item-thumbnail",
+          "aria-label": name,
           src: p.thumbnail_url ? p.thumbnail_url : _assets_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_2__,
           alt: name
         })]
@@ -699,6 +701,7 @@ function ImageGallery(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
         id: "displayed-image",
         role: "presentation",
+        "aria-label": "displayed style image",
         src: photos[index].url ? photos[index].url : _assets_edna_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_1__,
         alt: name,
         onClick: enlargeImage,
@@ -857,6 +860,7 @@ function ProductInformation() {
       id: "product-info-container",
       children: [reviewCount !== 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "star-ratings-reviews",
+        "aria-label": "Star ratings",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_common_StarRatings_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
           rating: totals === null || totals === void 0 ? void 0 : totals.average
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
@@ -987,7 +991,8 @@ function ProductDetail() {
               return handleSearch(e);
             },
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-              className: "fa-solid fa-magnifying-glass"
+              className: "fa-solid fa-magnifying-glass",
+              "aria-hidden": "true"
             }), ": ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
               id: "search-input-form",
               name: "searchProducts",
@@ -1023,6 +1028,7 @@ function ProductDetail() {
     className: "loading-container",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "loading",
+      "aria-label": "Loading",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
         children: "LOADING"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
@@ -1056,19 +1062,19 @@ function ShareSocialMedia() {
       href: "/#",
       className: "fa fa-facebook",
       "data-testid": "fb",
-      "aria-hidden": "true",
+      "aria-label": "Share to Facebook",
       children: " "
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
       href: "/#",
       className: "fa fa-twitter",
       "data-testid": "twt",
-      "aria-hidden": "true",
+      "aria-label": "Share to Twitter",
       children: " "
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
       href: "/#",
       className: "fa fa-pinterest",
       "data-testid": "pnt",
-      "aria-hidden": "true",
+      "aria-label": "Share to Pinterest",
       children: " "
     })]
   });
