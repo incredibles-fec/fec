@@ -4,6 +4,14 @@ html {
   font-family: 'Roboto', Tahoma, Verdana, sans-serif;
 }
 
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
 .main-container {
   max-width: 1536px;
   margin: auto;
@@ -429,11 +437,24 @@ Product Information Styling
   margin-top: 1rem;
 }
 
+<<<<<<< HEAD
+=======
+/* select {
+  background-color: silver;
+  color: black;
+  padding: 0.5em 1em;
+  border: none;
+  text-decoration: none;
+  transition: all 0.2s ease;
+} */
+
+>>>>>>> 867c725 (added company logo and title styling)
 .dropdownButton {
   display: inline-flex;
   height: 40px;
   width: 150px;
   border: 2px solid #a30f07;
+  border-radius: 0.5rem;
   margin: 15px 15px 0px 15px;
   color: black;
   text-transform: uppercase;
@@ -580,6 +601,7 @@ Product Detail Buttons Styling
   height: 40px;
   width: 150px;
   border: 2px solid #a30f07;
+  border-radius: 0.5rem;
   margin: 15px;
   color: black;
   text-transform: uppercase;

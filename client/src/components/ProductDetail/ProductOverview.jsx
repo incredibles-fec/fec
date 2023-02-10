@@ -37,7 +37,7 @@ export default function ProductDetail() {
     return (
       <div className="pd-flex-container parent" id="Product Detail">
         <div className="nav-bar">
-          <h2 className="logo"><i>Incredible Apparel</i></h2>
+          <h2 className="logo"><span className="material-symbols-outlined">diversity_2</span> <span className="material-symbols-outlined">Incredible Apparel</span></h2>
           <div id="search-products">
             <form onSubmit={(e) => handleSearch(e)}><i className="fa-solid fa-magnifying-glass" aria-hidden="true" />: <input id="search-input-form" name="searchProducts" type="search" placeholder="VALID PROD IDS ONLY" />
             </form>
