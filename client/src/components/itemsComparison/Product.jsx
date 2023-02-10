@@ -1,11 +1,15 @@
 import React from 'react';
 import ProductModal from './ProductModal.jsx';
+import { useSelector } from 'react-redux';
 import Image from '../../assets/edna-image-unavailable.jpg';
+import StarRatings from '../common/StarRatings.jsx';
+
 
 export default function Product({
   item, count, onUpdate, currentProduct
 }) {
   const [visibleStatus, setvisibleStatus] = React.useState(false);
+  const { totals, reviewCount } = useSelector((store) => store.rr);
 
   const changeModal = (e) => {
     setvisibleStatus(!visibleStatus);

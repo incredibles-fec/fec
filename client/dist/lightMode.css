@@ -24,6 +24,24 @@ body {
   margin: 0 2px 2px 2px;
 }
 
+button, select {
+  cursor: pointer;
+}
+
+.star-ratings-reviews {
+  color: #1a1306;
+  display: flex;
+  align-items: baseline;
+}
+
+.read-all-reviews {
+  margin-left: 0.5rem;
+  text-decoration: underline;
+  font-size: small;
+  cursor: pointer;
+
+}
+
 #gallery-and-styles-container {
   background-color: #f7f7f7;
   border-radius: .4em;
