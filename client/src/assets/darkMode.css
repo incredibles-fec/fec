@@ -45,25 +45,17 @@ body {
   color:#f7f7f7;
 }
 
-.navigate {
+.navigate, #expand-icon {
   font-weight: bold;
   background-color: #ced4da;
   color:#1a1306;
 }
 
-.dropdownButton:hover, #add-to-cart-button:hover, #add-to-favorites:hover, .navigate:hover {
+.navigate:hover, #expand-icon:hover {
   background-color: #a30f07;
   border: 2px solid #fedb00;
   color: #f7f7f7;
   border-radius: .4em;
-}
-
-#add-to-cart-button, #add-to-favorites, .dropdownButton {
-  font-weight: bold;
-  background-color: #ced4da;
-  color: #1a1306;
-  border: .5px solid #1A1306;
-  border-radius: .2em;
 }
 
 .previousProduct, .nextProduct, .previousOutfit, .nextOutfit {

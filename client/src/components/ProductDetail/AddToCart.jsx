@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable max-len */
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -9,7 +10,7 @@ export default function AddToCart({ style }) {
   const dispatch = useDispatch();
 
   const handleQuantityOptionClick = (selectedQuantity) => {
-    document.getElementById('quantity-dropdown-button').textContent = selectedQuantity;
+    document.getElementById('quantity-text').textContent = selectedQuantity;
   };
 
   const getQuantity = (skuNum) => {
@@ -23,24 +24,23 @@ export default function AddToCart({ style }) {
   };
 
   const handleSizeOptionClick = (selectedSize, sku) => {
-    document.getElementById('size-dropdown-button').textContent = selectedSize;
+    document.getElementById('size-text').textContent = selectedSize;
     document.getElementById('size-dropdown-button')['data-sku'] = sku;
     getQuantity(document.getElementById('size-dropdown-button')['data-sku']);
-    document.getElementById('quantity-dropdown-button').textContent = '---';
+    document.getElementById('quantity-text').textContent = 'Quantity ▼';
   };
 
   useEffect(() => {
-    // eslint-disable-next-line max-len
     const loadNewSizes = Object.keys(style.skus).map((k) => <span key={k} data-sku={k} onClick={() => { handleSizeOptionClick(style.skus[k].size, k); }}>{style.skus[k].size}</span>);
     // eslint-disable-next-line dot-notation
     if (!style.skus['null']) {
-      document.getElementById('size-dropdown-button').textContent = 'Select Size';
-      document.getElementById('quantity-dropdown-button').textContent = '---';
+      document.getElementById('size-text').textContent = 'Select Size ▼';
+      document.getElementById('quantity-text').textContent = 'Quantity ▼';
     } else {
       document.getElementById('size-dropdown-button').textContent = 'OUT OF STOCK';
-      document.getElementById('quantity-dropdown-button').textContent = 'OOS';
-      document.querySelectorAll('.dropdownButton').forEach((b) => b.disabled = true);
-      document.getElementById('add-to-cart-button').hidden = true;
+      document.getElementById('quantity-text').textContent = 'OOS';
+      document.querySelectorAll('.dropdownButton').forEach((b) => b.style['pointer-events'] = 'none');
+      document.getElementById('add-to-cart-button').style.display = 'none';
       document.getElementById('cartIcon').hidden = true;
     }
     setSizes(loadNewSizes);
@@ -52,13 +52,12 @@ export default function AddToCart({ style }) {
 
   const handleAddToCart = (e) => {
     e.preventDefault();
-    const sizeDropdown = document.getElementById('size-dropdown-button');
-    const quantityDropdown = document.getElementById('quantity-dropdown-button');
-    if (sizeDropdown.textContent === 'Select Size') {
-      sizeDropdown.textContent = 'Select Size';
+    const sizeDropdown = document.getElementById('size-text');
+    const quantityDropdown = document.getElementById('quantity-text');
+    if (sizeDropdown.textContent === 'Select Size ▼') {
       handleSizeSelection();
-    } else if (quantityDropdown.textContent === '---' || quantityDropdown.textContent === 'Select Quantity') {
-      quantityDropdown.textContent = 'Select Quantity';
+    } else if (quantityDropdown.textContent === 'Quantity ▼') {
+      quantityDropdown.textContent = 'Quantity ▼';
       document.getElementById('quantity-dropdown').classList.toggle('show');
     } else {
       dispatch(postToCart(document.getElementById('size-dropdown-button')['data-sku']));
@@ -76,7 +75,8 @@ export default function AddToCart({ style }) {
     const interactionObj = { element: event.target.outerHTML, widget: String(parentModule), time: String(Date.now()) };
     dispatch(logInteractions(interactionObj));
 
-    if (!event.target.matches('.dropdownButton') && !event.target.matches('#add-to-cart-button')) {
+    const selectors = ['.dropdownButton', '#add-to-cart-button', '.translate', '#size-text', '#quantity-text'];
+    if (!event.target.matches(selectors)) {
       const dropdowns = document.getElementsByClassName('dropdown-content');
       for (let i = 0; i < dropdowns.length; i += 1) {
         const openDropdown = dropdowns[i];
@@ -91,30 +91,33 @@ export default function AddToCart({ style }) {
     <div className="add-to-cart-or-favorites">
       <form id="add-to-cart">
         <div className="dropdown">
-          <div id="dropdown-size-buttons" onClick={handleSizeSelection}>
-            <button className="dropdownButton" id="size-dropdown-button" type="button">Select Size</button>
-            <button className="dropdownButton" type="button"> <i className="fa-solid fa-angle-down"/> </button>
+          <div className="dropdownButton" id="size-dropdown-button" onClick={handleSizeSelection}>
+            <div className="underline" />
+            <a id="size-text">Select Size ▼</a>
           </div>
           <div id="size-dropdown" className="dropdown-content">
             {sizes}
           </div>
         </div>
         <div className="dropdown">
-          <div id="dropdown-quantity-buttons" onClick={() => { document.getElementById('quantity-dropdown').classList.toggle('show'); }}>
-            <button className="dropdownButton" id="quantity-dropdown-button" type="button">---</button>
-            <button className="dropdownButton" type="button"> <i className="fa-solid fa-angle-down" /> </button>
+          <div className="dropdownButton" id="quantity-dropdown-button" onClick={() => { document.getElementById('quantity-dropdown').classList.toggle('show'); }}>
+            <div className="underline" />
+            <a id="quantity-text">Quantity ▼</a>
           </div>
           <div id="quantity-dropdown" className="dropdown-content">
             {quantity}
           </div>
         </div>
       </form>
-      <div id="cart-and-favorites-buttons">
-        <div id="add-to-cart-buttons" onClick={handleAddToCart}>
-          <button id="add-to-cart-button" type="submit" value="Add to Cart">Add to Cart</button>
-          <button className="dropdownButton" id="cartIcon" type="button"> <i className="fa-brands fa-opencart" /> </button>
+      <div id="add-to-cart-and-favorite">
+        <div className="pdButton" id="add-to-cart-button" onClick={handleAddToCart}>
+          <div className="translate" />
+          <a id="add-to-cart-label">Add to Cart</a>
         </div>
-        <button id="add-to-favorites" type="submit" value="Add to Favorites" onClick={(e) => e.preventDefault()}>&#9734;</button>
+        <div className="pdButton" id="add-to-favorites" onClick={(() => alert('Favorited item!'))}>
+          <div className="translate" />
+          <a id="favorite-button">FAVORITE</a>
+        </div>
       </div>
     </div>
   );
