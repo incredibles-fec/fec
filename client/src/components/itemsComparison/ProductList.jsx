@@ -66,6 +66,7 @@ export default function ProductList({ currentProduct, relatedList }) {
   return (
     <div className="relatedProductsContainer">
       <h3>Related Products</h3>
+      {/* <i className="fa-solid fa-square-xmark" /> */}
       <div className="relatedItemContainer">
         <div className="outfitBack">
           {previousVisble ? (

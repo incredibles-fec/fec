@@ -30,8 +30,10 @@ Light/Dark Mode Switch Toggle Styling
 ====================================================== */
 
 .toggle-wrapper {
-  align-self: flex-end;
+  display: flex;
   margin-bottom: 0.5em;
+  column-gap: 30em;
+  justify-content: flex-end;
 }
 
 .switch {
@@ -39,6 +41,7 @@ Light/Dark Mode Switch Toggle Styling
   float: right;
   width: 55px;
   height: 25px;
+  margin: 1em 3em;
 }
 
 /* Hide default HTML checkbox */
@@ -120,6 +123,7 @@ Product Detail Styling
 #search-products{
   display: inline-block;
   align-self: center;
+  padding: 1em 2em 0em 2em;
 }
 
 #search-input-form {
@@ -127,6 +131,7 @@ Product Detail Styling
   color: white;
   border: none;
   border-bottom: 0.1rem solid white;
+  width: 12em;
 }
 
 ::placeholder {
@@ -189,7 +194,7 @@ button, select {
   align-self: center;
   display: flex;
   justify-content: space-evenly;
-  margin: 1rem;
+  margin: 1rem 1rem 2rem 1rem;
 }
 
 .product-slogan-description {
@@ -215,7 +220,7 @@ button, select {
 }
 
 #image-gallery-container {
-  margin: 0px 1.5em;
+  margin: 0px 2.5em;
   display: flex;
   justify-content: center;
   transition: all 1s ease;
@@ -238,13 +243,6 @@ button, select {
   position: absolute;
 }
 
-.carousel-item-thumbnail {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  padding: 0.5rem;
-  border-radius: 1rem;
-}
 
 .carousel-item-thumbnail:hover {
   cursor: pointer;
@@ -338,6 +336,7 @@ Product Information Styling
 .style-item-overlay {
   display: inline-block;
   position: relative;
+  padding: 4px;
 }
 
 .style-item {
@@ -345,7 +344,7 @@ Product Information Styling
   height: 75px;
   border-radius: 50%;
   object-fit: cover;
-  padding: 5px;
+  box-shadow: 0px 5px 10px 4px #2f2f2e;
 }
 
 .style-item:hover {
