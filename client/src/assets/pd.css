@@ -201,7 +201,7 @@ Product Detail Styling
 #search-products{
   display: inline-block;
   align-self: center;
-  padding: 1em 2em 0em 2em;
+  padding: 0em 2em 0em 2em;
 }
 
 #search-input-form {
@@ -437,18 +437,6 @@ Product Information Styling
   margin-top: 1rem;
 }
 
-<<<<<<< HEAD
-=======
-/* select {
-  background-color: silver;
-  color: black;
-  padding: 0.5em 1em;
-  border: none;
-  text-decoration: none;
-  transition: all 0.2s ease;
-} */
-
->>>>>>> 867c725 (added company logo and title styling)
 .dropdownButton {
   display: inline-flex;
   height: 40px;
@@ -485,10 +473,10 @@ Product Information Styling
   bottom: 0;
 }
 
-#add-to-cart-buttons:hover, #add-to-cart-buttons:focus, #add-to-favorites:hover, #add-to-favorites:focus, select:hover {
+/* #add-to-cart-buttons:hover, #add-to-cart-buttons:focus, #add-to-favorites:hover, #add-to-favorites:focus, select:hover {
   background-color: lightgray;
   opacity: 75%;
-}
+} */
 
 .dropdownButton:hover .underline {
   left: 0;
@@ -519,7 +507,7 @@ Product Information Styling
   text-align: center;
   border: 2px solid #a30f07;
   margin: 0px 20px 0px 15px;
-  color: black;
+  /* color: black; */
   text-transform: uppercase;
   text-decoration: none;
   font-size: .8em;
@@ -531,7 +519,7 @@ Product Information Styling
 }
 
 .dropdown-content a, .dropdown-content span {
-  color: black;
+  /* color: black; */
   padding: 0.5rem 1em;
   text-decoration: none;
   display: block;
