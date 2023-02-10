@@ -23,8 +23,8 @@ export default function ProductDetail() {
 
   useEffect(() => {
     // dispatch(getProducts());
-    // dispatch(changeCurrentProductById(40355));
-    dispatch(changeCurrentProductById(40347));
+    dispatch(changeCurrentProductById(40351));
+    // dispatch(changeCurrentProductById(40347));
   }, []);
 
   const handleSearch = (e) => {
@@ -58,8 +58,10 @@ export default function ProductDetail() {
     );
   }
   return (
-    <div id="loading">
-      {/* <p>Loading... </p> */}
+    <div className="loading-container">
+      <div className="loading"><p>LOADING</p>
+        <span className="loading-span" />
+      </div>
     </div>
   );
 }
