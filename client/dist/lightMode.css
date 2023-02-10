@@ -110,6 +110,10 @@ button, select {
   border-radius: .4em;
 }
 
+.checkmark, .product-style {
+  color: black;
+}
+
 .previousProduct, .nextProduct, .previousOutfit, .nextOutfit {
   font-weight: bold;
   background-color: #ced4da;

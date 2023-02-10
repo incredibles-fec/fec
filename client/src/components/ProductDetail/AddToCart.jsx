@@ -41,7 +41,6 @@ export default function AddToCart({ style }) {
       document.getElementById('quantity-text').textContent = 'OOS';
       document.querySelectorAll('.dropdownButton').forEach((b) => b.style['pointer-events'] = 'none');
       document.getElementById('add-to-cart-button').style.display = 'none';
-      document.getElementById('cartIcon').hidden = true;
     }
     setSizes(loadNewSizes);
   }, [style]);
