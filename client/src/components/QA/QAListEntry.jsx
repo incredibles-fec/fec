@@ -64,7 +64,7 @@ export default function QAListEntry({ question }) {
         <div className="qa-title" style={{ width: '2%' }}>
           Q:
         </div>
-        <div className="q-header">
+        <div className="q-header" style={{ paddingTop: '0.1rem' }}>
           <div className="q-body">
             {searchHighlight(question.question_body, query)}
           </div>

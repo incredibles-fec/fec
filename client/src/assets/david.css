@@ -306,8 +306,11 @@ RATINGS AND REVIEWS STYLING
 
 /* Overview */
 .overview-container {
-  width: 30%;
-  padding-right: 2rem;
+  width: 32%;
+  background-color: #fafafa;
+  padding: 0 0.8rem;
+  margin-right: 2rem;
+  box-shadow: 5px 5px #ececec;
 }
 
 /* Search filter */
@@ -357,7 +360,7 @@ RATINGS AND REVIEWS STYLING
 
 /* List */
 .rating-list-container {
-  width: 100%;
+  width: 68%;
 }
 
 .reviews-map {

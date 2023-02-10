@@ -44,11 +44,13 @@ export default function AnswerEntry({ answer }) {
 
   return (
     <div className="a-container">
-      <div style={{ display: 'flex', alignItems: 'start' }}>
+      <div style={{ display: 'flex' }}>
         <div className="qa-title" style={{ marginRight: '0.3rem' }}>
           A:{' '}
         </div>
-        <div>{searchHighlight(answer.body, query)}</div>
+        <div style={{ paddingTop: '0.2rem' }}>
+          {searchHighlight(answer.body, query)}
+        </div>
       </div>
       <div className="a-photos">
         {answer.photos.map((photo) => (
