@@ -78,15 +78,15 @@ Light/Dark Mode Switch Toggle Styling
   transition: .4s;
 }
 
-input:checked + .slider {
+input:checked+.slider {
   background-color: maroon;
 }
 
-input:focus + .slider {
+input:focus+.slider {
   box-shadow: 0 0 1px maroon;
 }
 
-input:checked + .slider:before {
+input:checked+.slider:before {
   -webkit-transform: translateX(26px);
   -ms-transform: translateX(26px);
   transform: translateX(26px);
@@ -389,14 +389,14 @@ Product Information Styling
   min-width: 95px;
 }
 
-select {
+/* select {
   background-color: silver;
   color: black;
   padding: 0.5em 1em;
   border: none;
   text-decoration: none;
   transition: all 0.2s ease;
-}
+} */
 
 #add-to-cart-button,
 #add-to-favorites {

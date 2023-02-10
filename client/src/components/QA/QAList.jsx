@@ -57,7 +57,7 @@ export default function QAList() {
           </button>
         )}
       </div>
-      <div style={{ marginTop: '2rem' }}>
+      <div>
         <Accordion
           title="Question & Answers"
           onToggle={() => setExpanded(!expanded)}

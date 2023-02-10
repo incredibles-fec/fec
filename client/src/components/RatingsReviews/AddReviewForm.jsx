@@ -72,9 +72,12 @@ export default function AddReviewForm({ close }) {
 
   return (
     <div className="review-form">
-      <div style={{ textAlign: 'center', fontSize: '1.2rem' }}>
+      <div
+        style={{ textAlign: 'center', fontSize: '1.2rem', color: '#a30f07' }}
+      >
         About the {productName}
       </div>
+      <hr style={{ borderColor: '#a30f07', width: '100%' }} />
       <div style={{ fontWeight: 'bold' }}>Your Rating</div>
       <RatingsSelector handleInput={handleInput} />
       <RadioGroup

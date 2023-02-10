@@ -346,19 +346,32 @@ RATINGS AND REVIEWS STYLING
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem
+  gap: 1rem;
+}
+
+
+.r-filter-container {
+  display: flex;
+  position: relative;
+  width: 40%;
 }
 
 .filter-sort {
   width: 60%;
 }
 
-.r-filter-container {
-  display: flex;
-  position: relative;
-  width: 40%;
 
+.select-input {
+  border: 2px solid #a30f07;
+  padding: 0.2rem 0.4rem;
+  color: #a30f07;
+  font-size: 1rem;
 }
+
+/* dropdown */
+
+
+/* dropdown */
 
 .r-search-input {
   width: 100%;
@@ -381,9 +394,14 @@ RATINGS AND REVIEWS STYLING
   transform: translateY(-50%);
 }
 
-.select-input {
-  border: none;
-  text-decoration: underline;
+
+.select-input:hover {
+  border: 0;
+  background-color: transparent;
+}
+
+.select-input:focus {
+  border: 0
 }
 
 /* List */
@@ -487,7 +505,7 @@ RATINGS AND REVIEWS STYLING
 
 .progress-bar-fill-selected {
   height: 100%;
-  background-color: lightcoral;
+  background-color: #f17818;
   text-align: right;
 }
 
@@ -560,7 +578,7 @@ RATINGS AND REVIEWS STYLING
 
 .selected-filter-tag {
   cursor: pointer;
-  background-color: #a30f07;
+  background-color: #f17818;
   color: white;
   border-radius: 5px;
   font-size: 0.7rem;
