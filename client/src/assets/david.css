@@ -307,9 +307,13 @@ RATINGS AND REVIEWS STYLING
 /* Overview */
 .overview-container {
   width: 32%;
-  background-color: #fafafa;
-  padding: 0 0.8rem;
   margin-right: 2rem;
+}
+
+.overview-border-box {
+  height: auto;
+  background-color: #fafafa;
+  padding: 0 0.8rem 0.2rem 0.8rem;
   box-shadow: 5px 5px #ececec;
 }
 

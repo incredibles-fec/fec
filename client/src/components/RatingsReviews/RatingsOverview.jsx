@@ -44,39 +44,49 @@ export default function RatingsOverview() {
   };
 
   return (
-    <div>
-      <div className="total-rating-container">
-        <div className="total-rating">{totals?.average?.toFixed(2) ?? '-'}</div>
-        <div style={{ paddingTop: '0.6rem' }}>
-          <StarRatings rating={totals?.average} />
-        </div>
-      </div>
-
-      <div>
-        {recommendedTotal ? `${recommendedTotal}%` : '-'} of reviews recommend
-        this product
-      </div>
-      {renderProgressBars()}
-      <div className="tags-container">
-        {filters.map((tag) => (
-          <div
-            key={tag}
-            className="selected-filter-tag"
-            onClick={() => filter(tag)}
-          >
-            {tag} ★
+    <div style={{ height: '100%' }}>
+      <div className="overview-border-box">
+        <div className="total-rating-container">
+          <div className="total-rating">
+            {totals?.average?.toFixed(2) ?? '-'}
           </div>
-        ))}
-      </div>
-      {filters.length > 0 && (
-        <button className="button-trans" type="button" onClick={() => clear()}>
-          Clear
-        </button>
-      )}
-      <div style={{ marginTop: '1rem' }}>
-        {Object.entries(metaData?.characteristics ?? {}).map(([key, char]) => (
-          <ReviewBar key={key} title={key} characteristic={char} />
-        ))}
+          <div style={{ paddingTop: '0.6rem' }}>
+            <StarRatings rating={totals?.average} />
+          </div>
+        </div>
+
+        <div>
+          {recommendedTotal ? `${recommendedTotal}%` : '-'} of reviews recommend
+          this product
+        </div>
+        {renderProgressBars()}
+        <div className="tags-container">
+          {filters.map((tag) => (
+            <div
+              key={tag}
+              className="selected-filter-tag"
+              onClick={() => filter(tag)}
+            >
+              {tag} ★
+            </div>
+          ))}
+        </div>
+        {filters.length > 0 && (
+          <button
+            className="button-trans"
+            type="button"
+            onClick={() => clear()}
+          >
+            Clear
+          </button>
+        )}
+        <div style={{ marginTop: '1rem' }}>
+          {Object.entries(metaData?.characteristics ?? {}).map(
+            ([key, char]) => (
+              <ReviewBar key={key} title={key} characteristic={char} />
+            )
+          )}
+        </div>
       </div>
     </div>
   );
