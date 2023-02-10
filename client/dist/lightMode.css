@@ -28,6 +28,10 @@ button, select {
   cursor: pointer;
 }
 
+.loading p {
+  color: black;
+}
+
 .star-ratings-reviews {
   color: #1a1306;
   display: flex;

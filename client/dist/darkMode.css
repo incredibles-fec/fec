@@ -18,6 +18,10 @@ body {
   margin: 0 2px 2px 2px;
 }
 
+.loading p {
+  color: white;
+}
+
 #gallery-and-styles-container {
   background-color: #1A1306;
   border-radius: .4em;
