@@ -36,12 +36,6 @@ export default function ProductDetail() {
   if (!loading) {
     return (
       <div className="pd-flex-container parent" id="Product Detail">
-        <div className="toggle-wrapper">
-          <label className="switch">
-            <input type="checkbox" onClick={() => toggleTheme()} />
-            <span className="slider round" />
-          </label>
-        </div>
         <div className="nav-bar">
           <h2 className="logo"><i>Incredible Apparel</i></h2>
           <div id="search-products">
@@ -49,9 +43,17 @@ export default function ProductDetail() {
             </form>
           </div>
         </div>
-        <h4 className="site-wide-announcement">SITE-WIDE ANNOUNCEMENT MESSAGE! - <b>NO REFUNDS!!!</b></h4>
+        <div className="toggle-wrapper">
+          <h4 className="site-wide-announcement">SITE-WIDE ANNOUNCEMENT MESSAGE! - <b>NO REFUNDS!!!</b></h4>
+          <label className="switch">
+            <input type="checkbox" onClick={() => toggleTheme()} />
+            <span className="slider round" />
+          </label>
+        </div>
+
         <ProductInformation />
         <ProductDescription />
+        <div className="colorSeparator" />
       </div>
     );
   }

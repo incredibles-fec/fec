@@ -30,8 +30,10 @@ Light/Dark Mode Switch Toggle Styling
 ====================================================== */
 
 .toggle-wrapper {
-  align-self: flex-end;
+  display: flex;
   margin-bottom: 0.5em;
+  column-gap: 30em;
+  justify-content: flex-end;
 }
 
 .switch {
@@ -39,6 +41,7 @@ Light/Dark Mode Switch Toggle Styling
   float: right;
   width: 55px;
   height: 25px;
+  margin: 1em 3em;
 }
 
 /* Hide default HTML checkbox */
@@ -105,14 +108,14 @@ Product Detail Styling
   flex-direction: column;
   justify-content: center;
   align-content: center;
-  margin: 0em 2em 2em 2em;
+  margin: 0em;
 }
 
 .nav-bar {
   display: flex;
   justify-content: space-between;
   padding: 0rem 1rem;
-  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);
+  /* background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%); */
   color: white;
   margin-bottom: 0.3rem;
 }
@@ -120,6 +123,7 @@ Product Detail Styling
 #search-products{
   display: inline-block;
   align-self: center;
+  padding: 1em 2em 0em 2em;
 }
 
 #search-input-form {
@@ -127,6 +131,7 @@ Product Detail Styling
   color: white;
   border: none;
   border-bottom: 0.1rem solid white;
+  width: 12em;
 }
 
 ::placeholder {
@@ -189,7 +194,7 @@ button, select {
   align-self: center;
   display: flex;
   justify-content: space-evenly;
-  margin-top: 1rem;
+  margin: 1rem 1rem 2rem 1rem;
 }
 
 .product-slogan-description {
@@ -204,8 +209,10 @@ button, select {
 
 #gallery-and-styles-container {
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: center;
+  margin: 2px 150px 10px 100px;
+  padding: 10px 20px;
 }
 
 #product-info-container {
@@ -213,7 +220,7 @@ button, select {
 }
 
 #image-gallery-container {
-  margin: 0px 1.5em;
+  margin: 0px 2.5em;
   display: flex;
   justify-content: center;
   transition: all 1s ease;
@@ -236,13 +243,6 @@ button, select {
   position: absolute;
 }
 
-.carousel-item-thumbnail {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  padding: 0.5rem;
-  border-radius: 1rem;
-}
 
 .carousel-item-thumbnail:hover {
   cursor: pointer;
@@ -296,9 +296,6 @@ button, select {
   border: none;
   opacity: 50%;
   margin: 0.5rem;
-  font-weight: bold;
-  background-color: silver;
-  color: black;
   border-radius: 50%;
   height: 40px;
   width: 40px;
@@ -339,14 +336,7 @@ Product Information Styling
 .style-item-overlay {
   display: inline-block;
   position: relative;
-}
-
-.style-item {
-  width: 75px;
-  height: 75px;
-  border-radius: 50%;
-  object-fit: cover;
-  padding: 5px;
+  padding: 4px;
 }
 
 .style-item:hover {
@@ -408,8 +398,8 @@ select {
 }
 
 .dropdownButton {
-  background-color: silver;
-  color: black;
+  /* background-color: silver;
+  color: black; */
   padding: 0.5em 1em;
   border: none;
   min-height: 33px;

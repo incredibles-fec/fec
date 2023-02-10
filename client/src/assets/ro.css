@@ -6,27 +6,15 @@
 .relatedProductOutfit {
   display: flex;
   flex-direction: column;
+  align-content: center;
   justify-content: center;
   margin: 2em 8em;
 }
 
-.previousProduct, .nextProduct, .previousOutfit, .nextOutfit {
-  height: 40px;
-  width: 60px;
-  font-size: 20px;
-}
-
 .relatedProductsContainer h3, .outfitContainer h3 {
   text-align: center;
-}
-
-.productCardContainer, .outfitCardContainer {
-  border: 1px solid #3a3939;
-  width: 225px;
-  height: 315px;
-  margin: 5px;
-  border-radius: .5em;
-  box-shadow: 10px 10px .1px -5px #c4c2c2;
+  text-transform: uppercase;
+  font-size: 20px;
 }
 
 .cardContent {
@@ -34,6 +22,7 @@
   flex-direction: column;
   width: 225px;
   height: 275px;
+  color: #F7F7F7;
 }
 
 .cardImage {
@@ -47,171 +36,18 @@
   */
 }
 
-.imageContainer {
-  background-color: #E6E6E6;
-  border-radius: .5em;
-}
-
 /* ================================
       Related Product Cards
    ================================
 */
 
-.relatedProductsContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 40px;
-}
 
-.relatedItemContainer {
-  display: flex;
-  width: 1000px;
-  height: 325px;
-  align-self: auto;
-  margin-left: 100px;
-}
-
-.relatedList {
-  display: flex;
-  flex-direction: row;
-  width: 1055px;
-  height: 325px;
-  padding: 20px;
-  overflow: hidden;
-}
-
-.removed {
-  visibility: hidden;
-}
-
-.productCardName, .productCardCategory, .productCardPrice, .productCardSale {
-  font-size: 15px;
-  margin: 6px 0px;
-  padding: 0 0 0 20px;
-}
-
-.productCardPriceSale {
-  font-size: 15px;
-  margin: 6px 0px;
-  padding: 0 0 0 20px;
-  text-decoration: line-through;
-}
-
-.productCardSale {
-  font-size: 15px;
-  margin: 6px 0px;
-  padding: 0 0 0 20px;
-  color: red;
-}
-
-.priceInfo {
-  display: flex;
-  flex-direction: row;
-}
-
-.fas {
-  position: relative;
-  bottom: 195px;
-  left: 200px;
-  color: #f7f7f7;
-}
-
-
-/* ================================
-      Outfit Item Cards
-   ================================
-*/
-
-.outfitContainer {
-  padding: 40px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.outfitItemContainer{
-  width: 1000px;
-  height: 325px;
-  flex-direction: row;
-  align-items: center;
-  display: flex;
-  margin-left: 100px;
-}
-
-.outfitList {
-  width: 800px;
-  height: 325px;
-  margin: 20px 0 0 0;
-  padding: 20px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-}
-
-.addtoOutfitMargin {
-  border: solid .5px black;
-}
-
-.addToOutfit {
-  margin: 5px 10px;
-}
-
-.addToOutfitContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 150px;
-  height: 150px;
-  border: solid 1px black;
-}
-
-.addToOutfit h1{
-  font-size: 20px;
-}
-
-.addToOutfit i{
-  font-size: 25px;
-}
-
-.fa-circle-xmark {
-  position: relative;
-  bottom: 185px;
-  left: 200px;
-  color: #f7f7f7;
-}
-
-.outfitBack {
-  display: flex;
-  align-items: center;
-  transform: translate(20px);
-}
-
-.outfitForward {
-  display: flex;
-  align-items: center;
-  transform: translate(-20px);
-}
 
 /* ================================
       Comparison Modal
    ================================
 */
 
-.productModal {
-  width: 500px;
-  height: 440px;
-  position: fixed;
-  left: 280px;
-  top: 200px;
-  right: 0;
-  bottom: 0;
-  background-color: #f7f7f7;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-}
 
 .modalHeader {
   position: sticky;
@@ -223,12 +59,6 @@
   top: 10px;
   height: 20px;
   width: 20px;
-}
-
-.productModal h1 {
-  font-size: 12px;
-  letter-spacing: 1px;
-  margin: 15px 15px 5px 15px;
 }
 
 .leftHeader {
@@ -243,12 +73,6 @@
   padding: 0px 12px 30px 0px;
 }
 
-.compareTable {
-  margin: 5px 15px 15px 12px;
-  table-layout: fixed;
-  width: 90%;
-  border-collapse: collapse;
-}
 
 .checkLeftHeader {
   text-align: start;
