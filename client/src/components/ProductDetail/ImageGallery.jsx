@@ -16,7 +16,7 @@ export default function ImageGallery({ style }) {
   let thumbnails = photos.map((p, i) => (
     <div className="carousel-item-container" key={p.url} onClick={() => { setIndex(i); }}>
       {currentThumbnail === (photos[i].url || backupImage) && <div className="carousel-item-underlay" />}
-      <img className="carousel-item-thumbnail" src={p.thumbnail_url ? p.thumbnail_url : backupThumbnail} alt={name} />
+      <img className="carousel-item-thumbnail" aria-label={name} src={p.thumbnail_url ? p.thumbnail_url : backupThumbnail} alt={name} />
     </div>
   ));
 
@@ -24,7 +24,7 @@ export default function ImageGallery({ style }) {
     thumbnails = photos.map((p, i) => (
       <div className="carousel-item-container" key={p.url} onClick={() => { setIndex(i); }}>
         {currentThumbnail === photos[i].url && <div className="carousel-item-underlay" />}
-        <img className="carousel-item-thumbnail" src={p.thumbnail_url ? p.thumbnail_url : backupThumbnail} alt={name} />
+        <img className="carousel-item-thumbnail" aria-label={name} src={p.thumbnail_url ? p.thumbnail_url : backupThumbnail} alt={name} />
       </div>
     ));
 
@@ -145,7 +145,7 @@ export default function ImageGallery({ style }) {
         <button className="next navigate" id="carousel-thumbnail-next" aria-label="next" type="button" onClick={getNext}><i className="fa-regular fa-circle-down" /></button>
       </div>
       <div id="display-image-container">
-        <img id="displayed-image" role="presentation" src={photos[index].url ? photos[index].url : backupImage} alt={name} onClick={enlargeImage} onMouseMove={(e) => panImage(e)} onFocus={() => {}} />
+        <img id="displayed-image" role="presentation" aria-label="displayed style image" src={photos[index].url ? photos[index].url : backupImage} alt={name} onClick={enlargeImage} onMouseMove={(e) => panImage(e)} onFocus={() => {}} />
         {normalView && <i id="expand-icon" className="fa-sharp fa-solid fa-expand" onClick={enlargeImage} />}
         <div className="carousel-actions">
           <button className="prev navigate" id="carousel-prev" aria-label="previous" type="button" onClick={getPrev}><i className="fa-regular fa-circle-left" /></button>

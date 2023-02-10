@@ -36,6 +36,15 @@ body {
   border: solid 2px #1A1306;
 }
 
+#size-text, #quantity-text, #add-to-cart-label, #favorite-button {
+  color: white;
+}
+
+.dropdown-content a, .dropdown-content span {
+  color: white;
+  background-color: #1A1306;
+}
+
 .colorSeparator {
   background-color: #fedb00;
   height: .2em;
@@ -59,32 +68,16 @@ body {
   color:#f7f7f7;
 }
 
-.navigate {
+.navigate, #expand-icon {
   font-weight: bold;
   background-color: #ced4da;
   color:#1a1306;
 }
 
-.navigate:hover {
+.navigate:hover, #expand-icon:hover {
   /* background-color: #a30f07; */
   border: 2px solid #ced4da;
   color: #a30f07;
-  border-radius: .4em;
-}
-
-#add-to-cart-button, #add-to-favorites, .dropdownButton {
-  font-weight: bold;
-  background-color: #ced4da;
-  color: #1a1306;
-  border: .5px solid #1A1306;
-  border-radius: .2em;
-}
-
-
-.dropdownButton:hover, #add-to-cart-button:hover, #add-to-favorites:hover {
-  background-color: #a30f07;
-  border: 2px solid #ced4da;
-  color: #f7f7f7;
   border-radius: .4em;
 }
 

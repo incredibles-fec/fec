@@ -20,7 +20,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
-// import RelatedOutfits from './components/itemsComparison/index.jsx';
 
 
 
@@ -293,6 +292,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable max-len */
 
 
@@ -311,7 +311,7 @@ function AddToCart(_ref) {
     setQuantity = _useState4[1];
   var dispatch = (0,react_redux__WEBPACK_IMPORTED_MODULE_1__.useDispatch)();
   var handleQuantityOptionClick = function handleQuantityOptionClick(selectedQuantity) {
-    document.getElementById('quantity-dropdown-button').textContent = selectedQuantity;
+    document.getElementById('quantity-text').textContent = selectedQuantity;
   };
   var getQuantity = function getQuantity(skuNum) {
     var stock = style.skus[skuNum].quantity;
@@ -331,13 +331,12 @@ function AddToCart(_ref) {
     setQuantity(temp);
   };
   var handleSizeOptionClick = function handleSizeOptionClick(selectedSize, sku) {
-    document.getElementById('size-dropdown-button').textContent = selectedSize;
+    document.getElementById('size-text').textContent = selectedSize;
     document.getElementById('size-dropdown-button')['data-sku'] = sku;
     getQuantity(document.getElementById('size-dropdown-button')['data-sku']);
-    document.getElementById('quantity-dropdown-button').textContent = '---';
+    document.getElementById('quantity-text').textContent = 'Quantity ▼';
   };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    // eslint-disable-next-line max-len
     var loadNewSizes = Object.keys(style.skus).map(function (k) {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
         "data-sku": k,
@@ -349,15 +348,15 @@ function AddToCart(_ref) {
     });
     // eslint-disable-next-line dot-notation
     if (!style.skus['null']) {
-      document.getElementById('size-dropdown-button').textContent = 'Select Size';
-      document.getElementById('quantity-dropdown-button').textContent = '---';
+      document.getElementById('size-text').textContent = 'Select Size ▼';
+      document.getElementById('quantity-text').textContent = 'Quantity ▼';
     } else {
       document.getElementById('size-dropdown-button').textContent = 'OUT OF STOCK';
-      document.getElementById('quantity-dropdown-button').textContent = 'OOS';
+      document.getElementById('quantity-text').textContent = 'OOS';
       document.querySelectorAll('.dropdownButton').forEach(function (b) {
-        return b.disabled = true;
+        return b.style['pointer-events'] = 'none';
       });
-      document.getElementById('add-to-cart-button').hidden = true;
+      document.getElementById('add-to-cart-button').style.display = 'none';
       document.getElementById('cartIcon').hidden = true;
     }
     setSizes(loadNewSizes);
@@ -367,13 +366,12 @@ function AddToCart(_ref) {
   };
   var handleAddToCart = function handleAddToCart(e) {
     e.preventDefault();
-    var sizeDropdown = document.getElementById('size-dropdown-button');
-    var quantityDropdown = document.getElementById('quantity-dropdown-button');
-    if (sizeDropdown.textContent === 'Select Size') {
-      sizeDropdown.textContent = 'Select Size';
+    var sizeDropdown = document.getElementById('size-text');
+    var quantityDropdown = document.getElementById('quantity-text');
+    if (sizeDropdown.textContent === 'Select Size ▼') {
       handleSizeSelection();
-    } else if (quantityDropdown.textContent === '---' || quantityDropdown.textContent === 'Select Quantity') {
-      quantityDropdown.textContent = 'Select Quantity';
+    } else if (quantityDropdown.textContent === 'Quantity ▼') {
+      quantityDropdown.textContent = 'Quantity ▼';
       document.getElementById('quantity-dropdown').classList.toggle('show');
     } else {
       dispatch((0,_state_pd__WEBPACK_IMPORTED_MODULE_2__.postToCart)(document.getElementById('size-dropdown-button')['data-sku']));
@@ -393,7 +391,8 @@ function AddToCart(_ref) {
       time: String(Date.now())
     };
     dispatch((0,_state_pd__WEBPACK_IMPORTED_MODULE_2__.logInteractions)(interactionObj));
-    if (!event.target.matches('.dropdownButton') && !event.target.matches('#add-to-cart-button')) {
+    var selectors = ['.dropdownButton', '#add-to-cart-button', '.translate', '#size-text', '#quantity-text'];
+    if (!event.target.matches(selectors)) {
       var dropdowns = document.getElementsByClassName('dropdown-content');
       for (var i = 0; i < dropdowns.length; i += 1) {
         var openDropdown = dropdowns[i];
@@ -410,19 +409,14 @@ function AddToCart(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "dropdown",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          id: "dropdown-size-buttons",
+          className: "dropdownButton",
+          id: "size-dropdown-button",
           onClick: handleSizeSelection,
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-            className: "dropdownButton",
-            id: "size-dropdown-button",
-            type: "button",
-            children: "Select Size"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
-            className: "dropdownButton",
-            type: "button",
-            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-              className: "fa-solid fa-angle-down"
-            }), " "]
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "underline"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+            id: "size-text",
+            children: "Select Size \u25BC"
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           id: "size-dropdown",
@@ -432,21 +426,16 @@ function AddToCart(_ref) {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "dropdown",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-          id: "dropdown-quantity-buttons",
+          className: "dropdownButton",
+          id: "quantity-dropdown-button",
           onClick: function onClick() {
             document.getElementById('quantity-dropdown').classList.toggle('show');
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-            className: "dropdownButton",
-            id: "quantity-dropdown-button",
-            type: "button",
-            children: "---"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
-            className: "dropdownButton",
-            type: "button",
-            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-              className: "fa-solid fa-angle-down"
-            }), " "]
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+            className: "underline"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+            id: "quantity-text",
+            children: "Quantity \u25BC"
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
           id: "quantity-dropdown",
@@ -455,31 +444,29 @@ function AddToCart(_ref) {
         })]
       })]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      id: "cart-and-favorites-buttons",
+      id: "add-to-cart-and-favorite",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-        id: "add-to-cart-buttons",
+        className: "pdButton",
+        id: "add-to-cart-button",
         onClick: handleAddToCart,
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-          id: "add-to-cart-button",
-          type: "submit",
-          value: "Add to Cart",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "translate"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+          id: "add-to-cart-label",
           children: "Add to Cart"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
-          className: "dropdownButton",
-          id: "cartIcon",
-          type: "button",
-          children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-            className: "fa-brands fa-opencart"
-          }), " "]
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+        className: "pdButton",
         id: "add-to-favorites",
-        type: "submit",
-        value: "Add to Favorites",
-        onClick: function onClick(e) {
-          return e.preventDefault();
+        onClick: function onClick() {
+          return alert('Favorited item!');
         },
-        children: "\u2606"
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+          className: "translate"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("a", {
+          id: "favorite-button",
+          children: "FAVORITE"
+        })]
       })]
     })]
   });
@@ -553,6 +540,7 @@ function ImageGallery(_ref) {
         className: "carousel-item-underlay"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
         className: "carousel-item-thumbnail",
+        "aria-label": name,
         src: p.thumbnail_url ? p.thumbnail_url : _assets_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_2__,
         alt: name
       })]
@@ -569,6 +557,7 @@ function ImageGallery(_ref) {
           className: "carousel-item-underlay"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
           className: "carousel-item-thumbnail",
+          "aria-label": name,
           src: p.thumbnail_url ? p.thumbnail_url : _assets_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_2__,
           alt: name
         })]
@@ -712,6 +701,7 @@ function ImageGallery(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("img", {
         id: "displayed-image",
         role: "presentation",
+        "aria-label": "displayed style image",
         src: photos[index].url ? photos[index].url : _assets_edna_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_1__,
         alt: name,
         onClick: enlargeImage,
@@ -870,6 +860,7 @@ function ProductInformation() {
       id: "product-info-container",
       children: [reviewCount !== 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
         className: "star-ratings-reviews",
+        "aria-label": "Star ratings",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_common_StarRatings_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
           rating: totals === null || totals === void 0 ? void 0 : totals.average
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
@@ -974,8 +965,8 @@ function ProductDetail() {
   }, [theme]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     // dispatch(getProducts());
-    // dispatch(changeCurrentProductById(40355));
-    dispatch((0,_state_pd__WEBPACK_IMPORTED_MODULE_2__.changeCurrentProductById)(40347));
+    dispatch((0,_state_pd__WEBPACK_IMPORTED_MODULE_2__.changeCurrentProductById)(40351));
+    // dispatch(changeCurrentProductById(40347));
   }, []);
   var handleSearch = function handleSearch(e) {
     e.preventDefault();
@@ -986,9 +977,42 @@ function ProductDetail() {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "pd-flex-container parent",
       id: "Product Detail",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "nav-bar",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h2", {
+          className: "logo",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+            className: "material-symbols-outlined",
+            children: "diversity_2"
+          }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+            className: "material-symbols-outlined",
+            children: "Incredible Apparel"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+          id: "search-products",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {
+            onSubmit: function onSubmit(e) {
+              return handleSearch(e);
+            },
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+              className: "fa-solid fa-magnifying-glass",
+              "aria-hidden": "true"
+            }), ": ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+              id: "search-input-form",
+              name: "searchProducts",
+              type: "search",
+              placeholder: "VALID PROD IDS ONLY"
+            })]
+          })
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "toggle-wrapper",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("label", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h4", {
+          className: "site-wide-announcement",
+          children: ["SITE-WIDE ANNOUNCEMENT MESSAGE! - ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("b", {
+            children: "NO REFUNDS!!!"
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("label", {
           className: "switch",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
             type: "checkbox",
@@ -998,40 +1022,23 @@ function ProductDetail() {
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
             className: "slider round"
           })]
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-        className: "nav-bar",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h2", {
-          className: "logo",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-            children: "Incredible Apparel"
-          })
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-          id: "search-products",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("form", {
-            onSubmit: function onSubmit(e) {
-              return handleSearch(e);
-            },
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-              className: "fa-solid fa-magnifying-glass"
-            }), ": ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
-              id: "search-input-form",
-              name: "searchProducts",
-              type: "search",
-              placeholder: "VALID PROD IDS ONLY"
-            })]
-          })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("h4", {
-        className: "site-wide-announcement",
-        children: ["SITE-WIDE ANNOUNCEMENT MESSAGE! - ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("b", {
-          children: "NO REFUNDS!!!"
-        })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ProductInformation_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ProductDescription_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {})]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ProductInformation_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ProductDescription_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "colorSeparator"
+      })]
     });
   }
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-    id: "loading"
+    className: "loading-container",
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: "loading",
+      "aria-label": "Loading",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("p", {
+        children: "LOADING"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("span", {
+        className: "loading-span"
+      })]
+    })
   });
 }
 
@@ -1059,19 +1066,19 @@ function ShareSocialMedia() {
       href: "/#",
       className: "fa fa-facebook",
       "data-testid": "fb",
-      "aria-hidden": "true",
+      "aria-label": "Share to Facebook",
       children: " "
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
       href: "/#",
       className: "fa fa-twitter",
       "data-testid": "twt",
-      "aria-hidden": "true",
+      "aria-label": "Share to Twitter",
       children: " "
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("a", {
       href: "/#",
       className: "fa fa-pinterest",
       "data-testid": "pnt",
-      "aria-hidden": "true",
+      "aria-label": "Share to Pinterest",
       children: " "
     })]
   });
@@ -3418,52 +3425,53 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ Outfit)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _assets_edna_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../assets/edna-image-unavailable.jpg */ "./client/src/assets/edna-image-unavailable.jpg");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
-// import Image from '../../assets/edna.png';
+
 
 
 function Outfit(_ref) {
   var item = _ref.item,
     onRemoveFromOutfit = _ref.onRemoveFromOutfit,
     count = _ref.count;
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
     className: "outfitCardContainer",
     id: item.id,
-    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
       className: "cardContent",
       id: count,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "imageContainer",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("img", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
           className: "cardImage",
-          src: item.image,
+          src: item.image || _assets_edna_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_1__,
           alt: "apparel item"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
         className: "fa-regular fa-circle-xmark fa-lg",
         onClick: function onClick(e) {
           return onRemoveFromOutfit(e, item.id);
         },
         id: item.name,
         "data-testid": "iconRemove"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "productCardCategory",
         children: item.category
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
         className: "productCardName",
         children: item.name
-      }), item.sale_price !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      }), item.sale_price !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "priceInfo",
         "data-testid": "outfitSale",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
           className: "productCardSale",
           children: item.sale_price
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
           className: "productCardPriceSale",
           children: ["$", item.default_price]
         })]
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
         className: "productCardPrice",
         "data-testid": "outfitDefault",
         children: ["$", item.default_price]
@@ -3615,10 +3623,9 @@ function OutfitList(_ref) {
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "outfitBack",
         children: previousOutfitVisble ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+          className: "fa-regular fa-circle-left previousOutfit",
           type: "button",
-          className: "previousOutfit",
-          onClick: previousOutfitItem,
-          children: "<"
+          onClick: previousOutfitItem
         }) : null
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
         className: "addToOutfit",
@@ -3647,9 +3654,8 @@ function OutfitList(_ref) {
         onClick: nextOutfitItem,
         "data-testid": "nextItem",
         children: nextOutfitVisible ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
-          type: "button",
-          className: "nextOutfit",
-          children: ">"
+          className: "fa-regular fa-circle-right nextOutfit",
+          type: "button"
         }) : null
       })]
     })]
@@ -3671,7 +3677,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _ProductModal_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProductModal.jsx */ "./client/src/components/itemsComparison/ProductModal.jsx");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _assets_edna_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/edna-image-unavailable.jpg */ "./client/src/assets/edna-image-unavailable.jpg");
+/* harmony import */ var _common_StarRatings_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common/StarRatings.jsx */ "./client/src/components/common/StarRatings.jsx");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -3680,7 +3689,9 @@ function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefine
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
-// import Image from '../../assets/edna.png';
+
+
+
 
 
 function Product(_ref) {
@@ -3692,51 +3703,56 @@ function Product(_ref) {
     _React$useState2 = _slicedToArray(_React$useState, 2),
     visibleStatus = _React$useState2[0],
     setvisibleStatus = _React$useState2[1];
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (store) {
+      return store.rr;
+    }),
+    totals = _useSelector.totals,
+    reviewCount = _useSelector.reviewCount;
   var changeModal = function changeModal(e) {
     setvisibleStatus(!visibleStatus);
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     className: "productCardContainer",
     id: count,
     onClick: function onClick(e) {
       return onUpdate(e, item.id);
     },
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
       className: "cardContent",
       id: item.id,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "imageContainer",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("img", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("img", {
           className: "cardImage",
-          src: item.image,
+          src: item.image || _assets_edna_image_unavailable_jpg__WEBPACK_IMPORTED_MODULE_3__,
           alt: "apparel item"
         })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("i", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
         onClick: changeModal,
         className: "fas fa-star",
         "data-testid": "modal"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "productCardCategory",
         children: item.category
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
         className: "productCardName",
         children: item.name
-      }), item.salePrice !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      }), item.salePrice !== null ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "priceInfo",
         "data-testid": "productSale",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "productCardSale",
           children: ["$", item.salePrice]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
           className: "productCardPriceSale",
           children: ["$", item.price]
         })]
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("div", {
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
         className: "productCardPrice",
         "data-testid": "productDefault",
         children: ["$", item.price]
       })]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_ProductModal_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ProductModal_jsx__WEBPACK_IMPORTED_MODULE_1__["default"], {
       visible: visibleStatus,
       onClick: changeModal,
       currentProduct: currentProduct,
@@ -3847,9 +3863,8 @@ function ProductList(_ref) {
         className: "outfitBack",
         children: previousVisble ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
           type: "button",
-          className: "previousOutfit",
-          onClick: onBack,
-          children: "<"
+          className: "fa-regular fa-circle-left previousOutfit",
+          onClick: onBack
         }) : null
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
         className: "relatedList",
@@ -3868,8 +3883,7 @@ function ProductList(_ref) {
         onClick: onNext,
         children: nextVisible ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
           type: "button",
-          className: "nextOutfit",
-          children: ">"
+          className: "fa-regular fa-circle-right nextOutfit"
         }) : null
       })]
     })]
@@ -3898,6 +3912,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = null == arr ? null : "undefined" != typeof Symbol && arr[Symbol.iterator] || arr["@@iterator"]; if (null != _i) { var _s, _e, _x, _r, _arr = [], _n = !0, _d = !1; try { if (_x = (_i = _i.call(arr)).next, 0 === i) { if (Object(_i) !== _i) return; _n = !1; } else for (; !(_n = (_s = _x.call(_i)).done) && (_arr.push(_s.value), _arr.length !== i); _n = !0); } catch (err) { _d = !0, _e = err; } finally { try { if (!_n && null != _i["return"] && (_r = _i["return"](), Object(_r) !== _r)) return; } finally { if (_d) throw _e; } } return _arr; } }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/* eslint-disable no-else-return */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 
@@ -3951,26 +3966,11 @@ function ProductModal(_ref) {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
       className: "productModal",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
-        children: "COMPARING"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-        className: "modalExit",
-        onClick: onClick,
-        type: "button",
-        children: "x"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
-            className: "modalHeader",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              className: "leftHeader",
-              children: "Current Viewed Product"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
-              className: "rightHeader",
-              children: "Compared Product Card"
-            })]
-          })
-        })
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
+        children: "PRODUCT COMPARISON"
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+        className: "fa-solid fa-square-xmark",
+        onClick: onClick
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("table", {
         className: "compareTable",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("thead", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
@@ -3985,7 +3985,17 @@ function ProductModal(_ref) {
               "aria-label": "right check header"
             })]
           }), Object.values(finalObject).length > 0 ? Object.keys(finalObject).map(function (product) {
-            if (product !== 'features' && product !== 'image' && product !== 'slogan' && product !== 'description' && product !== 'price' && product !== 'id' && product !== 'salePrice') {
+            if (product === 'name') {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  className: "productNameLeft",
+                  children: finalObject[product][0] || '--'
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                  className: "productNameRight",
+                  children: finalObject[product][1] || '--'
+                })]
+              }, product);
+            } else if (product !== 'features' && product !== 'image' && product !== 'slogan' && product !== 'description' && product !== 'price' && product !== 'id' && product !== 'salePrice' && product !== 'name') {
               return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("tr", {
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
                   children: finalObject[product][0] || '--'
@@ -4018,16 +4028,15 @@ function ProductModal(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */   "default": () => (/* binding */ RelatedOutfits)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _App_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../App.jsx */ "./client/src/App.jsx");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _ProductList_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ProductList.jsx */ "./client/src/components/itemsComparison/ProductList.jsx");
 /* harmony import */ var _OutfitList_jsx__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./OutfitList.jsx */ "./client/src/components/itemsComparison/OutfitList.jsx");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
@@ -4045,13 +4054,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 function RelatedOutfits() {
-  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_5__.useSelector)(function (state) {
+  var _useSelector = (0,react_redux__WEBPACK_IMPORTED_MODULE_2__.useSelector)(function (state) {
       return state.pd;
     }),
     currentProduct = _useSelector.currentProduct,
-    setCurrentProduct = _useSelector.setCurrentProduct;
+    loading = _useSelector.loading;
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_0__.useState([]),
     _React$useState2 = _slicedToArray(_React$useState, 2),
     relatedList = _React$useState2[0],
@@ -4094,19 +4102,27 @@ function RelatedOutfits() {
       obtainProducts();
     }
   }, [currentProduct]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-    className: "relatedProductOutfit parent",
-    id: "Related Items & Outfit Creation",
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_ProductList_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      currentProduct: currentProduct,
-      relatedList: relatedList
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_OutfitList_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
-      currentProduct: currentProduct,
-      relatedList: relatedList
-    })]
+  if (!loading) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+        className: "relatedProductOutfit parent",
+        id: "Related Items & Outfit Creation",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_ProductList_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          currentProduct: currentProduct,
+          relatedList: relatedList
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_OutfitList_jsx__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          currentProduct: currentProduct,
+          relatedList: relatedList
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+        className: "colorSeparatorEnd"
+      })]
+    });
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+    id: "loading"
   });
 }
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RelatedOutfits);
 
 /***/ }),
 
@@ -28282,7 +28298,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "html {\n  font-family: 'Roboto', Tahoma, Verdana, sans-serif;\n}\n\n.main-container {\n  max-width: 1536px;\n  margin: auto;\n}\n\n#loading {\n  margin: auto;\n  justify-content: center;\n  border: 20px solid yellow;\n  border-top: 20px solid red;\n  border-radius: 50%;\n  width: 150px;\n  height: 150px;\n  animation: spin 2s linear infinite;\n}\n\n@keyframes spin {\n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n\n/* ======================================================\nLight/Dark Mode Switch Toggle Styling\n====================================================== */\n\n.toggle-wrapper {\n  align-self: flex-end;\n  margin-bottom: 0.5em;\n}\n\n.switch {\n  position: relative;\n  float: right;\n  width: 55px;\n  height: 25px;\n}\n\n/* Hide default HTML checkbox */\n.switch input {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n/* The slider */\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: \"\";\n  height: 19px;\n  width: 19px;\n  left: 3.5px;\n  bottom: 3.5px;\n  background-color: white;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n\ninput:checked + .slider {\n  background-color: maroon;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px maroon;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(26px);\n}\n\n/* Rounded sliders */\n.slider.round {\n  border-radius: 25px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n\n/* ======================================================\nProduct Detail Styling\n====================================================== */\n\n.pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 0em 2em 2em 2em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  padding: 0rem 1rem;\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n#search-products{\n  display: inline-block;\n  align-self: center;\n}\n\n#search-input-form {\n  background: none;\n  color: white;\n  border: none;\n  border-bottom: 0.1rem solid white;\n}\n\n::placeholder {\n  color: white;\n  opacity: 1;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  /* display: inline-block; */\n  align-self: center;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.star-ratings-reviews {\n  display: flex;\n  align-items: baseline;\n}\n\n.read-all-reviews {\n  margin-left: 0.5rem;\n  text-decoration: underline;\n  font-size: small;\n  cursor: pointer;\n\n}\n\n.product-category p{\n  text-transform: uppercase;\n  margin-bottom: 0em;\n}\n\n.product-name p{\n  font-size: xx-large;\n  font-weight: bold;\n  margin-top: 0em;\n  margin-bottom: 0em;\n  text-decoration: underline dotted;\n}\n\n.product-price p {\n  margin-bottom: 0;\n  font-size: large;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n.product-overview-container {\n  align-self: center;\n  display: flex;\n  justify-content: space-evenly;\n  margin-top: 1rem;\n}\n\n.product-slogan-description {\n  padding-right: 2em;\n}\n\n.product-features {\n  flex-grow: 2;\n  border-left: inset;\n  align-self: center;\n}\n\n#gallery-and-styles-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 1.5em;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n  align-items: center;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n.carousel-item-thumbnail {\n  width: 50px;\n  height: 50px;\n  object-fit: cover;\n  padding: 0.5rem;\n  border-radius: 1rem;\n}\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n#expand-icon {\n  z-index: 10;\n  position: absolute;\n  font-size: x-large;\n  top: 0.5em;\n  right: 0em;\n  opacity: 50%;\n  background-color: silver;\n  padding: 0.1rem;\n  border-radius: 25%;\n}\n\n#expand-icon:hover {\n  cursor: zoom-in;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n  font-size: 30px;\n}\n\n.navigate {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n  font-weight: bold;\n  background-color: silver;\n  color: black;\n  border-radius: 50%;\n  height: 40px;\n  width: 40px;\n  border: 5em;\n}\n.navigate:hover, #expand-icon:hover {\n  opacity: 75%;\n  background-color: lightgray;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-size: 30px;\n}\n\n#displayed-image {\n  height: 550px;\n  width: 650px;\n  object-fit: contain;\n  transition: transform 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n}\n\n.style-item {\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  object-fit: cover;\n  padding: 5px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n  transform: scale(1.05);\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#add-to-favorites {\n  font-size: larger;\n  margin-left: 1rem;\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n#add-to-cart-button {\n  float: left;\n  min-width: 95px;\n}\n\nselect {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  text-decoration: none;\n  transition: all 0.2s ease;\n}\n\n#add-to-cart-button, #add-to-favorites {\n  background-color: silver;\n  color: black;\n  border: none;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s ease;\n  min-height: 33px;\n}\n\n#cartIcon {\n  /* margin-right: 0.5rem; */\n}\n\n#add-to-cart-buttons:hover, #add-to-cart-buttons:focus, #add-to-favorites:hover, #add-to-favorites:focus, select:hover {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdownButton {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  min-height: 33px;\n  vertical-align: top;\n}\n\n#size-dropdown-button {\n  min-width: 71px;\n}\n\n\n#dropdown-size-buttons:hover, #dropdown-size-buttons:focus,\n#dropdown-quantity-buttons:hover, #dropdown-quantity-buttons:focus {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdown {\n  position: relative;\n  display: inline-block;\n  margin-right: 1rem;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: silver;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\n  z-index: 15;\n  width: 100%;\n  text-align: center;\n}\n\n.dropdown-content a, .dropdown-content span {\n  color: black;\n  padding: 0.5rem 1em;\n  text-decoration: none;\n  display: block;\n}\n\n.dropdown-content a:hover, .dropdown-content span:hover {\n  background-color: lightgray;\n}\n\n.show {\n  display: block;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 1rem;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\n/* ul li:before {\n  content: '✓';\n} */\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/pd.css"],"names":[],"mappings":"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","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap');\n\nhtml {\n  font-family: 'Roboto', Tahoma, Verdana, sans-serif;\n}\n\n.main-container {\n  max-width: 1536px;\n  margin: auto;\n}\n\n#loading {\n  margin: auto;\n  justify-content: center;\n  border: 20px solid yellow;\n  border-top: 20px solid red;\n  border-radius: 50%;\n  width: 150px;\n  height: 150px;\n  animation: spin 2s linear infinite;\n}\n\n@keyframes spin {\n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n\n/* ======================================================\nLight/Dark Mode Switch Toggle Styling\n====================================================== */\n\n.toggle-wrapper {\n  align-self: flex-end;\n  margin-bottom: 0.5em;\n}\n\n.switch {\n  position: relative;\n  float: right;\n  width: 55px;\n  height: 25px;\n}\n\n/* Hide default HTML checkbox */\n.switch input {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n/* The slider */\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: \"\";\n  height: 19px;\n  width: 19px;\n  left: 3.5px;\n  bottom: 3.5px;\n  background-color: white;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n\ninput:checked + .slider {\n  background-color: maroon;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px maroon;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(26px);\n}\n\n/* Rounded sliders */\n.slider.round {\n  border-radius: 25px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n\n/* ======================================================\nProduct Detail Styling\n====================================================== */\n\n.pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 0em 2em 2em 2em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  padding: 0rem 1rem;\n  background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%);\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n#search-products{\n  display: inline-block;\n  align-self: center;\n}\n\n#search-input-form {\n  background: none;\n  color: white;\n  border: none;\n  border-bottom: 0.1rem solid white;\n}\n\n::placeholder {\n  color: white;\n  opacity: 1;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  /* display: inline-block; */\n  align-self: center;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.star-ratings-reviews {\n  display: flex;\n  align-items: baseline;\n}\n\n.read-all-reviews {\n  margin-left: 0.5rem;\n  text-decoration: underline;\n  font-size: small;\n  cursor: pointer;\n\n}\n\n.product-category p{\n  text-transform: uppercase;\n  margin-bottom: 0em;\n}\n\n.product-name p{\n  font-size: xx-large;\n  font-weight: bold;\n  margin-top: 0em;\n  margin-bottom: 0em;\n  text-decoration: underline dotted;\n}\n\n.product-price p {\n  margin-bottom: 0;\n  font-size: large;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n.product-overview-container {\n  align-self: center;\n  display: flex;\n  justify-content: space-evenly;\n  margin-top: 1rem;\n}\n\n.product-slogan-description {\n  padding-right: 2em;\n}\n\n.product-features {\n  flex-grow: 2;\n  border-left: inset;\n  align-self: center;\n}\n\n#gallery-and-styles-container {\n  display: flex;\n  flex-wrap: wrap;\n  justify-content: center;\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 1.5em;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n  align-items: center;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n.carousel-item-thumbnail {\n  width: 50px;\n  height: 50px;\n  object-fit: cover;\n  padding: 0.5rem;\n  border-radius: 1rem;\n}\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n#expand-icon {\n  z-index: 10;\n  position: absolute;\n  font-size: x-large;\n  top: 0.5em;\n  right: 0em;\n  opacity: 50%;\n  background-color: silver;\n  padding: 0.1rem;\n  border-radius: 25%;\n}\n\n#expand-icon:hover {\n  cursor: zoom-in;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n  font-size: 30px;\n}\n\n.navigate {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n  font-weight: bold;\n  background-color: silver;\n  color: black;\n  border-radius: 50%;\n  height: 40px;\n  width: 40px;\n  border: 5em;\n}\n.navigate:hover, #expand-icon:hover {\n  opacity: 75%;\n  background-color: lightgray;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-size: 30px;\n}\n\n#displayed-image {\n  height: 550px;\n  width: 650px;\n  object-fit: contain;\n  transition: transform 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n}\n\n.style-item {\n  width: 75px;\n  height: 75px;\n  border-radius: 50%;\n  object-fit: cover;\n  padding: 5px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n  transform: scale(1.05);\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#add-to-favorites {\n  font-size: larger;\n  margin-left: 1rem;\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n#add-to-cart-button {\n  float: left;\n  min-width: 95px;\n}\n\nselect {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  text-decoration: none;\n  transition: all 0.2s ease;\n}\n\n#add-to-cart-button, #add-to-favorites {\n  background-color: silver;\n  color: black;\n  border: none;\n  text-align: center;\n  text-decoration: none;\n  transition: all 0.2s ease;\n  min-height: 33px;\n}\n\n#cartIcon {\n  /* margin-right: 0.5rem; */\n}\n\n#add-to-cart-buttons:hover, #add-to-cart-buttons:focus, #add-to-favorites:hover, #add-to-favorites:focus, select:hover {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdownButton {\n  background-color: silver;\n  color: black;\n  padding: 0.5em 1em;\n  border: none;\n  min-height: 33px;\n  vertical-align: top;\n}\n\n#size-dropdown-button {\n  min-width: 71px;\n}\n\n\n#dropdown-size-buttons:hover, #dropdown-size-buttons:focus,\n#dropdown-quantity-buttons:hover, #dropdown-quantity-buttons:focus {\n  background-color: lightgray;\n  opacity: 75%;\n}\n\n.dropdown {\n  position: relative;\n  display: inline-block;\n  margin-right: 1rem;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: silver;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\n  z-index: 15;\n  width: 100%;\n  text-align: center;\n}\n\n.dropdown-content a, .dropdown-content span {\n  color: black;\n  padding: 0.5rem 1em;\n  text-decoration: none;\n  display: block;\n}\n\n.dropdown-content a:hover, .dropdown-content span:hover {\n  background-color: lightgray;\n}\n\n.show {\n  display: block;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 1rem;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\n/* ul li:before {\n  content: '✓';\n} */\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "html {\n  font-family: 'Roboto', Tahoma, Verdana, sans-serif;\n}\n\n.material-symbols-outlined {\n  font-variation-settings:\n  'FILL' 0,\n  'wght' 400,\n  'GRAD' 0,\n  'opsz' 48\n}\n\n.main-container {\n  max-width: 1536px;\n  margin: auto;\n}\n\n.loading-container {\n  display: flex;\n  justify-content: center;\n  align-items: baseline;\n}\n\n.loading {\n  top: 50%;\n  left: 50%;\n  transform: translate(0%, 0%);\n  width: 150px;\n  height: 150px;\n  background: transparent;\n  border: 3px solid white; /*change to match mode theme bg*/\n  border-radius: 50%;\n  text-align: center;\n  line-height: 150px;\n  font-size: 20px;\n  color: #1a1306;\n  letter-spacing: 3px;\n  text-shadow: 0 0 10px #a30f07;\n  box-shadow: 0 0 20px rgba(0,0,0,.5);\n}\n\n.loading:before {\n  content: '';\n  position: absolute;\n  top: -3px;\n  left: -3px;\n  width: 100%;\n  height: 100%;\n  border: 3px solid transparent;\n  border-top: 3px solid #a30f07;\n  border-right: 3px solid #a30f07;\n  border-radius: 50%;\n  animation: animateC 2s linear infinite;\n}\n\n.loading-span {\n  display: block;\n  position: absolute;\n  top: calc(50% - 2px);\n  left: 50%;\n  width: 50%;\n  height: 4px;\n  background: transparent;\n  transform-origin: left;\n  animation: animate 2s linear infinite;\n}\n\n.loading-span:before {\n  content: '';\n  position: absolute;\n  width: 16px;\n  height: 16px;\n  border-radius: 50%;\n  background: #a30f07;\n  top: -6px;\n  right: -8px;\n  box-shadow: 0 0 20px #a30f07;\n}\n\n@keyframes animateC {\n  0% {transform: rotate(0deg)}\n  100% {transform:rotate(360deg)}\n}\n\n@keyframes animate {\n  0% {transform:rotate(45deg)}\n  100% {transform:rotate(405deg)}\n}\n\n.loading p {\n  margin: auto;\n  text-align: center;\n  animation: loading-text-opacity 1.5s linear 0s infinite normal;\n}\n\n@keyframes loading-text-opacity {\n  0%  {opacity: 0}\n  20% {opacity: 0}\n  50% {opacity: 1}\n  100%{opacity: 0}\n}\n\n\n/* ======================================================\nLight/Dark Mode Switch Toggle Styling\n====================================================== */\n\n.toggle-wrapper {\n  display: flex;\n  margin-bottom: 0.5em;\n  column-gap: 30em;\n  justify-content: flex-end;\n}\n\n.switch {\n  position: relative;\n  float: right;\n  width: 55px;\n  height: 25px;\n  margin: 1em 3em;\n}\n\n/* Hide default HTML checkbox */\n.switch input {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n/* The slider */\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: \"\";\n  height: 19px;\n  width: 19px;\n  left: 3.5px;\n  bottom: 3.5px;\n  background-color: white;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n\ninput:checked + .slider {\n  background-color: maroon;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px maroon;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(26px);\n}\n\n/* Rounded sliders */\n.slider.round {\n  border-radius: 25px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n\n/* ======================================================\nProduct Detail Styling\n====================================================== */\n\n.pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 0em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  padding: 0rem 1rem;\n  /* background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%); */\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n#search-products{\n  display: inline-block;\n  align-self: center;\n  padding: 0em 2em 0em 2em;\n}\n\n#search-input-form {\n  background: none;\n  color: white;\n  border: none;\n  border-bottom: 0.1rem solid white;\n  width: 12em;\n}\n\n#search-input-form::placeholder {\n  color: white;\n  opacity: 1;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  /* display: inline-block; */\n  align-self: center;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.star-ratings-reviews {\n  display: flex;\n  align-items: baseline;\n}\n\n.read-all-reviews {\n  margin-left: 0.5rem;\n  text-decoration: underline;\n  font-size: small;\n  cursor: pointer;\n\n}\n\n.product-category p{\n  text-transform: uppercase;\n  margin-bottom: 0em;\n}\n\n.product-name p{\n  font-size: xx-large;\n  font-weight: bold;\n  margin-top: 0em;\n  margin-bottom: 0em;\n  text-decoration: underline dotted;\n}\n\n.product-price p {\n  margin-bottom: 0;\n  font-size: large;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n.product-overview-container {\n  align-self: center;\n  display: flex;\n  justify-content: space-evenly;\n  margin: 1rem 1rem 2rem 1rem;\n}\n\n.product-slogan-description {\n  padding-right: 2em;\n}\n\n.product-features {\n  border-left: inset;\n  align-self: center;\n  flex-basis: 40%;\n}\n\n#gallery-and-styles-container {\n  display: flex;\n  /* flex-wrap: wrap; */\n  justify-content: center;\n  margin: 2px 150px 10px 100px;\n  padding: 10px 20px;\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 2.5em;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n  align-items: center;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n#expand-icon {\n  z-index: 10;\n  position: absolute;\n  font-size: x-large;\n  top: 0.5em;\n  right: 0em;\n  opacity: 50%;\n  background-color: silver;\n  padding: 0.1rem;\n  border-radius: 25%;\n}\n\n#expand-icon:hover {\n  cursor: zoom-in;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n  font-size: 30px;\n}\n\n.navigate {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n  border-radius: 50%;\n  height: 40px;\n  width: 40px;\n  border: 5em;\n}\n.navigate:hover, #expand-icon:hover {\n  opacity: 75%;\n  background-color: lightgray;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-size: 30px;\n}\n\n#displayed-image {\n  height: 550px;\n  width: 650px;\n  object-fit: contain;\n  transition: transform 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n  padding: 4px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n  transform: scale(1.05);\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n.dropdownButton {\n  display: inline-flex;\n  height: 40px;\n  width: 150px;\n  border: 2px solid #a30f07;\n  border-radius: 0.5rem;\n  margin: 15px 15px 0px 15px;\n  color: black;\n  text-transform: uppercase;\n  text-decoration: none;\n  font-size: .8em;\n  letter-spacing: 1.5px;\n  align-items: center;\n  justify-content: center;\n  position: relative;\n  overflow: hidden;\n  cursor: pointer;\n}\n\n.dropdownButton a {\n  position: relative;\n  transition: all .45s ease-out;\n}\n\n.underline {\n  width: 100%;\n  height: 2.5px;\n  margin-top: 15px;\n  align-self: flex-end;\n  left: -200px;\n  background: #a30f07;\n  position: absolute;\n  transition: all .3s ease-Out;\n  bottom: 0;\n}\n\n/* #add-to-cart-buttons:hover, #add-to-cart-buttons:focus, #add-to-favorites:hover, #add-to-favorites:focus, select:hover {\n  background-color: lightgray;\n  opacity: 75%;\n} */\n\n.dropdownButton:hover .underline {\n  left: 0;\n}\n\n#size-dropdown-button {\n  min-width: 71px;\n}\n\n.dropdown {\n  position: relative;\n  display: inline-block;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: white;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\n  z-index: 15;\n  width: 77%;\n  text-align: center;\n  border: 2px solid #a30f07;\n  margin: 0px 20px 0px 15px;\n  /* color: black; */\n  text-transform: uppercase;\n  text-decoration: none;\n  font-size: .8em;\n  letter-spacing: 1.5px;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  cursor: pointer;\n}\n\n.dropdown-content a, .dropdown-content span {\n  /* color: black; */\n  padding: 0.5rem 1em;\n  text-decoration: none;\n  display: block;\n}\n\n.dropdown-content a:hover, .dropdown-content span:hover {\n  background-color: #a30f07;\n  opacity: 90%;\n  color: white;\n  font-weight: bold;\n}\n\n.show {\n  display: block;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.share-to-social-media {\n  display: flex;\n  justify-content: space-around;\n}\n\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 2em;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\n/* ======================================================\nProduct Detail Buttons Styling\n====================================================== */\n\n.pdButton {\n  display: inline-flex;\n  height: 40px;\n  width: 150px;\n  border: 2px solid #a30f07;\n  border-radius: 0.5rem;\n  margin: 15px;\n  color: black;\n  text-transform: uppercase;\n  text-decoration: none;\n  font-size: .8em;\n  letter-spacing: 1.5px;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  cursor: pointer;\n}\n\n.pdButton a {\n  color: black;\n  text-decoration: none;\n  letter-spacing: 1px;\n}\n\n#add-to-cart-button, #add-to-favorites {\n  position: relative;\n  overflow: hidden;\n}\n\n#add-to-cart-button a, #add-to-favorites a{\n  position: relative;\n  transition: all .45s ease-out;\n}\n\n.translate {\n  transform: rotate(50deg);\n  width: 100%;\n  height: 250%;\n  left: -200px;\n  top: -30px;\n  background: #a30f07;\n  border-style: solid;\n  border-color: #a30f07;\n  position: absolute;\n  transition: all .3s ease-Out;\n}\n\n#add-to-cart-button:hover .translate,\n#add-to-favorites:hover .translate {\n  left: 0;\n}\n\n#add-to-cart-button:hover a,\n#add-to-favorites:hover a {\n  color: white;\n  font-weight: bold;\n}\n", "",{"version":3,"sources":["webpack://./client/src/assets/pd.css"],"names":[],"mappings":"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","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,300&display=swap');\n\nhtml {\n  font-family: 'Roboto', Tahoma, Verdana, sans-serif;\n}\n\n.material-symbols-outlined {\n  font-variation-settings:\n  'FILL' 0,\n  'wght' 400,\n  'GRAD' 0,\n  'opsz' 48\n}\n\n.main-container {\n  max-width: 1536px;\n  margin: auto;\n}\n\n.loading-container {\n  display: flex;\n  justify-content: center;\n  align-items: baseline;\n}\n\n.loading {\n  top: 50%;\n  left: 50%;\n  transform: translate(0%, 0%);\n  width: 150px;\n  height: 150px;\n  background: transparent;\n  border: 3px solid white; /*change to match mode theme bg*/\n  border-radius: 50%;\n  text-align: center;\n  line-height: 150px;\n  font-size: 20px;\n  color: #1a1306;\n  letter-spacing: 3px;\n  text-shadow: 0 0 10px #a30f07;\n  box-shadow: 0 0 20px rgba(0,0,0,.5);\n}\n\n.loading:before {\n  content: '';\n  position: absolute;\n  top: -3px;\n  left: -3px;\n  width: 100%;\n  height: 100%;\n  border: 3px solid transparent;\n  border-top: 3px solid #a30f07;\n  border-right: 3px solid #a30f07;\n  border-radius: 50%;\n  animation: animateC 2s linear infinite;\n}\n\n.loading-span {\n  display: block;\n  position: absolute;\n  top: calc(50% - 2px);\n  left: 50%;\n  width: 50%;\n  height: 4px;\n  background: transparent;\n  transform-origin: left;\n  animation: animate 2s linear infinite;\n}\n\n.loading-span:before {\n  content: '';\n  position: absolute;\n  width: 16px;\n  height: 16px;\n  border-radius: 50%;\n  background: #a30f07;\n  top: -6px;\n  right: -8px;\n  box-shadow: 0 0 20px #a30f07;\n}\n\n@keyframes animateC {\n  0% {transform: rotate(0deg)}\n  100% {transform:rotate(360deg)}\n}\n\n@keyframes animate {\n  0% {transform:rotate(45deg)}\n  100% {transform:rotate(405deg)}\n}\n\n.loading p {\n  margin: auto;\n  text-align: center;\n  animation: loading-text-opacity 1.5s linear 0s infinite normal;\n}\n\n@keyframes loading-text-opacity {\n  0%  {opacity: 0}\n  20% {opacity: 0}\n  50% {opacity: 1}\n  100%{opacity: 0}\n}\n\n\n/* ======================================================\nLight/Dark Mode Switch Toggle Styling\n====================================================== */\n\n.toggle-wrapper {\n  display: flex;\n  margin-bottom: 0.5em;\n  column-gap: 30em;\n  justify-content: flex-end;\n}\n\n.switch {\n  position: relative;\n  float: right;\n  width: 55px;\n  height: 25px;\n  margin: 1em 3em;\n}\n\n/* Hide default HTML checkbox */\n.switch input {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n/* The slider */\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: \"\";\n  height: 19px;\n  width: 19px;\n  left: 3.5px;\n  bottom: 3.5px;\n  background-color: white;\n  -webkit-transition: .4s;\n  transition: .4s;\n}\n\ninput:checked + .slider {\n  background-color: maroon;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px maroon;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(26px);\n}\n\n/* Rounded sliders */\n.slider.round {\n  border-radius: 25px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n\n/* ======================================================\nProduct Detail Styling\n====================================================== */\n\n.pd-flex-container {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  margin: 0em;\n}\n\n.nav-bar {\n  display: flex;\n  justify-content: space-between;\n  padding: 0rem 1rem;\n  /* background: linear-gradient(90deg, rgba(219,19,19,1) 0%, rgba(245,203,9,1) 33%, rgba(245,203,9,1) 66%, rgba(219,19,19,1) 100%); */\n  color: white;\n  margin-bottom: 0.3rem;\n}\n\n#search-products{\n  display: inline-block;\n  align-self: center;\n  padding: 0em 2em 0em 2em;\n}\n\n#search-input-form {\n  background: none;\n  color: white;\n  border: none;\n  border-bottom: 0.1rem solid white;\n  width: 12em;\n}\n\n#search-input-form::placeholder {\n  color: white;\n  opacity: 1;\n}\n\n.site-wide-announcement {\n  text-align: center;\n  /* display: inline-block; */\n  align-self: center;\n  margin: 0.75rem 0rem;\n}\n\n/* ======================================================\nProduct Information (Primarily Image Gallery) Styling\n====================================================== */\n\nbutton, select {\n  cursor: pointer;\n}\n\n.star-ratings-reviews {\n  display: flex;\n  align-items: baseline;\n}\n\n.read-all-reviews {\n  margin-left: 0.5rem;\n  text-decoration: underline;\n  font-size: small;\n  cursor: pointer;\n\n}\n\n.product-category p{\n  text-transform: uppercase;\n  margin-bottom: 0em;\n}\n\n.product-name p{\n  font-size: xx-large;\n  font-weight: bold;\n  margin-top: 0em;\n  margin-bottom: 0em;\n  text-decoration: underline dotted;\n}\n\n.product-price p {\n  margin-bottom: 0;\n  font-size: large;\n}\n\n.sale-price {\n  font-weight: bold;\n  color: red;\n}\n\n.product-overview-container {\n  align-self: center;\n  display: flex;\n  justify-content: space-evenly;\n  margin: 1rem 1rem 2rem 1rem;\n}\n\n.product-slogan-description {\n  padding-right: 2em;\n}\n\n.product-features {\n  border-left: inset;\n  align-self: center;\n  flex-basis: 40%;\n}\n\n#gallery-and-styles-container {\n  display: flex;\n  /* flex-wrap: wrap; */\n  justify-content: center;\n  margin: 2px 150px 10px 100px;\n  padding: 10px 20px;\n}\n\n#product-info-container {\n  flex-direction: column;\n}\n\n#image-gallery-container {\n  margin: 0px 2.5em;\n  display: flex;\n  justify-content: center;\n  transition: all 1s ease;\n  align-items: center;\n}\n\n#carousel-thumbnail-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  margin-right: 0.5rem;\n}\n\n.carousel-item-underlay {\n  width: 50px;\n  height: 50px;\n  padding: 0.5rem;\n  z-index: -5;\n  border-bottom-style: dashed;\n  position: absolute;\n}\n\n\n.carousel-item-thumbnail:hover {\n  cursor: pointer;\n  opacity: 75%;\n  transform: scale(1.1);\n}\n\n#display-image-container {\n  display: flex;\n  flex: 5;\n  overflow: hidden;\n  position: relative;\n  justify-content: center;\n  transition: all 1s ease;\n}\n\n#expand-icon {\n  z-index: 10;\n  position: absolute;\n  font-size: x-large;\n  top: 0.5em;\n  right: 0em;\n  opacity: 50%;\n  background-color: silver;\n  padding: 0.1rem;\n  border-radius: 25%;\n}\n\n#expand-icon:hover {\n  cursor: zoom-in;\n}\n\n.carousel-actions {\n  display: flex;\n  width: 100%;\n  justify-content: space-between;\n  position: absolute;\n  top: 50%;\n  transform: translateY(-50%);\n}\n\n#carousel-prev, #carousel-next {\n  z-index: 10;\n  font-size: 30px;\n}\n\n.navigate {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border: none;\n  opacity: 50%;\n  margin: 0.5rem;\n  border-radius: 50%;\n  height: 40px;\n  width: 40px;\n  border: 5em;\n}\n.navigate:hover, #expand-icon:hover {\n  opacity: 75%;\n  background-color: lightgray;\n}\n\n#carousel-thumbnail-prev, #carousel-thumbnail-next {\n  font-size: 30px;\n}\n\n#displayed-image {\n  height: 550px;\n  width: 650px;\n  object-fit: contain;\n  transition: transform 0.5s ease;\n}\n\n#displayed-image:hover {\n  cursor: zoom-in;\n}\n\n/* ======================================================\nProduct Information Styling\n====================================================== */\n\n.product-styles-container {\n  display: flex;\n}\n\n.product-style {\n  margin: 1rem 0rem;\n}\n\n.style-item-overlay {\n  display: inline-block;\n  position: relative;\n  padding: 4px;\n}\n\n.style-item:hover {\n  opacity: 75%;\n  cursor: pointer;\n  transform: scale(1.05);\n}\n\n.checkmark {\n  position: absolute;\n  top: 0px;\n  right: 0px;\n}\n\n#style-sizes {\n  margin-right: 0.5rem;\n}\n\n#add-to-cart {\n  margin-top: 1rem;\n}\n\n.dropdownButton {\n  display: inline-flex;\n  height: 40px;\n  width: 150px;\n  border: 2px solid #a30f07;\n  border-radius: 0.5rem;\n  margin: 15px 15px 0px 15px;\n  color: black;\n  text-transform: uppercase;\n  text-decoration: none;\n  font-size: .8em;\n  letter-spacing: 1.5px;\n  align-items: center;\n  justify-content: center;\n  position: relative;\n  overflow: hidden;\n  cursor: pointer;\n}\n\n.dropdownButton a {\n  position: relative;\n  transition: all .45s ease-out;\n}\n\n.underline {\n  width: 100%;\n  height: 2.5px;\n  margin-top: 15px;\n  align-self: flex-end;\n  left: -200px;\n  background: #a30f07;\n  position: absolute;\n  transition: all .3s ease-Out;\n  bottom: 0;\n}\n\n/* #add-to-cart-buttons:hover, #add-to-cart-buttons:focus, #add-to-favorites:hover, #add-to-favorites:focus, select:hover {\n  background-color: lightgray;\n  opacity: 75%;\n} */\n\n.dropdownButton:hover .underline {\n  left: 0;\n}\n\n#size-dropdown-button {\n  min-width: 71px;\n}\n\n.dropdown {\n  position: relative;\n  display: inline-block;\n}\n\n#cart-and-favorites-buttons {\n  display: flex;\n  margin-top: 1rem;\n  margin-bottom: 1rem;\n}\n\n.dropdown-content {\n  display: none;\n  position: absolute;\n  background-color: white;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);\n  z-index: 15;\n  width: 77%;\n  text-align: center;\n  border: 2px solid #a30f07;\n  margin: 0px 20px 0px 15px;\n  /* color: black; */\n  text-transform: uppercase;\n  text-decoration: none;\n  font-size: .8em;\n  letter-spacing: 1.5px;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  cursor: pointer;\n}\n\n.dropdown-content a, .dropdown-content span {\n  /* color: black; */\n  padding: 0.5rem 1em;\n  text-decoration: none;\n  display: block;\n}\n\n.dropdown-content a:hover, .dropdown-content span:hover {\n  background-color: #a30f07;\n  opacity: 90%;\n  color: white;\n  font-weight: bold;\n}\n\n.show {\n  display: block;\n}\n\n/* ======================================================\nSocial Media Icons Styling\n====================================================== */\n.share-to-social-media {\n  display: flex;\n  justify-content: space-around;\n}\n\n.fa {\n  padding: 10px;\n  font-size: 15px;\n  width: 25px;\n  text-align: center;\n  text-decoration: none;\n  margin-right: 2em;\n}\n\n.fa:hover {\n  opacity: 0.7;\n}\n\n.fa-facebook {\n  background: #3B5998;\n  color: white;\n}\n\n.fa-twitter {\n  background: #55ACEE;\n  color: white;\n}\n\n.fa-pinterest {\n  background: #cb2027;\n  color: white;\n}\n\n/* ======================================================\nProduct Description Styling\n====================================================== */\n\nul {\n  list-style: none;\n}\n\n/* ======================================================\nProduct Detail Buttons Styling\n====================================================== */\n\n.pdButton {\n  display: inline-flex;\n  height: 40px;\n  width: 150px;\n  border: 2px solid #a30f07;\n  border-radius: 0.5rem;\n  margin: 15px;\n  color: black;\n  text-transform: uppercase;\n  text-decoration: none;\n  font-size: .8em;\n  letter-spacing: 1.5px;\n  align-items: center;\n  justify-content: center;\n  overflow: hidden;\n  cursor: pointer;\n}\n\n.pdButton a {\n  color: black;\n  text-decoration: none;\n  letter-spacing: 1px;\n}\n\n#add-to-cart-button, #add-to-favorites {\n  position: relative;\n  overflow: hidden;\n}\n\n#add-to-cart-button a, #add-to-favorites a{\n  position: relative;\n  transition: all .45s ease-out;\n}\n\n.translate {\n  transform: rotate(50deg);\n  width: 100%;\n  height: 250%;\n  left: -200px;\n  top: -30px;\n  background: #a30f07;\n  border-style: solid;\n  border-color: #a30f07;\n  position: absolute;\n  transition: all .3s ease-Out;\n}\n\n#add-to-cart-button:hover .translate,\n#add-to-favorites:hover .translate {\n  left: 0;\n}\n\n#add-to-cart-button:hover a,\n#add-to-favorites:hover a {\n  color: white;\n  font-weight: bold;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -28309,7 +28325,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* ================================================================\n     Related Product and Outfits Component\n   ================================================================\n*/\n\n.relatedProductOutfit {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  margin: 2em 8em;\n}\n\n.previousProduct, .nextProduct, .previousOutfit, .nextOutfit {\n  height: 40px;\n  width: 60px;\n  font-size: 20px;\n}\n\n.relatedProductsContainer h3, .outfitContainer h3 {\n  text-align: center;\n}\n\n.productCardContainer, .outfitCardContainer {\n  border: 1px solid #3a3939;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n  border-radius: .5em;\n  box-shadow: 10px 10px .1px -5px #c4c2c2;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.cardImage {\n  height: 200px;\n  width: 225px;\n  object-fit: contain;\n  /*\n  cover: fits box but image sections are clipped (aspect preserved)\n  contain: fits box and contains empty space (aspect preserved)\n  fill: no empty space (aspect not preserved)\n  */\n}\n\n.imageContainer {\n  background-color: #E6E6E6;\n  border-radius: .5em;\n}\n\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductsContainer {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 40px;\n}\n\n.relatedItemContainer {\n  display: flex;\n  width: 1000px;\n  height: 325px;\n  align-self: auto;\n  margin-left: 100px;\n}\n\n.relatedList {\n  display: flex;\n  flex-direction: row;\n  width: 1055px;\n  height: 325px;\n  padding: 20px;\n  overflow: hidden;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n  color: #f7f7f7;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.outfitContainer {\n  padding: 40px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n\n.outfitItemContainer{\n  width: 1000px;\n  height: 325px;\n  flex-direction: row;\n  align-items: center;\n  display: flex;\n  margin-left: 100px;\n}\n\n.outfitList {\n  width: 800px;\n  height: 325px;\n  margin: 20px 0 0 0;\n  padding: 20px;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n}\n\n.addtoOutfitMargin {\n  border: solid .5px black;\n}\n\n.addToOutfit {\n  margin: 5px 10px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 150px;\n  height: 150px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 20px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n  color: #f7f7f7;\n}\n\n.outfitBack {\n  display: flex;\n  align-items: center;\n  transform: translate(20px);\n}\n\n.outfitForward {\n  display: flex;\n  align-items: center;\n  transform: translate(-20px);\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 440px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 90%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 35%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 35%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 30%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/ro.css"],"names":[],"mappings":"AAAA;;;CAGC;;AAED;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,eAAe;AACjB;;AAEA;EACE,YAAY;EACZ,WAAW;EACX,eAAe;AACjB;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,yBAAyB;EACzB,YAAY;EACZ,aAAa;EACb,WAAW;EACX,mBAAmB;EACnB,uCAAuC;AACzC;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,aAAa;AACf;;AAEA;EACE,aAAa;EACb,YAAY;EACZ,mBAAmB;EACnB;;;;GAIC;AACH;;AAEA;EACE,yBAAyB;EACzB,mBAAmB;AACrB;;AAEA;;;CAGC;;AAED;EACE,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,aAAa;AACf;;AAEA;EACE,aAAa;EACb,aAAa;EACb,aAAa;EACb,gBAAgB;EAChB,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,aAAa;EACb,aAAa;EACb,aAAa;EACb,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;EACnB,6BAA6B;AAC/B;;AAEA;EACE,eAAe;EACf,eAAe;EACf,mBAAmB;EACnB,UAAU;AACZ;;AAEA;EACE,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;EACX,cAAc;AAChB;;;AAGA;;;CAGC;;AAED;EACE,aAAa;EACb,aAAa;EACb,sBAAsB;EACtB,uBAAuB;AACzB;;AAEA;EACE,aAAa;EACb,aAAa;EACb,mBAAmB;EACnB,mBAAmB;EACnB,aAAa;EACb,kBAAkB;AACpB;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,kBAAkB;EAClB,aAAa;EACb,gBAAgB;EAChB,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,wBAAwB;AAC1B;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,mBAAmB;EACnB,uBAAuB;EACvB,YAAY;EACZ,aAAa;EACb,uBAAuB;AACzB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,WAAW;EACX,cAAc;AAChB;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,0BAA0B;AAC5B;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,2BAA2B;AAC7B;;AAEA;;;CAGC;;AAED;EACE,YAAY;EACZ,aAAa;EACb,eAAe;EACf,WAAW;EACX,UAAU;EACV,QAAQ;EACR,SAAS;EACT,yBAAyB;EACzB,UAAU;EACV,aAAa;EACb,sBAAsB;AACxB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,SAAS;EACT,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,eAAe;EACf,mBAAmB;EACnB,0BAA0B;AAC5B;;AAEA;EACE,iBAAiB;EACjB,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,eAAe;EACf,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,0BAA0B;EAC1B,mBAAmB;EACnB,UAAU;EACV,yBAAyB;AAC3B;;AAEA;EACE,iBAAiB;EACjB,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,UAAU;AACZ;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,yBAAyB;AAC3B;;AAEA;EACE,kBAAkB;EAClB,UAAU;EACV,iBAAiB;AACnB;;AAEA;EACE,kBAAkB;AACpB","sourcesContent":["/* ================================================================\n     Related Product and Outfits Component\n   ================================================================\n*/\n\n.relatedProductOutfit {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  margin: 2em 8em;\n}\n\n.previousProduct, .nextProduct, .previousOutfit, .nextOutfit {\n  height: 40px;\n  width: 60px;\n  font-size: 20px;\n}\n\n.relatedProductsContainer h3, .outfitContainer h3 {\n  text-align: center;\n}\n\n.productCardContainer, .outfitCardContainer {\n  border: 1px solid #3a3939;\n  width: 225px;\n  height: 315px;\n  margin: 5px;\n  border-radius: .5em;\n  box-shadow: 10px 10px .1px -5px #c4c2c2;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n}\n\n.cardImage {\n  height: 200px;\n  width: 225px;\n  object-fit: contain;\n  /*\n  cover: fits box but image sections are clipped (aspect preserved)\n  contain: fits box and contains empty space (aspect preserved)\n  fill: no empty space (aspect not preserved)\n  */\n}\n\n.imageContainer {\n  background-color: #E6E6E6;\n  border-radius: .5em;\n}\n\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n.relatedProductsContainer {\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  padding: 40px;\n}\n\n.relatedItemContainer {\n  display: flex;\n  width: 1000px;\n  height: 325px;\n  align-self: auto;\n  margin-left: 100px;\n}\n\n.relatedList {\n  display: flex;\n  flex-direction: row;\n  width: 1055px;\n  height: 325px;\n  padding: 20px;\n  overflow: hidden;\n}\n\n.removed {\n  visibility: hidden;\n}\n\n.productCardName, .productCardCategory, .productCardPrice, .productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n}\n\n.productCardPriceSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  text-decoration: line-through;\n}\n\n.productCardSale {\n  font-size: 15px;\n  margin: 6px 0px;\n  padding: 0 0 0 20px;\n  color: red;\n}\n\n.priceInfo {\n  display: flex;\n  flex-direction: row;\n}\n\n.fas {\n  position: relative;\n  bottom: 195px;\n  left: 200px;\n  color: #f7f7f7;\n}\n\n\n/* ================================\n      Outfit Item Cards\n   ================================\n*/\n\n.outfitContainer {\n  padding: 40px;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n}\n\n.outfitItemContainer{\n  width: 1000px;\n  height: 325px;\n  flex-direction: row;\n  align-items: center;\n  display: flex;\n  margin-left: 100px;\n}\n\n.outfitList {\n  width: 800px;\n  height: 325px;\n  margin: 20px 0 0 0;\n  padding: 20px;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n}\n\n.addtoOutfitMargin {\n  border: solid .5px black;\n}\n\n.addToOutfit {\n  margin: 5px 10px;\n}\n\n.addToOutfitContainer {\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: center;\n  width: 150px;\n  height: 150px;\n  border: solid 1px black;\n}\n\n.addToOutfit h1{\n  font-size: 20px;\n}\n\n.addToOutfit i{\n  font-size: 25px;\n}\n\n.fa-circle-xmark {\n  position: relative;\n  bottom: 185px;\n  left: 200px;\n  color: #f7f7f7;\n}\n\n.outfitBack {\n  display: flex;\n  align-items: center;\n  transform: translate(20px);\n}\n\n.outfitForward {\n  display: flex;\n  align-items: center;\n  transform: translate(-20px);\n}\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n.productModal {\n  width: 500px;\n  height: 440px;\n  position: fixed;\n  left: 280px;\n  top: 200px;\n  right: 0;\n  bottom: 0;\n  background-color: #f7f7f7;\n  z-index: 1;\n  display: flex;\n  flex-direction: column;\n}\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.productModal h1 {\n  font-size: 12px;\n  letter-spacing: 1px;\n  margin: 15px 15px 5px 15px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n.compareTable {\n  margin: 5px 15px 15px 12px;\n  table-layout: fixed;\n  width: 90%;\n  border-collapse: collapse;\n}\n\n.checkLeftHeader {\n  text-align: start;\n  width: 35%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 35%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 30%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* ================================================================\n     Related Product and Outfits Component\n   ================================================================\n*/\n\n.relatedProductOutfit {\n  display: flex;\n  flex-direction: column;\n  align-content: center;\n  justify-content: center;\n  margin: 2em 8em;\n}\n\n.relatedProductsContainer h3, .outfitContainer h3 {\n  text-align: center;\n  text-transform: uppercase;\n  font-size: 20px;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n  color: #F7F7F7;\n}\n\n.cardImage {\n  height: 200px;\n  width: 225px;\n  object-fit: contain;\n  /*\n  cover: fits box but image sections are clipped (aspect preserved)\n  contain: fits box and contains empty space (aspect preserved)\n  fill: no empty space (aspect not preserved)\n  */\n}\n\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n\n.checkLeftHeader {\n  text-align: start;\n  width: 35%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 35%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 30%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n", "",{"version":3,"sources":["webpack://./client/src/assets/ro.css"],"names":[],"mappings":"AAAA;;;CAGC;;AAED;EACE,aAAa;EACb,sBAAsB;EACtB,qBAAqB;EACrB,uBAAuB;EACvB,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,yBAAyB;EACzB,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,YAAY;EACZ,aAAa;EACb,cAAc;AAChB;;AAEA;EACE,aAAa;EACb,YAAY;EACZ,mBAAmB;EACnB;;;;GAIC;AACH;;AAEA;;;CAGC;;;;AAID;;;CAGC;;;AAGD;EACE,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,SAAS;EACT,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,iBAAiB;EACjB,eAAe;EACf,0BAA0B;AAC5B;;AAEA;EACE,eAAe;EACf,eAAe;EACf,0BAA0B;AAC5B;;;AAGA;EACE,iBAAiB;EACjB,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,UAAU;AACZ;;AAEA;EACE,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,yBAAyB;AAC3B;;AAEA;EACE,kBAAkB;EAClB,UAAU;EACV,iBAAiB;AACnB;;AAEA;EACE,kBAAkB;AACpB","sourcesContent":["/* ================================================================\n     Related Product and Outfits Component\n   ================================================================\n*/\n\n.relatedProductOutfit {\n  display: flex;\n  flex-direction: column;\n  align-content: center;\n  justify-content: center;\n  margin: 2em 8em;\n}\n\n.relatedProductsContainer h3, .outfitContainer h3 {\n  text-align: center;\n  text-transform: uppercase;\n  font-size: 20px;\n}\n\n.cardContent {\n  display: flex;\n  flex-direction: column;\n  width: 225px;\n  height: 275px;\n  color: #F7F7F7;\n}\n\n.cardImage {\n  height: 200px;\n  width: 225px;\n  object-fit: contain;\n  /*\n  cover: fits box but image sections are clipped (aspect preserved)\n  contain: fits box and contains empty space (aspect preserved)\n  fill: no empty space (aspect not preserved)\n  */\n}\n\n/* ================================\n      Related Product Cards\n   ================================\n*/\n\n\n\n/* ================================\n      Comparison Modal\n   ================================\n*/\n\n\n.modalHeader {\n  position: sticky;\n}\n\n.modalExit {\n  position: absolute;\n  left: 465px;\n  top: 10px;\n  height: 20px;\n  width: 20px;\n}\n\n.leftHeader {\n  text-align: start;\n  font-size: 18px;\n  padding: 0px 0px 30px 12px;\n}\n\n.rightHeader {\n  text-align: end;\n  font-size: 18px;\n  padding: 0px 12px 30px 0px;\n}\n\n\n.checkLeftHeader {\n  text-align: start;\n  width: 35%;\n}\n\n.checkRightHeader {\n  text-align: end;\n  width: 35%;\n}\n\n.checkLeft {\n  text-align: start;\n}\n\n.checkRight {\n  text-align: end;\n  padding: 0px 26px 0px 0px;\n}\n\n.productInfo {\n  text-align: center;\n  width: 30%;\n  font-weight: bold;\n}\n\ntd {\n  text-align: center;\n}\n\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

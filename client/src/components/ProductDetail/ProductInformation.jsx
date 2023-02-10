@@ -24,7 +24,7 @@ export default function ProductInformation() {
       <ImageGallery style={currentStyle} />
       <div id="product-info-container">
         {
-          reviewCount !== 0 && <div className="star-ratings-reviews"><StarRatings rating={totals?.average} /><span className="read-all-reviews" onClick={() => goToReviews()}>Read all reviews</span></div>
+          reviewCount !== 0 && <div className="star-ratings-reviews" aria-label="Star ratings"><StarRatings rating={totals?.average} /><span className="read-all-reviews" onClick={() => goToReviews()}>Read all reviews</span></div>
         }
         <div className="product-category"><p>{product.category}</p></div>
         <div className="product-name"><p>{product.name}</p></div>
