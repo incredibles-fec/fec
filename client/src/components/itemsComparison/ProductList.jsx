@@ -1,8 +1,9 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getReviews, getMetaData } from '../../state/rr.js';
 import { getQA } from '../../state/qa.js';
 import Product from './Product.jsx';
+import ProductModal from './ProductModal.jsx';
 import { changeCurrentProductById } from '../../state/pd.js';
 
 export default function ProductList({ currentProduct, relatedList }) {
@@ -10,6 +11,8 @@ export default function ProductList({ currentProduct, relatedList }) {
   const [nextVisible, setnextVisible] = React.useState(true);
   const [firstSlide, setFirstSlide] = React.useState(0);
   const [lastSlide, setLastSlide] = React.useState(3);
+  const [visibleStatus, setvisibleStatus] = React.useState(false);
+  const [comp, setComp] = React.useState(1);
 
   const dispatch = useDispatch();
 
@@ -63,14 +66,25 @@ export default function ProductList({ currentProduct, relatedList }) {
 
   let num = 0;
 
+  const changeModal = (e, item) => {
+    e.preventDefault();
+    setComp(item);
+    setvisibleStatus(!visibleStatus);
+  };
+
   return (
     <div className="relatedProductsContainer">
       <h3>Related Products</h3>
-      {/* <i className="fa-solid fa-square-xmark" /> */}
       <div className="relatedItemContainer">
+        <ProductModal
+          visible={visibleStatus}
+          onClick={changeModal}
+          currentProduct={currentProduct}
+          item={comp}
+        />
         <div className="outfitBack">
           {previousVisble ? (
-            <button type="button" className="fa-regular fa-circle-left previousOutfit" onClick={onBack} />
+            <button type="button" className="fa-regular fa-circle-left previousOutfit" aria-label="back" onClick={onBack} label="back" />
           ) : null}
         </div>
         <div className="relatedList">
@@ -82,7 +96,9 @@ export default function ProductList({ currentProduct, relatedList }) {
                   item={item}
                   count={num++}
                   onUpdate={onUpdate}
+                  changeModal={changeModal}
                   currentProduct={currentProduct}
+                  visibleStatus={visibleStatus}
                 />
               );
             }
@@ -90,7 +106,7 @@ export default function ProductList({ currentProduct, relatedList }) {
         </div>
         <div className="outfitForward" onClick={onNext}>
           {nextVisible ? (
-            <button type="button" className="fa-regular fa-circle-right nextOutfit" />
+            <button type="button" className="fa-regular fa-circle-right nextOutfit" label="next" aria-label="next" />
           ) : null}
         </div>
       </div>

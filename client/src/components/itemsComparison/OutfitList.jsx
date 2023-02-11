@@ -88,13 +88,18 @@ export default function OutfitList({ relatedList }) {
       <div className="outfitItemContainer">
         <div className="outfitBack">
           {previousOutfitVisble ? (
-            <button className="fa-regular fa-circle-left previousOutfit" type="button" onClick={previousOutfitItem}/>
+            <button
+              className="fa-regular fa-circle-left previousOutfit"
+              type="button"
+              aria-label="back"
+              onClick={previousOutfitItem}
+            />
           ) : null}
         </div>
         <div className="addToOutfit">
           <div className="addToOutfitContainer" onClick={onAddToOutfit} data-testid="addToOutfit">
+            <i className="fa-solid fa-shirt fa-2xl" aria-label="add to outfit button" />
             <h1>Add to Outfit</h1>
-            <i className="fa-regular fa-plus" />
           </div>
         </div>
         <div className="outfitList">
@@ -111,7 +116,7 @@ export default function OutfitList({ relatedList }) {
         </div>
         <div className="outfitForward" onClick={nextOutfitItem} data-testid="nextItem">
           {nextOutfitVisible ? (
-            <button className="fa-regular fa-circle-right nextOutfit" type="button" />
+            <button className="fa-regular fa-circle-right nextOutfit" type="button" aria-label="next" />
           ) : null}
         </div>
       </div>

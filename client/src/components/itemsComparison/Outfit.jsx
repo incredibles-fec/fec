@@ -8,7 +8,7 @@ export default function Outfit({ item, onRemoveFromOutfit, count }) {
         <div className="imageContainer">
           <img className="cardImage" src={item.image || Image} alt="apparel item" />
         </div>
-        <i className="fa-regular fa-circle-xmark fa-lg" onClick={(e) => onRemoveFromOutfit(e, item.id)} id={item.name} data-testid="iconRemove" />
+        <i className="fa-regular fa-circle-xmark fa-lg" aria-label="remove from outfit button" onClick={(e) => onRemoveFromOutfit(e, item.id)} id={item.name} data-testid="iconRemove" />
         <div className="outfitCardCategory">{item.category}</div>
         <div className="productCardName">{item.name}</div>
         {item.sale_price !== null ? (

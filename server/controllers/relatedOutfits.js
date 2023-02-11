@@ -4,7 +4,7 @@ module.exports = {
   getProducts: async (req, res) => {
     try {
       let APIresponse = await atelierRequest ({
-        params: {page: 1, count: 6},
+        params: {page: 1, count: 15},
         path: req.url,
       });
       res.send(APIresponse.data);
