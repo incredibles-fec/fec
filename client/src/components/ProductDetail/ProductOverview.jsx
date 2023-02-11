@@ -39,13 +39,19 @@ export default function ProductDetail() {
         <div className="nav-bar">
           <h2 className="logo"><span className="material-symbols-outlined">diversity_2</span> <span className="material-symbols-outlined">Incredible Apparel</span></h2>
           <div id="search-products">
-            <form onSubmit={(e) => handleSearch(e)}><i className="fa-solid fa-magnifying-glass" aria-hidden="true" />: <input id="search-input-form" name="searchProducts" type="search" placeholder="VALID PROD IDS ONLY" />
+            <form onSubmit={(e) => handleSearch(e)}>
+              <input id="search-input-form" name="searchProducts" type="search" />
+              <i className="fa-solid fa-magnifying-glass" aria-hidden="true" />
             </form>
           </div>
         </div>
         <div className="colorSeparatorEndHeader" />
         <div className="toggle-wrapper">
-          <h4 className="site-wide-announcement">SITE-WIDE ANNOUNCEMENT MESSAGE! - <b>NO REFUNDS!!!</b></h4>
+          <div className="site-wide-announcement">
+            <div className="scroll-text">
+              FREE SHIPPING ON ALL ORDERS OVER $50!
+            </div>
+          </div>
           <label className="switch">
             <input type="checkbox" onClick={() => toggleTheme()} />
             <span className="slider round" />
