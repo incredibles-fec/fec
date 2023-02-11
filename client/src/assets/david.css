@@ -75,14 +75,6 @@ QUESTIONS AND ANSWERS STYLING
   width: 25%;
 }
 
-.a-container {
-  margin: 0.5rem 0 0.5rem 1rem;
-  font-size: 14px;
-  padding: 0.4rem;
-  background-color: #f5f5f5;
-  border-radius: 5px;
-}
-
 .a-footer {
   display: flex;
   align-items: center;
@@ -279,15 +271,6 @@ textarea {
 }
 
 /* ACCORDION */
-.accordion {
-  display: flex;
-  justify-content: space-between;
-  border-radius: 10px;
-  padding: 0.8rem;
-  background-color: #fafafa;
-  border: 1px solid #ececec;
-  box-shadow: 5px 5px;
-}
 
 .expanded {
   max-height: 500px;
@@ -327,19 +310,6 @@ RATINGS AND REVIEWS STYLING
   .overview-container {
     width: 100%
   }
-}
-
-/* Overview */
-.overview-container {
-  width: 30%;
-  margin-right: 2rem;
-}
-
-.overview-border-box {
-  height: auto;
-  background-color: #fafafa;
-  padding: 0 0.8rem 0.2rem 0.8rem;
-  box-shadow: 5px 5px #ececec;
 }
 
 /* Search filter */

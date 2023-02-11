@@ -9,9 +9,10 @@ export default function Product({
   item, count, onUpdate, currentProduct
 }) {
   const [visibleStatus, setvisibleStatus] = React.useState(false);
-  const { totals, reviewCount } = useSelector((store) => store.rr);
+  // const { totals, reviewCount } = useSelector((store) => store.rr);
 
   const changeModal = (e) => {
+    e.preventDefault();
     setvisibleStatus(!visibleStatus);
   };
 
@@ -33,6 +34,7 @@ export default function Product({
           <div className="productCardPrice" data-testid="productDefault">${item.price}</div>}
         {/* <div className="productCardRating">STAR RATING</div> */}
       </div>
+      {/* { reviewCount !== 0 ? <div className="star-ratings-reviews"><StarRatings rating={totals?.average} /> </div> : null} */}
       <ProductModal
         visible={visibleStatus}
         onClick={changeModal}

@@ -32,11 +32,24 @@ body {
   height: 75px;
   border-radius: 50%;
   object-fit: cover;
-  box-shadow: 0px 5px 15px 5px #2f2f2e;
+  box-shadow: 0px 0.6px 5px 1px #959191;
 }
 
+.carousel-item-container {
+  padding: .3em;
+}
+
+.carousel-item-thumbnail {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 1rem;
+  box-shadow: 0px .6px 5px 1px #959191;
+}
+
+
 .product-overview-container {
-  color: #f7f7f7;
+  color: #a6a3a3;
   border: solid 2px #1A1306;
 }
 
@@ -44,10 +57,22 @@ body {
   color: white;
 }
 
+.dropdown {
+  color: #f7f7f7;
+}
+
 .dropdown-content a, .dropdown-content span {
   color: white;
   background-color: #1A1306;
 }
+
+/* .colorSeparatorEndHeader {
+  height: .2em;
+  background-color: #fedb00;
+  box-shadow: 0 0 3em #fedb00;
+  margin: .2em 4em;
+} */
+
 
 .colorSeparator {
   background-color: #fedb00;
@@ -66,6 +91,7 @@ body {
 
 .nav-bar {
   background-color: #a30f07;
+  border-bottom: solid .6px #fedb00;;
 }
 
 #product-info-container {
@@ -115,6 +141,7 @@ body {
   width: 40px;
   z-index: 10;
 }
+
 /* ====================================
     Product and Outfit Cards
    ====================================
@@ -143,6 +170,11 @@ body {
   border-width: 2px 4px;
 }
 
+
+.productCardContainer:hover, .outfitCardContainer:hover {
+  cursor: pointer;
+}
+
 .cardContent {
   background-color: #a30f07;
   font-size: 20px;
@@ -154,8 +186,21 @@ body {
   border-top: 4px solid #1a1306;
 }
 
-.productCardName, .productCardCategory, .productCardPrice, .productCardSale {
+.productCardPrice, .productCardSale {
   font-size: 15px;
+  margin: 6px 0px;
+  padding: 0 0 0 20px;
+}
+
+.productCardCategory {
+  font-size: 14px;
+  margin: 6px 0px;
+  padding: 0 0 0 20px;
+}
+
+.productCardName {
+  font-size: 15px;
+  font-weight: bold;
   margin: 6px 0px;
   padding: 0 0 0 20px;
 }
@@ -251,6 +296,12 @@ body {
   border: solid .5px black;
 }
 
+.outfitCardCategory {
+  font-size: 15px;
+  margin: 6px 0px;
+  padding: 15px 0 0 20px;
+}
+
 .addToOutfit {
   margin: 5px 10px;
 }
@@ -328,9 +379,16 @@ body {
 }
 
 .productModal h1 {
-  font-size: 18px;
-  letter-spacing: 1px;
-  margin: 15px 15px 5px 15px;
+  font-size: 26px;
+  margin: 0;
+  letter-spacing: .5px;
+  font-weight: bold;
+  height: 60px;
+  background-color: #868e96;
+  color: #F7F7F7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .leftHeader {
@@ -400,21 +458,61 @@ td {
 
 
 /* ================================
-      Comparison Modal
+      Questions and Answers
    ================================
 */
 
-
-.carousel-item-container {
-  padding: .3em;
+.a-container {
+  margin: 0.5rem 0 0.5rem 1rem;
+  font-size: 14px;
+  padding: 0.4rem;
+  background-color: #404040;
+  border-radius: 5px;
 }
 
-.carousel-item-thumbnail {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 1rem;
-  box-shadow: 0px 5px 15px 5px #2f2f2e;
+/* Overview */
+.overview-container {
+  width: 30%;
+  margin-right: 2rem;
+}
+
+.overview-border-box {
+  height: auto;
+  background-color: #404040;
+  padding: 0 0.8rem 0.2rem 0.8rem;
+  box-shadow: 5px 5px #ececec;
+}
+
+.modal-container {
+  color: black;
+}
+
+modal-container{
+  color: black;
+}
+
+.button-trans, .load-more-button {
+  color: white;
+}
+
+.r-search-input, .search-input {
+  background-color: #404040;
+  color: #f7f7f7;
+}
+/*
+.accordion {
+  background-color: #868e96;
+} */
+
+.accordion {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+  padding: 0.8rem;
+  color: #f7f7f7;
+  background-color: #868e96;
+  border: .5px solid #ececec;
+  /* box-shadow: 5px 5px; */
 }
 
 
