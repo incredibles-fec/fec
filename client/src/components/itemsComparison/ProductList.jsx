@@ -54,6 +54,8 @@ export default function ProductList({ currentProduct, relatedList }) {
       e.target.className !== 'fas fa-star' &&
       e.target.className !== 'modalExit'
     ) {
+      window.scroll({ top: 0, left: 0, behavior: 'smooth' });
+
       dispatch(changeCurrentProductById(item));
 
       Promise.all([

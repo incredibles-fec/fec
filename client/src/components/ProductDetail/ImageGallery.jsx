@@ -28,7 +28,9 @@ export default function ImageGallery({ style }) {
       </div>
     ));
 
+    setIndex(0);
     setCurrentThumbnail(photos[index].url);
+    setThumbnailIndexStart(0);
     setThumbnailIndexEnd(maxThumbnailDisplay > thumbnails.length ? thumbnails.length : maxThumbnailDisplay);
   }, [style]);
 
@@ -41,16 +43,13 @@ export default function ImageGallery({ style }) {
       prevArrows.forEach((e) => { e.style.visibility = 'hidden'; });
       nextArrows.forEach((e) => { e.style.visibility = 'visible'; });
     }
-    if (index === photos.length - 1) {
-      nextArrows.forEach((e) => { e.style.visibility = 'hidden'; });
-      prevArrows.forEach((e) => { e.style.visibility = 'visible'; });
-    }
     if (index !== 0 && index !== photos.length - 1) {
       nextArrows.forEach((e) => { e.style.visibility = 'visible'; });
       prevArrows.forEach((e) => { e.style.visibility = 'visible'; });
     }
     if (thumbnailIndexEnd === thumbnails.length) {
       document.getElementById('carousel-thumbnail-next').style.visibility = 'hidden';
+      document.getElementById('carousel-next').style.visibility = 'hidden';
     }
     if (thumbnailIndexStart === 0) {
       document.getElementById('carousel-thumbnail-prev').style.visibility = 'hidden';

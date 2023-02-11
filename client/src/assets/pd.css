@@ -17,10 +17,18 @@ html {
   margin: auto;
 }
 
+.center-loading-container {
+  height: 100vh;
+}
+
 .loading-container {
   display: flex;
   justify-content: center;
   align-items: baseline;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%);
 }
 
 @keyframes spin {
@@ -134,6 +142,29 @@ html {
   }
 }
 
+.site-wide-announcement {
+  text-align: center;
+  align-self: center;
+  margin: 0.75rem 0rem;
+  width: 70vw;
+  overflow: hidden;
+}
+
+
+.scroll-text {
+  transform: translateX(100%);
+  animation: scroll-animation 20s linear infinite;
+}
+
+@keyframes scroll-animation {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
 
 /* ======================================================
 Light/Dark Mode Switch Toggle Styling
@@ -142,7 +173,7 @@ Light/Dark Mode Switch Toggle Styling
 .toggle-wrapper {
   display: flex;
   margin-bottom: 0.5em;
-  column-gap: 30em;
+  column-gap: 5em;
   justify-content: flex-end;
 }
 
@@ -233,6 +264,7 @@ Product Detail Styling
   display: inline-block;
   align-self: center;
   padding: 0em 2em 0em 2em;
+  position: relative;
 }
 
 #search-input-form {
@@ -248,11 +280,10 @@ Product Detail Styling
   opacity: 1;
 }
 
-.site-wide-announcement {
-  text-align: center;
-  /* display: inline-block; */
-  align-self: center;
-  margin: 0.75rem 0rem;
+.fa-magnifying-glass {
+  top: 50%;
+  right: 0;
+  margin-left: 0.5rem;
 }
 
 /* ======================================================
