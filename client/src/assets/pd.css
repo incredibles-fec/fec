@@ -17,10 +17,18 @@ html {
   margin: auto;
 }
 
+.center-loading-container {
+  height: 100vh;
+}
+
 .loading-container {
   display: flex;
   justify-content: center;
   align-items: baseline;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%);
 }
 
 @keyframes spin {

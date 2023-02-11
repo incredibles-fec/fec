@@ -65,9 +65,11 @@ export default function ProductDetail() {
     );
   }
   return (
-    <div className="loading-container">
-      <div className="loading" aria-label="Loading"><p>LOADING</p>
-        <span className="loading-span" />
+    <div className="center-loading-container">
+      <div className="loading-container">
+        <div className="loading" aria-label="Loading"><p>LOADING</p>
+          <span className="loading-span" />
+        </div>
       </div>
     </div>
   );

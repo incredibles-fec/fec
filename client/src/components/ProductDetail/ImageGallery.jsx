@@ -55,6 +55,9 @@ export default function ImageGallery({ style }) {
     if (thumbnailIndexStart === 0) {
       document.getElementById('carousel-thumbnail-prev').style.visibility = 'hidden';
     }
+    console.log('index', index);
+    console.log('photos', photos.length);
+    console.log('thumbnails', thumbnails.length);
   }, [index]);
 
   const getNext = () => {
