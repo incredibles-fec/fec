@@ -1,5 +1,21 @@
 /* ====================================
-    Product Overview
+
+Palette
+
+a30f07 maroon (box shadow 790b05)
+e51f15 red
+fedb00 yellow (box shadow d8bf18)
+f1781a orange
+1a1306 dark
+868e96 grey
+ced4da light grey
+f7f7f7 white
+
+   ====================================
+*/
+
+/* ====================================
+    Default Styles
    ====================================
 */
 
@@ -16,8 +32,18 @@ button, select {
   cursor: pointer;
 }
 
+/* ====================================
+    Product Overview
+   ====================================
+*/
+
 .loading p {
   color: black;
+}
+
+.nav-bar {
+  background-color: #a30f07;
+  border-bottom: solid 4px #fedb00;;
 }
 
 .star-ratings-reviews {
@@ -67,13 +93,6 @@ button, select {
   background-color: white;
 }
 
-/* .colorSeparatorEndHeader {
-  height: .2em;
-  background-color: #fedb00;
-  box-shadow: 0 0 3em #fedb00;
-  margin: .2em 8em;
-} */
-
 .colorSeparator {
   height: .2em;
   background-color: #fedb00;
@@ -87,12 +106,6 @@ button, select {
   box-shadow: 0 0 2em #b0531e;
   margin: 5em 10em;
 }
-
-.nav-bar {
-  background-color: #a30f07;
-  border-bottom: solid 4px #fedb00;;
-}
-
 
 #product-info-container {
   color:#f7f7f7;
@@ -112,6 +125,19 @@ button, select {
 
 .checkmark, .product-style {
   color: black;
+}
+
+/* ====================================
+    Product and Outfit Cards
+   ====================================
+*/
+
+.relatedProductsContainer h3, .outfitContainer h3 {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 26px;
+  font-weight: bold;
+  letter-spacing: .2em;
 }
 
 .previousProduct, .nextProduct, .previousOutfit, .nextOutfit {
@@ -139,19 +165,6 @@ button, select {
   height: 40px;
   width: 40px;
   z-index: 10;
-}
-/* ====================================
-    Product and Outfit Cards
-   ====================================
-*/
-
-
-.relatedProductsContainer h3, .outfitContainer h3 {
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 26px;
-  font-weight: bold;
-  letter-spacing: .2em;
 }
 
 .addToOutfitContainer {
@@ -232,6 +245,7 @@ button, select {
   flex-direction: row;
 }
 
+/* star icon in product card*/
 .fas {
   position: relative;
   bottom: 195px;
@@ -334,6 +348,7 @@ button, select {
   color: #F7F7F7;
 }
 
+/* exit icon in outfit card */
 .fa-circle-xmark {
   position: relative;
   bottom: 185px;
@@ -360,6 +375,18 @@ button, select {
    ================================
 */
 
+.modal {
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  padding-top: 100px;
+  background-color: rgba(32, 31, 31, 0.4);
+}
+
 .productModal {
   width: 500px;
   height: 440px;
@@ -374,20 +401,19 @@ button, select {
   display: flex;
   flex-direction: column;
   border: solid .1px #2f2f2e;
-  box-shadow: 0px 5px 75px 60px #2f2f2e;
+  backdrop-filter: blur(200px);
 }
 
 .modalHeader {
   position: sticky;
 }
 
+/* exit icon in comparison modal */
 .fa-square-xmark{
-  height: 80px;
-  width: 80px;
-  color: #2f2f2e;
+  color: #f7f7f7;
   position: absolute;
-  left: 465px;
-  top: 10px;
+  left: 460px;
+  top: 29px;
   cursor: pointer;
 }
 
@@ -527,17 +553,3 @@ td {
   border: 1px solid #ececec;
   box-shadow: 5px 5px;
 }
-
-
-/* Pallete
-
-a30f07 maroon (box shadow 790b05)
-e51f15 red
-fedb00 yellow (box shadow d8bf18)
-f1781a orange
-1a1306 dark
-868e96 grey
-ced4da light grey
-f7f7f7 white
-
-*/
