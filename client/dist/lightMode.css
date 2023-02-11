@@ -70,6 +70,10 @@ button, select {
   color: black;
 }
 
+.dropdown {
+  color: black;
+}
+
 .dropdown-content a, .dropdown-content span {
   color: black;
   background-color: white;
