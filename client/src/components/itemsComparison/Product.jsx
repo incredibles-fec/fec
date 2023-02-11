@@ -4,7 +4,6 @@ import Image from '../../assets/edna-image-unavailable.jpg';
 export default function Product({
   item, count, onUpdate, changeModal
 }) {
-  console.log('ITEM ', item);
   return (
     <div className="productCardContainer" id={count} onClick={(e) => onUpdate(e, item.id)}>
       <div className="cardContent" id={item.id}>

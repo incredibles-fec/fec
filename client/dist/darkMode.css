@@ -147,18 +147,6 @@ body {
    ====================================
 */
 
-.addToOutfitContainer {
-  background-color: #2f2f2e;
-  width: 7em;
-  height: 7em;
-  border: solid 1px black;
-  border-radius: .5em;
-}
-
-.addToOutfitContainer:hover {
-  background-color: #868e96;
-}
-
 .productCardContainer, .outfitCardContainer {
   background-color: #a30f07;
   width: 225px;
@@ -306,17 +294,26 @@ body {
   margin: 5px 10px;
 }
 
+
 .addToOutfitContainer {
+  width: 7em;
+  height: 7em;
+  border-radius: .05em;
+  border-style: dashed;
+  border-width: .2em;
+  border-color: #f7f7f7;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  padding: 1.5em .5em;
 }
 
 .addToOutfit h1{
-  font-size: 15px;
+  font-size: 16px;
   color: #F7F7F7;
+  padding: .2em 0em 0em 0em;
 }
 
 .addToOutfit i{

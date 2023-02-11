@@ -167,17 +167,6 @@ button, select {
   z-index: 10;
 }
 
-.addToOutfitContainer {
-  background-color: #868e96;
-  width: 7em;
-  height: 7em;
-  border-radius: .5em;
-}
-
-.addToOutfitContainer:hover {
-  background-color: #1a1306;
-}
-
 .productCardContainer, .outfitCardContainer {
   background-color: #a30f07;
   width: 225px;
@@ -315,20 +304,23 @@ button, select {
   padding: 40px;
 }
 
-.addtoOutfitMargin {
-  border: solid .5px black;
-}
-
-.addToOutfit {
-  margin: 5px 10px;
-}
-
 .addToOutfitContainer {
+  width: 7em;
+  height: 7em;
+  border-radius: .05em;
+  border-style: dashed;
+  border-width: .2em;
+  border-color: #1A1306;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  padding: 1.5em .5em;
+}
+
+.addToOutfit {
+  margin: 5px 10px;
 }
 
 .outfitCardCategory {
@@ -338,14 +330,15 @@ button, select {
 }
 
 .addToOutfit h1 {
-  font-size: 15px;
-  color: #F7F7F7;
+  font-size: 16px;
+  color: #1a1306;
   font-weight: bold;
+  padding: .2em 0em 0em 0em;
 }
 
-.addToOutfit i{
-  font-size: 20px;
-  color: #F7F7F7;
+.fa-solid.fa-shirt {
+  color: #1a1306;
+  padding: .2em 0em .4em 0em;
 }
 
 /* exit icon in outfit card */

@@ -93,8 +93,8 @@ export default function OutfitList({ relatedList }) {
         </div>
         <div className="addToOutfit">
           <div className="addToOutfitContainer" onClick={onAddToOutfit} data-testid="addToOutfit">
+            <i className="fa-solid fa-shirt fa-2xl" />
             <h1>Add to Outfit</h1>
-            <i className="fa-regular fa-plus" />
           </div>
         </div>
         <div className="outfitList">
