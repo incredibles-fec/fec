@@ -10,7 +10,7 @@ export default function Product({
         <div className="imageContainer">
           <img className="cardImage" src={item.image || Image} alt="apparel item" />
         </div>
-        <i onClick={(e) => changeModal(e, item)} className="fas fa-star" data-testid="modal" />
+        <i onClick={(e) => changeModal(e, item)} className="fas fa-star" aria-label="select product" data-testid="modal" />
         <div className="productCardCategory">{item.category}</div>
         <div className="productCardName">{item.name}</div>
         {item.salePrice !== null ? (

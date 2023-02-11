@@ -53,7 +53,7 @@ export default function ProductModal({
       <div className="modal">
         <div className="productModal">
           <h1>PRODUCT COMPARISON</h1>
-          <i className="fa-solid fa-square-xmark fa-xl" onClick={(e) => onClick(e)} />
+          <i className="fa-solid fa-square-xmark fa-xl" aria-label="close" onClick={(e) => onClick(e)} />
           <table className="compareTable">
             <thead>
               <tr>
