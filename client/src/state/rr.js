@@ -17,29 +17,19 @@ const initialState = {
 export const getReviews = createAsyncThunk(
   'rr/getReviews',
   async (_, thunkAPI) => {
-    let fetchRequired = true;
-    let count = 100;
-
     const rrState = thunkAPI.getState().rr;
     const product = thunkAPI.getState().pd;
 
-    while (fetchRequired) {
-      /* eslint-disable no-await-in-loop */
-      const res = await axios({
-        url: '/reviews',
-        params: {
-          count,
-          sort: rrState.sort,
-          product_id: product?.currentProduct?.id ?? 40351,
-        },
-      });
+    const res = await axios({
+      url: '/reviews',
+      params: {
+        count: 100,
+        sort: rrState.sort,
+        product_id: product?.currentProduct?.id ?? 40351,
+      },
+    });
 
-      if (res.data.results.length === count) {
-        count += 100;
-      } else fetchRequired = false;
-
-      if (!fetchRequired) return res.data.results;
-    }
+    return res.data.results;
   }
 );
 
@@ -52,8 +42,7 @@ export const getMetaData = createAsyncThunk(
       params: { product_id: product?.currentProduct?.id ?? 40351 },
     });
 
-    const metaData = res.data;
-    return metaData;
+    return res.data;
   }
 );
 
@@ -133,31 +122,30 @@ const rrSlice = createSlice({
       } else state.filteredReviews = reviews;
       state.reviews = reviews.slice(0, state.reviewCount);
 
-      // manually build averages and total
-      const totals = action.payload.reduce(
-        (acc, review) => {
-          acc.totalReviews += 1;
-          acc.aggregate += review.rating;
-          acc.average = acc.aggregate / acc.totalReviews;
-          acc.recommend = review.recommend ? acc.recommend + 1 : acc.recommend;
-          acc.ratings[review.rating] += 1;
-          return acc;
-        },
-        {
-          totalReviews: 0,
-          aggregate: 0,
-          average: 0,
-          recommend: 0,
-          ratings: {
-            1: 0,
-            2: 0,
-            3: 0,
-            4: 0,
-            5: 0,
-          },
-        }
-      );
-      state.totals = totals;
+      // // SWITCHED TO USING META DATA BELOW
+      // const totals = action.payload.reduce(
+      //   (acc, review) => {
+      //     acc.totalReviews += 1;
+      //     acc.aggregate += review.rating;
+      //     acc.average = acc.aggregate / acc.totalReviews;
+      //     acc.recommend = review.recommend ? acc.recommend + 1 : acc.recommend;
+      //     acc.ratings[review.rating] += 1;
+      //     return acc;
+      //   },
+      //   {
+      //     totalReviews: 0,
+      //     aggregate: 0,
+      //     average: 0,
+      //     recommend: 0,
+      //     ratings: {
+      //       1: 0,
+      //       2: 0,
+      //       3: 0,
+      //       4: 0,
+      //       5: 0,
+      //     },
+      //   }
+      // );
       state.isLoading = false;
     });
     builder.addCase(getReviews.rejected, (state) => {
@@ -168,6 +156,30 @@ const rrSlice = createSlice({
     });
     builder.addCase(getMetaData.fulfilled, (state, action) => {
       state.metaData = action.payload;
+
+      const { ratings, recommended } = action.payload;
+      const total = Object.values(ratings).reduce(
+        (acc, i) => acc + Number(i),
+        0
+      );
+      const aggregate = Object.entries(ratings).reduce(
+        (acc, [key, value]) => acc + key * value,
+        0
+      );
+      const totals = {
+        totalReviews: total,
+        average: aggregate / total,
+        recommend: Number(recommended.true),
+        ratings: {
+          1: Number(ratings[1]),
+          2: Number(ratings[2]),
+          3: Number(ratings[3]),
+          4: Number(ratings[4]),
+          5: Number(ratings[5]),
+        },
+      };
+
+      state.totals = totals;
       state.isLoading = false;
     });
     builder.addCase(getMetaData.rejected, (state) => {
