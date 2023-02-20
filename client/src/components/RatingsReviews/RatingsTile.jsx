@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { transformDate } from '../../utils/helpers';
 import { markHelpfulReview, reportReview } from '../../api/rr';
-import StarRatings from '../common/StarRatings.jsx';
-import Modal from '../common/Modal.jsx';
+import { Modal, StarRatings } from '../common-components';
 
 export default function RatingsTile({ review }) {
   const [isMarked, setIsMarked] = useState(false);

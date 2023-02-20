@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getReviews, getMetaData } from '../../state/rr';
-import InputField from '../common/InputField.jsx';
-import RadioGroup from '../common/RadioGroup.jsx';
-import UploadFile from '../common/UploadFile.jsx';
+import { InputField, RadioGroup, UploadFile } from '../common-components';
 import RatingsSelector from './RatingsSelector.jsx';
 import { radioGroupOptions } from '../../utils/mappings';
 import { debounce, handleErrors, formValidator } from '../../utils/helpers';

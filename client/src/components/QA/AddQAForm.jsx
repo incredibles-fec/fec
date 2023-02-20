@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getQA } from '../../state/qa';
-import InputField from '../common/InputField.jsx';
-import UploadFile from '../common/UploadFile.jsx';
+import { InputField, UploadFile } from '../common-components';
 import { handleErrors, formValidator, debounce } from '../../utils/helpers';
 import { formMappings } from '../../utils/mappings';
 import { submitForm } from '../../api/qa';
