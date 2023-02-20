@@ -1,9 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { addStarFilter, filterReviews, clearFilters } from '../../state/rr';
-import ReviewBar from '../common/ReviewBar.jsx';
-import ProgressBar from '../common/ProgressBar.jsx';
-import StarRatings from '../common/StarRatings.jsx';
+import { ReviewBar, ProgressBar, StarRatings } from '../common-components';
 
 export default function RatingsOverview() {
   const { metaData, filters, totals } = useSelector((store) => store.rr);

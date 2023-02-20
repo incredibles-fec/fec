@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Modal from '../common/Modal.jsx';
+import { Modal } from '../common-components';
 import { transformDate } from '../../utils/helpers';
 import { markAnswerHelpful, reportAnswer } from '../../api/qa';
 

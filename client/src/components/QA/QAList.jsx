@@ -3,8 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { getQA, loadMoreQuestions } from '../../state/qa';
 import { debounce } from '../../utils/helpers';
 import QAListEntry from './QAListEntry.jsx';
-import Modal from '../common/Modal.jsx';
-import Accordion from '../common/Accordion.jsx';
+import { Modal, Accordion } from '../common-components';
 import AddQAForm from './AddQAForm.jsx';
 
 export default function QAList() {
